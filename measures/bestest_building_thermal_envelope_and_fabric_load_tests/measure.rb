@@ -71,8 +71,34 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     # todo - Add weather file and design day objects
 
     # todo - Add envelope
+    # todo - add helper method to load geometry, pass in model name from here
+    if [0, nil].include? variable_hash[:glass_area]
+      # add in geometry with no fenestration
+    elsif variable_hash[:glass_area] == 12.0 and variable_hash[:orient] == 'S'
+      if variable_hash[:shade] == false
+        # add in south glazing without an overhang
+      elsif variable_hash[:shade] == 1.0 and variable_hash[:shade_type] == 'H'
+        # add in south glazing with an overhang
+      else
+        runner.registerError("Unexpected Geometry Variables for South Overhangs.")
+      end
+    elsif variable_hash[:glass_area] == 6.0 and variable_hash[:orient] == 'EW'
+      if variable_hash[:shade] == false
+        # add in east/west glazing without an overhang
+      elsif variable_hash[:shade] == 1.0 and variable_hash[:shade_type] == 'HV'
+        # add in east/west glazing with an overhang
+      else
+        runner.registerError("Unexpected Geometry Variables for East/West Overhangs.")
+      end
+    elsif variable_hash[:custom] == true and case_num.include? '960'
+      # add in sun space geometry
+    else
+      runner.registerError("Unexpected Geometry Variables.")
+    end
 
     # todo - Add constructions
+
+    # todo - Add infiltration
 
     # todo - Add internal loads
 

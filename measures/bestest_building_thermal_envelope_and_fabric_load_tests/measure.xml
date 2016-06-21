@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_tests</name>
   <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
-  <version_id>9f01b056-29a5-4b94-b79b-566b015c1fd3</version_id>
-  <version_modified>20160617T193817Z</version_modified>
+  <version_id>7429964b-b378-4428-97f1-572c7871b490</version_id>
+  <version_modified>20160618T200225Z</version_modified>
   <xml_checksum>28AD5222</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadTests</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Tests</display_name>
@@ -17,7 +17,6 @@
       <type>Choice</type>
       <required>true</required>
       <model_dependent>false</model_dependent>
-      <default_value>600</default_value>
       <choices>
         <choice>
           <value>195</value>
@@ -100,28 +99,28 @@
           <display_name>440</display_name>
         </choice>
         <choice>
-          <value>600</value>
-          <display_name>600</display_name>
+          <value>600 - Base Case</value>
+          <display_name>600 - Base Case</display_name>
         </choice>
         <choice>
-          <value>610</value>
-          <display_name>610</display_name>
+          <value>610 - South Shading</value>
+          <display_name>610 - South Shading</display_name>
         </choice>
         <choice>
-          <value>620</value>
-          <display_name>620</display_name>
+          <value>620 - East West Window Orientation</value>
+          <display_name>620 - East West Window Orientation</display_name>
         </choice>
         <choice>
-          <value>630</value>
-          <display_name>630</display_name>
+          <value>630 - East West Shading</value>
+          <display_name>630 - East West Shading</display_name>
         </choice>
         <choice>
-          <value>640</value>
-          <display_name>640</display_name>
+          <value>640 - Thermostat Setback</value>
+          <display_name>640 - Thermostat Setback</display_name>
         </choice>
         <choice>
-          <value>650</value>
-          <display_name>650</display_name>
+          <value>650 - Night Ventilation</value>
+          <display_name>650 - Night Ventilation</display_name>
         </choice>
         <choice>
           <value>800</value>
@@ -132,32 +131,32 @@
           <display_name>810</display_name>
         </choice>
         <choice>
-          <value>900</value>
-          <display_name>900</display_name>
+          <value>900 - High Mass Base Case</value>
+          <display_name>900 - High Mass Base Case</display_name>
         </choice>
         <choice>
-          <value>910</value>
-          <display_name>910</display_name>
+          <value>910 - High Mass South Shading</value>
+          <display_name>910 - High Mass South Shading</display_name>
         </choice>
         <choice>
-          <value>920</value>
-          <display_name>920</display_name>
+          <value>920 - High Mass East West Window Orientation</value>
+          <display_name>920 - High Mass East West Window Orientation</display_name>
         </choice>
         <choice>
-          <value>930</value>
-          <display_name>930</display_name>
+          <value>930 - High Mass East West Shading</value>
+          <display_name>930 - High Mass East West Shading</display_name>
         </choice>
         <choice>
-          <value>940</value>
-          <display_name>940</display_name>
+          <value>940 - High Mass Thermostat Setback</value>
+          <display_name>940 - High Mass Thermostat Setback</display_name>
         </choice>
         <choice>
-          <value>950</value>
-          <display_name>950</display_name>
+          <value>950 - High Mass Night Ventilation</value>
+          <display_name>950 - High Mass Night Ventilation</display_name>
         </choice>
         <choice>
-          <value>960</value>
-          <display_name>960</display_name>
+          <value>960 - Sunspace</value>
+          <display_name>960 - Sunspace</display_name>
         </choice>
         <choice>
           <value>600FF</value>
@@ -222,6 +221,78 @@
       <checksum>C4F35230</checksum>
     </file>
     <file>
+      <filename>bestest_building_thermal_envelope_and_fabric_load_tests_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>AF38AB15</checksum>
+    </file>
+    <file>
+      <filename>Case600_South_12_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>21D592A1</checksum>
+    </file>
+    <file>
+      <filename>Case610_South_12_1_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>D8A2A287</checksum>
+    </file>
+    <file>
+      <filename>Case620_EastWest_6_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>065C0283</checksum>
+    </file>
+    <file>
+      <filename>Case630_EastWest_6_1_1.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>13B5D54A</checksum>
+    </file>
+    <file>
+      <filename>Case900_South_12_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>F875DE4D</checksum>
+    </file>
+    <file>
+      <filename>Case910_South_12_1_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>05ED6AF9</checksum>
+    </file>
+    <file>
+      <filename>Case920_EastWest_6_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>5E5BC116</checksum>
+    </file>
+    <file>
+      <filename>Case930_EastWest_6_1_1.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>F1403D7C</checksum>
+    </file>
+    <file>
+      <filename>Case960_Sunspace.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>1984BDA2</checksum>
+    </file>
+    <file>
+      <filename>DRYCOLDTMY.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>08DEB5B3</checksum>
+    </file>
+    <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>5954B655</checksum>
+    </file>
+    <file>
       <version>
         <software_program>OpenStudio</software_program>
         <identifier>1.11.5</identifier>
@@ -230,19 +301,13 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>C51E3650</checksum>
+      <checksum>8C507590</checksum>
     </file>
     <file>
       <filename>besttest_case_var_lib.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>D0160E6E</checksum>
-    </file>
-    <file>
-      <filename>bestest_building_thermal_envelope_and_fabric_load_tests_test.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>AF38AB15</checksum>
+      <checksum>9FEC7193</checksum>
     </file>
   </files>
 </measure>

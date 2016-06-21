@@ -384,7 +384,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['600'] = [
+    variable_hash_lookup['600 - Base Case'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -403,7 +403,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['610'] = [
+    variable_hash_lookup['610 - South Shading'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -422,7 +422,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['620'] = [
+    variable_hash_lookup['620 - East West Window Orientation'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -441,7 +441,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['630'] = [
+    variable_hash_lookup['630 - East West Shading'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -460,7 +460,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['640'] = [
+    variable_hash_lookup['640 - Thermostat Setback'] = [
         :htg_set => 'SETBACK',
         :clg_set => 'SETBACK',
         :mass => 'L',
@@ -479,7 +479,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['650'] = [
+    variable_hash_lookup['650 - Night Ventilation'] = [
         :htg_set => 27.0,
         :clg_set => 'V',
         :mass => 'L',
@@ -536,7 +536,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['900'] = [
+    variable_hash_lookup['900 - High Mass Base Case'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -555,7 +555,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['910'] = [
+    variable_hash_lookup['910 - High Mass South Shading'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -574,7 +574,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['920'] = [
+    variable_hash_lookup['920 - High Mass East West Window Orientation'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -593,7 +593,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['930'] = [
+    variable_hash_lookup['930 - High Mass East West Shading'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -612,7 +612,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['940'] = [
+    variable_hash_lookup['940 - High Mass Thermostat Setback'] = [
         :htg_set => 'SETBACK',
         :clg_set => 'SETBACK',
         :mass => 'H',
@@ -631,7 +631,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['950'] = [
+    variable_hash_lookup['950 - High Mass Night Ventilation'] = [
         :htg_set => 27.0,
         :clg_set => 'V',
         :mass => 'H',
@@ -642,7 +642,7 @@ module BestestCaseVarLib
         :int_sw_absorpt => 0.6,
         :ext_sw_absorpt => 0.6,
         :glass_area => 12.0,
-        :orient => 'S',
+      :orient => 'S',
         :shade => false,
         :shade_type => nil,
         :ff => false,
@@ -651,7 +651,7 @@ module BestestCaseVarLib
         :b1_1_note_03 => false
     ]
     # this case doesn't have any of the typical variables as other cases. Treat as custom solution
-    variable_hash_lookup['960'] = [
+    variable_hash_lookup['960 - Sunspace'] = [
         :custom => true,
     ]
     variable_hash_lookup['600FF'] = [
