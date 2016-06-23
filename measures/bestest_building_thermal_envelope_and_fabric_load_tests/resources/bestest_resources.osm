@@ -224,7 +224,7 @@ OS:Material,
 
 OS:Construction,
   {ec3132e5-d01d-402b-959e-d95c4cd2168b}, !- Handle
-  LTROOF Case 600,                        !- Name
+  LTROOF,                                 !- Name
   {3ab9594d-8fd5-4f7b-88eb-83d8977031ed}, !- Surface Rendering Name
   {1494f5db-040d-44ad-909a-202dc9f52c25}, !- Layer 1
   {3e7b029e-cc59-4ca6-88b0-178411afb527}, !- Layer 2
@@ -325,8 +325,8 @@ OS:Material,
   0.6;                                    !- Visible Absorptance
 
 OS:OtherEquipment:Definition,
-  {8a6643c6-a384-44ae-b5e5-d60aecc9fcee}, !- Handle
-  OthEq 200W,                             !- Name
+  {dbf9f615-e1b4-4c52-83f2-53c03c307f05}, !- Handle
+  ZONE ONE OthEq 1 Definition,            !- Name
   EquipmentLevel,                         !- Design Level Calculation Method
   200,                                    !- Design Level {W}
   ,                                       !- Watts per Space Floor Area {W/m2}
@@ -334,6 +334,13 @@ OS:OtherEquipment:Definition,
   0,                                      !- Fraction Latent
   0.6,                                    !- Fraction Radiant
   0;                                      !- Fraction Lost
+
+OS:OtherEquipment,
+  {9b46f395-08c5-4137-ae1a-c616999b7964}, !- Handle
+  ZONE ONE OthEq 1,                       !- Name
+  {dbf9f615-e1b4-4c52-83f2-53c03c307f05}, !- Other Equipment Definition Name
+  ,                                       !- Space or SpaceType Name
+  {696e3175-92c1-46d4-b1a6-d4486cf2e816}; !- Schedule Name
 
 OS:DefaultConstructionSet,
   {62283c6e-b080-446a-85b2-2786ebabdae8}, !- Handle
@@ -348,18 +355,121 @@ OS:DefaultConstructionSet,
   ,                                       !- Building Shading Construction Name
   ;                                       !- Site Shading Construction Name
 
+OS:Schedule:Year,
+  {696e3175-92c1-46d4-b1a6-d4486cf2e816}, !- Handle
+  Sch 1,                                  !- Name
+  ,                                       !- Schedule Type Limits Name
+  12,                                     !- Month 1
+  31,                                     !- Day 1
+  {cf4c1121-2bbf-45ed-a000-9f65be5c6af9}; !- Week Schedule Until Date 1
+
+OS:Schedule:Week,
+  {cf4c1121-2bbf-45ed-a000-9f65be5c6af9}, !- Handle
+  Week Sch 1,                             !- Name
+  ,                                       !- Schedule Rendering Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- Sunday Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- Monday Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- Tuesday Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- Wednesday Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- Thursday Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- Friday Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- Saturday Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- Holiday Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- SummerDesignDay Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- WinterDesignDay Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- CustomDay1 Schedule:Day Name
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}; !- CustomDay2 Schedule:Day Name
+
+OS:Schedule:Day,
+  {c3ad08ab-4403-4a35-a0e0-05d5e1fcb90f}, !- Handle
+  Day Sch 1,                              !- Name
+  ,                                       !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  1,                                      !- Hour 1
+  0,                                      !- Minute 1
+  1,                                      !- Value Until Time 1
+  2,                                      !- Hour 2
+  0,                                      !- Minute 2
+  1,                                      !- Value Until Time 2
+  3,                                      !- Hour 3
+  0,                                      !- Minute 3
+  1,                                      !- Value Until Time 3
+  4,                                      !- Hour 4
+  0,                                      !- Minute 4
+  1,                                      !- Value Until Time 4
+  5,                                      !- Hour 5
+  0,                                      !- Minute 5
+  1,                                      !- Value Until Time 5
+  6,                                      !- Hour 6
+  0,                                      !- Minute 6
+  1,                                      !- Value Until Time 6
+  7,                                      !- Hour 7
+  0,                                      !- Minute 7
+  1,                                      !- Value Until Time 7
+  8,                                      !- Hour 8
+  0,                                      !- Minute 8
+  1,                                      !- Value Until Time 8
+  9,                                      !- Hour 9
+  0,                                      !- Minute 9
+  1,                                      !- Value Until Time 9
+  10,                                     !- Hour 10
+  0,                                      !- Minute 10
+  1,                                      !- Value Until Time 10
+  11,                                     !- Hour 11
+  0,                                      !- Minute 11
+  1,                                      !- Value Until Time 11
+  12,                                     !- Hour 12
+  0,                                      !- Minute 12
+  1,                                      !- Value Until Time 12
+  13,                                     !- Hour 13
+  0,                                      !- Minute 13
+  1,                                      !- Value Until Time 13
+  14,                                     !- Hour 14
+  0,                                      !- Minute 14
+  1,                                      !- Value Until Time 14
+  15,                                     !- Hour 15
+  0,                                      !- Minute 15
+  1,                                      !- Value Until Time 15
+  16,                                     !- Hour 16
+  0,                                      !- Minute 16
+  1,                                      !- Value Until Time 16
+  17,                                     !- Hour 17
+  0,                                      !- Minute 17
+  1,                                      !- Value Until Time 17
+  18,                                     !- Hour 18
+  0,                                      !- Minute 18
+  1,                                      !- Value Until Time 18
+  19,                                     !- Hour 19
+  0,                                      !- Minute 19
+  1,                                      !- Value Until Time 19
+  20,                                     !- Hour 20
+  0,                                      !- Minute 20
+  1,                                      !- Value Until Time 20
+  21,                                     !- Hour 21
+  0,                                      !- Minute 21
+  1,                                      !- Value Until Time 21
+  22,                                     !- Hour 22
+  0,                                      !- Minute 22
+  1,                                      !- Value Until Time 22
+  23,                                     !- Hour 23
+  0,                                      !- Minute 23
+  1,                                      !- Value Until Time 23
+  24,                                     !- Hour 24
+  0,                                      !- Minute 24
+  1;                                      !- Value Until Time 24
+
 OS:DefaultSurfaceConstructions,
   {4a26bee5-34a8-4522-b521-7c2cad843156}, !- Handle
   Default Surface Constructions 4,        !- Name
   ,                                       !- Floor Construction Name
-  {6926776e-bb14-4c7a-a008-6fc21741f628}, !- Wall Construction Name
-  {d50b99dd-fbd2-467d-bc75-1685183f00d4}; !- Roof Ceiling Construction Name
+  ,                                       !- Wall Construction Name
+  ;                                       !- Roof Ceiling Construction Name
 
 OS:DefaultSurfaceConstructions,
   {2b70286d-1288-4951-bbc3-ec81a46fc538}, !- Handle
   Default Surface Constructions 5,        !- Name
   ,                                       !- Floor Construction Name
-  {078cbbdd-9a5e-485f-ab97-894ce1a11a08}, !- Wall Construction Name
+  ,                                       !- Wall Construction Name
   ;                                       !- Roof Ceiling Construction Name
 
 OS:DefaultSurfaceConstructions,
@@ -372,7 +482,7 @@ OS:DefaultSurfaceConstructions,
 OS:DefaultSubSurfaceConstructions,
   {168e1e76-2a2e-4f6d-9a8e-0cebd1f945f3}, !- Handle
   Default Sub Surface Constructions 3,    !- Name
-  {9fd92886-5d3b-400f-a813-dde30810e5fb}, !- Fixed Window Construction Name
+  ,                                       !- Fixed Window Construction Name
   ,                                       !- Operable Window Construction Name
   ,                                       !- Door Construction Name
   ,                                       !- Glass Door Construction Name
@@ -501,14 +611,6 @@ OS:StandardsInformation:Material,
   {a0a6cce5-230f-4670-9317-47959d94aa7a}, !- Handle
   {bf141d7c-6068-4810-ad57-eb0b4d9b4c9b}; !- Material Name
 
-OS:Construction,
-  {d50b99dd-fbd2-467d-bc75-1685183f00d4}, !- Handle
-  LTROOF Case 900,                        !- Name
-  {9918e138-1cbf-4ad9-ae69-b7dba7f86ef3}, !- Surface Rendering Name
-  {1494f5db-040d-44ad-909a-202dc9f52c25}, !- Layer 1
-  {3e7b029e-cc59-4ca6-88b0-178411afb527}, !- Layer 2
-  {365e85f5-3e6f-40bf-9678-87a010e7920c}; !- Layer 3
-
 OS:Rendering:Color,
   {9918e138-1cbf-4ad9-ae69-b7dba7f86ef3}, !- Handle
   Rendering Color 9,                      !- Name
@@ -518,7 +620,7 @@ OS:Rendering:Color,
 
 OS:StandardsInformation:Construction,
   {31fef035-828b-4627-a406-383a63d5438c}, !- Handle
-  {d50b99dd-fbd2-467d-bc75-1685183f00d4}; !- Construction Name
+  ;                                       !- Construction Name
 
 OS:StandardsInformation:Construction,
   {65324ec0-e621-4166-8cba-6db6f5bc09d3}, !- Handle
@@ -567,7 +669,7 @@ OS:Material,
 
 OS:DefaultConstructionSet,
   {acc1bfc3-e1a0-4b9f-8cd3-efa0cb833fa6}, !- Handle
-  BESTEST HW - Non Glazed Zone on Sunspace Model, !- Name
+  BESTEST - Non Glazed Zone on Sunspace Model, !- Name
   {4a26bee5-34a8-4522-b521-7c2cad843156}, !- Default Exterior Surface Constructions Name
   {2b70286d-1288-4951-bbc3-ec81a46fc538}, !- Default Interior Surface Constructions Name
   {45e007ab-8bf0-460e-b5ad-7de28771b907}, !- Default Ground Contact Surface Constructions Name
@@ -583,7 +685,7 @@ OS:DefaultSurfaceConstructions,
   Default Surface Constructions 7,        !- Name
   ,                                       !- Floor Construction Name
   {6926776e-bb14-4c7a-a008-6fc21741f628}, !- Wall Construction Name
-  {d50b99dd-fbd2-467d-bc75-1685183f00d4}; !- Roof Ceiling Construction Name
+  ;                                       !- Roof Ceiling Construction Name
 
 OS:DefaultSurfaceConstructions,
   {47927d8a-f18d-4e4e-86fa-b3947c1c5ab7}, !- Handle

@@ -3,6 +3,7 @@
 
 # load library to map case to model variables
 require "#{File.dirname(__FILE__)}/resources/besttest_case_var_lib"
+require "#{File.dirname(__FILE__)}/resources/epw"
 
 # start the measure
 class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::ModelUserScript
@@ -71,7 +72,40 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # todo - Adjust simulation settings if necessary
 
-    # todo - Add weather file and design day objects
+    # todo - Add weather file and design day objects (figure out why not working)
+    epw = 'DRYCOLDTMY.epw'
+    runner.registerInfo("Setting weather file to  #{epw}")
+    epw_path = File.dirname(__FILE__) + "/resources/" + "#{epw}"
+    epw_file = OpenStudio::Weather::Epw.load(epw_path)
+
+    weather_file = model.getWeatherFile
+    weather_file.setCity(epw_file.city)
+    weather_file.setStateProvinceRegion(epw_file.state)
+    weather_file.setCountry(epw_file.country)
+    weather_file.setDataSource(epw_file.data_type)
+    weather_file.setWMONumber(epw_file.wmo.to_s)
+    weather_file.setLatitude(epw_file.lat)
+    weather_file.setLongitude(epw_file.lon)
+    weather_file.setTimeZone(epw_file.gmt)
+    weather_file.setElevation(epw_file.elevation)
+    weather_file.setString(10, "file:///#{epw}")
+    runner.registerInfo("weather file path is #{weather_file.getString(10)}")
+
+    weather_name = "#{epw_file.city}_#{epw_file.state}_#{epw_file.country}"
+    weather_lat = epw_file.lat
+    weather_lon = epw_file.lon
+    weather_time = epw_file.gmt
+    weather_elev = epw_file.elevation
+
+    # Add or update site data
+    site = model.getSite
+    site.setName(weather_name)
+    site.setLatitude(weather_lat)
+    site.setLongitude(weather_lon)
+    site.setTimeZone(weather_time)
+    site.setElevation(weather_elev)
+
+    runner.registerInfo("city is #{epw_file.city}. State is #{epw_file.state}")
 
     # Lookup envelope
     file_to_clone = nil
@@ -107,17 +141,72 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     end
 
     # Add envelope from external file
+    runner.registerInfo("Adding spaces and zones from #{file_to_clone}")
     translator = OpenStudio::OSVersion::VersionTranslator.new
-    path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_to_clone}")
-    puts path
-    geo_model = translator.loadModel(path).get
+    geo_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_to_clone}")
+    geo_model = translator.loadModel(geo_path).get
     geo_model.getBuilding.clone(model)
 
-    # todo - Add constructions
+    # Load resource file
+    file_resource = "bestest_resources.osm"
+    runner.registerInfo("Loading resource file named #{file_resource}")
+    translator = OpenStudio::OSVersion::VersionTranslator.new
+    resource_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_resource}")
+    resource_model = translator.loadModel(resource_path).get
 
-    # todo - Add infiltration
+    # Lookup construction sets
+    const_sets_to_clone = [] # for 960 two const. sets to use
+    if variable_hash[:mass] == "L"
+      const_sets_to_clone << "BESTEST LT"
+    elsif variable_hash[:mass] == "H"
+      const_sets_to_clone << "BESTEST HW - Typical"
+    elsif variable_hash[:custom] == true and case_num.include? '960'
+      const_sets_to_clone << "BESTEST LT"
+      const_sets_to_clone << "BESTEST - Non Glazed Zone on Sunspace Model"
+    else
+      runner.registerError("Unexpected mass value.")
+      return false
+    end
 
-    # todo - Add internal loads
+    # Add construction sets
+    const_sets = []
+    const_sets_to_clone.each do |construction_set_name|
+      resource_model.getDefaultConstructionSets.each do |res_const_set|
+        if construction_set_name == res_const_set.name.to_s
+          const_set = res_const_set.clone(model).to_DefaultConstructionSet.get
+          const_sets << const_set
+          runner.registerInfo("Adding #{const_set.name} to the model")
+        end
+      end
+    end
+    model.getBuilding.setDefaultConstructionSet(const_sets.first)
+    runner.registerInfo("Setting #{const_sets.first.name} as the default construction set for the building.")
+    if const_sets.size > 1
+      # todo - set sunspace const set to space if it exists.
+    end
+
+    # Add internal loads
+    if variable_hash[:int_gen] == 200.0
+      resource_model.getOtherEquipments.each do |res_cother_equip|
+        next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1"
+        other_equip = res_cother_equip.clone(model).to_OtherEquipment.get
+        other_equip.setSpace(model.getSpaces.first)
+        runner.registerInfo("Adding #{other_equip.name} to #{model.getSpaces.first.name}.")
+      end
+    else
+      # todo - add in logic for sunspace
+      runner.registerInfo("No Other Eqipment Loads added")
+    end
+
+    # Add infiltration
+    model.getSpaces.each do |space|
+      infil = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(model)
+      infil.setAirChangesperHour(variable_hash[:infil])
+      infil.setSpace(space)
+      infil.setSchedule(model.getOtherEquipments.first.schedule.get)
+      runner.registerInfo("Setting infiltration to #{infil.airChangesperHour} ACH for #{space.name}.")
+      # todo - add in logic for sunspace
+    end
 
     # todo - Add other objects
 
