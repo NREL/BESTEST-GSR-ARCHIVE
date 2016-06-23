@@ -61,6 +61,9 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     if variable_hash == false
       runner.registerError("Didn't find #{case_num} in model variable hash.")
       return false
+    else
+      # should return one item, get the hash
+      variable_hash = variable_hash.first
     end
 
     # rename the building
@@ -70,31 +73,45 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # todo - Add weather file and design day objects
 
-    # todo - Add envelope
-    # todo - add helper method to load geometry, pass in model name from here
-    if [0, nil].include? variable_hash[:glass_area]
+    # Lookup envelope
+    file_to_clone = nil
+    if variable_hash[:glass_area].nil? || variable_hash[:glass_area] == 0.0
       # add in geometry with no fenestration
+      file_to_clone = 'Bestest_Geo_South_0_0_0.osm'
     elsif variable_hash[:glass_area] == 12.0 and variable_hash[:orient] == 'S'
       if variable_hash[:shade] == false
         # add in south glazing without an overhang
+        file_to_clone = 'Bestest_Geo_South_12_0_0.osm'
       elsif variable_hash[:shade] == 1.0 and variable_hash[:shade_type] == 'H'
         # add in south glazing with an overhang
+        file_to_clone = 'Bestest_Geo_South_12_1_0.osm'
       else
         runner.registerError("Unexpected Geometry Variables for South Overhangs.")
       end
     elsif variable_hash[:glass_area] == 6.0 and variable_hash[:orient] == 'EW'
       if variable_hash[:shade] == false
         # add in east/west glazing without an overhang
+        file_to_clone = 'Bestest_Geo_EastWest_6_0_0.osm'
       elsif variable_hash[:shade] == 1.0 and variable_hash[:shade_type] == 'HV'
         # add in east/west glazing with an overhang
+        file_to_clone = 'Bestest_Geo_EastWest_6_1_1.osm'
       else
         runner.registerError("Unexpected Geometry Variables for East/West Overhangs.")
       end
     elsif variable_hash[:custom] == true and case_num.include? '960'
       # add in sun space geometry
+      file_to_clone = 'Bestest_Geo_Sunspace.osm'
     else
       runner.registerError("Unexpected Geometry Variables.")
+      return false
     end
+
+    # Add envelope from external file
+    translator = OpenStudio::OSVersion::VersionTranslator.new
+    path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_to_clone}")
+    puts path
+    geo_model = translator.loadModel(path).get
+    geo_model.getBuilding.clone(model)
 
     # todo - Add constructions
 

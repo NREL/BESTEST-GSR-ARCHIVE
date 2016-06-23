@@ -21,7 +21,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTestsTest < MiniTest::Unit::Tes
 
     # load the test model
     translator = OpenStudio::OSVersion::VersionTranslator.new
-    path = OpenStudio::Path.new(File.dirname(__FILE__) + "/example_model.osm")
+    path = OpenStudio::Path.new(File.dirname(__FILE__) + "/Bestest_empty.osm")
     model = translator.loadModel(path)
     assert((not model.empty?))
     model = model.get
@@ -33,7 +33,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTestsTest < MiniTest::Unit::Tes
     # create hash of argument values.
     # If the argument has a default that you want to use, you don't need it in the hash
     args_hash = {}
-    args_hash["case_num"] = "600"
+    args_hash["case_num"] = "600 - Base Case"
     # using defaults values from measure.rb for other arguments
 
     # populate argument with specified hash value if specified
