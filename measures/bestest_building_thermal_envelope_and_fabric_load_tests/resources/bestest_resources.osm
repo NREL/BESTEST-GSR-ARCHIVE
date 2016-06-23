@@ -1,7 +1,7 @@
 
 OS:Version,
   {086ec7d4-3ec0-4a19-9904-260734224179}, !- Handle
-  1.11.5;                                 !- Version Identifier
+  1.10.6;                                 !- Version Identifier
 
 OS:Site,
   {1d16e259-a36f-4119-812f-392f35d5dc3d}, !- Handle
@@ -685,7 +685,7 @@ OS:DefaultSurfaceConstructions,
   Default Surface Constructions 7,        !- Name
   ,                                       !- Floor Construction Name
   {6926776e-bb14-4c7a-a008-6fc21741f628}, !- Wall Construction Name
-  ;                                       !- Roof Ceiling Construction Name
+  {ec3132e5-d01d-402b-959e-d95c4cd2168b}; !- Roof Ceiling Construction Name
 
 OS:DefaultSurfaceConstructions,
   {47927d8a-f18d-4e4e-86fa-b3947c1c5ab7}, !- Handle

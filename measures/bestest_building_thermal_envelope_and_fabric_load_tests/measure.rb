@@ -33,10 +33,20 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     variable_hash_lookup.each do |k,v|
       choices << k
     end
+
+    # creates arg names for spreadsheet
+    array = []
+    choices.each do |choice|
+      array << "'#{choice}'"
+    end
+    puts "String for spreadsheet"
+    puts "[#{array.join(",")}]"
+
+
     case_num = OpenStudio::Ruleset::OSArgument::makeChoiceArgument("case_num", choices,true)
     case_num.setDisplayName("Test Case Number")
     case_num.setDescription("Measure will generate selected test case.")
-    case_num.setDefaultValue("600")
+    case_num.setDefaultValue("600 - Base Case")
     args << case_num
 
     return args
@@ -72,6 +82,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # todo - Adjust simulation settings if necessary
 
+=begin
     # todo - Add weather file and design day objects (figure out why not working)
     epw = 'DRYCOLDTMY.epw'
     runner.registerInfo("Setting weather file to  #{epw}")
@@ -88,7 +99,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     weather_file.setLongitude(epw_file.lon)
     weather_file.setTimeZone(epw_file.gmt)
     weather_file.setElevation(epw_file.elevation)
-    weather_file.setString(10, "file:///#{epw}")
+    weather_file.setString(10, epw_path)
     runner.registerInfo("weather file path is #{weather_file.getString(10)}")
 
     weather_name = "#{epw_file.city}_#{epw_file.state}_#{epw_file.country}"
@@ -106,6 +117,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     site.setElevation(weather_elev)
 
     runner.registerInfo("city is #{epw_file.city}. State is #{epw_file.state}")
+=end
 
     # Lookup envelope
     file_to_clone = nil
@@ -186,7 +198,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     end
 
     # Add internal loads
-    if variable_hash[:int_gen] == 200.0
+    if variable_hash[:int_gen] == 200.0 || variable_hash[:int_gen] == 0.0
       resource_model.getOtherEquipments.each do |res_cother_equip|
         next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1"
         other_equip = res_cother_equip.clone(model).to_OtherEquipment.get
@@ -199,13 +211,53 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     end
 
     # Add infiltration
+    # todo - add in logic for sunspace
     model.getSpaces.each do |space|
       infil = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(model)
       infil.setAirChangesperHour(variable_hash[:infil])
       infil.setSpace(space)
       infil.setSchedule(model.getOtherEquipments.first.schedule.get)
       runner.registerInfo("Setting infiltration to #{infil.airChangesperHour} ACH for #{space.name}.")
-      # todo - add in logic for sunspace
+    end
+
+    # add in thermostats
+    if variable_hash[:clg_set].is_a? Float
+      runner.registerInfo("Setting cooling setoint to #{variable_hash[:clg_set]} C.")
+      clg_setp = OpenStudio::Model::ScheduleConstant.new(model)
+      clg_setp.setValue(variable_hash[:htg_set])
+    elsif variable_hash[:clg_set] == "SETBACK"
+      # todo
+    elsif variable_hash[:clg_set] == "V"
+      # todo
+    elsif variable_hash[:clg_set] == "NONE"
+      # todo
+    else
+      runner.registerError("Unexpected cooling setpoint value.")
+      return false
+    end
+    if variable_hash[:htg_set].is_a? Float
+      runner.registerInfo("Setting heating setpoint to #{variable_hash[:htg_set]} C.")
+      htg_setp = OpenStudio::Model::ScheduleConstant.new(model)
+      htg_setp.setValue(variable_hash[:htg_set])
+    elsif variable_hash[:htg_set] == "SETBACK"
+      # todo
+    elsif variable_hash[:htg_set] == "NONE"
+      # todo
+    else
+      runner.registerError("Unexpected heating setpoint value.")
+      return false
+    end
+    model.getThermalZones.each do |zone|
+      thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
+      thermostat.setCoolingSetpointTemperatureSchedule(clg_setp)
+      thermostat.setHeatingSetpointTemperatureSchedule(htg_setp)
+      zone.setThermostatSetpointDualSetpoint(thermostat)
+      runner.registerInfo("Set thermostat for #{zone.name} to #{zone.thermostatSetpointDualSetpoint.get.name}")
+    end
+
+    # todo - add in HVAC
+    model.getThermalZones.each do |zone|
+      zone.setUseIdealAirLoads(true)
     end
 
     # todo - Add other objects

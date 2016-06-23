@@ -1,7 +1,7 @@
 
 OS:Version,
   {952d15ce-15ab-48af-99b5-6b9cb2d25b9b}, !- Handle
-  1.11.5;                                 !- Version Identifier
+  1.10.6;                                 !- Version Identifier
 
 OS:Site,
   {392316cf-beaa-4fc5-a2c7-0621452b934c}, !- Handle

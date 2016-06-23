@@ -655,8 +655,8 @@ module BestestCaseVarLib
         :custom => true,
     ]
     variable_hash_lookup['600FF'] = [
-        :htg_set => 20.0,
-        :clg_set => 27.0,
+        :htg_set => "NONE",
+        :clg_set => "NONE",
         :mass => 'L',
         :int_gen => 200.0,
         :infil => 0.5,
@@ -674,8 +674,8 @@ module BestestCaseVarLib
         :b1_1_note_03 => false
     ]
     variable_hash_lookup['900FF'] = [
-        :htg_set => 20.0,
-        :clg_set => 27.0,
+        :htg_set => "NONE",
+        :clg_set => "NONE",
         :mass => 'H',
         :int_gen => 200.0,
         :infil => 0.5,
@@ -693,7 +693,7 @@ module BestestCaseVarLib
         :b1_1_note_03 => false
     ]
     variable_hash_lookup['650FF'] = [
-        :htg_set => 27.0,
+        :htg_set => "NONE",
         :clg_set => 'V',
         :mass => 'L',
         :int_gen => 200.0,
@@ -712,7 +712,7 @@ module BestestCaseVarLib
         :b1_1_note_03 => false
     ]
     variable_hash_lookup['950FF'] = [
-        :htg_set => 27.0,
+        :htg_set => "NONE",
         :clg_set => 'V',
         :mass => 'H',
         :int_gen => 200.0,

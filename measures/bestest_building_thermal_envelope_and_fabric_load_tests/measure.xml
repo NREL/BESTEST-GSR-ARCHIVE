@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_tests</name>
   <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
-  <version_id>51964ec4-28d0-4e7e-80f6-f877197d2939</version_id>
-  <version_modified>20160623T165259Z</version_modified>
+  <version_id>7ad92a4f-e586-48c9-9c37-08f884c72894</version_id>
+  <version_modified>20160623T195026Z</version_modified>
   <xml_checksum>28AD5222</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadTests</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Tests</display_name>
@@ -17,6 +17,7 @@
       <type>Choice</type>
       <required>true</required>
       <model_dependent>false</model_dependent>
+      <default_value>600 - Base Case</default_value>
       <choices>
         <choice>
           <value>195</value>
@@ -281,12 +282,6 @@
       <checksum>08DEB5B3</checksum>
     </file>
     <file>
-      <filename>besttest_case_var_lib.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>9FEC7193</checksum>
-    </file>
-    <file>
       <filename>bestest_building_thermal_envelope_and_fabric_load_tests_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
@@ -299,46 +294,58 @@
       <checksum>9154D00E</checksum>
     </file>
     <file>
+      <filename>epw.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>32A9564D</checksum>
+    </file>
+    <file>
+      <filename>besttest_case_var_lib.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>23185368</checksum>
+    </file>
+    <file>
       <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>3444B7D9</checksum>
+      <checksum>E3715FF9</checksum>
     </file>
     <file>
       <filename>Bestest_Geo_EastWest_6_1_1.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>8D1F9580</checksum>
+      <checksum>085C4BDA</checksum>
     </file>
     <file>
       <filename>Bestest_Geo_South_0_0_0.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>F1D70D46</checksum>
+      <checksum>84596F06</checksum>
     </file>
     <file>
       <filename>Bestest_Geo_South_12_0_0.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>95B72DF0</checksum>
+      <checksum>456DBF66</checksum>
     </file>
     <file>
       <filename>Bestest_Geo_South_12_1_0.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>75495C70</checksum>
+      <checksum>3292F23C</checksum>
     </file>
     <file>
       <filename>Bestest_Geo_Sunspace.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>838D1895</checksum>
+      <checksum>0765C5F0</checksum>
     </file>
     <file>
-      <filename>epw.rb</filename>
-      <filetype>rb</filetype>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>32A9564D</checksum>
+      <checksum>ABDD3174</checksum>
     </file>
     <file>
       <version>
@@ -349,13 +356,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>B0B6D265</checksum>
-    </file>
-    <file>
-      <filename>bestest_resources.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>ABDD3174</checksum>
+      <checksum>E96F4E65</checksum>
     </file>
   </files>
 </measure>
