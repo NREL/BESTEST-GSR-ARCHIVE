@@ -785,3 +785,60 @@ OS:Schedule:Day,
   0,                                      !- Minute 3
   10;                                     !- Value Until Time 3
 
+OS:Schedule:Ruleset,
+  {9eb4e002-d11d-4f67-9ce3-59b540dab966}, !- Handle
+  BESTEST htg Night Vent,                 !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  {23a44cfd-6c85-4500-8a09-8f4caa97c344}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {23a44cfd-6c85-4500-8a09-8f4caa97c344}, !- Handle
+  Schedule Day 2,                         !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  24,                                     !- Hour 1
+  0,                                      !- Minute 1
+  0;                                      !- Value Until Time 1
+
+OS:Schedule:Ruleset,
+  {d5197746-f154-4e1d-a2c4-30f2de4dfb6a}, !- Handle
+  BESTEST clg Night Vent,                 !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  {ddde7240-ceca-4577-bca8-adf29d004ebf}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {ddde7240-ceca-4577-bca8-adf29d004ebf}, !- Handle
+  Schedule Day 3,                         !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  7,                                      !- Hour 1
+  0,                                      !- Minute 1
+  100,                                    !- Value Until Time 1
+  18,                                     !- Hour 2
+  0,                                      !- Minute 2
+  27.0000019073486,                       !- Value Until Time 2
+  24,                                     !- Hour 3
+  0,                                      !- Minute 3
+  100;                                    !- Value Until Time 3
+
+OS:Schedule:Ruleset,
+  {673545e8-a94e-4995-bde3-b7e37980d47c}, !- Handle
+  BESTEST Night Vent,                     !- Name
+  {b044b0c5-da72-456f-9964-7aed71740b6b}, !- Schedule Type Limits Name
+  {b40bc6d9-b83f-4d68-aab7-60a401f239e9}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {b40bc6d9-b83f-4d68-aab7-60a401f239e9}, !- Handle
+  Schedule Day 4,                         !- Name
+  {b044b0c5-da72-456f-9964-7aed71740b6b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  7,                                      !- Hour 1
+  0,                                      !- Minute 1
+  1,                                      !- Value Until Time 1
+  18,                                     !- Hour 2
+  0,                                      !- Minute 2
+  0,                                      !- Value Until Time 2
+  24,                                     !- Hour 3
+  0,                                      !- Minute 3
+  1;                                      !- Value Until Time 3
+
