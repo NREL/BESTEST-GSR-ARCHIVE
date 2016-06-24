@@ -453,7 +453,7 @@ module BestestCaseVarLib
         :ext_sw_absorpt => 0.6,
         :glass_area => 6.0,
         :orient => 'E,W',
-        :shade => '1.0',
+        :shade => 1.0,
         :shade_type => 'H,V',
         :ff => false,
         :b1_1_note_01 => false,

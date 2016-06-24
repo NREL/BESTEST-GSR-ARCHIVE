@@ -134,11 +134,11 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       else
         runner.registerError("Unexpected Geometry Variables for South Overhangs.")
       end
-    elsif variable_hash[:glass_area] == 6.0 and variable_hash[:orient] == 'EW'
+    elsif variable_hash[:glass_area] == 6.0 and variable_hash[:orient] == 'E,W'
       if variable_hash[:shade] == false
         # add in east/west glazing without an overhang
         file_to_clone = 'Bestest_Geo_EastWest_6_0_0.osm'
-      elsif variable_hash[:shade] == 1.0 and variable_hash[:shade_type] == 'HV'
+      elsif variable_hash[:shade] == 1.0 and variable_hash[:shade_type] == 'H,V'
         # add in east/west glazing with an overhang
         file_to_clone = 'Bestest_Geo_EastWest_6_1_1.osm'
       else
@@ -197,13 +197,19 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       # todo - set sunspace const set to space if it exists.
     end
 
+    # add schedule for use in measure
+    always_on = OpenStudio::Model::ScheduleConstant.new(model)
+    always_on.setValue(1.0)
+
     # Add internal loads
-    if variable_hash[:int_gen] == 200.0 || variable_hash[:int_gen] == 0.0
-      resource_model.getOtherEquipments.each do |res_cother_equip|
-        next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1"
-        other_equip = res_cother_equip.clone(model).to_OtherEquipment.get
-        other_equip.setSpace(model.getSpaces.first)
-        runner.registerInfo("Adding #{other_equip.name} to #{model.getSpaces.first.name}.")
+    if variable_hash[:int_gen] and variable_hash[:int_gen] > 0.0
+      resource_model.getOtherEquipmentDefinitions.each do |res_cother_equip|
+        next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1 Definition"
+        other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
+        load_inst = OpenStudio::Model::OtherEquipment.new(other_equip_def)
+        load_inst.setSchedule(always_on)
+        load_inst.setSpace(model.getSpaces.first)
+        runner.registerInfo("Adding #{other_equip_def.name} to #{model.getSpaces.first.name}.")
       end
     else
       # todo - add in logic for sunspace
@@ -212,15 +218,21 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # Add infiltration
     # todo - add in logic for sunspace
+    if variable_hash[:infil]
+      ach = variable_hash[:infil]
+    else
+      ach = 0.5 # confirm this is what sunspace needs
+    end
     model.getSpaces.each do |space|
       infil = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(model)
-      infil.setAirChangesperHour(variable_hash[:infil])
+      infil.setAirChangesperHour(ach)
       infil.setSpace(space)
-      infil.setSchedule(model.getOtherEquipments.first.schedule.get)
+      infil.setSchedule(always_on)
       runner.registerInfo("Setting infiltration to #{infil.airChangesperHour} ACH for #{space.name}.")
     end
 
     # add in thermostats
+    clg_setp = nil
     if variable_hash[:clg_set].is_a? Float
       runner.registerInfo("Setting cooling setoint to #{variable_hash[:clg_set]} C.")
       clg_setp = OpenStudio::Model::ScheduleConstant.new(model)
@@ -231,10 +243,13 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       # todo
     elsif variable_hash[:clg_set] == "NONE"
       # todo
+    elsif variable_hash[:custom]
+      clg_setp = 27 # confirm value for sunspace
     else
       runner.registerError("Unexpected cooling setpoint value.")
       return false
     end
+    htg_setp = nil
     if variable_hash[:htg_set].is_a? Float
       runner.registerInfo("Setting heating setpoint to #{variable_hash[:htg_set]} C.")
       htg_setp = OpenStudio::Model::ScheduleConstant.new(model)
@@ -243,11 +258,14 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       # todo
     elsif variable_hash[:htg_set] == "NONE"
       # todo
+    elsif variable_hash[:custom]
+      clg_setp = 20 # confirm value for sunspace
     else
       runner.registerError("Unexpected heating setpoint value.")
       return false
     end
     model.getThermalZones.each do |zone|
+      next if clg_setp.nil? || htg_setp.nil?
       thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
       thermostat.setCoolingSetpointTemperatureSchedule(clg_setp)
       thermostat.setHeatingSetpointTemperatureSchedule(htg_setp)
