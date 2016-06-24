@@ -1,0 +1,588 @@
+{
+  "analysis": {
+    "display_name": "BESTEST 0624_01c (setup ff)",
+    "name": "bestest_0624_01c_(setup_ff)",
+    "output_variables": [
+      {
+        "units": "MJ/m2",
+        "objective_function": true,
+        "objective_function_index": 0,
+        "objective_function_target": 140.0,
+        "objective_function_group": 1,
+        "scaling_factor": null,
+        "display_name": "Total Natural Gas Intensity",
+        "display_name_short": "NG EUI",
+        "metadata_id": "total_natural_gas_intensity",
+        "name": "standard_report_legacy.total_natural_gas",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": true,
+        "objective_function_index": 1,
+        "objective_function_target": 590.0,
+        "objective_function_group": 2,
+        "scaling_factor": 5.0,
+        "display_name": "Total Electricity Intensity",
+        "display_name_short": "Elec EUI",
+        "metadata_id": "total_electricity_intensity",
+        "name": "standard_report_legacy.total_electricity",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "hrs",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Unmet Cooling Hours",
+        "display_name_short": "Unmet Cooling Hours",
+        "metadata_id": null,
+        "name": "standard_reports.time_setpoint_not_met_during_occupied_cooling",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "hrs",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Unmet Heating Hours",
+        "display_name_short": "Unmet Heating Hours",
+        "metadata_id": null,
+        "name": "standard_reports.time_setpoint_not_met_during_occupied_heating",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "hrs",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Total Unmet Hours",
+        "display_name_short": "Total Unmet Hours",
+        "metadata_id": null,
+        "name": "standard_reports.time_setpoint_not_met_during_occupied_hours",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Building Area",
+        "display_name_short": "Building Area",
+        "metadata_id": null,
+        "name": "standard_reports.total_building_area",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Natural Gas Heating Intensity",
+        "display_name_short": "Natural Gas Heating Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.heating_natural_gas",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Cooling Electricity Intensity",
+        "display_name_short": "Cooling Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.cooling_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Interior Lighting Electricity Intensity",
+        "display_name_short": "Interior Lighting Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.interior_lighting_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Exterior Lighting Electricity Intensity",
+        "display_name_short": "Exterior Lighting Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.exterior_lighting_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Equipment Electricity Intensity",
+        "display_name_short": "Equipment Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.interior_equipment_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Equipment Natural Gas Intensity",
+        "display_name_short": "Equipment Natural Gas Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.interior_equipment_natural_gas",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Experior Equipment Electricity Intensity",
+        "display_name_short": "Experior Equipment Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.exterior_equipment_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Fans Electricity Intensity",
+        "display_name_short": "Fans Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.fans_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Pumps Electricity Intensity",
+        "display_name_short": "Pumps Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.pumps_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Heat Rejection Electricity Intensity",
+        "display_name_short": "Heat Rejection Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.heat_rejection_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Humidification Electricity Intensity",
+        "display_name_short": "Humidification Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.humidification_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Water Systems Electricity Intensity",
+        "display_name_short": "Water Systems Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.water_systems_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Water Systems Natural Gas Intensity",
+        "display_name_short": "Water Systems Natural Gas Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.water_systems_natural_gas",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "MJ/m2",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Refrigeration Electricity Intensity",
+        "display_name_short": "Refrigeration Electricity Intensity",
+        "metadata_id": null,
+        "name": "standard_report_legacy.refrigeration_electricity",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "$",
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "Total Life Cycle Cost",
+        "display_name_short": "Total Life Cycle Cost",
+        "metadata_id": null,
+        "name": "standard_report.total_life_cycle_cost",
+        "visualize": false,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "units": "kBtu/ft^2",
+        "objective_function": true,
+        "objective_function_index": 2,
+        "objective_function_target": null,
+        "objective_function_group": 3,
+        "scaling_factor": null,
+        "display_name": "EUI",
+        "display_name_short": "EUI (Kbtu/ft^2)",
+        "metadata_id": null,
+        "name": "standard_reports.eui",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      }
+    ],
+    "problem": {
+      "analysis_type": "lhs",
+      "algorithm": {
+        "sample_method": "individual_variables",
+        "number_of_samples": 100,
+        "objective_functions": [
+          "standard_report_legacy.total_natural_gas",
+          "standard_report_legacy.total_electricity",
+          "standard_reports.eui"
+        ]
+      },
+      "workflow": [
+        {
+          "name": "bestest_building_thermal_envelope_and_fabric_load_tests",
+          "display_name": "BESTEST Building Thermal Envelope and Fabric Load Tests",
+          "measure_type": "RubyMeasure",
+          "measure_definition_class_name": "BESTESTBuildingThermalEnvelopeAndFabricLoadTests",
+          "measure_definition_directory": "./measures/bestest_building_thermal_envelope_and_fabric_load_tests",
+          "measure_definition_directory_local": "/Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests",
+          "measure_definition_display_name": "BESTEST Building Thermal Envelope and Fabric Load Tests",
+          "measure_definition_name": "bestest_building_thermal_envelope_and_fabric_load_tests",
+          "measure_definition_name_xml": null,
+          "measure_definition_uuid": "d4264920-6741-4b21-9d4c-5241d85a9fe3",
+          "measure_definition_version_uuid": "10a77e1f-700f-49f4-b1d6-1b777abf41b1",
+          "arguments": [
+
+          ],
+          "variables": [
+            {
+              "argument": {
+                "display_name": "Case Number",
+                "display_name_short": "Case Number",
+                "name": "case_num",
+                "value_type": "string",
+                "default_value": "610 - South Shading",
+                "value": "610 - South Shading"
+              },
+              "display_name": "Case Number",
+              "display_name_short": "Case Number",
+              "variable_type": "variable",
+              "units": null,
+              "minimum": "610 - South Shading",
+              "maximum": "610 - South Shading",
+              "relation_to_output": null,
+              "static_value": "610 - South Shading",
+              "uuid": "c00aff18-5dae-4652-a96a-11566284fbad",
+              "version_uuid": "ff24b7fc-b6d8-4c08-a7d5-725af74e8d1b",
+              "variable": true,
+              "uncertainty_description": {
+                "type": "discrete_uncertain",
+                "attributes": [
+                  {
+                    "name": "discrete",
+                    "values_and_weights": [
+                      {
+                        "value": "195",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "200",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "210",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "215",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "220",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "230",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "240",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "250",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "270",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "280",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "290",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "300",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "310",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "320",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "395",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "400",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "410",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "420",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "430",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "440",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "600 - Base Case",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "610 - South Shading",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "620 - East West Window Orientation",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "630 - East West Shading",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "640 - Thermostat Setback",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "650 - Night Ventilation",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "800",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "810",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "900 - High Mass Base Case",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "910 - High Mass South Shading",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "920 - High Mass East West Window Orientation",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "930 - High Mass East West Shading",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "940 - High Mass Thermostat Setback",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "950 - High Mass Night Ventilation",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "960 - Sunspace",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "600FF",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "900FF",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "650FF",
+                        "weight": 0.02564102564102564
+                      },
+                      {
+                        "value": "950FF",
+                        "weight": 0.02564102564102564
+                      }
+                    ]
+                  },
+                  {
+                    "name": "lower_bounds",
+                    "value": "610 - South Shading"
+                  },
+                  {
+                    "name": "upper_bounds",
+                    "value": "610 - South Shading"
+                  },
+                  {
+                    "name": "modes",
+                    "value": "610 - South Shading"
+                  },
+                  {
+                    "name": "delta_x",
+                    "value": null
+                  },
+                  {
+                    "name": "stddev",
+                    "value": "610 - South Shading"
+                  }
+                ]
+              },
+              "workflow_index": 0
+            }
+          ],
+          "workflow_index": 0
+        }
+      ]
+    },
+    "seed": {
+      "file_type": "OSM",
+      "path": "./seed/seed_empty.osm"
+    },
+    "weather_file": {
+      "file_type": "EPW",
+      "path": "./weather/DRYCOLDTMY.epw"
+    },
+    "file_format_version": 1
+  }
+}

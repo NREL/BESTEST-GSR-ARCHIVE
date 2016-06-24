@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_tests</name>
   <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
-  <version_id>2e811bfd-25aa-4152-80b2-67177c17a4f4</version_id>
-  <version_modified>20160624T154532Z</version_modified>
+  <version_id>875aae99-7a31-40ef-9d0b-f5adf3d0c309</version_id>
+  <version_modified>20160624T211830Z</version_modified>
   <xml_checksum>28AD5222</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadTests</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Tests</display_name>
@@ -282,12 +282,6 @@
       <checksum>08DEB5B3</checksum>
     </file>
     <file>
-      <filename>bestest_building_thermal_envelope_and_fabric_load_tests_test.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>A91B7840</checksum>
-    </file>
-    <file>
       <filename>Bestest_empty.osm</filename>
       <filetype>osm</filetype>
       <usage_type>test</usage_type>
@@ -342,10 +336,16 @@
       <checksum>1087BC89</checksum>
     </file>
     <file>
+      <filename>bestest_building_thermal_envelope_and_fabric_load_tests_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>6E8065AD</checksum>
+    </file>
+    <file>
       <filename>bestest_resources.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>B4C9794B</checksum>
+      <checksum>B7448641</checksum>
     </file>
     <file>
       <version>
@@ -356,7 +356,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>9BA717B4</checksum>
+      <checksum>FB6CA42C</checksum>
     </file>
   </files>
 </measure>

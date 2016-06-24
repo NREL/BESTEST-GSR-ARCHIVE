@@ -200,6 +200,11 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     # add schedule for use in measure
     always_on = OpenStudio::Model::ScheduleConstant.new(model)
     always_on.setValue(1.0)
+    bestest_htg_setback = nil
+    model.getScheduleRulesets.each do |schedule|
+      next if not schedule.name.get == "BESTEST htg SETBACK"
+      bestest_htg_setback = schedule
+    end
 
     # Add internal loads
     if variable_hash[:int_gen] and variable_hash[:int_gen] > 0.0
@@ -238,13 +243,14 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       clg_setp = OpenStudio::Model::ScheduleConstant.new(model)
       clg_setp.setValue(variable_hash[:htg_set])
     elsif variable_hash[:clg_set] == "SETBACK"
-      # todo
+      clg_setp = bestest_htg_setback
     elsif variable_hash[:clg_set] == "V"
       # todo
     elsif variable_hash[:clg_set] == "NONE"
-      # todo
+      # leave as nil, thermostat won't be made
     elsif variable_hash[:custom]
-      clg_setp = 27 # confirm value for sunspace
+      clg_setp = OpenStudio::Model::ScheduleConstant.new(model)
+      clg_setp.setValue(27.0) # confirm value for sunspace
     else
       runner.registerError("Unexpected cooling setpoint value.")
       return false
@@ -255,11 +261,13 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       htg_setp = OpenStudio::Model::ScheduleConstant.new(model)
       htg_setp.setValue(variable_hash[:htg_set])
     elsif variable_hash[:htg_set] == "SETBACK"
-      # todo
+      htg_setp = OpenStudio::Model::ScheduleConstant.new(model)
+      htg_setp.setValue(27.0)
     elsif variable_hash[:htg_set] == "NONE"
-      # todo
+      # leave as nil, thermostat won't be made
     elsif variable_hash[:custom]
-      clg_setp = 20 # confirm value for sunspace
+      htg_setp = OpenStudio::Model::ScheduleConstant.new(model)
+      htg_setp.setValue(20.0) # confirm value for sunspace
     else
       runner.registerError("Unexpected heating setpoint value.")
       return false
@@ -273,12 +281,12 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       runner.registerInfo("Set thermostat for #{zone.name} to #{zone.thermostatSetpointDualSetpoint.get.name}")
     end
 
-    # todo - add in HVAC
-    model.getThermalZones.each do |zone|
-      zone.setUseIdealAirLoads(true)
+    # add in HVAC
+    if !variable_hash[:ff]
+      model.getThermalZones.each do |zone|
+        zone.setUseIdealAirLoads(true)
+      end
     end
-
-    # todo - Add other objects
 
     # todo - Add output requests
 
