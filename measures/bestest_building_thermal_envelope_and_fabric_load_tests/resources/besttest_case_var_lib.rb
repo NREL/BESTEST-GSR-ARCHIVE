@@ -480,8 +480,9 @@ module BestestCaseVarLib
         :b1_1_note_03 => false
     ]
     variable_hash_lookup['650 - Night Ventilation'] = [
-        :htg_set => 27.0,
-        :clg_set => 'V',
+        :htg_set => 'NONE',
+        :clg_set => 27.0,
+        :vent => true,
         :mass => 'L',
         :int_gen => 200.0,
         :infil => 0.5,
@@ -632,8 +633,9 @@ module BestestCaseVarLib
         :b1_1_note_03 => false
     ]
     variable_hash_lookup['950 - High Mass Night Ventilation'] = [
-        :htg_set => 27.0,
-        :clg_set => 'V',
+        :htg_set => 'NONE',
+        :clg_set => 27.0,
+        :vent => true,
         :mass => 'H',
         :int_gen => 200.0,
         :infil => 0.5,
@@ -693,8 +695,9 @@ module BestestCaseVarLib
         :b1_1_note_03 => false
     ]
     variable_hash_lookup['650FF'] = [
-        :htg_set => "NONE",
-        :clg_set => 'V',
+        :htg_set => 'NONE',
+        :clg_set => 'NONE',
+        :vent => true,
         :mass => 'L',
         :int_gen => 200.0,
         :infil => 0.5,
@@ -712,8 +715,9 @@ module BestestCaseVarLib
         :b1_1_note_03 => false
     ]
     variable_hash_lookup['950FF'] = [
-        :htg_set => "NONE",
-        :clg_set => 'V',
+        :htg_set => 'NONE',
+        :clg_set => 'NONE',
+        :vent => true,
         :mass => 'H',
         :int_gen => 200.0,
         :infil => 0.5,
@@ -750,8 +754,9 @@ module BestestCaseVarLib
     end
 
     # report out variables in info statements
+    runner.registerInfo("Gathering variables for BESTEST Case #{case_num}:")
     variable_hash.first.each do |k,v|
-      runner.registerInfo("For case #{case_num} the value for #{k} is #{v}")
+      runner.registerInfo("#{k} = #{v}")
     end
 
     return variable_hash

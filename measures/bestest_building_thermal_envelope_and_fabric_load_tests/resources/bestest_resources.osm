@@ -787,7 +787,7 @@ OS:Schedule:Day,
 
 OS:Schedule:Ruleset,
   {9eb4e002-d11d-4f67-9ce3-59b540dab966}, !- Handle
-  BESTEST htg Night Vent,                 !- Name
+  No Heating,                             !- Name
   {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
   {23a44cfd-6c85-4500-8a09-8f4caa97c344}; !- Default Day Schedule Name
 
@@ -798,7 +798,7 @@ OS:Schedule:Day,
   ,                                       !- Interpolate to Timestep
   24,                                     !- Hour 1
   0,                                      !- Minute 1
-  0;                                      !- Value Until Time 1
+  -100;                                   !- Value Until Time 1
 
 OS:Schedule:Ruleset,
   {d5197746-f154-4e1d-a2c4-30f2de4dfb6a}, !- Handle
@@ -841,4 +841,19 @@ OS:Schedule:Day,
   24,                                     !- Hour 3
   0,                                      !- Minute 3
   1;                                      !- Value Until Time 3
+
+OS:Schedule:Ruleset,
+  {123504c5-232c-4ecf-a59d-ae6a31399208}, !- Handle
+  No Cooling,                             !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  {0dbc2405-9493-44d2-bb4f-3e8687231e56}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {0dbc2405-9493-44d2-bb4f-3e8687231e56}, !- Handle
+  Schedule Day 5,                         !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  24,                                     !- Hour 1
+  0,                                      !- Minute 1
+  100;                                    !- Value Until Time 1
 
