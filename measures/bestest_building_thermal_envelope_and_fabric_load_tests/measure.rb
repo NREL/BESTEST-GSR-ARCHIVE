@@ -3,6 +3,7 @@
 
 # load library to map case to model variables
 require "#{File.dirname(__FILE__)}/resources/besttest_case_var_lib"
+require "#{File.dirname(__FILE__)}/resources/besttest_model_methods"
 require "#{File.dirname(__FILE__)}/resources/epw"
 
 # start the measure
@@ -203,6 +204,9 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     end
 
     # todo - opaque surface properties
+    altered_materials =  BestestModelMethods.set_opqaue_surface_properties(model,variable_hash)
+    runner.registerInfo("Surface Properties > altered #{altered_materials.uniq.size} materials.")
+
 
     # add schedule for use in measure
     always_on = OpenStudio::Model::ScheduleConstant.new(model)
