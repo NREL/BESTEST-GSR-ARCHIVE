@@ -3,25 +3,27 @@ module BestestModelMethods
   # set short wave and IR int and ext surface properties for walls and roofs
   def self.set_opqaue_surface_properties(model,variable_hash)
 
-    # todo - see if safe to alter materials in place of if they need to be cloned.
-
     # arrays
     interior_materials = []
     exterior_materials = []
     altered_materials = []
 
-    # gather interior and exterior materials for exterior wall and roof constructions
-    const_set = model.getBuilding.defaultConstructionSet.get
-    ext_constructions = const_set.defaultExteriorSurfaceConstructions.get
-    ext_wall = ext_constructions.wallConstruction.get.to_LayeredConstruction.get
-    exterior_materials << ext_wall.layers.first.to_OpaqueMaterial.get
-    interior_materials << ext_wall.layers.last.to_OpaqueMaterial.get
-    ext_roof = ext_constructions.roofCeilingConstruction.get.to_LayeredConstruction.get
-    exterior_materials << ext_roof.layers.first.to_OpaqueMaterial.get
-    interior_materials << ext_roof.layers.last.to_OpaqueMaterial.get
+    model.getDefaultConstructionSets.each do |const_set|
+      next if !const_set.name.to_s.include?("BESTEST")
+      ext_constructions = const_set.defaultExteriorSurfaceConstructions.get
+      ext_wall = ext_constructions.wallConstruction.get.to_LayeredConstruction.get
+      exterior_materials << ext_wall.layers.first.to_OpaqueMaterial.get
+      interior_materials << ext_wall.layers.last.to_OpaqueMaterial.get
+      ext_roof = ext_constructions.roofCeilingConstruction.get.to_LayeredConstruction.get
+      exterior_materials << ext_roof.layers.first.to_OpaqueMaterial.get
+      interior_materials << ext_roof.layers.last.to_OpaqueMaterial.get
+      ground_constructions = const_set.defaultGroundContactSurfaceConstructions.get
+      floor = ground_constructions.floorConstruction.get.to_LayeredConstruction.get
+      interior_materials << floor.layers.last.to_OpaqueMaterial.get
+    end
 
-    # alter materials
-    interior_materials.each do |int_mat|
+    # alter materials (ok to alter in place since no materials used on interior and exterior)
+    interior_materials.uniq.each do |int_mat|
       int_mat.setThermalAbsorptance(variable_hash[:int_ir_emit])
       if !variable_hash[:int_sw_absorpt].nil?
         int_opt_double = OpenStudio::OptionalDouble.new(variable_hash[:int_sw_absorpt])
@@ -30,7 +32,7 @@ module BestestModelMethods
       end
       altered_materials << int_mat
     end
-    exterior_materials.each do |ext_mat|
+    exterior_materials.uniq.each do |ext_mat|
       ext_mat.setThermalAbsorptance(variable_hash[:ext_ir_emit])
       if !variable_hash[:int_sw_absorpt].nil?
         ext_opt_double = OpenStudio::OptionalDouble.new(variable_hash[:ext_sw_absorpt])
@@ -39,10 +41,6 @@ module BestestModelMethods
       end
       altered_materials << ext_mat
     end
-
-    # todo - address sunspace model
-    # more than one const set to look at
-    # also need to look at interior wall
 
     return altered_materials
 

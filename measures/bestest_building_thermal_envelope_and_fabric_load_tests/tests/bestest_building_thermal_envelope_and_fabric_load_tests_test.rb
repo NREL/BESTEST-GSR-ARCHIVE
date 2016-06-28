@@ -58,7 +58,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTestsTest < MiniTest::Unit::Tes
     #assert(result.warnings.size == 0)
 
     # save the model to test output directory
-    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/test_output.osm")
+    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/600_test_output.osm")
     model.save(output_file_path,true)
   end
 
@@ -108,7 +108,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTestsTest < MiniTest::Unit::Tes
     #assert(result.warnings.size == 0)
 
     # save the model to test output directory
-    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/test_output.osm")
+    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/640_test_output.osm")
     model.save(output_file_path,true)
   end
 
@@ -158,7 +158,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTestsTest < MiniTest::Unit::Tes
     #assert(result.warnings.size == 0)
 
     # save the model to test output directory
-    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/test_output.osm")
+    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/650_test_output.osm")
     model.save(output_file_path,true)
   end
 
@@ -208,7 +208,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTestsTest < MiniTest::Unit::Tes
     #assert(result.warnings.size == 0)
 
     # save the model to test output directory
-    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/test_output.osm")
+    output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/960_test_output.osm")
     model.save(output_file_path,true)
   end
 

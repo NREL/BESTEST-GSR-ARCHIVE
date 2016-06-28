@@ -655,6 +655,11 @@ module BestestCaseVarLib
     # this case doesn't have any of the typical variables as other cases. Treat as custom solution
     variable_hash_lookup['960 - Sunspace'] = [
         :custom => true,
+        :infil => 0.5,
+        :int_ir_emit => 0.9,
+        :ext_ir_emit => 0.9,
+        :int_sw_absorpt => 0.6,
+        :ext_sw_absorpt => 0.6,
     ]
     variable_hash_lookup['600FF'] = [
         :htg_set => "NONE",

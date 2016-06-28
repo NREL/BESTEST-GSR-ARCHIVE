@@ -122,7 +122,10 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # Lookup envelope
     file_to_clone = nil
-    if variable_hash[:glass_area].nil? || variable_hash[:glass_area] == 0.0
+    if variable_hash[:custom] == true and case_num.include? '960'
+      # add in sun space geometry
+      file_to_clone = 'Bestest_Geo_Sunspace.osm'
+    elsif variable_hash[:glass_area].nil? || variable_hash[:glass_area] == 0.0
       # add in geometry with no fenestration
       file_to_clone = 'Bestest_Geo_South_0_0_0.osm'
     elsif variable_hash[:glass_area] == 12.0 and variable_hash[:orient] == 'S'
@@ -147,9 +150,6 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
         runner.registerError("Unexpected Geometry Variables for East/West Overhangs.")
         return false
       end
-    elsif variable_hash[:custom] == true and case_num.include? '960'
-      # add in sun space geometry
-      file_to_clone = 'Bestest_Geo_Sunspace.osm'
     else
       runner.registerError("Unexpected Geometry Variables.")
       return false
@@ -174,10 +174,10 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     if variable_hash[:mass] == "L"
       const_sets_to_clone << "BESTEST LT"
     elsif variable_hash[:mass] == "H"
-      const_sets_to_clone << "BESTEST HW - Typical"
+      const_sets_to_clone << "BESTEST HW"
     elsif variable_hash[:custom] == true and case_num.include? '960'
       const_sets_to_clone << "BESTEST LT"
-      const_sets_to_clone << "BESTEST - Non Glazed Zone on Sunspace Model"
+      const_sets_to_clone << "BESTEST HW"
     else
       runner.registerError("Unexpected mass value.")
       return false
@@ -197,21 +197,29 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
         end
       end
     end
-    model.getBuilding.setDefaultConstructionSet(const_sets.first)
-    runner.registerInfo("Constructions > Setting #{const_sets.first.name} as the default construction set for the building.")
-    if const_sets.size > 1
-      # todo - set sunspace const set to space if it exists.
-    end
-
-    # todo - opaque surface properties
-    if !variable_hash[:custom]
-      altered_materials =  BestestModelMethods.set_opqaue_surface_properties(model,variable_hash)
-      runner.registerInfo("Surface Properties > altered #{altered_materials.size} materials.")
+    if const_sets.size == 1
+      model.getBuilding.setDefaultConstructionSet(const_sets.first)
+      runner.registerInfo("Constructions > Setting #{const_sets.first.name} as the default construction set for the building.")
     else
-      # todo - add logic for sunspace
-      runner.registerInfo("Surface Properties > Todo - add logic for case 960 - sunspace")
+      model.getDefaultConstructionSets.each do |const_set|
+        if const_set.name.to_s == "BESTEST LT"
+          model.getBuilding.setDefaultConstructionSet(const_set)
+          runner.registerInfo("Constructions > Setting #{const_set.name} as the default construction set for the building.")
+        elsif const_set.name.to_s == "BESTEST HW"
+          # set default construction set for sun space
+          model.getSpaces.each do |space|
+            if space.name.to_s == "SUN ZONE"
+              space.setDefaultConstructionSet(const_set)
+              runner.registerInfo("Constructions > Setting #{const_set.name} as the construction set for #{space.name}.")
+            end
+          end
+        end
+      end
     end
 
+    # set opaque surface properties (no special logic needed for sun space. Internal wall from const set is correct)
+    altered_materials =  BestestModelMethods.set_opqaue_surface_properties(model,variable_hash)
+    runner.registerInfo("Surface Properties > altered #{altered_materials.uniq.size} materials.")
 
     # add schedule for use in measure
     always_on = OpenStudio::Model::ScheduleConstant.new(model)
@@ -260,13 +268,23 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
         load_inst.setSpace(model.getSpaces.first)
         runner.registerInfo("Internal Loads > Adding #{other_equip_def.name} to #{model.getSpaces.first.name}.")
       end
+    elsif variable_hash[:custom]
+      model.getSpaces.each do |space|
+        next if space.name.to_s == "SUN ZONE"
+        resource_model.getOtherEquipmentDefinitions.each do |res_cother_equip|
+          next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1 Definition"
+          other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
+          load_inst = OpenStudio::Model::OtherEquipment.new(other_equip_def)
+          load_inst.setSchedule(always_on)
+          load_inst.setSpace(space)
+          runner.registerInfo("Internal Loads > Adding #{other_equip_def.name} to #{space.name}.")
+        end
+      end
     else
-      # todo - add in logic for sunspace
       runner.registerInfo("Internal Loads > No Other Eqipment Loads added")
     end
 
     # Add infiltration
-    # todo - add in logic for sunspace
     if variable_hash[:infil]
       ach = variable_hash[:infil]
     else
@@ -298,8 +316,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       clg_setp = bestest_no_clg.clone(model).to_ScheduleRuleset.get
     elsif variable_hash[:custom]
       clg_setp = OpenStudio::Model::ScheduleConstant.new(model)
-      # todo - update logic for sunspace, not both zones conditioned
-      clg_setp.setValue(27.0) # confirm value for sunspace
+      clg_setp.setValue(27.0)
       clg_setp.setName("27.0 C")
     else
       runner.registerError("Unexpected cooling setpoint value.")
@@ -320,8 +337,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       htg_setp = bestest_no_htg.clone(model).to_ScheduleRuleset.get
     elsif variable_hash[:custom]
       htg_setp = OpenStudio::Model::ScheduleConstant.new(model)
-      # todo - update logic for sunspace, not both zones conditioned
-      htg_setp.setValue(20.0) # confirm value for sunspace
+      htg_setp.setValue(20.0)
       htg_setp.setName("20.0 C")
     else
       runner.registerError("Unexpected heating setpoint value.")
@@ -331,6 +347,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     # create thermostats
     model.getThermalZones.each do |zone|
       next if clg_setp.nil? || htg_setp.nil?
+      next if zone.name.to_s == "SUN ZONE Thermal Zone"
       thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
       thermostat.setCoolingSetpointTemperatureSchedule(clg_setp)
       thermostat.setHeatingSetpointTemperatureSchedule(htg_setp)
@@ -352,10 +369,13 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     # add in HVAC
     if !variable_hash[:ff]
       model.getThermalZones.each do |zone|
+        next if zone.name.to_s == "SUN ZONE Thermal Zone"
         zone.setUseIdealAirLoads(true)
         runner.registerInfo("HVAC > Adding ideal air loads to #{zone.name}.")
       end
     end
+
+    # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
     # todo - Add output requests
 

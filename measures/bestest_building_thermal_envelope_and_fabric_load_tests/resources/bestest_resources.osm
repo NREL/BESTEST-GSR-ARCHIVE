@@ -115,7 +115,7 @@ OS:DefaultSurfaceConstructions,
   {e3636adc-ace7-4a85-a1f3-4f9852738d39}, !- Handle
   Default Surface Constructions 2,        !- Name
   ,                                       !- Floor Construction Name
-  ,                                       !- Wall Construction Name
+  {078cbbdd-9a5e-485f-ab97-894ce1a11a08}, !- Wall Construction Name
   ;                                       !- Roof Ceiling Construction Name
 
 OS:DefaultSurfaceConstructions,
@@ -337,7 +337,7 @@ OS:OtherEquipment:Definition,
 
 OS:DefaultConstructionSet,
   {62283c6e-b080-446a-85b2-2786ebabdae8}, !- Handle
-  BESTEST HW - Typical,                   !- Name
+  BESTEST HW,                             !- Name
   {6e3dbed7-11fe-4063-a9af-a0a933b65528}, !- Default Exterior Surface Constructions Name
   {47927d8a-f18d-4e4e-86fa-b3947c1c5ab7}, !- Default Interior Surface Constructions Name
   {b0db6996-a402-4a85-b31e-55238e6ae4f3}, !- Default Ground Contact Surface Constructions Name
@@ -347,51 +347,6 @@ OS:DefaultConstructionSet,
   ,                                       !- Space Shading Construction Name
   ,                                       !- Building Shading Construction Name
   ;                                       !- Site Shading Construction Name
-
-OS:DefaultSurfaceConstructions,
-  {4a26bee5-34a8-4522-b521-7c2cad843156}, !- Handle
-  Default Surface Constructions 4,        !- Name
-  ,                                       !- Floor Construction Name
-  ,                                       !- Wall Construction Name
-  ;                                       !- Roof Ceiling Construction Name
-
-OS:DefaultSurfaceConstructions,
-  {2b70286d-1288-4951-bbc3-ec81a46fc538}, !- Handle
-  Default Surface Constructions 5,        !- Name
-  ,                                       !- Floor Construction Name
-  ,                                       !- Wall Construction Name
-  ;                                       !- Roof Ceiling Construction Name
-
-OS:DefaultSurfaceConstructions,
-  {45e007ab-8bf0-460e-b5ad-7de28771b907}, !- Handle
-  Default Surface Constructions 6,        !- Name
-  {731d0645-89aa-4668-bdc7-906c47fd00fb}, !- Floor Construction Name
-  ,                                       !- Wall Construction Name
-  ;                                       !- Roof Ceiling Construction Name
-
-OS:DefaultSubSurfaceConstructions,
-  {168e1e76-2a2e-4f6d-9a8e-0cebd1f945f3}, !- Handle
-  Default Sub Surface Constructions 3,    !- Name
-  ,                                       !- Fixed Window Construction Name
-  ,                                       !- Operable Window Construction Name
-  ,                                       !- Door Construction Name
-  ,                                       !- Glass Door Construction Name
-  ,                                       !- Overhead Door Construction Name
-  ,                                       !- Skylight Construction Name
-  ,                                       !- Tubular Daylight Dome Construction Name
-  ;                                       !- Tubular Daylight Diffuser Construction Name
-
-OS:DefaultSubSurfaceConstructions,
-  {22efb1ed-f51a-425b-996c-0bab5a6766f5}, !- Handle
-  Default Sub Surface Constructions 4,    !- Name
-  ,                                       !- Fixed Window Construction Name
-  ,                                       !- Operable Window Construction Name
-  ,                                       !- Door Construction Name
-  ,                                       !- Glass Door Construction Name
-  ,                                       !- Overhead Door Construction Name
-  ,                                       !- Skylight Construction Name
-  ,                                       !- Tubular Daylight Dome Construction Name
-  ;                                       !- Tubular Daylight Diffuser Construction Name
 
 OS:Rendering:Color,
   {267bed66-bd74-4156-b721-445de513cebd}, !- Handle
@@ -556,19 +511,6 @@ OS:Material,
   0.9,                                    !- Thermal Absorptance
   0.6,                                    !- Solar Absorptance
   0.6;                                    !- Visible Absorptance
-
-OS:DefaultConstructionSet,
-  {acc1bfc3-e1a0-4b9f-8cd3-efa0cb833fa6}, !- Handle
-  BESTEST - Non Glazed Zone on Sunspace Model, !- Name
-  {4a26bee5-34a8-4522-b521-7c2cad843156}, !- Default Exterior Surface Constructions Name
-  {2b70286d-1288-4951-bbc3-ec81a46fc538}, !- Default Interior Surface Constructions Name
-  {45e007ab-8bf0-460e-b5ad-7de28771b907}, !- Default Ground Contact Surface Constructions Name
-  {168e1e76-2a2e-4f6d-9a8e-0cebd1f945f3}, !- Default Exterior SubSurface Constructions Name
-  {22efb1ed-f51a-425b-996c-0bab5a6766f5}, !- Default Interior SubSurface Constructions Name
-  ,                                       !- Interior Partition Construction Name
-  ,                                       !- Space Shading Construction Name
-  ,                                       !- Building Shading Construction Name
-  ;                                       !- Site Shading Construction Name
 
 OS:DefaultSurfaceConstructions,
   {6e3dbed7-11fe-4063-a9af-a0a933b65528}, !- Handle
@@ -856,4 +798,12 @@ OS:Schedule:Day,
   24,                                     !- Hour 1
   0,                                      !- Minute 1
   100;                                    !- Value Until Time 1
+
+OS:StandardsInformation:Construction,
+  {4c4cfb0e-e38b-4f94-a001-7c4491d034a1}, !- Handle
+  {cfb06c81-4081-41ce-bfe8-3c45f42d8dc6}; !- Construction Name
+
+OS:StandardsInformation:Construction,
+  {2a14adaa-ea1c-49f8-892e-5093e6f13822}, !- Handle
+  {6926776e-bb14-4c7a-a008-6fc21741f628}; !- Construction Name
 
