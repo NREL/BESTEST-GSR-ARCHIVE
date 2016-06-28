@@ -21,17 +21,23 @@ module BestestModelMethods
     interior_materials << ext_roof.layers.last.to_OpaqueMaterial.get
 
     # alter materials
-    # todo - confirm that I mapped values correctly
-    # todo - add in check if int_sw_absorpt is NA
     interior_materials.each do |int_mat|
-      #int_mat.setThermalAbsorptance(variable_hash[:int_ir_emit])
-      #int_mat.setSolarAbsorptance(variable_hash[:int_sw_absorpt])
-      #altered_materials << altered_materials
+      int_mat.setThermalAbsorptance(variable_hash[:int_ir_emit])
+      if !variable_hash[:int_sw_absorpt].nil?
+        int_opt_double = OpenStudio::OptionalDouble.new(variable_hash[:int_sw_absorpt])
+        int_mat.setSolarAbsorptance(int_opt_double)
+        int_mat.setSolarAbsorptance(int_opt_double)
+      end
+      altered_materials << int_mat
     end
-    interior_materials.each do |int_mat|
-      #int_mat.setThermalAbsorptance(variable_hash[:int_ir_emit])
-      #int_mat.setSolarAbsorptance(variable_hash[:int_sw_absorpt])
-      #altered_materials << altered_materials
+    exterior_materials.each do |ext_mat|
+      ext_mat.setThermalAbsorptance(variable_hash[:ext_ir_emit])
+      if !variable_hash[:int_sw_absorpt].nil?
+        ext_opt_double = OpenStudio::OptionalDouble.new(variable_hash[:ext_sw_absorpt])
+        ext_mat.setSolarAbsorptance(ext_opt_double)
+        ext_mat.setSolarAbsorptance(ext_opt_double)
+      end
+      altered_materials << ext_mat
     end
 
     # todo - address sunspace model

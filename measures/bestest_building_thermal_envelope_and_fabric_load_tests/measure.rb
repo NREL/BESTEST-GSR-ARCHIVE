@@ -204,8 +204,13 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     end
 
     # todo - opaque surface properties
-    altered_materials =  BestestModelMethods.set_opqaue_surface_properties(model,variable_hash)
-    runner.registerInfo("Surface Properties > altered #{altered_materials.uniq.size} materials.")
+    if !variable_hash[:custom]
+      altered_materials =  BestestModelMethods.set_opqaue_surface_properties(model,variable_hash)
+      runner.registerInfo("Surface Properties > altered #{altered_materials.size} materials.")
+    else
+      # todo - add logic for sunspace
+      runner.registerInfo("Surface Properties > Todo - add logic for case 960 - sunspace")
+    end
 
 
     # add schedule for use in measure
