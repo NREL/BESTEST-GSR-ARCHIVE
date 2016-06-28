@@ -377,6 +377,8 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
+    # todo - need to address notes from Table B1-1 and B1-2
+
     # todo - Add output requests
 
     # report final condition of model

@@ -4,7 +4,7 @@ module BestestCaseVarLib
   def self.bestest_5_2_3_case_defs()
 
     variable_hash_lookup = {}
-    variable_hash_lookup['195'] = [
+    variable_hash_lookup['195 - Solid Conduction Test'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -23,7 +23,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => true,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['200'] = [
+    variable_hash_lookup['200 - Surface Convection/Infrared Radiation'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -42,7 +42,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => true
     ]
-    variable_hash_lookup['210'] = [
+    variable_hash_lookup['210 - Interior Infrared Radiation'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -61,7 +61,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['215'] = [
+    variable_hash_lookup['215 - Exterior Infrared Radiation'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -80,7 +80,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['220'] = [
+    variable_hash_lookup['220 - In-Depth Series Base Case'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -99,7 +99,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['230'] = [
+    variable_hash_lookup['230 - Infiltration'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -118,7 +118,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['240'] = [
+    variable_hash_lookup['240 - Internal Gains'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -137,7 +137,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['250'] = [
+    variable_hash_lookup['250 - Exterior Shortwave Absorptance'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -156,7 +156,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['270'] = [
+    variable_hash_lookup['270 - South Solar Gains'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -175,7 +175,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['280'] = [
+    variable_hash_lookup['280 - Cavity Albedo'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -194,7 +194,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['290'] = [
+    variable_hash_lookup['290 - South Shading'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -213,7 +213,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['300'] = [
+    variable_hash_lookup['300 - East/West Window Orientation'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -232,7 +232,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['310'] = [
+    variable_hash_lookup['310 - East/West Shading'] = [
         :htg_set => 20.0,
         :clg_set => 20.0,
         :mass => 'L',
@@ -251,7 +251,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['320'] = [
+    variable_hash_lookup['320 - Thermostat'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -270,7 +270,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['395'] = [
+    variable_hash_lookup['395 - Solid Conduction Test'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -289,7 +289,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => true,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['400'] = [
+    variable_hash_lookup['400 - Opaque Windows with Deadband'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -308,7 +308,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['410'] = [
+    variable_hash_lookup['410 - Infiltration'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -327,7 +327,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['420'] = [
+    variable_hash_lookup['420 - Internal Gains'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -346,7 +346,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['430'] = [
+    variable_hash_lookup['430 - Exterior Shortwave Absorptance'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -365,7 +365,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['440'] = [
+    variable_hash_lookup['440 - Cavity Albedo'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -422,7 +422,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['620 - East West Window Orientation'] = [
+    variable_hash_lookup['620 - East/West Window Orientation'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -441,7 +441,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['630 - East West Shading'] = [
+    variable_hash_lookup['630 - East/West Shading'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'L',
@@ -499,7 +499,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['800'] = [
+    variable_hash_lookup['800 - High-Mass without Solar Gains'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -518,7 +518,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['810'] = [
+    variable_hash_lookup['810 - High-Mass Cavity Albedo'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -537,7 +537,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['900 - High Mass Base Case'] = [
+    variable_hash_lookup['900 - High-Mass Base Case'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -556,7 +556,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['910 - High Mass South Shading'] = [
+    variable_hash_lookup['910 - High-Mass South Shading'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -575,7 +575,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['920 - High Mass East West Window Orientation'] = [
+    variable_hash_lookup['920 - High-Mass East/West Window Orientation'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -594,7 +594,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['930 - High Mass East West Shading'] = [
+    variable_hash_lookup['930 - High-Mass East/West Shading'] = [
         :htg_set => 20.0,
         :clg_set => 27.0,
         :mass => 'H',
@@ -613,7 +613,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['940 - High Mass Thermostat Setback'] = [
+    variable_hash_lookup['940 - High-Mass Thermostat Setback'] = [
         :htg_set => 'SETBACK',
         :clg_set => 'SETBACK',
         :mass => 'H',
@@ -632,7 +632,7 @@ module BestestCaseVarLib
         :b1_1_note_02 => false,
         :b1_1_note_03 => false
     ]
-    variable_hash_lookup['950 - High Mass Night Ventilation'] = [
+    variable_hash_lookup['950 - High-Mass Night Ventilation'] = [
         :htg_set => 'NONE',
         :clg_set => 27.0,
         :vent => true,
