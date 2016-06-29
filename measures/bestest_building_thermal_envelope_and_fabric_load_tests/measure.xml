@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_tests</name>
   <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
-  <version_id>dbfa233b-a417-4b31-82a8-5dcee651eb6d</version_id>
-  <version_modified>20160629T065328Z</version_modified>
+  <version_id>dc026f7f-1d77-46cc-84ce-a853703c30b6</version_id>
+  <version_modified>20160629T213134Z</version_modified>
   <xml_checksum>28AD5222</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadTests</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Tests</display_name>
@@ -276,22 +276,28 @@
       <checksum>0765C5F0</checksum>
     </file>
     <file>
-      <filename>besttest_model_methods.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>120C8914</checksum>
-    </file>
-    <file>
       <filename>besttest_case_var_lib.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
       <checksum>C4964D32</checksum>
     </file>
     <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>912539D1</checksum>
+    </file>
+    <file>
       <filename>bestest_building_thermal_envelope_and_fabric_load_tests_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
-      <checksum>8F116580</checksum>
+      <checksum>940E7775</checksum>
+    </file>
+    <file>
+      <filename>besttest_model_methods.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>D8D95427</checksum>
     </file>
     <file>
       <version>
@@ -302,13 +308,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>A5C55BB2</checksum>
-    </file>
-    <file>
-      <filename>bestest_resources.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>A227398B</checksum>
+      <checksum>4728A7D0</checksum>
     </file>
   </files>
 </measure>

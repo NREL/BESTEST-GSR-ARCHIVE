@@ -239,10 +239,10 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     altered_materials =  BestestModelMethods.set_opqaue_surface_properties(model,variable_hash)
     runner.registerInfo("Surface Properties > altered #{altered_materials.uniq.size} materials.")
 
-    # add schedule for use in measure
-    always_on = OpenStudio::Model::ScheduleConstant.new(model)
-    always_on.setValue(1.0)
-    always_on.setName("Always On")
+    # add schedule for use in measure (constant schedule was failing ot set for infiltration)
+    #always_on = OpenStudio::Model::ScheduleConstant.new(model)
+    #always_on.setValue(1.0)
+    #always_on.setName("Always On")
 
     # this method doesn't work on server 1.10.6 but is more direct
     #bestest_htg_setback = resource_model.getModelObjectByName("BESTEST htg SETBACK").get.to_ScheduleRuleset.get
@@ -252,6 +252,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     #bestest_no_clg = resource_model.getModelObjectByName("No Cooling").get.to_ScheduleRuleset.get
 
     # look up names for schedules that might be needed
+    always_on = nil
     bestest_htg_setback = nil
     bestest_clg_night_vent = nil
     bestest_night_vent = nil
@@ -269,6 +270,8 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
           bestest_no_htg = schedule
         when "No Cooling"
           bestest_no_clg = schedule
+        when "Always On Ruleset Fractional"
+          always_on = schedule
       end
     end
 
@@ -282,7 +285,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
         next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1 Definition"
         other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
         load_inst = OpenStudio::Model::OtherEquipment.new(other_equip_def)
-        load_inst.setSchedule(always_on)
+        load_inst.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
         load_inst.setSpace(model.getSpaces.first)
         runner.registerInfo("Internal Loads > Adding #{other_equip_def.name} to #{model.getSpaces.first.name}.")
       end
@@ -293,7 +296,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
           next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1 Definition"
           other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
           load_inst = OpenStudio::Model::OtherEquipment.new(other_equip_def)
-          load_inst.setSchedule(always_on)
+          load_inst.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
           load_inst.setSpace(space)
           runner.registerInfo("Internal Loads > Adding #{other_equip_def.name} to #{space.name}.")
         end
@@ -312,7 +315,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       infil = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(model)
       infil.setAirChangesperHour(ach)
       infil.setSpace(space)
-      infil.setSchedule(always_on)
+      infil.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
       runner.registerInfo("Infiltration > Setting to #{infil.airChangesperHour} ACH for #{space.name}.")
     end
 
@@ -380,7 +383,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       zone_ventilation.setVentilationType("Natural")
       zone_ventilation.setDesignFlowRateCalculationMethod("AirChanges/Hour")
       zone_ventilation.setAirChangesperHour(13.14)
-      zone_ventilation.setSchedule(bestest_night_vent)
+      zone_ventilation.setSchedule(bestest_night_vent.clone(model).to_ScheduleRuleset.get)
       runner.registerInfo("Ventilation > Creating zone ventilation design flow rate object with ventilation rate of #{zone_ventilation.airChangesperHour} ACH")
     end
 
@@ -395,9 +398,17 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
-    # todo - need to address notes from Table B1-1 and B1-2
-
     # todo - Add output requests
+    # this gather any non standard output requests. Analysis of output such as binning temps for FF will occur in reporting measure
+    # Table 6-1 describes the specific day of results that will be used for testing
+    if case_num.include? 'FF'
+      BestestModelMethods.add_output_variable(runner,model,nil,'Zone Mean Air Temperature','hourly')
+    else
+      BestestModelMethods.add_output_variable(runner,model,nil,'Zone Air System Sensible Heating Energy','hourly')
+      BestestModelMethods.add_output_variable(runner,model,nil,'Zone Air System Sensible Cooling Energy','hourly')
+      BestestModelMethods.add_output_variable(runner,model,nil,'Zone Windows Total Transmitted Solar Radiation Energy','hourly')
+      BestestModelMethods.add_output_variable(runner,model,nil,'Surface Outside Face Incident Solar Radiation Rate per Area','hourly')
+    end
 
     # report final condition of model
     runner.registerFinalCondition("The final model named #{model.getBuilding.name} has #{model.numObjects} objects.")

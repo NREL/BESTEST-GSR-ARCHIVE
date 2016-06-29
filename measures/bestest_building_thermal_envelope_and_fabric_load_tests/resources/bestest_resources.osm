@@ -863,3 +863,18 @@ OS:StandardsInformation:Material,
   {9647ca96-c535-4fdb-a594-84aa0935c592}, !- Handle
   {aaaf3fbf-fdb2-4e02-a2dd-86260bddb11d}; !- Material Name
 
+OS:Schedule:Ruleset,
+  {5c95a3a0-b7cb-46d0-bd57-a6cc75bdded7}, !- Handle
+  Always On Ruleset Fractional,           !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  {4c0eacce-1027-47f3-92de-4a587e2e1b32}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {4c0eacce-1027-47f3-92de-4a587e2e1b32}, !- Handle
+  Schedule Day 6,                         !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  24,                                     !- Hour 1
+  0,                                      !- Minute 1
+  1;                                      !- Value Until Time 1
+

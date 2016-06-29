@@ -46,4 +46,15 @@ module BestestModelMethods
 
   end
 
+  def self.add_output_variable(runner,model,key_value,variable_name,reporting_frequency)
+
+    output_variable = OpenStudio::Model::OutputVariable.new(variable_name,model)
+    output_variable.setReportingFrequency(reporting_frequency)
+    if !key_value.nil?
+      output_variable.setKeyValue(key_value)
+    end
+    runner.registerInfo("Output >> #{key_value},#{output_variable.variableName}, #{reporting_frequency}")
+
+  end
+
 end
