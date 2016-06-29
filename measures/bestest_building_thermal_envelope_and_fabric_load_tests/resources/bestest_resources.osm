@@ -130,7 +130,7 @@ OS:DefaultSubSurfaceConstructions,
   Default Sub Surface Constructions 1,    !- Name
   {9fd92886-5d3b-400f-a813-dde30810e5fb}, !- Fixed Window Construction Name
   ,                                       !- Operable Window Construction Name
-  ,                                       !- Door Construction Name
+  {44b69480-6a94-49d0-a22e-0299ae70b5c3}, !- Door Construction Name
   ,                                       !- Glass Door Construction Name
   ,                                       !- Overhead Door Construction Name
   ,                                       !- Skylight Construction Name
@@ -538,7 +538,7 @@ OS:DefaultSubSurfaceConstructions,
   Default Sub Surface Constructions 5,    !- Name
   {9fd92886-5d3b-400f-a813-dde30810e5fb}, !- Fixed Window Construction Name
   ,                                       !- Operable Window Construction Name
-  ,                                       !- Door Construction Name
+  {44b69480-6a94-49d0-a22e-0299ae70b5c3}, !- Door Construction Name
   ,                                       !- Glass Door Construction Name
   ,                                       !- Overhead Door Construction Name
   ,                                       !- Skylight Construction Name
@@ -806,4 +806,60 @@ OS:StandardsInformation:Construction,
 OS:StandardsInformation:Construction,
   {2a14adaa-ea1c-49f8-892e-5093e6f13822}, !- Handle
   {6926776e-bb14-4c7a-a008-6fc21741f628}; !- Construction Name
+
+OS:Construction,
+  {44b69480-6a94-49d0-a22e-0299ae70b5c3}, !- Handle
+  HIGH CONDUCTANCE WALL,                  !- Name
+  {88df439a-4f0f-47c2-a8f4-136d3f1f5ce8}, !- Surface Rendering Name
+  {aaaf3fbf-fdb2-4e02-a2dd-86260bddb11d}, !- Layer 1
+  {4afcb0c0-40e8-495f-8dcf-ae2dfba24a3f}, !- Layer 2
+  {9e9c65e6-7ff1-41b6-943a-fc820bd8b884}; !- Layer 3
+
+OS:Rendering:Color,
+  {88df439a-4f0f-47c2-a8f4-136d3f1f5ce8}, !- Handle
+  Rendering Color 12,                     !- Name
+  75,                                     !- Rendering Red Value
+  0,                                      !- Rendering Green Value
+  130;                                    !- Rendering Blue Value
+
+OS:Material,
+  {aaaf3fbf-fdb2-4e02-a2dd-86260bddb11d}, !- Handle
+  HIGH CONDUCTANCE WALL-OUTSIDE,          !- Name
+  VerySmooth,                             !- Roughness
+  0.003175,                               !- Thickness {m}
+  1.06,                                   !- Conductivity {W/m-K}
+  2500,                                   !- Density {kg/m3}
+  750,                                    !- Specific Heat {J/kg-K}
+  0.1,                                    !- Thermal Absorptance
+  0.1,                                    !- Solar Absorptance
+  0.1;                                    !- Visible Absorptance
+
+OS:Material:AirGap,
+  {4afcb0c0-40e8-495f-8dcf-ae2dfba24a3f}, !- Handle
+  Air Space Resistance 1,                 !- Name
+  0.1588;                                 !- Thermal Resistance {m2-K/W}
+
+OS:Material,
+  {9e9c65e6-7ff1-41b6-943a-fc820bd8b884}, !- Handle
+  HIGH CONDUCTANCE WALL-INSIDE,           !- Name
+  VerySmooth,                             !- Roughness
+  0.003175,                               !- Thickness {m}
+  1.06,                                   !- Conductivity {W/m-K}
+  2500,                                   !- Density {kg/m3}
+  750,                                    !- Specific Heat {J/kg-K}
+  0.1,                                    !- Thermal Absorptance
+  0.1,                                    !- Solar Absorptance
+  0.1;                                    !- Visible Absorptance
+
+OS:StandardsInformation:Construction,
+  {b759166f-ba26-4d12-821a-e4d67eba4a33}, !- Handle
+  {44b69480-6a94-49d0-a22e-0299ae70b5c3}; !- Construction Name
+
+OS:StandardsInformation:Material,
+  {0b3f5962-ff6b-48de-80cc-c92db8085330}, !- Handle
+  {4afcb0c0-40e8-495f-8dcf-ae2dfba24a3f}; !- Material Name
+
+OS:StandardsInformation:Material,
+  {9647ca96-c535-4fdb-a594-84aa0935c592}, !- Handle
+  {aaaf3fbf-fdb2-4e02-a2dd-86260bddb11d}; !- Material Name
 

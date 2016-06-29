@@ -125,10 +125,10 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     if variable_hash[:custom] == true and case_num.include? '960'
       # add in sun space geometry
       file_to_clone = 'Bestest_Geo_Sunspace.osm'
-    elsif variable_hash[:glass_area].nil? || variable_hash[:glass_area] == 0.0
+    elsif case_num.include? '195' || '395'
       # add in geometry with no fenestration
       file_to_clone = 'Bestest_Geo_South_0_0_0.osm'
-    elsif variable_hash[:glass_area] == 12.0 and variable_hash[:orient] == 'S'
+   elsif variable_hash[:orient] == 'S'
       if variable_hash[:shade] == false
         # add in south glazing without an overhang
         file_to_clone = 'Bestest_Geo_South_12_0_0.osm'
@@ -139,7 +139,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
         runner.registerError("Unexpected Geometry Variables for South Overhangs.")
         return false
       end
-    elsif variable_hash[:glass_area] == 6.0 and variable_hash[:orient] == 'E,W'
+    elsif variable_hash[:orient] == 'E,W'
       if variable_hash[:shade] == false
         # add in east/west glazing without an overhang
         file_to_clone = 'Bestest_Geo_EastWest_6_0_0.osm'
@@ -161,6 +161,24 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     geo_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_to_clone}")
     geo_model = translator.loadModel(geo_path).get
     geo_model.getBuilding.clone(model)
+
+    # if no windows then replace winodws with doors except for case 195 and 295
+    if variable_hash[:glass_area].nil? || variable_hash[:glass_area] == 0.0
+      no_windows = true
+    else
+      no_windows = false
+    end
+    if case_num.include?'195' || '395' || '960'
+      add_doors = false
+    else
+      add_doors = true
+    end
+    if no_windows and add_doors
+      model.getSubSurfaces.each do |sub_surface|
+        sub_surface.setSubSurfaceType("Door")
+      end
+      runner.registerInfo("Envelope > Replacing windows with doors as high conductance walls.")
+    end
 
     # Load resource file
     file_resource = "bestest_resources.osm"
