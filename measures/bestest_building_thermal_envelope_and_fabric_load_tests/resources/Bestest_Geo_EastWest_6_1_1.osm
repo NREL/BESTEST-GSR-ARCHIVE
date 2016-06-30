@@ -10,7 +10,6 @@ OS:Site,
   -104.9,                                 !- Longitude {deg}
   -7,                                     !- Time Zone {hr}
   1609,                                   !- Elevation {m}
-  1609,                                   !- Elevation {m}
   Country;                                !- Terrain
 
 OS:ShadingSurface,

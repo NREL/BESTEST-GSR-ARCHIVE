@@ -80,48 +80,25 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # todo - Adjust simulation settings if necessary
 
-    # todo - Add weather file and design day objects (figure out why not working)
-    @weather_directory = File.dirname(__FILE__) + "/resources/"
+    # Add weather file and design day objects (won't work in apply measures now)
+    top_dir = File.dirname(__FILE__)
+    weather_dir = "#{top_dir}/resources/"
     weather_file_name = "DRYCOLDTMY.epw"
-
-    #Add Weather File
-    unless (Pathname.new @weather_directory).absolute?
-      @weather_directory = File.expand_path(File.join(File.dirname(__FILE__), @weather_directory))
-    end
-
-    # Check if the weather file is a ZIP, if so, then unzip and read the EPW file.
-    weather_file = File.join(@weather_directory, weather_file_name)
-
-    # Parse the EPW manually because OpenStudio can't handle multiyear weather files (or DATA PERIODS with YEARS)
-    epw_file = OpenStudio::Weather::Epw.load(weather_file)
-
-    weather_file = model.getWeatherFile
-    weather_file.setCity(epw_file.city)
-    weather_file.setStateProvinceRegion(epw_file.state)
-    weather_file.setCountry(epw_file.country)
-    weather_file.setDataSource(epw_file.data_type)
-    weather_file.setWMONumber(epw_file.wmo.to_s)
-    weather_file.setLatitude(epw_file.lat)
-    weather_file.setLongitude(epw_file.lon)
-    weather_file.setTimeZone(epw_file.gmt)
-    weather_file.setElevation(epw_file.elevation)
-    weather_file.setString(10, "file:///#{epw_file.filename}")
-
-    weather_name = "#{epw_file.city}_#{epw_file.state}_#{epw_file.country}"
-    weather_lat = epw_file.lat
-    weather_lon = epw_file.lon
-    weather_time = epw_file.gmt
+    weather_file = File.join(weather_dir, weather_file_name)
+    epw_file = OpenStudio::EpwFile.new(weather_file)
+    weather_object = OpenStudio::Model::WeatherFile.setWeatherFile(model, epw_file).get
+    weather_name = "#{epw_file.city}_#{epw_file.stateProvinceRegion}_#{epw_file.country}"
+    weather_lat = epw_file.latitude
+    weather_lon = epw_file.longitude
+    weather_time = epw_file.timeZone
     weather_elev = epw_file.elevation
-
-    # Add or update site data
     site = model.getSite
     site.setName(weather_name)
     site.setLatitude(weather_lat)
     site.setLongitude(weather_lon)
     site.setTimeZone(weather_time)
     site.setElevation(weather_elev)
-
-    runner.registerInfo("Weather > Setting weather file to #{weather_file.getString(10)}")
+    runner.registerInfo("Weather > setting weather to #{weather_object.url.get}")
 
     # Lookup envelope
     file_to_clone = nil
