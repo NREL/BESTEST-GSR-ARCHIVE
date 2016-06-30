@@ -622,7 +622,7 @@ OS:Timestep,
 
 OS:Building,
   {5abe73fc-3b41-4571-be83-10d3ac29c048}, !- Handle
-  BESTEST Case 620,                       !- Name
+  Bestest_Geo_EastWest_6_0_0,             !- Name
   ,                                       !- Building Sector Type
   0,                                      !- North Axis {deg}
   ,                                       !- Nominal Floor to Floor Height {m}

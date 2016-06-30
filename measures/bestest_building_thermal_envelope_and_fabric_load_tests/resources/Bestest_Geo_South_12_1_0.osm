@@ -14,7 +14,7 @@ OS:Site,
 
 OS:Building,
   {1285c6ad-7cc0-4b1b-b9dc-4c9dab257daf}, !- Handle
-  BESTEST Case 610,                       !- Name
+  Bestest_Geo_EastWest_12_1_0,            !- Name
   ,                                       !- Building Sector Type
   0,                                      !- North Axis {deg}
   ,                                       !- Nominal Floor to Floor Height {m}

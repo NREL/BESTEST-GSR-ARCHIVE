@@ -63,6 +63,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # assign the user inputs to variables
     case_num = runner.getStringArgumentValue("case_num", user_arguments)
+    runner.registerInfo("Full case number: #{case_num}")
 
     # report initial condition of model
     runner.registerInitialCondition("The initial model named #{model.getBuilding.name} has #{model.numObjects} objects.")
@@ -77,18 +78,22 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       variable_hash = variable_hash.first
     end
 
-    # rename the building
-    model.getBuilding.setName("BESTEST Case #{case_num}")
-    runner.registerInfo("Creating model for #{model.getBuilding.name}:")
-
     # todo - Adjust simulation settings if necessary
 
-=begin
     # todo - Add weather file and design day objects (figure out why not working)
-    epw = 'DRYCOLDTMY.epw'
-    runner.registerInfo("Setting weather file to  #{epw}")
-    epw_path = File.dirname(__FILE__) + "/resources/" + "#{epw}"
-    epw_file = OpenStudio::Weather::Epw.load(epw_path)
+    @weather_directory = File.dirname(__FILE__) + "/resources/"
+    weather_file_name = "DRYCOLDTMY.epw"
+
+    #Add Weather File
+    unless (Pathname.new @weather_directory).absolute?
+      @weather_directory = File.expand_path(File.join(File.dirname(__FILE__), @weather_directory))
+    end
+
+    # Check if the weather file is a ZIP, if so, then unzip and read the EPW file.
+    weather_file = File.join(@weather_directory, weather_file_name)
+
+    # Parse the EPW manually because OpenStudio can't handle multiyear weather files (or DATA PERIODS with YEARS)
+    epw_file = OpenStudio::Weather::Epw.load(weather_file)
 
     weather_file = model.getWeatherFile
     weather_file.setCity(epw_file.city)
@@ -100,8 +105,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     weather_file.setLongitude(epw_file.lon)
     weather_file.setTimeZone(epw_file.gmt)
     weather_file.setElevation(epw_file.elevation)
-    weather_file.setString(10, epw_path)
-    runner.registerInfo("weather file path is #{weather_file.getString(10)}")
+    weather_file.setString(10, "file:///#{epw_file.filename}")
 
     weather_name = "#{epw_file.city}_#{epw_file.state}_#{epw_file.country}"
     weather_lat = epw_file.lat
@@ -117,8 +121,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     site.setTimeZone(weather_time)
     site.setElevation(weather_elev)
 
-    runner.registerInfo("city is #{epw_file.city}. State is #{epw_file.state}")
-=end
+    runner.registerInfo("Weather > Setting weather file to #{weather_file.getString(10)}")
 
     # Lookup envelope
     file_to_clone = nil
@@ -396,9 +399,13 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       end
     end
 
+    # rename the building
+    model.getBuilding.setName("BESTEST Case #{case_num}")
+    runner.registerInfo("Renaming Building > #{model.getBuilding.name}:")
+
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
-    # todo - Add output requests
+    # todo - Add output requests (consider adding to case hash instead of adding logic here)
     # this gather any non standard output requests. Analysis of output such as binning temps for FF will occur in reporting measure
     # Table 6-1 describes the specific day of results that will be used for testing
     if case_num.include? 'FF'

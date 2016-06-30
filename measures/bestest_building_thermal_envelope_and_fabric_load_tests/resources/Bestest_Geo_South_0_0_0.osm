@@ -552,7 +552,7 @@ OS:ShadowCalculation,
 
 OS:Building,
   {0890f5e7-f78a-4794-92e2-0069ee804436}, !- Handle
-  BESTEST Case 600,                       !- Name
+  Bestest_Geo_EastWest_0_0_0,             !- Name
   ,                                       !- Building Sector Type
   0,                                      !- North Axis {deg}
   ,                                       !- Nominal Floor to Floor Height {m}

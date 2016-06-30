@@ -10,6 +10,7 @@ OS:Site,
   -104.9,                                 !- Longitude {deg}
   -7,                                     !- Time Zone {hr}
   1609,                                   !- Elevation {m}
+  1609,                                   !- Elevation {m}
   Country;                                !- Terrain
 
 OS:ShadingSurface,
@@ -771,7 +772,7 @@ OS:Surface,
 
 OS:Building,
   {818e4826-af25-4eed-80d8-25343da428b9}, !- Handle
-  BESTEST Case 630,                       !- Name
+  Bestest_Geo_EastWest_6_1_1,             !- Name
   ,                                       !- Building Sector Type
   0,                                      !- North Axis {deg}
   ,                                       !- Nominal Floor to Floor Height {m}

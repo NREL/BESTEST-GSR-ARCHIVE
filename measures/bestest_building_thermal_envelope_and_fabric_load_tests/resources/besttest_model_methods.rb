@@ -53,7 +53,7 @@ module BestestModelMethods
     if !key_value.nil?
       output_variable.setKeyValue(key_value)
     end
-    runner.registerInfo("Output >> #{key_value},#{output_variable.variableName}, #{reporting_frequency}")
+    runner.registerInfo("Output Reqeust > #{key_value},#{output_variable.variableName}, #{reporting_frequency}")
 
   end
 

@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_tests</name>
   <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
-  <version_id>dc026f7f-1d77-46cc-84ce-a853703c30b6</version_id>
-  <version_modified>20160629T213134Z</version_modified>
+  <version_id>be81484f-1e1b-4892-ab79-39d961927185</version_id>
+  <version_modified>20160630T181914Z</version_modified>
   <xml_checksum>28AD5222</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadTests</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Tests</display_name>
@@ -228,52 +228,10 @@
       <checksum>08DEB5B3</checksum>
     </file>
     <file>
-      <filename>Bestest_empty.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>test</usage_type>
-      <checksum>9154D00E</checksum>
-    </file>
-    <file>
       <filename>epw.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
       <checksum>32A9564D</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>E3715FF9</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_EastWest_6_1_1.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>085C4BDA</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_South_0_0_0.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>84596F06</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_South_12_0_0.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>456DBF66</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_South_12_1_0.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>3292F23C</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_Sunspace.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>0765C5F0</checksum>
     </file>
     <file>
       <filename>besttest_case_var_lib.rb</filename>
@@ -294,10 +252,52 @@
       <checksum>940E7775</checksum>
     </file>
     <file>
+      <filename>Bestest_empty.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>0603845B</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>6383BB39</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_1_1.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>3A7F777E</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_0_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>98647AC3</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>491C884E</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_1_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>7D0BEC9B</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_Sunspace.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>E546D4DD</checksum>
+    </file>
+    <file>
       <filename>besttest_model_methods.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>D8D95427</checksum>
+      <checksum>ACC4FB42</checksum>
     </file>
     <file>
       <version>
@@ -308,7 +308,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>4728A7D0</checksum>
+      <checksum>25B5C6F1</checksum>
     </file>
   </files>
 </measure>
