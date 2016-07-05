@@ -135,7 +135,7 @@ module OsLib_Reporting
     target_units = 'kBtu/ft^2'
     if query_results.get > 0.0 # don't calculate EUI if building doesn't have any area
       value = OpenStudio.convert(eui, source_units, target_units).get
-      value_neat = OpenStudio.toNeatString(value, 2, true)
+      value_neat = OpenStudio.toNeatString(value, 4, true)
       runner.registerValue(display.downcase.gsub(" ","_"), value, target_units) # is it ok not to calc EUI if no area in model
     else
       value_neat = "can't calculate EUI."
@@ -163,13 +163,137 @@ module OsLib_Reporting
     # create table
     table_01 = {}
     table_01[:title] = 'Annual and Peak Heating And Sensible Cooling'
-    table_01[:header] = ['Type','Annual Consumpiton','Peak Value','Peak Month','Peak Day','Peak Hour']
+    table_01[:header] = ['Type','Annual Consumption','Peak Value','Peak Time']
     table_01[:units] = ['','MWh','kW']
     table_01[:data] = []
 
+    # annual heating
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='EnergyMeters' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='Annual and Peak Values - Other' and "
+    query << "RowName='Heating:EnergyTransfer' and "
+    query << "ColumnName='Annual Value' and "
+    query << "Units='GJ';"
+    query_results = sqlFile.execAndReturnFirstDouble(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for heating end use.')
+      return false
+    else
+      display = 'Annual Heating'
+      source_units = 'GJ'
+      target_units = 'MWh'
+      value = OpenStudio.convert(query_results.get, source_units, target_units).get
+      annual_htg_value_neat = OpenStudio.toNeatString(value, 4, true)
+      runner.registerValue(display.downcase.gsub(" ","_"), value, target_units)
+    end
+
+    # annual cooling
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='EnergyMeters' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='Annual and Peak Values - Other' and "
+    query << "RowName='Cooling:EnergyTransfer' and "
+    query << "ColumnName='Annual Value' and "
+    query << "Units='GJ';"
+    query_results = sqlFile.execAndReturnFirstDouble(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for cooling end use.')
+      return false
+    else
+      display = 'Annual Cooling'
+      source_units = 'GJ'
+      target_units = 'MWh'
+      value = OpenStudio.convert(query_results.get, source_units, target_units).get
+      annual_clg_value_neat = OpenStudio.toNeatString(value, 4, true)
+      runner.registerValue(display.downcase.gsub(" ","_"), value, target_units)
+    end
+
+    # peak heating
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='EnergyMeters' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='Annual and Peak Values - Other' and "
+    query << "RowName='Heating:EnergyTransfer' and "
+    query << "ColumnName='Maximum Value' and "
+    query << "Units='W';"
+    query_results = sqlFile.execAndReturnFirstDouble(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for heating peak value.')
+      return false
+    else
+      display = 'Peak Heating Value'
+      source_units = 'W'
+      target_units = 'kW'
+      value = OpenStudio.convert(query_results.get, source_units, target_units).get
+      peak_htg_value_neat = OpenStudio.toNeatString(value, 4, true)
+      runner.registerValue(display.downcase.gsub(" ","_"), value, target_units)
+    end
+
+    # peak heating time
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='EnergyMeters' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='Annual and Peak Values - Other' and "
+    query << "RowName='Heating:EnergyTransfer' and "
+    query << "ColumnName='Timestamp of Maximum {TIMESTAMP}' and "
+    query << "Units='';"
+    query_results = sqlFile.execAndReturnFirstString(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for heating peak timestep.')
+      return false
+    else
+      display = 'Peak Heating Time'
+      source_units = 'TIMESTEP'
+      target_units = 'TIMESTEP'
+      peak_htg_time = query_results.get
+      runner.registerValue(display.downcase.gsub(" ","_"), peak_htg_time, target_units)
+    end
+
+    # peak cooling
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='EnergyMeters' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='Annual and Peak Values - Other' and "
+    query << "RowName='Cooling:EnergyTransfer' and "
+    query << "ColumnName='Maximum Value' and "
+    query << "Units='W';"
+    query_results = sqlFile.execAndReturnFirstDouble(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for cooling peak value.')
+      return false
+    else
+      display = 'Peak Cooling Value'
+      source_units = 'W'
+      target_units = 'kW'
+      value = OpenStudio.convert(query_results.get, source_units, target_units).get
+      peak_clg_value_neat = OpenStudio.toNeatString(value, 4, true)
+      runner.registerValue(display.downcase.gsub(" ","_"), value, target_units)
+    end
+
+    # peak cooling time
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='EnergyMeters' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='Annual and Peak Values - Other' and "
+    query << "RowName='Cooling:EnergyTransfer' and "
+    query << "ColumnName='Timestamp of Maximum {TIMESTAMP}' and "
+    query << "Units='';"
+    query_results = sqlFile.execAndReturnFirstString(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for heating peak timestep.')
+      return false
+    else
+      display = 'Peak Cooling Time'
+      source_units = 'TIMESTEP'
+      target_units = 'TIMESTEP'
+      peak_clg_time = query_results.get
+      runner.registerValue(display.downcase.gsub(" ","_"), peak_clg_time, target_units)
+    end
+
     # add rows to table
-    table_01[:data] << ['Heating', ]
-    table_01[:data] << ['Cooling', ]
+    table_01[:data] << ['Heating', annual_htg_value_neat,peak_htg_value_neat,peak_htg_time]
+    table_01[:data] << ['Cooling', annual_clg_value_neat,peak_clg_value_neat,peak_clg_time]
 
     # add table to array of tables
     output_6_2_1_1_tables << table_01
