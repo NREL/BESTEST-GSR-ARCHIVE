@@ -40,6 +40,21 @@ module OsLib_Reporting
     return results
   end
 
+  def self.ann_env_pd(sqlFile)
+    # get the weather file run period (as opposed to design day run period)
+    ann_env_pd = nil
+    sqlFile.availableEnvPeriods.each do |env_pd|
+      env_type = sqlFile.environmentType(env_pd)
+      if env_type.is_initialized
+        if env_type.get == OpenStudio::EnvironmentType.new('WeatherRunPeriod')
+          ann_env_pd = env_pd
+        end
+      end
+    end
+
+    return ann_env_pd
+  end
+
   # developer notes
   # - Other thant the 'setup' section above this file should contain methods (def) that create sections and or tables.
   # - Any method that has 'section' in the name will be assumed to define a report section and will automatically be
@@ -525,12 +540,48 @@ module OsLib_Reporting
 
     # create table
     table_01 = {}
-    table_01[:title] = "Hourly Zone Temperature Bins (1C bin size)"
+    table_01[:title] = "Hourly Zone Mean Temperature Bins (1C bin size)"
     table_01[:header] = ['Temperature','Bin Size'] # for now do row for each bind
     table_01[:units] = ['C','Hours']
     table_01[:data] = []
 
-    # todo - add rows to table
+    # gather data (we can pre-poplulate 0 value from -20C to 70C if needed)
+    hourly_values_rnd = {}
+
+    # get time series data for each zone
+    ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
+    if ann_env_pd
+      # get keys
+      keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
+
+      if keys.include? 'ZONE ONE THERMAL ZONE'
+        key = 'ZONE ONE THERMAL ZONE'
+      elsif keys.include? 'SUN ZONE THERMAL ZONE'
+        key = 'SUN ZONE THERMAL ZONE'
+      end
+
+      # create array from values
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature', key)
+      if output_timeseries.is_initialized # checks to see if time_series exists
+        output_timeseries = output_timeseries.get.values
+        for i in 0..(output_timeseries.size - 1)
+          value_round = output_timeseries[i].round
+          if hourly_values_rnd.has_key?(value_round)
+            hourly_values_rnd[value_round] += 1
+          else
+            hourly_values_rnd[value_round] = 1
+          end
+        end
+      else
+        runner.registerWarning("Didn't find data for Zone Mean Air Temperature")
+      end # end of if output_timeseries.is_initialized
+
+    end
+
+    # add rows to table
+    hourly_values_rnd.sort_by { |k,v| k}.each do |k,v|
+      table_01[:data] << [k,v]
+    end
 
     # add table to array of tables
     ff_temp_bins_tables << table_01
