@@ -68,7 +68,7 @@ OS:Surface,
 
 OS:ThermalZone,
   {8f63774a-fbf1-467f-806e-36f84a690440}, !- Handle
-  ZONE ONE Thermal Zone,                  !- Name
+  ZONE ONE,                  !- Name
   1,                                      !- Multiplier
   2.7,                                    !- Ceiling Height {m}
   129.6,                                  !- Volume {m3}
@@ -150,7 +150,7 @@ OS:ZoneHVAC:EquipmentList,
 
 OS:Space,
   {719f3feb-3876-4b0d-ad8d-dd66fe87b6a8}, !- Handle
-  ZONE ONE,                               !- Name
+  ZONE ONE Space,                               !- Name
   ,                                       !- Space Type Name
   ,                                       !- Default Construction Set Name
   ,                                       !- Default Schedule Set Name

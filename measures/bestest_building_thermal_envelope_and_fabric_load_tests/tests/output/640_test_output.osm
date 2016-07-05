@@ -1,6 +1,6 @@
 
 OS:Version,
-  {175173bd-0af1-4b24-a2db-1af719e3f1f1}, !- Handle
+  {f8750290-804e-4551-be96-9a1ae46e2d30}, !- Handle
   1.12.0;                                 !- Version Identifier
 
 OS:Site,
@@ -622,7 +622,7 @@ OS:LifeCycleCost:Parameters,
   ;                                       !- Length of Study Period in Years
 
 OS:WeatherFile,
-  {1de8336b-136e-4dc3-8246-0beff8b32062}, !- Handle
+  {b640aa94-ed1e-483e-836a-cc9fd2d35bcc}, !- Handle
   Denver-Stapleton,                       !- City
   CO,                                     !- State Province Region
   USA,                                    !- Country
@@ -636,13 +636,13 @@ OS:WeatherFile,
   08DEB5B3;                               !- Checksum
 
 OS:Building,
-  {ce073f47-fd66-4e26-8992-62f40e8f1508}, !- Handle
+  {e60bcf98-6dc6-4dcf-874f-62d3958a545b}, !- Handle
   BESTEST Case 640 - Thermostat Setback,  !- Name
   ,                                       !- Building Sector Type
   0,                                      !- North Axis {deg}
   ,                                       !- Nominal Floor to Floor Height {m}
   ,                                       !- Space Type Name
-  {425ba29a-1584-4c36-9f69-c7eba91287d1}, !- Default Construction Set Name
+  {f483d2c9-33fa-41bd-929d-9a8cc476b0d6}, !- Default Construction Set Name
   ,                                       !- Default Schedule Set Name
   ,                                       !- Standards Number of Stories
   ,                                       !- Standards Number of Above Ground Stories
@@ -652,8 +652,8 @@ OS:Building,
   ;                                       !- Nominal Floor to Ceiling Height {m}
 
 OS:ThermalZone,
-  {0fe0a448-59cd-451f-ae4e-79feebdac1a7}, !- Handle
-  ZONE ONE Thermal Zone,                  !- Name
+  {482e5c8f-ff0c-418f-9a60-fc435f7dd487}, !- Handle
+  ZONE ONE,                               !- Name
   1,                                      !- Multiplier
   2.7,                                    !- Ceiling Height {m}
   129.6,                                  !- Volume {m3}
@@ -661,54 +661,54 @@ OS:ThermalZone,
   ,                                       !- Zone Inside Convection Algorithm
   ,                                       !- Zone Outside Convection Algorithm
   ,                                       !- Zone Conditioning Equipment List Name
-  {36aeff49-4c56-4197-9cbc-8059b73575ee}, !- Zone Air Inlet Port List
-  {d921f72e-bba1-4cde-94d8-852a96cb6c3e}, !- Zone Air Exhaust Port List
-  {0d5fc0fe-1379-428d-b831-1bb37e3924dd}, !- Zone Air Node Name
+  {9dd5d17c-3571-4e26-84da-26d3c1258b18}, !- Zone Air Inlet Port List
+  {dd662b28-8ccd-4ee1-b242-831e7f3200d0}, !- Zone Air Exhaust Port List
+  {902b0c87-072d-455a-877c-00bdf935cb9b}, !- Zone Air Node Name
   ,                                       !- Zone Return Air Node Name
   ,                                       !- Primary Daylighting Control Name
   ,                                       !- Fraction of Zone Controlled by Primary Daylighting Control
   ,                                       !- Secondary Daylighting Control Name
   ,                                       !- Fraction of Zone Controlled by Secondary Daylighting Control
   ,                                       !- Illuminance Map Name
-  {1dbeff6a-2278-45f7-a71f-016c5293f0c1}, !- Group Rendering Name
-  {b1528701-e427-4f80-a227-1001e596cbc1}, !- Thermostat Name
+  {550a2ce2-0e21-447c-9c32-3ad5f97320c0}, !- Group Rendering Name
+  {ff6f7b67-3ff5-4b48-8ceb-cfdd8e69cfc2}, !- Thermostat Name
   Yes,                                    !- Use Ideal Air Loads
   ;                                       !- Humidistat Name
 
 OS:Rendering:Color,
-  {1dbeff6a-2278-45f7-a71f-016c5293f0c1}, !- Handle
+  {550a2ce2-0e21-447c-9c32-3ad5f97320c0}, !- Handle
   Rendering Color 6,                      !- Name
   210,                                    !- Rendering Red Value
   180,                                    !- Rendering Green Value
   140;                                    !- Rendering Blue Value
 
 OS:Node,
-  {c942517f-7184-439c-b1f4-d52884f84e43}, !- Handle
+  {01296e76-2cf0-42ed-8069-bc41218c6cec}, !- Handle
   Node 1,                                 !- Name
-  {0d5fc0fe-1379-428d-b831-1bb37e3924dd}, !- Inlet Port
+  {902b0c87-072d-455a-877c-00bdf935cb9b}, !- Inlet Port
   ;                                       !- Outlet Port
 
 OS:Connection,
-  {0d5fc0fe-1379-428d-b831-1bb37e3924dd}, !- Handle
-  {544f75cd-62d0-46be-8be5-b2ca8caa2033}, !- Name
-  {0fe0a448-59cd-451f-ae4e-79feebdac1a7}, !- Source Object
+  {902b0c87-072d-455a-877c-00bdf935cb9b}, !- Handle
+  {0e0f35b0-aaaa-4ae5-ba9d-f356960cf811}, !- Name
+  {482e5c8f-ff0c-418f-9a60-fc435f7dd487}, !- Source Object
   11,                                     !- Outlet Port
-  {c942517f-7184-439c-b1f4-d52884f84e43}, !- Target Object
+  {01296e76-2cf0-42ed-8069-bc41218c6cec}, !- Target Object
   2;                                      !- Inlet Port
 
 OS:PortList,
-  {36aeff49-4c56-4197-9cbc-8059b73575ee}, !- Handle
+  {9dd5d17c-3571-4e26-84da-26d3c1258b18}, !- Handle
   Port List 1,                            !- Name
-  {0fe0a448-59cd-451f-ae4e-79feebdac1a7}; !- HVAC Component
+  {482e5c8f-ff0c-418f-9a60-fc435f7dd487}; !- HVAC Component
 
 OS:PortList,
-  {d921f72e-bba1-4cde-94d8-852a96cb6c3e}, !- Handle
+  {dd662b28-8ccd-4ee1-b242-831e7f3200d0}, !- Handle
   Port List 2,                            !- Name
-  {0fe0a448-59cd-451f-ae4e-79feebdac1a7}; !- HVAC Component
+  {482e5c8f-ff0c-418f-9a60-fc435f7dd487}; !- HVAC Component
 
 OS:Sizing:Zone,
-  {fc2bd60c-c79b-46b7-a664-d3f8ab7e98bd}, !- Handle
-  {0fe0a448-59cd-451f-ae4e-79feebdac1a7}, !- Zone or ZoneList Name
+  {008b32c4-61d4-4d08-b0c5-d0ea48a67253}, !- Handle
+  {482e5c8f-ff0c-418f-9a60-fc435f7dd487}, !- Zone or ZoneList Name
   SupplyAirTemperature,                   !- Zone Cooling Design Supply Air Temperature Input Method
   14,                                     !- Zone Cooling Design Supply Air Temperature {C}
   11.11,                                  !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
@@ -737,13 +737,13 @@ OS:Sizing:Zone,
   autosize;                               !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
 
 OS:ZoneHVAC:EquipmentList,
-  {a6c9773c-48ec-4ce3-a214-0db9b832e423}, !- Handle
+  {e68d6a9b-325b-4193-85c6-530ac012b622}, !- Handle
   Zone HVAC Equipment List 1,             !- Name
-  {0fe0a448-59cd-451f-ae4e-79feebdac1a7}; !- Thermal Zone
+  {482e5c8f-ff0c-418f-9a60-fc435f7dd487}; !- Thermal Zone
 
 OS:Space,
-  {1b152812-4fce-4edf-a57a-d05e814d390c}, !- Handle
-  ZONE ONE,                               !- Name
+  {4c0f5fce-9244-4db7-b97a-0f8585aca55e}, !- Handle
+  ZONE ONE Space,                         !- Name
   ,                                       !- Space Type Name
   ,                                       !- Default Construction Set Name
   ,                                       !- Default Schedule Set Name
@@ -752,16 +752,33 @@ OS:Space,
   0,                                      !- Y Origin {m}
   0,                                      !- Z Origin {m}
   ,                                       !- Building Story Name
-  {0fe0a448-59cd-451f-ae4e-79feebdac1a7}, !- Thermal Zone Name
+  {482e5c8f-ff0c-418f-9a60-fc435f7dd487}, !- Thermal Zone Name
   ,                                       !- Part of Total Floor Area
   ;                                       !- Design Specification Outdoor Air Object Name
 
 OS:Surface,
-  {6d04207c-3178-46b7-90aa-9d3e8bf080c8}, !- Handle
+  {12191f6c-c897-4244-a18a-879ab759316c}, !- Handle
+  ZONE SURFACE NORTH,                     !- Name
+  Wall,                                   !- Surface Type
+  ,                                       !- Construction Name
+  {4c0f5fce-9244-4db7-b97a-0f8585aca55e}, !- Space Name
+  Outdoors,                               !- Outside Boundary Condition
+  ,                                       !- Outside Boundary Condition Object
+  SunExposed,                             !- Sun Exposure
+  WindExposed,                            !- Wind Exposure
+  0.5,                                    !- View Factor to Ground
+  ,                                       !- Number of Vertices
+  8, 6, 2.7,                              !- X,Y,Z Vertex 1 {m}
+  8, 6, 0,                                !- X,Y,Z Vertex 2 {m}
+  0, 6, 0,                                !- X,Y,Z Vertex 3 {m}
+  0, 6, 2.7;                              !- X,Y,Z Vertex 4 {m}
+
+OS:Surface,
+  {3f6bad09-2ba9-4212-81b8-389ee9ad3f64}, !- Handle
   ZONE SURFACE SOUTH,                     !- Name
   Wall,                                   !- Surface Type
   ,                                       !- Construction Name
-  {1b152812-4fce-4edf-a57a-d05e814d390c}, !- Space Name
+  {4c0f5fce-9244-4db7-b97a-0f8585aca55e}, !- Space Name
   Outdoors,                               !- Outside Boundary Condition
   ,                                       !- Outside Boundary Condition Object
   SunExposed,                             !- Sun Exposure
@@ -774,11 +791,11 @@ OS:Surface,
   8, 0, 2.7;                              !- X,Y,Z Vertex 4 {m}
 
 OS:SubSurface,
-  {6d80c284-89fb-4e7f-b92c-a621c8d08208}, !- Handle
+  {68667f60-124f-44e7-b986-bbd5c393247b}, !- Handle
   ZONE SUBSURFACE 2,                      !- Name
   FixedWindow,                            !- Sub Surface Type
   ,                                       !- Construction Name
-  {6d04207c-3178-46b7-90aa-9d3e8bf080c8}, !- Surface Name
+  {3f6bad09-2ba9-4212-81b8-389ee9ad3f64}, !- Surface Name
   ,                                       !- Outside Boundary Condition Object
   0.5,                                    !- View Factor to Ground
   ,                                       !- Shading Control Name
@@ -791,11 +808,11 @@ OS:SubSurface,
   7.5, 0, 2.2;                            !- X,Y,Z Vertex 4 {m}
 
 OS:SubSurface,
-  {c6f84004-42b0-4cbb-bae0-b57b35d34b51}, !- Handle
+  {602c33d3-820a-4376-8801-da2779f3a153}, !- Handle
   ZONE SUBSURFACE 1,                      !- Name
   FixedWindow,                            !- Sub Surface Type
   ,                                       !- Construction Name
-  {6d04207c-3178-46b7-90aa-9d3e8bf080c8}, !- Surface Name
+  {3f6bad09-2ba9-4212-81b8-389ee9ad3f64}, !- Surface Name
   ,                                       !- Outside Boundary Condition Object
   0.5,                                    !- View Factor to Ground
   ,                                       !- Shading Control Name
@@ -808,11 +825,11 @@ OS:SubSurface,
   3.5, 0, 2.2;                            !- X,Y,Z Vertex 4 {m}
 
 OS:Surface,
-  {9be7c9ba-d738-4ebf-907e-b0d846c73c33}, !- Handle
+  {27e467ae-b8b2-4db5-9bb9-61c892809895}, !- Handle
   ZONE SURFACE EAST,                      !- Name
   Wall,                                   !- Surface Type
   ,                                       !- Construction Name
-  {1b152812-4fce-4edf-a57a-d05e814d390c}, !- Space Name
+  {4c0f5fce-9244-4db7-b97a-0f8585aca55e}, !- Space Name
   Outdoors,                               !- Outside Boundary Condition
   ,                                       !- Outside Boundary Condition Object
   SunExposed,                             !- Sun Exposure
@@ -825,11 +842,11 @@ OS:Surface,
   8, 6, 2.7;                              !- X,Y,Z Vertex 4 {m}
 
 OS:Surface,
-  {753aa779-a940-4723-9e5c-130f9113cebe}, !- Handle
+  {23973faf-0b60-47fb-9b19-ffd5a146f5cb}, !- Handle
   ZONE SURFACE ROOF,                      !- Name
   RoofCeiling,                            !- Surface Type
   ,                                       !- Construction Name
-  {1b152812-4fce-4edf-a57a-d05e814d390c}, !- Space Name
+  {4c0f5fce-9244-4db7-b97a-0f8585aca55e}, !- Space Name
   Outdoors,                               !- Outside Boundary Condition
   ,                                       !- Outside Boundary Condition Object
   SunExposed,                             !- Sun Exposure
@@ -842,11 +859,11 @@ OS:Surface,
   0, 0, 2.7;                              !- X,Y,Z Vertex 4 {m}
 
 OS:Surface,
-  {1a8b7795-f187-4a94-ac51-d77b99886aaa}, !- Handle
+  {d2284099-9670-4e26-b160-2781fe847eb4}, !- Handle
   ZONE SURFACE WEST,                      !- Name
   Wall,                                   !- Surface Type
   ,                                       !- Construction Name
-  {1b152812-4fce-4edf-a57a-d05e814d390c}, !- Space Name
+  {4c0f5fce-9244-4db7-b97a-0f8585aca55e}, !- Space Name
   Outdoors,                               !- Outside Boundary Condition
   ,                                       !- Outside Boundary Condition Object
   SunExposed,                             !- Sun Exposure
@@ -859,11 +876,11 @@ OS:Surface,
   0, 0, 2.7;                              !- X,Y,Z Vertex 4 {m}
 
 OS:Surface,
-  {9a0a6741-0321-4467-8ca6-a9dfa4bfdaed}, !- Handle
+  {50bef108-5009-4848-a726-c2be3e7d57c1}, !- Handle
   ZONE SURFACE FLOOR,                     !- Name
   Floor,                                  !- Surface Type
   ,                                       !- Construction Name
-  {1b152812-4fce-4edf-a57a-d05e814d390c}, !- Space Name
+  {4c0f5fce-9244-4db7-b97a-0f8585aca55e}, !- Space Name
   Ground,                                 !- Outside Boundary Condition
   ,                                       !- Outside Boundary Condition Object
   NoSun,                                  !- Sun Exposure
@@ -875,63 +892,46 @@ OS:Surface,
   0, 0, 0,                                !- X,Y,Z Vertex 3 {m}
   0, 6, 0;                                !- X,Y,Z Vertex 4 {m}
 
-OS:Surface,
-  {4a069306-1e27-4334-8268-4edb8143bc19}, !- Handle
-  ZONE SURFACE NORTH,                     !- Name
-  Wall,                                   !- Surface Type
-  ,                                       !- Construction Name
-  {1b152812-4fce-4edf-a57a-d05e814d390c}, !- Space Name
-  Outdoors,                               !- Outside Boundary Condition
-  ,                                       !- Outside Boundary Condition Object
-  SunExposed,                             !- Sun Exposure
-  WindExposed,                            !- Wind Exposure
-  0.5,                                    !- View Factor to Ground
-  ,                                       !- Number of Vertices
-  8, 6, 2.7,                              !- X,Y,Z Vertex 1 {m}
-  8, 6, 0,                                !- X,Y,Z Vertex 2 {m}
-  0, 6, 0,                                !- X,Y,Z Vertex 3 {m}
-  0, 6, 2.7;                              !- X,Y,Z Vertex 4 {m}
-
 OS:DefaultConstructionSet,
-  {425ba29a-1584-4c36-9f69-c7eba91287d1}, !- Handle
+  {f483d2c9-33fa-41bd-929d-9a8cc476b0d6}, !- Handle
   BESTEST LT,                             !- Name
-  {0306e3fb-d023-4933-93c0-333e23390f28}, !- Default Exterior Surface Constructions Name
-  {dc419bed-3b25-4f5e-850c-647948eda7dc}, !- Default Interior Surface Constructions Name
-  {5c0e417b-1f19-4656-be17-6c8d91f023f7}, !- Default Ground Contact Surface Constructions Name
-  {6023ce31-e2c2-4084-a5dc-e400d467d5b5}, !- Default Exterior SubSurface Constructions Name
-  {8fab449a-31f2-49f8-9731-d310604eec8e}, !- Default Interior SubSurface Constructions Name
+  {79b7986d-5ded-4319-9fce-b6aa2eb72456}, !- Default Exterior Surface Constructions Name
+  {4e42762a-3ad4-4234-827e-a343efc5a394}, !- Default Interior Surface Constructions Name
+  {bfeca73c-7762-44ad-bc29-10352ab78151}, !- Default Ground Contact Surface Constructions Name
+  {308a58bd-a204-43cb-9a45-f949a0b0157e}, !- Default Exterior SubSurface Constructions Name
+  {912868ee-1578-482c-88eb-fd842ebcdc08}, !- Default Interior SubSurface Constructions Name
   ,                                       !- Interior Partition Construction Name
   ,                                       !- Space Shading Construction Name
   ,                                       !- Building Shading Construction Name
   ;                                       !- Site Shading Construction Name
 
 OS:DefaultSurfaceConstructions,
-  {0306e3fb-d023-4933-93c0-333e23390f28}, !- Handle
+  {79b7986d-5ded-4319-9fce-b6aa2eb72456}, !- Handle
   Default Surface Constructions 1,        !- Name
   ,                                       !- Floor Construction Name
-  {6c43e0ca-9604-4127-bce5-e9ae34acd8dc}, !- Wall Construction Name
-  {e3ce6f0b-13d2-47d0-a7aa-80bef7825df8}; !- Roof Ceiling Construction Name
+  {6ab492b5-8846-4bba-b38d-9a9e5096dbfb}, !- Wall Construction Name
+  {8c99850e-e10f-41bf-ab5b-5ca34f66d49a}; !- Roof Ceiling Construction Name
 
 OS:DefaultSurfaceConstructions,
-  {dc419bed-3b25-4f5e-850c-647948eda7dc}, !- Handle
+  {4e42762a-3ad4-4234-827e-a343efc5a394}, !- Handle
   Default Surface Constructions 2,        !- Name
   ,                                       !- Floor Construction Name
-  {65a35cdb-303c-4702-bc43-92a7a14dadb5}, !- Wall Construction Name
+  {23c0e9d7-ba2c-4a06-aa80-60e15b322aa5}, !- Wall Construction Name
   ;                                       !- Roof Ceiling Construction Name
 
 OS:DefaultSurfaceConstructions,
-  {5c0e417b-1f19-4656-be17-6c8d91f023f7}, !- Handle
+  {bfeca73c-7762-44ad-bc29-10352ab78151}, !- Handle
   Default Surface Constructions 3,        !- Name
-  {e257db4d-ec90-4374-b171-640cbd03c471}, !- Floor Construction Name
+  {951e6fcd-a73b-4d8d-8574-fd03ef07459a}, !- Floor Construction Name
   ,                                       !- Wall Construction Name
   ;                                       !- Roof Ceiling Construction Name
 
 OS:DefaultSubSurfaceConstructions,
-  {6023ce31-e2c2-4084-a5dc-e400d467d5b5}, !- Handle
+  {308a58bd-a204-43cb-9a45-f949a0b0157e}, !- Handle
   Default Sub Surface Constructions 1,    !- Name
-  {717fef44-06fb-4811-8eab-6c2e05a6d35b}, !- Fixed Window Construction Name
+  {50d46d5c-c9e4-4535-8e6e-4051494b9eb0}, !- Fixed Window Construction Name
   ,                                       !- Operable Window Construction Name
-  {98a3d3af-08d6-443f-9855-5882e1b66902}, !- Door Construction Name
+  {0db9f256-3054-4997-ad04-43b8121c4066}, !- Door Construction Name
   ,                                       !- Glass Door Construction Name
   ,                                       !- Overhead Door Construction Name
   ,                                       !- Skylight Construction Name
@@ -939,7 +939,7 @@ OS:DefaultSubSurfaceConstructions,
   ;                                       !- Tubular Daylight Diffuser Construction Name
 
 OS:DefaultSubSurfaceConstructions,
-  {8fab449a-31f2-49f8-9731-d310604eec8e}, !- Handle
+  {912868ee-1578-482c-88eb-fd842ebcdc08}, !- Handle
   Default Sub Surface Constructions 2,    !- Name
   ,                                       !- Fixed Window Construction Name
   ,                                       !- Operable Window Construction Name
@@ -951,83 +951,83 @@ OS:DefaultSubSurfaceConstructions,
   ;                                       !- Tubular Daylight Diffuser Construction Name
 
 OS:Construction,
-  {6c43e0ca-9604-4127-bce5-e9ae34acd8dc}, !- Handle
+  {6ab492b5-8846-4bba-b38d-9a9e5096dbfb}, !- Handle
   LTWALL,                                 !- Name
-  {fd62ad41-0318-4ab2-b433-1bdd9a6859b5}, !- Surface Rendering Name
-  {71080c25-650d-4d42-8d30-a6d4cccbb06d}, !- Layer 1
-  {7c849a31-be9a-45fe-8761-a9c39901190c}, !- Layer 2
-  {a60322cc-ca12-4318-a1cf-c44d20646980}; !- Layer 3
+  {3d72105b-16c4-46d7-84bd-88d85c831d7c}, !- Surface Rendering Name
+  {322cc3c9-7cf3-4ad8-aab4-1e0e6409582a}, !- Layer 1
+  {b6818dc9-db0d-4a21-998e-ee3ebcd1dd58}, !- Layer 2
+  {8c591b88-1c1f-4823-b121-5a55abe77e9f}; !- Layer 3
 
 OS:StandardsInformation:Construction,
-  {9f59948e-39ac-421e-9762-10e7fbda43b5}, !- Handle
-  {6c43e0ca-9604-4127-bce5-e9ae34acd8dc}; !- Construction Name
+  {164cb9c7-a24c-4fbd-a106-4c46bade9d23}, !- Handle
+  {6ab492b5-8846-4bba-b38d-9a9e5096dbfb}; !- Construction Name
 
 OS:Construction,
-  {e3ce6f0b-13d2-47d0-a7aa-80bef7825df8}, !- Handle
+  {8c99850e-e10f-41bf-ab5b-5ca34f66d49a}, !- Handle
   LTROOF,                                 !- Name
-  {8461c2a4-1451-410c-b8d1-6841f075573b}, !- Surface Rendering Name
-  {8cf75ddf-0b94-4217-8863-9d48beb5430c}, !- Layer 1
-  {76c136f8-c457-468f-a952-95e2723f3c44}, !- Layer 2
-  {3439c7e2-8b30-44a5-986c-5d99b0f82d42}; !- Layer 3
+  {d647a5d0-75fd-45c8-904a-d823df04c92b}, !- Surface Rendering Name
+  {a6cf6b0b-4487-46cc-9d88-66a168edcaa8}, !- Layer 1
+  {cd416f34-666b-4634-ab5f-2bebbf157223}, !- Layer 2
+  {16094258-8d2e-4d5b-ac9a-3d1b23187578}; !- Layer 3
 
 OS:StandardsInformation:Construction,
-  {d5079a98-9f51-440c-9896-2dd9d024e300}, !- Handle
-  {e3ce6f0b-13d2-47d0-a7aa-80bef7825df8}; !- Construction Name
+  {ec1f01e2-e881-4d23-9300-1bbd4b8a3458}, !- Handle
+  {8c99850e-e10f-41bf-ab5b-5ca34f66d49a}; !- Construction Name
 
 OS:Construction,
-  {65a35cdb-303c-4702-bc43-92a7a14dadb5}, !- Handle
+  {23c0e9d7-ba2c-4a06-aa80-60e15b322aa5}, !- Handle
   COMMON WALL,                            !- Name
-  {b69801d6-5c63-4daa-865e-c6576ff7aa48}, !- Surface Rendering Name
-  {d3244393-ccf2-4b82-bbc2-0f6b3cf6b0e1}; !- Layer 1
+  {47a32ca5-f457-4604-8255-02bf8b5f6c3a}, !- Surface Rendering Name
+  {32c0625d-eb04-424b-a51e-642b2c7ee402}; !- Layer 1
 
 OS:StandardsInformation:Construction,
-  {2312587d-0c84-47d3-8aed-e496e7fd2a19}, !- Handle
-  {65a35cdb-303c-4702-bc43-92a7a14dadb5}; !- Construction Name
+  {df930e40-5c9d-4d10-a428-8f3969005c8e}, !- Handle
+  {23c0e9d7-ba2c-4a06-aa80-60e15b322aa5}; !- Construction Name
 
 OS:Construction,
-  {e257db4d-ec90-4374-b171-640cbd03c471}, !- Handle
+  {951e6fcd-a73b-4d8d-8574-fd03ef07459a}, !- Handle
   LTFLOOR,                                !- Name
-  {dd22cfa1-af65-463d-8b58-3e91f9441683}, !- Surface Rendering Name
-  {a48eba85-9fed-4f69-a380-370ecb7e74ed}, !- Layer 1
-  {eced1677-c870-4e67-bca8-60b3f86c3122}; !- Layer 2
+  {69bb9486-6e75-4e48-8145-2eb915c7eec7}, !- Surface Rendering Name
+  {ee544801-a648-4bf3-b307-32f27e16929c}, !- Layer 1
+  {f9f0ba94-95fd-4491-b66f-373fcee474ab}; !- Layer 2
 
 OS:StandardsInformation:Construction,
-  {e3f84294-7a30-419a-9f78-d3e9bb2e0818}, !- Handle
-  {e257db4d-ec90-4374-b171-640cbd03c471}; !- Construction Name
+  {b22f6555-19b8-483f-a59f-718ee2ce8bea}, !- Handle
+  {951e6fcd-a73b-4d8d-8574-fd03ef07459a}; !- Construction Name
 
 OS:Construction,
-  {717fef44-06fb-4811-8eab-6c2e05a6d35b}, !- Handle
+  {50d46d5c-c9e4-4535-8e6e-4051494b9eb0}, !- Handle
   Double Pane Window,                     !- Name
-  {b2d7ead3-6835-4cc7-9152-b0a3a86e5bf1}, !- Surface Rendering Name
-  {dac15844-4ec1-4d90-9698-c0a12e2bf6d0}, !- Layer 1
-  {af683aa4-89c9-4624-aa2b-f8ec56868c1b}, !- Layer 2
-  {dac15844-4ec1-4d90-9698-c0a12e2bf6d0}; !- Layer 3
+  {70af41fc-bb7c-493b-8cfc-571b1b190206}, !- Surface Rendering Name
+  {9423f56a-f5e7-4b8a-a2bf-5a07bd008fb3}, !- Layer 1
+  {3086f155-993e-410a-8f53-5563c2db0405}, !- Layer 2
+  {9423f56a-f5e7-4b8a-a2bf-5a07bd008fb3}; !- Layer 3
 
 OS:StandardsInformation:Construction,
-  {df8b205a-f111-4804-b812-0630b2efbe2f}, !- Handle
-  {717fef44-06fb-4811-8eab-6c2e05a6d35b}; !- Construction Name
+  {e9a600b6-071c-439b-9819-f7d716dc6f18}, !- Handle
+  {50d46d5c-c9e4-4535-8e6e-4051494b9eb0}; !- Construction Name
 
 OS:Construction,
-  {98a3d3af-08d6-443f-9855-5882e1b66902}, !- Handle
+  {0db9f256-3054-4997-ad04-43b8121c4066}, !- Handle
   HIGH CONDUCTANCE WALL,                  !- Name
-  {f77ae2a9-ed39-4583-96ef-502ce551332a}, !- Surface Rendering Name
-  {ff34be15-7441-4891-bcc8-bee155b9c113}, !- Layer 1
-  {e6647254-6274-4b6d-8d4a-9e5af6822dd6}, !- Layer 2
-  {daf1e534-5f16-4cf0-b1a9-e0fa699dcacd}; !- Layer 3
+  {503da991-eddc-4bb1-8fa5-ba0bab6ce789}, !- Surface Rendering Name
+  {4bec84a1-eed9-4287-bda3-cfeefe1ca9b0}, !- Layer 1
+  {aeb36989-d715-4dba-be60-45dba3d704dc}, !- Layer 2
+  {c00247df-d4be-4761-b6e3-6041c69e76dd}; !- Layer 3
 
 OS:StandardsInformation:Construction,
-  {556570bb-45b8-47db-918e-3401657b06a1}, !- Handle
-  {98a3d3af-08d6-443f-9855-5882e1b66902}; !- Construction Name
+  {8b7a237b-e1f7-4f93-bce0-f9650bd2a1ec}, !- Handle
+  {0db9f256-3054-4997-ad04-43b8121c4066}; !- Construction Name
 
 OS:Rendering:Color,
-  {fd62ad41-0318-4ab2-b433-1bdd9a6859b5}, !- Handle
-  Rendering Color 14,                     !- Name
+  {3d72105b-16c4-46d7-84bd-88d85c831d7c}, !- Handle
+  Rendering Color 13,                     !- Name
   128,                                    !- Rendering Red Value
   128,                                    !- Rendering Green Value
   0;                                      !- Rendering Blue Value
 
 OS:Material,
-  {71080c25-650d-4d42-8d30-a6d4cccbb06d}, !- Handle
+  {322cc3c9-7cf3-4ad8-aab4-1e0e6409582a}, !- Handle
   WOOD SIDING-1,                          !- Name
   Rough,                                  !- Roughness
   0.009,                                  !- Thickness {m}
@@ -1039,7 +1039,7 @@ OS:Material,
   0.6;                                    !- Visible Absorptance
 
 OS:Material,
-  {7c849a31-be9a-45fe-8761-a9c39901190c}, !- Handle
+  {b6818dc9-db0d-4a21-998e-ee3ebcd1dd58}, !- Handle
   FIBERGLASS QUILT-1,                     !- Name
   Rough,                                  !- Roughness
   0.066,                                  !- Thickness {m}
@@ -1051,11 +1051,11 @@ OS:Material,
   0.6;                                    !- Visible Absorptance
 
 OS:StandardsInformation:Material,
-  {fdeaa698-c71e-4f8a-9365-da289b138bea}, !- Handle
-  {7c849a31-be9a-45fe-8761-a9c39901190c}; !- Material Name
+  {6f70ac09-7b6c-4127-8ea3-d6df574a92a5}, !- Handle
+  {b6818dc9-db0d-4a21-998e-ee3ebcd1dd58}; !- Material Name
 
 OS:Material,
-  {a60322cc-ca12-4318-a1cf-c44d20646980}, !- Handle
+  {8c591b88-1c1f-4823-b121-5a55abe77e9f}, !- Handle
   PLASTERBOARD-1,                         !- Name
   Rough,                                  !- Roughness
   0.012,                                  !- Thickness {m}
@@ -1067,14 +1067,14 @@ OS:Material,
   0.6;                                    !- Visible Absorptance
 
 OS:Rendering:Color,
-  {8461c2a4-1451-410c-b8d1-6841f075573b}, !- Handle
-  Rendering Color 13,                     !- Name
+  {d647a5d0-75fd-45c8-904a-d823df04c92b}, !- Handle
+  Rendering Color 15,                     !- Name
   160,                                    !- Rendering Red Value
   82,                                     !- Rendering Green Value
   45;                                     !- Rendering Blue Value
 
 OS:Material,
-  {8cf75ddf-0b94-4217-8863-9d48beb5430c}, !- Handle
+  {a6cf6b0b-4487-46cc-9d88-66a168edcaa8}, !- Handle
   ROOF DECK,                              !- Name
   Rough,                                  !- Roughness
   0.019,                                  !- Thickness {m}
@@ -1086,11 +1086,11 @@ OS:Material,
   0.6;                                    !- Visible Absorptance
 
 OS:StandardsInformation:Material,
-  {3d1c2ff3-5a1f-4ed4-b2e9-70a5953ff321}, !- Handle
-  {8cf75ddf-0b94-4217-8863-9d48beb5430c}; !- Material Name
+  {022c9ff5-c082-4612-889d-d58bad81ed73}, !- Handle
+  {a6cf6b0b-4487-46cc-9d88-66a168edcaa8}; !- Material Name
 
 OS:Material,
-  {76c136f8-c457-468f-a952-95e2723f3c44}, !- Handle
+  {cd416f34-666b-4634-ab5f-2bebbf157223}, !- Handle
   FIBERGLASS QUILT-2,                     !- Name
   Rough,                                  !- Roughness
   0.1118,                                 !- Thickness {m}
@@ -1102,11 +1102,11 @@ OS:Material,
   0.6;                                    !- Visible Absorptance
 
 OS:StandardsInformation:Material,
-  {99f882b4-16e0-4055-b019-fe44f5e52f3a}, !- Handle
-  {76c136f8-c457-468f-a952-95e2723f3c44}; !- Material Name
+  {9a76bbc9-67cf-4278-abf8-15ce3f1e4a50}, !- Handle
+  {cd416f34-666b-4634-ab5f-2bebbf157223}; !- Material Name
 
 OS:Material,
-  {3439c7e2-8b30-44a5-986c-5d99b0f82d42}, !- Handle
+  {16094258-8d2e-4d5b-ac9a-3d1b23187578}, !- Handle
   PLASTERBOARD-2,                         !- Name
   Rough,                                  !- Roughness
   0.01,                                   !- Thickness {m}
@@ -1118,14 +1118,14 @@ OS:Material,
   0.6;                                    !- Visible Absorptance
 
 OS:Rendering:Color,
-  {b69801d6-5c63-4daa-865e-c6576ff7aa48}, !- Handle
+  {47a32ca5-f457-4604-8255-02bf8b5f6c3a}, !- Handle
   Rendering Color 10,                     !- Name
   0,                                      !- Rendering Red Value
   139,                                    !- Rendering Green Value
   139;                                    !- Rendering Blue Value
 
 OS:Material,
-  {d3244393-ccf2-4b82-bbc2-0f6b3cf6b0e1}, !- Handle
+  {32c0625d-eb04-424b-a51e-642b2c7ee402}, !- Handle
   ZONE COMMON WALL,                       !- Name
   Rough,                                  !- Roughness
   0.2,                                    !- Thickness {m}
@@ -1137,14 +1137,14 @@ OS:Material,
   0.6;                                    !- Visible Absorptance
 
 OS:Rendering:Color,
-  {dd22cfa1-af65-463d-8b58-3e91f9441683}, !- Handle
-  Rendering Color 7,                      !- Name
+  {69bb9486-6e75-4e48-8145-2eb915c7eec7}, !- Handle
+  Rendering Color 14,                     !- Name
   144,                                    !- Rendering Red Value
   238,                                    !- Rendering Green Value
   144;                                    !- Rendering Blue Value
 
 OS:Material:NoMass,
-  {a48eba85-9fed-4f69-a380-370ecb7e74ed}, !- Handle
+  {ee544801-a648-4bf3-b307-32f27e16929c}, !- Handle
   R-25 INSULATION,                        !- Name
   Rough,                                  !- Roughness
   25.075,                                 !- Thermal Resistance {m2-K/W}
@@ -1153,11 +1153,11 @@ OS:Material:NoMass,
   0.6;                                    !- Visible Absorptance
 
 OS:StandardsInformation:Material,
-  {62a19888-92a6-4b24-b762-5ab4c4e92741}, !- Handle
-  {a48eba85-9fed-4f69-a380-370ecb7e74ed}; !- Material Name
+  {90fcdbe4-696f-42e6-b7ae-97f4f1776593}, !- Handle
+  {ee544801-a648-4bf3-b307-32f27e16929c}; !- Material Name
 
 OS:Material,
-  {eced1677-c870-4e67-bca8-60b3f86c3122}, !- Handle
+  {f9f0ba94-95fd-4491-b66f-373fcee474ab}, !- Handle
   TIMBER FLOORING,                        !- Name
   Rough,                                  !- Roughness
   0.025,                                  !- Thickness {m}
@@ -1169,14 +1169,14 @@ OS:Material,
   0.6;                                    !- Visible Absorptance
 
 OS:Rendering:Color,
-  {b2d7ead3-6835-4cc7-9152-b0a3a86e5bf1}, !- Handle
-  Rendering Color 15,                     !- Name
+  {70af41fc-bb7c-493b-8cfc-571b1b190206}, !- Handle
+  Rendering Color 7,                      !- Name
   218,                                    !- Rendering Red Value
   165,                                    !- Rendering Green Value
   32;                                     !- Rendering Blue Value
 
 OS:WindowMaterial:Glazing,
-  {dac15844-4ec1-4d90-9698-c0a12e2bf6d0}, !- Handle
+  {9423f56a-f5e7-4b8a-a2bf-5a07bd008fb3}, !- Handle
   Glass Type 1,                           !- Name
   SpectralAverage,                        !- Optical Data Type
   ,                                       !- Window Glass Spectral Data Set Name
@@ -1193,28 +1193,28 @@ OS:WindowMaterial:Glazing,
   1.06;                                   !- Conductivity {W/m-K}
 
 OS:StandardsInformation:Material,
-  {b6537223-acdb-43f2-ad97-44b1a18b3564}, !- Handle
-  {dac15844-4ec1-4d90-9698-c0a12e2bf6d0}; !- Material Name
+  {5ad75354-1e3c-4b03-8b4f-d23fe4a20fe1}, !- Handle
+  {9423f56a-f5e7-4b8a-a2bf-5a07bd008fb3}; !- Material Name
 
 OS:WindowMaterial:Gas,
-  {af683aa4-89c9-4624-aa2b-f8ec56868c1b}, !- Handle
+  {3086f155-993e-410a-8f53-5563c2db0405}, !- Handle
   Air Space Resistance,                   !- Name
   AIR,                                    !- Gas Type
   0.013;                                  !- Thickness {m}
 
 OS:StandardsInformation:Material,
-  {054b69ed-b5fd-4e44-8d56-abe2f1a7a3d1}, !- Handle
-  {af683aa4-89c9-4624-aa2b-f8ec56868c1b}; !- Material Name
+  {41272f52-e8ca-4a13-9b99-cb989b8824fc}, !- Handle
+  {3086f155-993e-410a-8f53-5563c2db0405}; !- Material Name
 
 OS:Rendering:Color,
-  {f77ae2a9-ed39-4583-96ef-502ce551332a}, !- Handle
+  {503da991-eddc-4bb1-8fa5-ba0bab6ce789}, !- Handle
   Rendering Color 12,                     !- Name
   75,                                     !- Rendering Red Value
   0,                                      !- Rendering Green Value
   130;                                    !- Rendering Blue Value
 
 OS:Material,
-  {ff34be15-7441-4891-bcc8-bee155b9c113}, !- Handle
+  {4bec84a1-eed9-4287-bda3-cfeefe1ca9b0}, !- Handle
   HIGH CONDUCTANCE WALL-OUTSIDE,          !- Name
   VerySmooth,                             !- Roughness
   0.003175,                               !- Thickness {m}
@@ -1226,20 +1226,20 @@ OS:Material,
   0.1;                                    !- Visible Absorptance
 
 OS:StandardsInformation:Material,
-  {0429ceba-b311-42fe-b6b1-f5cc5ef1a597}, !- Handle
-  {ff34be15-7441-4891-bcc8-bee155b9c113}; !- Material Name
+  {7aa32cc0-aab4-48b0-92d3-972e1be5d67e}, !- Handle
+  {4bec84a1-eed9-4287-bda3-cfeefe1ca9b0}; !- Material Name
 
 OS:Material:AirGap,
-  {e6647254-6274-4b6d-8d4a-9e5af6822dd6}, !- Handle
+  {aeb36989-d715-4dba-be60-45dba3d704dc}, !- Handle
   Air Space Resistance 1,                 !- Name
   0.1588;                                 !- Thermal Resistance {m2-K/W}
 
 OS:StandardsInformation:Material,
-  {d92d26c0-1a97-45dd-8d5f-6056fc17a924}, !- Handle
-  {e6647254-6274-4b6d-8d4a-9e5af6822dd6}; !- Material Name
+  {731713d0-d10f-47fb-bc2e-b33443e3bb3c}, !- Handle
+  {aeb36989-d715-4dba-be60-45dba3d704dc}; !- Material Name
 
 OS:Material,
-  {daf1e534-5f16-4cf0-b1a9-e0fa699dcacd}, !- Handle
+  {c00247df-d4be-4761-b6e3-6041c69e76dd}, !- Handle
   HIGH CONDUCTANCE WALL-INSIDE,           !- Name
   VerySmooth,                             !- Roughness
   0.003175,                               !- Thickness {m}
@@ -1251,7 +1251,7 @@ OS:Material,
   0.1;                                    !- Visible Absorptance
 
 OS:OtherEquipment:Definition,
-  {f079b88e-1e60-4980-9b4f-5c35ffffda4f}, !- Handle
+  {35c2c814-4708-4ebe-acf8-6f989a03ed33}, !- Handle
   ZONE ONE OthEq 1 Definition,            !- Name
   EquipmentLevel,                         !- Design Level Calculation Method
   200,                                    !- Design Level {W}
@@ -1262,39 +1262,39 @@ OS:OtherEquipment:Definition,
   0;                                      !- Fraction Lost
 
 OS:OtherEquipment,
-  {f5265bb4-b8f1-4e8c-a848-f70f4f570fa1}, !- Handle
+  {6294b65d-48ad-45de-a69f-0b44e4311008}, !- Handle
   Other Equipment 1,                      !- Name
-  {f079b88e-1e60-4980-9b4f-5c35ffffda4f}, !- Other Equipment Definition Name
-  {1b152812-4fce-4edf-a57a-d05e814d390c}, !- Space or SpaceType Name
-  {9aed4894-f5a8-46db-af66-85bf6c0c6ab6}; !- Schedule Name
+  {35c2c814-4708-4ebe-acf8-6f989a03ed33}, !- Other Equipment Definition Name
+  {4c0f5fce-9244-4db7-b97a-0f8585aca55e}, !- Space or SpaceType Name
+  {d0cd767a-65f9-4300-8f3d-5ea07a6d134b}; !- Schedule Name
 
 OS:Schedule:Ruleset,
-  {9aed4894-f5a8-46db-af66-85bf6c0c6ab6}, !- Handle
+  {d0cd767a-65f9-4300-8f3d-5ea07a6d134b}, !- Handle
   Always On Ruleset Fractional,           !- Name
-  {07db2830-2e83-419b-8e7c-29ee3a8a0146}, !- Schedule Type Limits Name
-  {20aca178-73e2-41ae-be03-5a8d1a9b32a6}; !- Default Day Schedule Name
+  {c5767752-4162-4cb8-a6fb-d3ad7caaf15a}, !- Schedule Type Limits Name
+  {18e63dea-0af8-4cd5-9bf5-413085ee1ca7}; !- Default Day Schedule Name
 
 OS:ScheduleTypeLimits,
-  {07db2830-2e83-419b-8e7c-29ee3a8a0146}, !- Handle
+  {c5767752-4162-4cb8-a6fb-d3ad7caaf15a}, !- Handle
   Fractional,                             !- Name
   0,                                      !- Lower Limit Value
   1,                                      !- Upper Limit Value
   Continuous;                             !- Numeric Type
 
 OS:Schedule:Day,
-  {20aca178-73e2-41ae-be03-5a8d1a9b32a6}, !- Handle
+  {18e63dea-0af8-4cd5-9bf5-413085ee1ca7}, !- Handle
   Schedule Day 6,                         !- Name
-  {07db2830-2e83-419b-8e7c-29ee3a8a0146}, !- Schedule Type Limits Name
+  {c5767752-4162-4cb8-a6fb-d3ad7caaf15a}, !- Schedule Type Limits Name
   ,                                       !- Interpolate to Timestep
   24,                                     !- Hour 1
   0,                                      !- Minute 1
   1;                                      !- Value Until Time 1
 
 OS:SpaceInfiltration:DesignFlowRate,
-  {edb99613-9477-4fc3-ad00-b7937c73a89c}, !- Handle
+  {cc9bcfc0-2cdc-479a-9784-7ea000f3e6c4}, !- Handle
   Space Infiltration Design Flow Rate 1,  !- Name
-  {1b152812-4fce-4edf-a57a-d05e814d390c}, !- Space or SpaceType Name
-  {2d6ac000-268f-4f99-99f2-e2d9ad087d3e}, !- Schedule Name
+  {4c0f5fce-9244-4db7-b97a-0f8585aca55e}, !- Space or SpaceType Name
+  {569f1e78-41b8-4129-a859-d0fec32cdb24}, !- Schedule Name
   AirChanges/Hour,                        !- Design Flow Rate Calculation Method
   ,                                       !- Design Flow Rate {m3/s}
   ,                                       !- Flow per Space Floor Area {m3/s-m2}
@@ -1306,34 +1306,34 @@ OS:SpaceInfiltration:DesignFlowRate,
   ;                                       !- Velocity Squared Term Coefficient
 
 OS:Schedule:Ruleset,
-  {2d6ac000-268f-4f99-99f2-e2d9ad087d3e}, !- Handle
+  {569f1e78-41b8-4129-a859-d0fec32cdb24}, !- Handle
   Always On Ruleset Fractional 1,         !- Name
-  {07db2830-2e83-419b-8e7c-29ee3a8a0146}, !- Schedule Type Limits Name
-  {59a36e9c-ae49-44c4-99b2-4f5da28a7003}; !- Default Day Schedule Name
+  {c5767752-4162-4cb8-a6fb-d3ad7caaf15a}, !- Schedule Type Limits Name
+  {52d6c399-80ed-4c5c-9cb7-ae7861ca8c15}; !- Default Day Schedule Name
 
 OS:Schedule:Day,
-  {59a36e9c-ae49-44c4-99b2-4f5da28a7003}, !- Handle
+  {52d6c399-80ed-4c5c-9cb7-ae7861ca8c15}, !- Handle
   Schedule Day 7,                         !- Name
-  {07db2830-2e83-419b-8e7c-29ee3a8a0146}, !- Schedule Type Limits Name
+  {c5767752-4162-4cb8-a6fb-d3ad7caaf15a}, !- Schedule Type Limits Name
   ,                                       !- Interpolate to Timestep
   24,                                     !- Hour 1
   0,                                      !- Minute 1
   1;                                      !- Value Until Time 1
 
 OS:Schedule:Constant,
-  {d413161c-c926-4a3c-9692-728b70ddff32}, !- Handle
+  {a87f3a6e-9fe7-4a86-9cbc-8223dd3e880e}, !- Handle
   27.0 C,                                 !- Name
-  {397fc975-6997-4c81-a59a-c4a4cdd0f9c3}, !- Schedule Type Limits Name
+  {176fd40e-d29b-4cc6-913a-69efae5734bc}, !- Schedule Type Limits Name
   27;                                     !- Value
 
 OS:Schedule:Ruleset,
-  {df5513ef-763c-475f-9125-5fe79d1f1346}, !- Handle
+  {4f3fec79-8260-4626-a2b0-8b0f4cd90f08}, !- Handle
   BESTEST htg SETBACK,                    !- Name
-  {397fc975-6997-4c81-a59a-c4a4cdd0f9c3}, !- Schedule Type Limits Name
-  {0b7f4ce9-31ac-4175-9bb9-ac84d2336b9a}; !- Default Day Schedule Name
+  {e9ad07a2-4f73-4268-bc07-3e3fe72478f5}, !- Schedule Type Limits Name
+  {b93da7b9-07e8-4aeb-8dc7-7eb3f089d753}; !- Default Day Schedule Name
 
 OS:ScheduleTypeLimits,
-  {397fc975-6997-4c81-a59a-c4a4cdd0f9c3}, !- Handle
+  {e9ad07a2-4f73-4268-bc07-3e3fe72478f5}, !- Handle
   Temperature 1,                          !- Name
   ,                                       !- Lower Limit Value
   ,                                       !- Upper Limit Value
@@ -1341,9 +1341,9 @@ OS:ScheduleTypeLimits,
   Temperature;                            !- Unit Type
 
 OS:Schedule:Day,
-  {0b7f4ce9-31ac-4175-9bb9-ac84d2336b9a}, !- Handle
+  {b93da7b9-07e8-4aeb-8dc7-7eb3f089d753}, !- Handle
   Schedule Day 1,                         !- Name
-  {e72fc916-f693-4409-b95c-ac21a49cf89e}, !- Schedule Type Limits Name
+  {176fd40e-d29b-4cc6-913a-69efae5734bc}, !- Schedule Type Limits Name
   ,                                       !- Interpolate to Timestep
   7,                                      !- Hour 1
   0,                                      !- Minute 1
@@ -1356,7 +1356,7 @@ OS:Schedule:Day,
   10;                                     !- Value Until Time 3
 
 OS:ScheduleTypeLimits,
-  {e72fc916-f693-4409-b95c-ac21a49cf89e}, !- Handle
+  {176fd40e-d29b-4cc6-913a-69efae5734bc}, !- Handle
   Temperature 2,                          !- Name
   ,                                       !- Lower Limit Value
   ,                                       !- Upper Limit Value
@@ -1364,27 +1364,27 @@ OS:ScheduleTypeLimits,
   Temperature;                            !- Unit Type
 
 OS:ThermostatSetpoint:DualSetpoint,
-  {b1528701-e427-4f80-a227-1001e596cbc1}, !- Handle
+  {ff6f7b67-3ff5-4b48-8ceb-cfdd8e69cfc2}, !- Handle
   Thermostat Setpoint Dual Setpoint 1,    !- Name
-  {df5513ef-763c-475f-9125-5fe79d1f1346}, !- Heating Setpoint Temperature Schedule Name
-  {d413161c-c926-4a3c-9692-728b70ddff32}; !- Cooling Setpoint Temperature Schedule Name
+  {4f3fec79-8260-4626-a2b0-8b0f4cd90f08}, !- Heating Setpoint Temperature Schedule Name
+  {a87f3a6e-9fe7-4a86-9cbc-8223dd3e880e}; !- Cooling Setpoint Temperature Schedule Name
 
 OS:Output:Variable,
-  {d25bf485-47e8-45c7-92de-920ffc7b7210}, !- Handle
+  {c3ba7415-4a97-41fc-8700-7cde0b269085}, !- Handle
   Output Variable 1,                      !- Name
   ,                                       !- Key Value
   Zone Mean Air Temperature,              !- Variable Name
   hourly;                                 !- Reporting Frequency
 
 OS:Output:Variable,
-  {1105c71e-4f5f-4a64-89e6-7570d0b3c48f}, !- Handle
+  {4e3c2b16-5f2d-4e36-a1b1-c6679cee38a0}, !- Handle
   Output Variable 2,                      !- Name
   ,                                       !- Key Value
   Zone Air System Sensible Heating Energy, !- Variable Name
   hourly;                                 !- Reporting Frequency
 
 OS:Output:Variable,
-  {da4f9ec9-6cf3-4ac3-b381-7bcb63719e0d}, !- Handle
+  {3ecfda24-25d7-47a4-84cd-ad055a3028ac}, !- Handle
   Output Variable 3,                      !- Name
   ,                                       !- Key Value
   Zone Air System Sensible Cooling Energy, !- Variable Name

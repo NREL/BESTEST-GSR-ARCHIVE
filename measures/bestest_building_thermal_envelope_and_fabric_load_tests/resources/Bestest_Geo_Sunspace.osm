@@ -22,7 +22,7 @@ OS:ScheduleTypeLimits,
 
 OS:ThermalZone,
   {142f92d8-4685-420d-8664-635ef092cb86}, !- Handle
-  BACK ZONE Thermal Zone,                 !- Name
+  BACK ZONE,                 !- Name
   1,                                      !- Multiplier
   2.7,                                    !- Ceiling Height {m}
   129.6,                                  !- Volume {m3}
@@ -104,7 +104,7 @@ OS:ZoneHVAC:EquipmentList,
 
 OS:Space,
   {b7e837d1-bbdc-466e-a15f-60c6aa9dcb80}, !- Handle
-  BACK ZONE,                              !- Name
+  BACK ZONE Space,                              !- Name
   ,                                       !- Space Type Name
   ,                                       !- Default Construction Set Name
   ,                                       !- Default Schedule Set Name
@@ -470,7 +470,7 @@ OS:Surface,
 
 OS:ThermalZone,
   {26f9a69c-11cc-4dfc-8ba7-38363deeb1a9}, !- Handle
-  SUN ZONE Thermal Zone,                  !- Name
+  SUN ZONE,                  !- Name
   1,                                      !- Multiplier
   2.7,                                    !- Ceiling Height {m}
   43.2,                                   !- Volume {m3}
@@ -552,7 +552,7 @@ OS:ZoneHVAC:EquipmentList,
 
 OS:Space,
   {04342d2f-736d-4746-8f8e-1bb4d7a34c16}, !- Handle
-  SUN ZONE,                               !- Name
+  SUN ZONE Space,                               !- Name
   ,                                       !- Space Type Name
   ,                                       !- Default Construction Set Name
   ,                                       !- Default Schedule Set Name

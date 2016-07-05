@@ -547,6 +547,8 @@ module OsLib_Reporting
 
     # gather data (we can pre-poplulate 0 value from -20C to 70C if needed)
     hourly_values_rnd = {}
+    min = 0
+    max = 0
 
     # get time series data for each zone
     ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
@@ -554,10 +556,10 @@ module OsLib_Reporting
       # get keys
       keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
 
-      if keys.include? 'ZONE ONE THERMAL ZONE'
-        key = 'ZONE ONE THERMAL ZONE'
-      elsif keys.include? 'SUN ZONE THERMAL ZONE'
-        key = 'SUN ZONE THERMAL ZONE'
+      if keys.include? 'ZONE ONE'
+        key = 'ZONE ONE'
+      elsif keys.include? 'SUN ZONE'
+        key = 'SUN ZONE'
       end
 
       # create array from values
@@ -565,11 +567,26 @@ module OsLib_Reporting
       if output_timeseries.is_initialized # checks to see if time_series exists
         output_timeseries = output_timeseries.get.values
         for i in 0..(output_timeseries.size - 1)
-          value_round = output_timeseries[i].round
-          if hourly_values_rnd.has_key?(value_round)
-            hourly_values_rnd[value_round] += 1
+
+          # code for min and max
+          if output_timeseries[i] < min
+            min = output_timeseries[i]
+          end
+          if output_timeseries[i] > max
+            max = output_timeseries[i]
+          end
+
+
+          if output_timeseries[i].truncate != output_timeseries[i] and output_timeseries[i] < 0
+            # without this negeative numbers seem to truncate towards zero vs. colder temp
+            value_truncate = output_timeseries[i].truncate - 1
           else
-            hourly_values_rnd[value_round] = 1
+            value_truncate = output_timeseries[i].truncate
+          end
+          if hourly_values_rnd.has_key?(value_truncate)
+            hourly_values_rnd[value_truncate] += 1
+          else
+            hourly_values_rnd[value_truncate] = 1
           end
         end
       else
@@ -578,10 +595,15 @@ module OsLib_Reporting
 
     end
 
+
     # add rows to table
     hourly_values_rnd.sort_by { |k,v| k}.each do |k,v|
       table_01[:data] << [k,v]
     end
+
+    # store min and max temps as register value
+    runner.registerValue('min_temp',min,'C')
+    runner.registerValue('max_temp',max,'C')
 
     # add table to array of tables
     ff_temp_bins_tables << table_01

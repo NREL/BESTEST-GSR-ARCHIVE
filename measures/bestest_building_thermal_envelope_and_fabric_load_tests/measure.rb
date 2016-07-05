@@ -206,7 +206,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
         elsif const_set.name.to_s == "BESTEST HW"
           # set default construction set for sun space
           model.getSpaces.each do |space|
-            if space.name.to_s == "SUN ZONE"
+            if space.name.to_s == "SUN ZONE Space"
               space.setDefaultConstructionSet(const_set)
               runner.registerInfo("Constructions > Setting #{const_set.name} as the construction set for #{space.name}.")
             end
@@ -271,7 +271,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       end
     elsif variable_hash[:custom]
       model.getSpaces.each do |space|
-        next if space.name.to_s == "SUN ZONE"
+        next if space.name.to_s == "SUN ZONE Space"
         resource_model.getOtherEquipmentDefinitions.each do |res_cother_equip|
           next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1 Definition"
           other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
