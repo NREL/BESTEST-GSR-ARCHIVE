@@ -333,14 +333,70 @@ module OsLib_Reporting
 
     # create table
     table_01 = {}
-    table_01[:title] = 'Hourly Incident Unshaded Solar Radiation (Wh/m^2)'
-    table_01[:header] = ['Date',0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    table_01[:title] = 'Hourly Incident Unshaded Solar Radiation (W/m^2)'
+    table_01[:header] = ['Date','Orientation',0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     table_01[:units] = [] # list units in title vs. in each column
     table_01[:data] = []
 
-    # add rows to table
-    table_01[:data] << ['March 5', ]
-    table_01[:data] << ['July 27', ]
+    # get time series data for main zone
+    ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
+    if ann_env_pd
+      # get keys
+      keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
+
+      if keys.include? 'ZONE ONE'
+        key = 'ZONE ONE'
+      elsif keys.include? 'SUN ZONE'
+        key = 'SUN ZONE'
+      end
+
+      # todo - should it be Wh/m^2
+      source_units = 'W/m^2'
+      target_units = 'W/m^2'
+
+      # loop through surfaces
+      model.getSurfaces.each do |surface|
+        next if OpenStudio::convert(surface.tilt,"rad","deg").get.round == 0
+        next if OpenStudio::convert(surface.azimuth,"rad","deg").get.round == 0
+        next if OpenStudio::convert(surface.azimuth,"rad","deg").get.round == 90
+        key = surface.name.to_s.upcase
+
+        # get values
+        output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', 'Surface Outside Face Incident Solar Radiation Rate per Area', key)
+        if output_timeseries.is_initialized # checks to see if time_series exists
+
+          # get March 5th values
+          row_data = ['March 5',surface.name.to_s.upcase]
+          table_01[:header].each do |hour|
+            next if hour == "Date"
+            next if hour == "Orientation"
+            date_string = "2009-03-05 #{hour}:00:00.000"
+            date_time = OpenStudio::DateTime.new(date_string)
+            val_at_date_time = output_timeseries.get.value(date_time)
+            value = OpenStudio.convert(val_at_date_time, source_units, target_units).get
+            row_data << value.round(2)
+          end
+          table_01[:data] << row_data
+
+          # get July 27th values
+          row_data = ['July 22',surface.name.to_s.upcase]
+          table_01[:header].each do |hour|
+            next if hour == "Date"
+            next if hour == "Orientation"
+            date_string = "2009-07-27 #{hour}:00:00.000"
+            date_time = OpenStudio::DateTime.new(date_string)
+            val_at_date_time = output_timeseries.get.value(date_time)
+            value = OpenStudio.convert(val_at_date_time, source_units, target_units).get
+            row_data << value.round(2)
+          end
+          table_01[:data] << row_data
+
+        else
+          runner.registerWarning("Didn't find data for Zone Mean Air Temperature")
+        end # end of if output_timeseries.is_initialized
+
+      end
+    end
 
     # add table to array of tables
     table_6_1_tables << table_01
