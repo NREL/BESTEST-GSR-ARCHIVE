@@ -9,7 +9,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadReports < OpenStudio::Ruleset::
   # define the name that a user will see, this method may be deprecated as
   # the display name in PAT comes from the name field in measure.xml
   def name
-    return " BESTEST Building Thermal Envelope and Fabric Load Reports"
+    return "BESTEST Building Thermal Envelope and Fabric Load Reports"
   end
   # human readable description
   def description
