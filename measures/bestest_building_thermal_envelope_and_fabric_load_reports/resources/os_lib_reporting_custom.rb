@@ -1,6 +1,6 @@
 require 'json'
 
-module OsLib_Reporting
+module OsLib_Reporting_Bestest
 
   # setup - get model, sql, and setup web assets path
   def self.setup(runner)
@@ -83,7 +83,7 @@ module OsLib_Reporting
     end
 
     # using helper method that generates table for second example
-    tables << OsLib_Reporting.general_building_information_table(model, sqlFile, runner)
+    tables << OsLib_Reporting_Bestest.general_building_information_table(model, sqlFile, runner)
 
     return @mat_prop
   end
@@ -339,7 +339,7 @@ module OsLib_Reporting
     table_01[:data] = []
 
     # get time series data for main zone
-    ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
+    ann_env_pd = OsLib_Reporting_Bestest.ann_env_pd(sqlFile)
     if ann_env_pd
       # get keys
       keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
@@ -402,8 +402,8 @@ module OsLib_Reporting
     table_6_1_tables << table_01
 
     # use helper method that generates additional table for section
-    table_6_1_tables << OsLib_Reporting.hourly_heating_cooling_table(model, sqlFile, runner)
-    table_6_1_tables << OsLib_Reporting.free_floating_temp(model, sqlFile, runner)
+    table_6_1_tables << OsLib_Reporting_Bestest.hourly_heating_cooling_table(model, sqlFile, runner)
+    table_6_1_tables << OsLib_Reporting_Bestest.free_floating_temp(model, sqlFile, runner)
 
     return @table_6_1_section
   end
@@ -417,7 +417,7 @@ module OsLib_Reporting
     table[:data] = []
 
     # get time series data for main zone
-    ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
+    ann_env_pd = OsLib_Reporting_Bestest.ann_env_pd(sqlFile)
     if ann_env_pd
       # get keys
       keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
@@ -490,7 +490,7 @@ module OsLib_Reporting
 
 
     # get time series data for main zone
-    ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
+    ann_env_pd = OsLib_Reporting_Bestest.ann_env_pd(sqlFile)
     if ann_env_pd
       # get keys
       keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
@@ -705,7 +705,7 @@ module OsLib_Reporting
     max = 0
 
     # get time series data for main zone
-    ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
+    ann_env_pd = OsLib_Reporting_Bestest.ann_env_pd(sqlFile)
     if ann_env_pd
       # get keys
       keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')

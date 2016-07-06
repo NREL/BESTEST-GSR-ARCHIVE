@@ -25,7 +25,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadReports < OpenStudio::Ruleset::
     result = []
 
     # instead of hand populating, any methods with 'section' in the name will be added in the order they appear
-    all_setions =  OsLib_Reporting.methods(false)
+    all_setions =  OsLib_Reporting_Bestest.methods(false)
     all_setions.each do |section|
       next if not section.to_s.include? 'section'
       result << section.to_s
@@ -42,7 +42,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadReports < OpenStudio::Ruleset::
     possible_sections.each do |method_name|
       # get display name
       arg = OpenStudio::Ruleset::OSArgument.makeBoolArgument(method_name, true)
-      display_name = eval("OsLib_Reporting.#{method_name}(nil,nil,nil,true)[:title]")
+      display_name = eval("OsLib_Reporting_Bestest.#{method_name}(nil,nil,nil,true)[:title]")
       arg.setDisplayName(display_name)
       arg.setDefaultValue(true)
       args << arg
@@ -65,7 +65,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadReports < OpenStudio::Ruleset::
     super(runner, user_arguments)
 
     # get sql, model, and web assets
-    setup = OsLib_Reporting.setup(runner)
+    setup = OsLib_Reporting_Bestest.setup(runner)
     unless setup
       return false
     end
@@ -96,8 +96,8 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadReports < OpenStudio::Ruleset::
       begin
         next unless args[method_name]
         section = false
-        eval("section = OsLib_Reporting.#{method_name}(model,sql_file,runner,false)")
-        display_name = eval("OsLib_Reporting.#{method_name}(nil,nil,nil,true)[:title]")
+        eval("section = OsLib_Reporting_Bestest.#{method_name}(model,sql_file,runner,false)")
+        display_name = eval("OsLib_Reporting_Bestest.#{method_name}(nil,nil,nil,true)[:title]")
         if section
           @sections << section
           sections_made += 1
@@ -118,13 +118,13 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadReports < OpenStudio::Ruleset::
           @sections << section
         end
       rescue => e
-        display_name = eval("OsLib_Reporting.#{method_name}(nil,nil,nil,true)[:title]")
+        display_name = eval("OsLib_Reporting_Bestest.#{method_name}(nil,nil,nil,true)[:title]")
         if display_name == nil then display_name == method_name end
         runner.registerWarning("#{display_name} section failed and was skipped because: #{e}. Detail on error follows.")
         runner.registerWarning("#{e.backtrace.join("\n")}")
 
         # add in section heading with message if section fails
-        section = eval("OsLib_Reporting.#{method_name}(nil,nil,nil,true)")
+        section = eval("OsLib_Reporting_Bestest.#{method_name}(nil,nil,nil,true)")
         section[:messages] = []
         section[:messages] << "#{display_name} section failed and was skipped because: #{e}. Detail on error follows."
         section[:messages] << ["#{e.backtrace.join("\n")}"]
