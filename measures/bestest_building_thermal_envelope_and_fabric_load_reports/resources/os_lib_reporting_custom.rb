@@ -346,39 +346,137 @@ module OsLib_Reporting
     table_6_1_tables << table_01
 
     # use helper method that generates additional table for section
-    table_6_1_tables << OsLib_Reporting.hourly_heating_table(model, sqlFile, runner)
+    table_6_1_tables << OsLib_Reporting.hourly_heating_cooling_table(model, sqlFile, runner)
     table_6_1_tables << OsLib_Reporting.free_floating_temp(model, sqlFile, runner)
 
     return @table_6_1_section
   end
 
-  # create hourly_heating_table
-  def self.hourly_heating_table(model, sqlFile, runner)
-    # create a second table
+  # create hourly_heating_cooling_table
+  def self.hourly_heating_cooling_table(model, sqlFile, runner)
     table = {}
     table[:title] = 'Hourly Loads (kWh)'
     table[:header] = ['Date','Type',0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     table[:units] = [] # list units in title vs. in each column
     table[:data] = []
 
-    # add rows to table
-    table[:data] << ['January 4', 'Heating']
-    table[:data] << ['January 4', 'Cooling']
+    # get time series data for main zone
+    ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
+    if ann_env_pd
+      # get keys
+      keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
+
+      if keys.include? 'ZONE ONE'
+        key = 'ZONE ONE'
+      elsif keys.include? 'SUN ZONE'
+        key = 'SUN ZONE'
+      end
+
+      source_units = 'J'
+      target_units = 'kWh'
+
+      # get heating values
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', 'Zone Air System Sensible Heating Energy', key)
+      if output_timeseries.is_initialized # checks to see if time_series exists
+
+        # get January 4th values
+        row_data = ['January 4','Heating']
+        table[:header].each do |hour|
+          next if hour == "Date"
+          next if hour == "Type"
+          date_string = "2009-01-04 #{hour}:00:00.000"
+          date_time = OpenStudio::DateTime.new(date_string)
+          val_at_date_time = output_timeseries.get.value(date_time)
+          value = OpenStudio.convert(val_at_date_time, source_units, target_units).get
+          row_data << value.round(2)
+        end
+        table[:data] << row_data
+
+      else
+        runner.registerWarning("Didn't find data for Zone Mean Air Temperature")
+      end # end of if output_timeseries.is_initialized
+
+      # get heating values
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', 'Zone Air System Sensible Cooling Energy', key)
+      if output_timeseries.is_initialized # checks to see if time_series exists
+
+        # get January 4th values
+        row_data = ['January 4','Cooling']
+        table[:header].each do |hour|
+          next if hour == "Date"
+          next if hour == "Type"
+          date_string = "2009-01-04 #{hour}:00:00.000"
+          date_time = OpenStudio::DateTime.new(date_string)
+          val_at_date_time = output_timeseries.get.value(date_time)
+          value = OpenStudio.convert(val_at_date_time, source_units, target_units).get
+          row_data << value.round(2)
+        end
+        table[:data] << row_data
+
+      else
+        runner.registerWarning("Didn't find data for Zone Mean Air Temperature")
+      end # end of if output_timeseries.is_initialized
+
+      # todo - report asks for single array with negative for cooling, but since timestep is not hourly, couldn't heating and cooling exist in same hour.
+
+    end
+
     return table
   end
 
   # create free_floating_temp
   def self.free_floating_temp(model, sqlFile, runner)
-    # create a second table
     table = {}
-    table[:title] = 'Hourly Free-Floating Zone Air Temperature (C)'
-    table[:header] = ['Date',0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    table[:title] = 'Hourly Zone Mean Air Temperature (C)' # only show for Free-Floating cases
+    table[:header] = ['Date','00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
     table[:units] = [] # list units in title vs. in each column
     table[:data] = []
 
-    # add rows to table
-    table[:data] << ['January 4',]
-    table[:data] << ['July 27',]
+
+    # get time series data for main zone
+    ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
+    if ann_env_pd
+      # get keys
+      keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
+
+      if keys.include? 'ZONE ONE'
+        key = 'ZONE ONE'
+      elsif keys.include? 'SUN ZONE'
+        key = 'SUN ZONE'
+      end
+
+      # create array from values
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature', key)
+      if output_timeseries.is_initialized # checks to see if time_series exists
+
+        # get January 4th values
+        row_data = ['January 4']
+        table[:header].each do |hour|
+          next if hour == "Date"
+          date_string = "2009-01-04 #{hour}:00:00.000"
+          date_time = OpenStudio::DateTime.new(date_string)
+          val_at_date_time = output_timeseries.get.value(date_time)
+          row_data << val_at_date_time.round(1)
+        end
+        table[:data] << row_data
+
+        # get July 27th values
+        row_data = ['July 27']
+        table[:header].each do |hour|
+          next if hour == "Date"
+          date_string = "2009-07-27 #{hour}:00:00.000"
+          date_time = OpenStudio::DateTime.new(date_string)
+          val_at_date_time = output_timeseries.get.value(date_time)
+          row_data << val_at_date_time.round(1)
+        end
+        table[:data] << row_data
+
+      else
+        runner.registerWarning("Didn't find data for Zone Mean Air Temperature")
+      end # end of if output_timeseries.is_initialized
+
+    end
+
     return table
   end
 
@@ -550,7 +648,7 @@ module OsLib_Reporting
     min = 0
     max = 0
 
-    # get time series data for each zone
+    # get time series data for main zone
     ann_env_pd = OsLib_Reporting.ann_env_pd(sqlFile)
     if ann_env_pd
       # get keys
@@ -565,6 +663,7 @@ module OsLib_Reporting
       # create array from values
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature', key)
       if output_timeseries.is_initialized # checks to see if time_series exists
+
         output_timeseries = output_timeseries.get.values
         for i in 0..(output_timeseries.size - 1)
 
@@ -594,7 +693,6 @@ module OsLib_Reporting
       end # end of if output_timeseries.is_initialized
 
     end
-
 
     # add rows to table
     hourly_values_rnd.sort_by { |k,v| k}.each do |k,v|
