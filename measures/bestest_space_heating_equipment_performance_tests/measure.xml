@@ -1,0 +1,312 @@
+<measure>
+  <schema_version>3.0</schema_version>
+  <name>bestest_space_heating_equipment_performance_tests</name>
+  <uid>65d31bac-6024-4b64-8029-006e82cd4b87</uid>
+  <version_id>a08e9164-e006-4b91-9ba5-97792fde2436</version_id>
+  <version_modified>20160707T193303Z</version_modified>
+  <xml_checksum>2438005F</xml_checksum>
+  <class_name>BESTESTSpaceHeatingEquipmentPerformanceTests</class_name>
+  <display_name>BESTEST Space Heating Equipment Performance Tests</display_name>
+  <description>Creates test cases described in ASHRAE Standard 140-2014 sections 5.4.1, 5.4.2, and 5.4.3</description>
+  <modeler_description>This is intended to run on an empty model. It will create the proper model associate it with the proper weather file, and add in necessary output requests. Internally to the measure the test case argument will be mapped to the proper inputs needed to assemble the model. The measure will make some objects on the fly, other objects will be pulled from existing data resources. This measure creates cases described all of section 5.3.</modeler_description>
+  <arguments>
+    <argument>
+      <name>case_num</name>
+      <display_name>Test Case Number</display_name>
+      <description>Measure will generate selected test case.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>HE100 - Base-case Building and Mechanical Systems</default_value>
+      <choices>
+        <choice>
+          <value>HE100 - Base-case Building and Mechanical Systems</value>
+          <display_name>HE100 - Base-case Building and Mechanical Systems</display_name>
+        </choice>
+        <choice>
+          <value>HE110 - Efficiency Test</value>
+          <display_name>HE110 - Efficiency Test</display_name>
+        </choice>
+        <choice>
+          <value>HE120 - Stead Par-Load Test</value>
+          <display_name>HE120 - Stead Par-Load Test</display_name>
+        </choice>
+        <choice>
+          <value>HE130 - No-Load Test</value>
+          <display_name>HE130 - No-Load Test</display_name>
+        </choice>
+        <choice>
+          <value>HE140 - Periodically Varying Part-Load Test</value>
+          <display_name>HE140 - Periodically Varying Part-Load Test</display_name>
+        </choice>
+        <choice>
+          <value>HE150 - Circulating Fan Test</value>
+          <display_name>HE150 - Circulating Fan Test</display_name>
+        </choice>
+        <choice>
+          <value>HE160 - Cycling Circulating Fan Test</value>
+          <display_name>HE160 - Cycling Circulating Fan Test</display_name>
+        </choice>
+        <choice>
+          <value>HE170 - Draft Fan Test</value>
+          <display_name>HE170 - Draft Fan Test</display_name>
+        </choice>
+        <choice>
+          <value>HE210 - Realistic Weather Data</value>
+          <display_name>HE210 - Realistic Weather Data</display_name>
+        </choice>
+        <choice>
+          <value>HE220 - Setback Thermostat</value>
+          <display_name>HE220 - Setback Thermostat</display_name>
+        </choice>
+        <choice>
+          <value>HE230 - Undersized Furnace</value>
+          <display_name>HE230 - Undersized Furnace</display_name>
+        </choice>
+      </choices>
+    </argument>
+  </arguments>
+  <provenances/>
+  <tags>
+    <tag>Whole Building.Space Types</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Analysis Spreadsheet</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Analysis Spreadsheet</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Analysis Spreadsheet</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>example_model.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>C4F35230</checksum>
+    </file>
+    <file>
+      <filename>DRYCOLDTMY.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>08DEB5B3</checksum>
+    </file>
+    <file>
+      <filename>epw.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>32A9564D</checksum>
+    </file>
+    <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>912539D1</checksum>
+    </file>
+    <file>
+      <filename>Bestest_empty.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>0603845B</checksum>
+    </file>
+    <file>
+      <filename>besttest_model_methods.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>ACC4FB42</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>6E7288CE</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_0_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>617F38BC</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>032EE5E2</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_1_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>F3CAA0EF</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_Sunspace.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>D0AB0946</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_1_1.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>B0CE8ED5</checksum>
+    </file>
+    <file>
+      <filename>bestest_space_heating_equipment_performance_tests.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>DD0B65D1</checksum>
+    </file>
+    <file>
+      <filename>CE100ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>5F480EBD</checksum>
+    </file>
+    <file>
+      <filename>CE110ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>A0DB1D54</checksum>
+    </file>
+    <file>
+      <filename>CE165ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>659530A0</checksum>
+    </file>
+    <file>
+      <filename>CE200ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>53932B90</checksum>
+    </file>
+    <file>
+      <filename>CE300TM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>96FC79DF</checksum>
+    </file>
+    <file>
+      <filename>HE100WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>FB484A5B</checksum>
+    </file>
+    <file>
+      <filename>HE120WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>559784AA</checksum>
+    </file>
+    <file>
+      <filename>HE130WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>0C47A954</checksum>
+    </file>
+    <file>
+      <filename>HE140WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>003B129F</checksum>
+    </file>
+    <file>
+      <filename>HE210WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>CFF75E65</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>1.11.5</identifier>
+        <min_compatible>1.11.5</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>C9E2FF84</checksum>
+    </file>
+    <file>
+      <filename>besttest_case_var_lib.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>C2DD20E0</checksum>
+    </file>
+  </files>
+</measure>

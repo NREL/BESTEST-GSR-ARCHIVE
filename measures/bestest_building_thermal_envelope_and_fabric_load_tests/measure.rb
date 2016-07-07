@@ -378,11 +378,11 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     # rename the building
     model.getBuilding.setName("BESTEST Case #{case_num}")
-    runner.registerInfo("Renaming Building > #{model.getBuilding.name}:")
+    runner.registerInfo("Renaming Building > #{model.getBuilding.name}")
 
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
-    # todo - Add output requests (consider adding to case hash instead of adding logic here)
+    # Add output requests (consider adding to case hash instead of adding logic here)
     # this gather any non standard output requests. Analysis of output such as binning temps for FF will occur in reporting measure
     # Table 6-1 describes the specific day of results that will be used for testing
     hourly_variables = []
