@@ -99,9 +99,15 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
 
     # Lookup envelope
     file_to_clone = nil
-    if case_num.include? 'CE1' || 'CE2'
+    if case_num.include? 'CE1'
       file_to_clone = 'Bestest_Geo_CE100.osm'
-    elsif case_num.include? 'CE3' || 'CE4' || 'CE5'
+    elsif case_num.include? 'CE2'
+    file_to_clone = 'Bestest_Geo_CE100.osm'
+    elsif case_num.include? 'CE3'
+      file_to_clone = 'Bestest_Geo_CE300.osm'
+    elsif case_num.include? 'CE4'
+      file_to_clone = 'Bestest_Geo_CE300.osm'
+    elsif case_num.include? 'CE5'
       file_to_clone = 'Bestest_Geo_CE300.osm'
     else
       runner.registerError("Unexpected Geometry Variables.")

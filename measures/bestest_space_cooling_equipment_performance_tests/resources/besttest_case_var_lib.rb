@@ -1169,7 +1169,7 @@ module BestestCaseVarLib
     variable_hash_lookup['HE110 - Efficiency Test'] = [
         :outdoor_dbt => -30.0,
         :htg_set => 20.0,
-        :epw => 'HE110W',
+        :epw => 'HE100W',
         :capacity => 10.0,
         :ss_eff => 80.0,
         :plr => 1,
