@@ -97,23 +97,21 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     site.setElevation(weather_elev)
     runner.registerInfo("Weather > setting weather to #{weather_object.url.get}")
 
-    # todo - Lookup envelope
+    # Lookup envelope
+    file_to_clone = nil
+    if case_num.include? 'HE'
+      file_to_clone = 'Bestest_Geo_HE100.osm'
+    else
+      runner.registerError("Unexpected Geometry Variables.")
+      return false
+    end
 
-
-    # todo - Add envelope from external file
-
-    # Load resource file
-    file_resource = "bestest_resources.osm"
-    runner.registerInfo("Shared Resources > Loading #{file_resource}")
+    # Add envelope from external file
+    runner.registerInfo("Envelope > Adding spaces and zones from #{file_to_clone}")
     translator = OpenStudio::OSVersion::VersionTranslator.new
-    resource_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_resource}")
-    resource_model = translator.loadModel(resource_path).get
-
-
-    # todo- Lookup construction sets
-
-
-    # todo - look up names for schedules that might be needed
+    geo_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_to_clone}")
+    geo_model = translator.loadModel(geo_path).get
+    geo_model.getBuilding.clone(model)
 
 
     # todo - Add internal loads

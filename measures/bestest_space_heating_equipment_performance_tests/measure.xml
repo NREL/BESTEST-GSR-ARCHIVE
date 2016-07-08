@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_heating_equipment_performance_tests</name>
   <uid>65d31bac-6024-4b64-8029-006e82cd4b87</uid>
-  <version_id>a08e9164-e006-4b91-9ba5-97792fde2436</version_id>
-  <version_modified>20160707T193303Z</version_modified>
+  <version_id>e35b5cac-0572-4166-88bc-4768f764daae</version_id>
+  <version_modified>20160708T204350Z</version_modified>
   <xml_checksum>2438005F</xml_checksum>
   <class_name>BESTESTSpaceHeatingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Heating Equipment Performance Tests</display_name>
@@ -300,13 +300,31 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>C9E2FF84</checksum>
+      <checksum>5E7AEF8B</checksum>
     </file>
     <file>
       <filename>besttest_case_var_lib.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>C2DD20E0</checksum>
+      <checksum>C8038118</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_CE100.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>8ECC3666</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_CE300.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>1203FCDF</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_HE100.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>CB2BCA0A</checksum>
     </file>
   </files>
 </measure>
