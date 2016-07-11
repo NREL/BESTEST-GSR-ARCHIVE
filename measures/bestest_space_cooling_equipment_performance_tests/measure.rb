@@ -37,8 +37,8 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     choices.each do |choice|
       array << "'#{choice}'"
     end
-    puts "String for spreadsheet"
-    puts "[#{array.join(",")}]"
+    #puts "String for spreadsheet"
+    #puts "[#{array.join(",")}]"
 
     case_num = OpenStudio::Ruleset::OSArgument::makeChoiceArgument("case_num", choices,true)
     case_num.setDisplayName("Test Case Number")
@@ -77,7 +77,7 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
 
     # todo - Adjust simulation settings if necessary
 
-    # todo - Add weather file and design day objects (won't work in apply measures now)
+    # Add weather file and design day objects (won't work in apply measures now)
     top_dir = File.dirname(__FILE__)
     weather_dir = "#{top_dir}/resources/"
     weather_file_name = "#{variable_hash[:epw]}TM2.epw"
@@ -121,12 +121,90 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     geo_model = translator.loadModel(geo_path).get
     geo_model.getBuilding.clone(model)
 
+    # Load resource file
+    file_resource = "bestest_resources.osm"
+    runner.registerInfo("Shared Resources > Loading #{file_resource}")
+    translator = OpenStudio::OSVersion::VersionTranslator.new
+    resource_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_resource}")
+    resource_model = translator.loadModel(resource_path).get
 
-    # todo - Add internal loads
+    # Lookup sensible internal load
+    if variable_hash[:int_gen_sensible].is_a? Numeric
+      inst_to_clone = resource_model.getModelObjectByName("CE_sens_generic_inst").get.to_OtherEquipment.get
+    elsif variable_hash[:int_gen_sensible] == 'mid'
+      inst_to_clone = resource_model.getModelObjectByName("CE_sens_mid_inst").get.to_OtherEquipment.get
+    elsif variable_hash[:int_gen_sensible] == 'high'
+      inst_to_clone = resource_model.getModelObjectByName("CE_sens_high_inst").get.to_OtherEquipment.get
+    elsif variable_hash[:int_gen_sensible] == 'mid2'
+      inst_to_clone = resource_model.getModelObjectByName("CE_sens_mid2_inst").get.to_OtherEquipment.get
+    elsif variable_hash[:int_gen_sensible] == 'high2'
+      inst_to_clone = resource_model.getModelObjectByName("CE_sens_high2_inst").get.to_OtherEquipment.get
+    else
+      runner.registerError("Unexpected internal load sensible value")
+      return false
+    end
 
+    # add load
+    load_inst_sens = inst_to_clone.clone(model).to_OtherEquipment.get
+    load_inst_sens.setSpace(model.getSpaces.first)
+    runner.registerInfo("Internal Loads > Adding #{load_inst_sens.name} to #{model.getSpaces.first.name}.")
 
-    # todo - Add infiltration
+    # if generic update the value
+    if variable_hash[:int_gen_sensible].is_a? Numeric
+      load_def = load_inst_sens.definition.to_OtherEquipmentDefinition.get
+      load_def.setDesignLevel(variable_hash[:int_gen_sensible])
+      runner.registerInfo("Internal Loads > Setting Design Level to #{load_def.designLevel} W.")
+    end
 
+    # Lookup latent internal load
+    if variable_hash[:int_gen_latent].is_a? Numeric
+      inst_to_clone = resource_model.getModelObjectByName("CE_lat_generic_inst").get.to_OtherEquipment.get
+    elsif variable_hash[:int_gen_latent] == 'mid'
+      inst_to_clone = resource_model.getModelObjectByName("CE_lat_mid_inst").get.to_OtherEquipment.get
+    elsif variable_hash[:int_gen_latent] == 'high'
+      inst_to_clone = resource_model.getModelObjectByName("CE_lat_high_inst").get.to_OtherEquipment.get
+    elsif variable_hash[:int_gen_latent] == 'mid2'
+      inst_to_clone = resource_model.getModelObjectByName("CE_lat_mid2_inst").get.to_OtherEquipment.get
+    elsif variable_hash[:int_gen_latent] == 'high2'
+      inst_to_clone = resource_model.getModelObjectByName("CE_lat_high2_inst").get.to_OtherEquipment.get
+    else
+      runner.registerError("Unexpected internal load latent value")
+      return false
+    end
+
+    # add load
+    load_inst_lat= inst_to_clone.clone(model).to_OtherEquipment.get
+    load_inst_lat.setSpace(model.getSpaces.first)
+    runner.registerInfo("Internal Loads > Adding #{load_inst_lat.name} to #{model.getSpaces.first.name}.")
+
+    # if generic update the value
+    if variable_hash[:int_gen_latent].is_a? Numeric
+      load_def = load_inst_lat.definition.to_OtherEquipmentDefinition.get
+      load_def.setDesignLevel(variable_hash[:int_gen_latent])
+      runner.registerInfo("Internal Loads > Setting Design Level to #{load_def.designLevel} W.")
+    end
+
+    # Add infiltration
+    if variable_hash[:infil].nil?
+      # do nothing
+    else
+      inst_to_clone = resource_model.getModelObjectByName("infil_gen").get.to_SpaceInfiltrationDesignFlowRate.get
+      infil = inst_to_clone.clone(model).to_SpaceInfiltrationDesignFlowRate.get
+      infil.setAirChangesperHour(variable_hash[:infil])
+      infil.setSpace(model.getSpaces.first)
+      runner.registerInfo("Infiltration > Setting to #{infil.airChangesperHour} ACH for #{model.getSpaces.first.name}.")
+    end
+
+    # Add OA
+    if variable_hash[:oa].nil?
+      # do nothing
+    else
+      inst_to_clone = resource_model.getModelObjectByName("oa_gen").get.to_DesignSpecificationOutdoorAir.get
+      oa = inst_to_clone.clone(model).to_DesignSpecificationOutdoorAir.get
+      oa.setOutdoorAirFlowAirChangesperHour(variable_hash[:oa])
+      model.getSpaces.first.setDesignSpecificationOutdoorAir(oa)
+      runner.registerInfo("Outdoor Air > Setting to #{oa.outdoorAirFlowAirChangesperHour } ACH for #{model.getSpaces.first.name}.")
+    end
 
     # todo - setup clg thermostat schedule
 

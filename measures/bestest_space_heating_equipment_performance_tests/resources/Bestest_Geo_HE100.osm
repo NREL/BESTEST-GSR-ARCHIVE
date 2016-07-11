@@ -1,7 +1,7 @@
 
 OS:Version,
   {39408617-3dec-48e0-aab9-ce27e8abd11a}, !- Handle
-  1.10.6;                                 !- Version Identifier
+  1.11.5;                                 !- Version Identifier
 
 OS:Surface,
   {e9b50c0a-a873-47b6-8598-0d66cc0a5b43}, !- Handle

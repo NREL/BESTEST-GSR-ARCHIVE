@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_heating_equipment_performance_tests</name>
   <uid>65d31bac-6024-4b64-8029-006e82cd4b87</uid>
-  <version_id>3795135e-0d95-4735-ae24-4d6e00edd427</version_id>
-  <version_modified>20160708T212321Z</version_modified>
+  <version_id>ee258e67-983f-432b-94fd-cfbcf66dacc6</version_id>
+  <version_modified>20160711T213534Z</version_modified>
   <xml_checksum>2438005F</xml_checksum>
   <class_name>BESTESTSpaceHeatingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Heating Equipment Performance Tests</display_name>
@@ -172,12 +172,6 @@
       <checksum>32A9564D</checksum>
     </file>
     <file>
-      <filename>bestest_resources.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>912539D1</checksum>
-    </file>
-    <file>
       <filename>Bestest_empty.osm</filename>
       <filetype>osm</filetype>
       <usage_type>test</usage_type>
@@ -188,42 +182,6 @@
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
       <checksum>ACC4FB42</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>6E7288CE</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_South_0_0_0.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>617F38BC</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_South_12_0_0.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>032EE5E2</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_South_12_1_0.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>F3CAA0EF</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_Sunspace.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>D0AB0946</checksum>
-    </file>
-    <file>
-      <filename>Bestest_Geo_EastWest_6_1_1.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>B0CE8ED5</checksum>
     </file>
     <file>
       <filename>bestest_space_heating_equipment_performance_tests.rb</filename>
@@ -303,28 +261,70 @@
       <checksum>5E7AEF8B</checksum>
     </file>
     <file>
+      <filename>besttest_case_var_lib.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>A41DDB78</checksum>
+    </file>
+    <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>0AF1052B</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>72619382</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_0_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>2DBFA8B2</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>2B0D8DB6</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_1_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>619B4059</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_Sunspace.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>C146694E</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_1_1.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>940F5679</checksum>
+    </file>
+    <file>
       <filename>Bestest_Geo_CE100.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>CC38FFF8</checksum>
+      <checksum>ED429B37</checksum>
     </file>
     <file>
       <filename>Bestest_Geo_CE300.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>5C3E5B15</checksum>
+      <checksum>7B2088F0</checksum>
     </file>
     <file>
       <filename>Bestest_Geo_HE100.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
-      <checksum>04AFFC57</checksum>
-    </file>
-    <file>
-      <filename>besttest_case_var_lib.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>A41DDB78</checksum>
+      <checksum>8ED56459</checksum>
     </file>
   </files>
 </measure>
