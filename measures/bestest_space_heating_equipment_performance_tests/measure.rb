@@ -37,8 +37,8 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     choices.each do |choice|
       array << "'#{choice}'"
     end
-    puts "String for spreadsheet"
-    puts "[#{array.join(",")}]"
+    #puts "String for spreadsheet"
+    #puts "[#{array.join(",")}]"
 
     case_num = OpenStudio::Ruleset::OSArgument::makeChoiceArgument("case_num", choices,true)
     case_num.setDisplayName("Test Case Number")
@@ -150,7 +150,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
 
     # todo - add in HVAC
-    model.getThermalZones.first.setUseIdealAirLoads(true)
+    BestestModelMethods.create_he_system(runner,model,variable_hash)
 
     # rename the building
     model.getBuilding.setName("BESTEST Case #{case_num}")
