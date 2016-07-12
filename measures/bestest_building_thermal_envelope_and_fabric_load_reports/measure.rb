@@ -1,7 +1,7 @@
 require 'erb'
 require 'json'
 
-require "#{File.dirname(__FILE__)}/resources/os_lib_reporting_custom"
+require "#{File.dirname(__FILE__)}/resources/os_lib_reporting_bestest"
 require "#{File.dirname(__FILE__)}/resources/os_lib_helper_methods"
 
 # start the measure
