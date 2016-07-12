@@ -134,7 +134,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
       htg_setp.setValue(variable_hash[:htg_set])
       htg_setp.setName("#{variable_hash[:htg_set]} C")
     elsif variable_hash[:htg_set] == [15.0,20.0] # HE220 and HE230 use same htg setpoint schedule
-      resource_sch = resource_model.getModelObjectByName("CE220_htg").get.to_ScheduleRuleset.get
+      resource_sch = resource_model.getModelObjectByName("HE220_htg").get.to_ScheduleRuleset.get
       htg_setp = resource_sch.clone(model).to_ScheduleRuleset.get
     else
       runner.registerError("Unexpected heating setpoint variable")
@@ -150,7 +150,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
 
     # todo - add in HVAC
-
+    model.getThermalZones.first.setUseIdealAirLoads(true)
 
     # rename the building
     model.getBuilding.setName("BESTEST Case #{case_num}")

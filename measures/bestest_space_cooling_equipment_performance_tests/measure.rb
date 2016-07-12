@@ -227,7 +227,7 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
           resource_sch = resource_model.getModelObjectByName("CE330_oa").get.to_ScheduleRuleset.get
           sch = resource_sch.clone(model).to_ScheduleRuleset.get
         elsif case_num.include?("CE340")
-          resource_sch = resource_model.getModelObjectByName("CE340_0a").get.to_ScheduleRuleset.get
+          resource_sch = resource_model.getModelObjectByName("CE340_oa").get.to_ScheduleRuleset.get
           sch = resource_sch.clone(model).to_ScheduleRuleset.get
         else
           runner.registerError("Couldn't identify case for note a")
@@ -264,7 +264,7 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
 
     # todo - add in HVAC
-
+    model.getThermalZones.first.setUseIdealAirLoads(true)
 
     # rename the building
     model.getBuilding.setName("BESTEST Case #{case_num}")
