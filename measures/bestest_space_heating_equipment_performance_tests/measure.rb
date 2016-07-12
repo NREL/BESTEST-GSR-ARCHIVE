@@ -114,10 +114,10 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     geo_model.getBuilding.clone(model)
 
 
-    # todo - Add internal loads
+    # no internal loads in HE cases
 
 
-    # todo - Add infiltration
+    # no infiltration in HE cases
 
 
     # todo - setup clg thermostat schedule

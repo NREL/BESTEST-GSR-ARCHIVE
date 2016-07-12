@@ -219,68 +219,31 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     altered_materials =  BestestModelMethods.set_opqaue_surface_properties(model,variable_hash)
     runner.registerInfo("Surface Properties > altered #{altered_materials.uniq.size} materials.")
 
-    # add schedule for use in measure (constant schedule was failing ot set for infiltration)
-    #always_on = OpenStudio::Model::ScheduleConstant.new(model)
-    #always_on.setValue(1.0)
-    #always_on.setName("Always On")
-
-    # this method doesn't work on server 1.10.6 but is more direct
-    #bestest_htg_setback = resource_model.getModelObjectByName("BESTEST htg SETBACK").get.to_ScheduleRuleset.get
-    #bestest_clg_night_vent = resource_model.getModelObjectByName("BESTEST clg Night Vent").get.to_ScheduleRuleset.get
-    #bestest_night_vent = resource_model.getModelObjectByName("BESTEST Night Vent").get.to_ScheduleRuleset.get
-    #bestest_no_htg = resource_model.getModelObjectByName("No Heating").get.to_ScheduleRuleset.get
-    #bestest_no_clg = resource_model.getModelObjectByName("No Cooling").get.to_ScheduleRuleset.get
-
-    # look up names for schedules that might be needed
-    always_on = nil
-    bestest_htg_setback = nil
-    bestest_clg_night_vent = nil
-    bestest_night_vent = nil
-    bestest_no_htg = nil
-    bestest_no_clg = nil
-    resource_model.getScheduleRulesets.each do |schedule|
-      case schedule.name.get.to_s
-        when "BESTEST htg SETBACK"
-          bestest_htg_setback = schedule
-        when "BESTEST clg Night Vent"
-          bestest_clg_night_vent = schedule
-        when "BESTEST Night Vent"
-          bestest_night_vent = schedule
-        when "No Heating"
-          bestest_no_htg = schedule
-        when "No Cooling"
-          bestest_no_clg = schedule
-        when "Always On Ruleset Fractional"
-          always_on = schedule
-      end
-    end
+    # lookup schedules that might be needed
+    bestest_htg_setback = resource_model.getModelObjectByName("BESTEST htg SETBACK").get.to_ScheduleRuleset.get
+    bestest_clg_night_vent = resource_model.getModelObjectByName("BESTEST clg Night Vent").get.to_ScheduleRuleset.get
+    bestest_night_vent = resource_model.getModelObjectByName("BESTEST Night Vent").get.to_ScheduleRuleset.get
+    bestest_no_htg = resource_model.getModelObjectByName("No Heating").get.to_ScheduleRuleset.get
+    bestest_no_clg = resource_model.getModelObjectByName("No Cooling").get.to_ScheduleRuleset.get
+    always_on = resource_model.getModelObjectByName("Always On Ruleset Fractional").get.to_ScheduleRuleset.get
 
     # Add internal loads
     if variable_hash[:int_gen] and variable_hash[:int_gen] > 0.0
-
-      # this method doesn't work on server 1.10.6 but is more direct
-      #other_equip_def = resource_model.getModelObjectByName("ZONE ONE OthEq 1 Definition").get.to_OtherEquipmentDefinition.get
-
-      resource_model.getOtherEquipmentDefinitions.each do |res_cother_equip|
-        next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1 Definition"
-        other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
-        load_inst = OpenStudio::Model::OtherEquipment.new(other_equip_def)
-        load_inst.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
-        load_inst.setSpace(model.getSpaces.first)
-        runner.registerInfo("Internal Loads > Adding #{other_equip_def.name} to #{model.getSpaces.first.name}.")
-      end
+      # clone def, create instance and ad to spae
+      res_cother_equip = resource_model.getModelObjectByName("ZONE ONE OthEq 1 Definition").get.to_OtherEquipmentDefinition.get
+      other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
+      load_inst = OpenStudio::Model::OtherEquipment.new(other_equip_def)
+      load_inst.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
+      load_inst.setSpace(model.getSpaces.first)
+      runner.registerInfo("Internal Loads > Adding #{other_equip_def.name} to #{model.getSpaces.first.name}.")
     elsif variable_hash[:custom]
-      model.getSpaces.each do |space|
-        next if space.name.to_s == "SUN ZONE Space"
-        resource_model.getOtherEquipmentDefinitions.each do |res_cother_equip|
-          next if not res_cother_equip.name.to_s == "ZONE ONE OthEq 1 Definition"
-          other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
-          load_inst = OpenStudio::Model::OtherEquipment.new(other_equip_def)
-          load_inst.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
-          load_inst.setSpace(space)
-          runner.registerInfo("Internal Loads > Adding #{other_equip_def.name} to #{space.name}.")
-        end
-      end
+      res_cother_equip = resource_model.getModelObjectByName("ZONE ONE OthEq 1 Definition").get.to_OtherEquipmentDefinition.get
+      other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
+      load_inst = OpenStudio::Model::OtherEquipment.new(other_equip_def)
+      load_inst.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
+      space = resource_model.getModelObjectByName("BACK ZONE Space").get.to_Space.get
+      load_inst.setSpace(space)
+      runner.registerInfo("Internal Loads > Adding #{other_equip_def.name} to #{space.name}.")
     else
       runner.registerInfo("Internal Loads > No Other Eqipment Loads added")
     end
@@ -346,12 +309,11 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     end
 
     # create thermostats
-    model.getThermalZones.each do |zone|
-      next if clg_setp.nil? || htg_setp.nil?
-      next if zone.name.to_s == "SUN ZONE Thermal Zone"
+    if !clg_setp.nil? and !htg_setp.nil?
       thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
       thermostat.setCoolingSetpointTemperatureSchedule(clg_setp)
       thermostat.setHeatingSetpointTemperatureSchedule(htg_setp)
+      zone = resource_model.getModelObjectByName("BACK ZONE").get.to_ThermalZone.get
       zone.setThermostatSetpointDualSetpoint(thermostat)
       runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
     end
