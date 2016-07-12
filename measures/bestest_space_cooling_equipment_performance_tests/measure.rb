@@ -187,36 +187,81 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     # Add infiltration
     if variable_hash[:infil].nil?
       # do nothing
+    elsif variable_hash[:infil] == 0.0
+      # do nothing
     else
       inst_to_clone = resource_model.getModelObjectByName("infil_gen").get.to_SpaceInfiltrationDesignFlowRate.get
       infil = inst_to_clone.clone(model).to_SpaceInfiltrationDesignFlowRate.get
       infil.setAirChangesperHour(variable_hash[:infil])
       infil.setSpace(model.getSpaces.first)
+      # look at note a (only cases with non zero infil should fall into this)
+      if variable_hash[:b1_7_note_a]
+        if case_num.include?("CE320")
+          resource_sch = resource_model.getModelObjectByName("CE320_infil").get.to_ScheduleRuleset.get
+          sch = resource_sch.clone(model).to_ScheduleRuleset.get
+        elsif case_num.include?("CE340")
+          resource_sch = resource_model.getModelObjectByName("CE340_infil").get.to_ScheduleRuleset.get
+          sch = resource_sch.clone(model).to_ScheduleRuleset.get
+        else
+          runner.registerError("Couldn't identify case for note a")
+          return false
+        end
+        infil.setSchedule(sch)
+      end
       runner.registerInfo("Infiltration > Setting to #{infil.airChangesperHour} ACH for #{model.getSpaces.first.name}.")
     end
 
     # Add OA
     if variable_hash[:oa].nil?
       # do nothing
+    elsif variable_hash[:oa] == 0.0
+      # do nothing
     else
       inst_to_clone = resource_model.getModelObjectByName("oa_gen").get.to_DesignSpecificationOutdoorAir.get
       oa = inst_to_clone.clone(model).to_DesignSpecificationOutdoorAir.get
       oa.setOutdoorAirFlowAirChangesperHour(variable_hash[:oa])
       model.getSpaces.first.setDesignSpecificationOutdoorAir(oa)
+      # look at note a
+      if variable_hash[:b1_7_note_a]
+        if case_num.include?("CE330")
+          resource_sch = resource_model.getModelObjectByName("CE330_oa").get.to_ScheduleRuleset.get
+          sch = resource_sch.clone(model).to_ScheduleRuleset.get
+        elsif case_num.include?("CE340")
+          resource_sch = resource_model.getModelObjectByName("CE340_0a").get.to_ScheduleRuleset.get
+          sch = resource_sch.clone(model).to_ScheduleRuleset.get
+        else
+          runner.registerError("Couldn't identify case for note a")
+          return false
+        end
+        oa.setOutdoorAirFlowRateFractionSchedule(sch)
+      end
       runner.registerInfo("Outdoor Air > Setting to #{oa.outdoorAirFlowAirChangesperHour } ACH for #{model.getSpaces.first.name}.")
     end
 
-    # todo - setup clg thermostat schedule
+    # setup clg thermostat schedule
+    if variable_hash[:clg_set].is_a? Float
+      clg_setp = OpenStudio::Model::ScheduleConstant.new(model)
+      clg_setp.setValue(variable_hash[:clg_set])
+      clg_setp.setName("#{variable_hash[:clg_set]} C")
+    elsif variable_hash[:clg_set] == [25.0,35.0]
+      resource_sch = resource_model.getModelObjectByName("CE350_clg").get.to_ScheduleRuleset.get
+      clg_setp = resource_sch.clone(model).to_ScheduleRuleset.get
+    else
+      runner.registerError("Unexpected cooling setpoint variable")
+      return false
+    end
 
+    # setup htg thermostat schedule
+    bestest_no_htg = resource_model.getModelObjectByName("No Heating").get.to_ScheduleRuleset.get
+    htg_setp = bestest_no_htg.clone(model).to_ScheduleRuleset.get
 
-    # todo - setup htg thermostat schedule
-
-
-    # todo - create thermostats
-
-
-    # todo - add in night ventilation
-
+    # create thermostats
+    thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
+    thermostat.setCoolingSetpointTemperatureSchedule(clg_setp)
+    thermostat.setHeatingSetpointTemperatureSchedule(htg_setp)
+    zone = model.getThermalZones.first
+    zone.setThermostatSetpointDualSetpoint(thermostat)
+    runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
 
     # todo - add in HVAC
 

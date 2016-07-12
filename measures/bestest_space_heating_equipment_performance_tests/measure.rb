@@ -113,24 +113,34 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     geo_model = translator.loadModel(geo_path).get
     geo_model.getBuilding.clone(model)
 
-
     # no internal loads in HE cases
-
 
     # no infiltration in HE cases
 
-
-    # todo - setup clg thermostat schedule
-
+    # setup clg thermostat schedule
+    bestest_no_clg = resource_model.getModelObjectByName("No Cooling").get.to_ScheduleRuleset.get
+    clg_setp = bestest_no_clg.clone(model).to_ScheduleRuleset.get
 
     # todo - setup htg thermostat schedule
+    if variable_hash[:htg_set].is_a? Float
+      htg_setp = OpenStudio::Model::ScheduleConstant.new(model)
+      htg_setp.setValue(variable_hash[:htg_set])
+      htg_setp.setName("#{variable_hash[:htg_set]} C")
+    elsif variable_hash[:htg_set] == [15.0,20.0] # HE220 and HE230 use same htg setpoint schedule
+      resource_sch = resource_model.getModelObjectByName("CE220_htg").get.to_ScheduleRuleset.get
+      htg_setp = resource_sch.clone(model).to_ScheduleRuleset.get
+    else
+      runner.registerError("Unexpected heating setpoint variable")
+      return false
+    end
 
-
-    # todo - create thermostats
-
-
-    # todo - add in night ventilation
-
+    # create thermostats
+    thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
+    thermostat.setCoolingSetpointTemperatureSchedule(clg_setp)
+    thermostat.setHeatingSetpointTemperatureSchedule(htg_setp)
+    zone = model.getThermalZones.first
+    zone.setThermostatSetpointDualSetpoint(thermostat)
+    runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
 
     # todo - add in HVAC
 

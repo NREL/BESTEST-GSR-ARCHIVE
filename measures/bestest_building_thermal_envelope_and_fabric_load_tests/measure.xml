@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_tests</name>
   <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
-  <version_id>7922ca68-b3b7-470a-8d17-2e2cf586870d</version_id>
-  <version_modified>20160711T213534Z</version_modified>
+  <version_id>d11f0701-c189-4f3f-a529-2628c769bfa5</version_id>
+  <version_modified>20160712T160209Z</version_modified>
   <xml_checksum>28AD5222</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadTests</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Tests</display_name>
@@ -312,27 +312,10 @@
       <checksum>CFF75E65</checksum>
     </file>
     <file>
-      <version>
-        <software_program>OpenStudio</software_program>
-        <identifier>1.11.5</identifier>
-        <min_compatible>1.11.5</min_compatible>
-      </version>
-      <filename>measure.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>script</usage_type>
-      <checksum>C7A42987</checksum>
-    </file>
-    <file>
       <filename>besttest_case_var_lib.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
       <checksum>A41DDB78</checksum>
-    </file>
-    <file>
-      <filename>bestest_resources.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>0AF1052B</checksum>
     </file>
     <file>
       <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
@@ -387,6 +370,23 @@
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
       <checksum>7B2088F0</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>1.11.5</identifier>
+        <min_compatible>1.11.5</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>18AD973B</checksum>
+    </file>
+    <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>6B2DF2E7</checksum>
     </file>
   </files>
 </measure>

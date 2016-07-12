@@ -313,7 +313,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
       thermostat.setCoolingSetpointTemperatureSchedule(clg_setp)
       thermostat.setHeatingSetpointTemperatureSchedule(htg_setp)
-      zone = resource_model.getModelObjectByName("BACK ZONE").get.to_ThermalZone.get
+      zone = model.getModelObjectByName("BACK ZONE").get.to_ThermalZone.get
       zone.setThermostatSetpointDualSetpoint(thermostat)
       runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
     end

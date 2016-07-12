@@ -2770,3 +2770,274 @@ OS:OtherEquipment,
   {1ab83fa1-dcd7-4089-80f4-a23dba6477c6}, !- Space or SpaceType Name
   {78f61cdc-eaae-4a01-b364-c30d59cc4e49}; !- Schedule Name
 
+OS:Schedule:Ruleset,
+  {6a440c1f-7054-4702-9a5c-ee052f378f5f}, !- Handle
+  CE320_infil,                            !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  {053ed5ed-c384-405b-b4a0-343190407b98}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {053ed5ed-c384-405b-b4a0-343190407b98}, !- Handle
+  Schedule Day 11,                        !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  24,                                     !- Hour 1
+  0,                                      !- Minute 1
+  0.150000005960464;                      !- Value Until Time 1
+
+OS:Schedule:Rule,
+  {f24776d8-8c38-45ef-812f-93d34ca3c96e}, !- Handle
+  Schedule Rule 41,                       !- Name
+  {6a440c1f-7054-4702-9a5c-ee052f378f5f}, !- Schedule Ruleset Name
+  0,                                      !- Rule Order
+  {e2b7320a-45cd-4adf-9837-34fd357231b9}, !- Day Schedule Name
+  Yes,                                    !- Apply Sunday
+  Yes,                                    !- Apply Monday
+  Yes,                                    !- Apply Tuesday
+  Yes,                                    !- Apply Wednesday
+  Yes,                                    !- Apply Thursday
+  Yes,                                    !- Apply Friday
+  Yes,                                    !- Apply Saturday
+  ,                                       !- Apply Holiday
+  DateRange,                              !- Date Specification Type
+  4,                                      !- Start Month
+  21,                                     !- Start Day
+  10,                                     !- End Month
+  12;                                     !- End Day
+
+OS:Schedule:Day,
+  {e2b7320a-45cd-4adf-9837-34fd357231b9}, !- Handle
+  Schedule Day 63,                        !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  8,                                      !- Hour 1
+  0,                                      !- Minute 1
+  0.150000005960464,                      !- Value Until Time 1
+  20,                                     !- Hour 2
+  0,                                      !- Minute 2
+  1,                                      !- Value Until Time 2
+  24,                                     !- Hour 3
+  0,                                      !- Minute 3
+  0.150000005960464;                      !- Value Until Time 3
+
+OS:Schedule:Ruleset,
+  {ee3b1eeb-2407-4d71-8016-b7b4728f244a}, !- Handle
+  CE340_infil,                            !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  {0ea702d7-b548-4036-8e2a-7ca47f98c1d7}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {0ea702d7-b548-4036-8e2a-7ca47f98c1d7}, !- Handle
+  Schedule Day 64,                        !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  24,                                     !- Hour 1
+  0,                                      !- Minute 1
+  0.150000005960464;                      !- Value Until Time 1
+
+OS:Schedule:Rule,
+  {c382122f-12d4-46b4-9beb-e3a5aae711eb}, !- Handle
+  Schedule Rule 42,                       !- Name
+  {ee3b1eeb-2407-4d71-8016-b7b4728f244a}, !- Schedule Ruleset Name
+  0,                                      !- Rule Order
+  {5b12174a-0121-4008-b30f-d1d824e87c13}, !- Day Schedule Name
+  Yes,                                    !- Apply Sunday
+  Yes,                                    !- Apply Monday
+  Yes,                                    !- Apply Tuesday
+  Yes,                                    !- Apply Wednesday
+  Yes,                                    !- Apply Thursday
+  Yes,                                    !- Apply Friday
+  Yes,                                    !- Apply Saturday
+  ,                                       !- Apply Holiday
+  DateRange,                              !- Date Specification Type
+  4,                                      !- Start Month
+  21,                                     !- Start Day
+  10,                                     !- End Month
+  12;                                     !- End Day
+
+OS:Schedule:Day,
+  {5b12174a-0121-4008-b30f-d1d824e87c13}, !- Handle
+  Schedule Day 65,                        !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  8,                                      !- Hour 1
+  0,                                      !- Minute 1
+  0,                                      !- Value Until Time 1
+  20,                                     !- Hour 2
+  0,                                      !- Minute 2
+  1,                                      !- Value Until Time 2
+  24,                                     !- Hour 3
+  0,                                      !- Minute 3
+  0;                                      !- Value Until Time 3
+
+OS:Schedule:Ruleset,
+  {eae08559-5c66-4dc9-bedf-218688da0871}, !- Handle
+  CE340_oa,                               !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  {f87a9879-b7a3-484b-bd00-91c8cc542368}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {f87a9879-b7a3-484b-bd00-91c8cc542368}, !- Handle
+  Schedule Day 66,                        !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  24,                                     !- Hour 1
+  0,                                      !- Minute 1
+  0.150000005960464;                      !- Value Until Time 1
+
+OS:Schedule:Rule,
+  {590a1b5c-94a0-4fce-bb57-4f7f174abcec}, !- Handle
+  Schedule Rule 43,                       !- Name
+  {eae08559-5c66-4dc9-bedf-218688da0871}, !- Schedule Ruleset Name
+  0,                                      !- Rule Order
+  {fa2ad118-ca2c-4553-b095-349dc079aeba}, !- Day Schedule Name
+  Yes,                                    !- Apply Sunday
+  Yes,                                    !- Apply Monday
+  Yes,                                    !- Apply Tuesday
+  Yes,                                    !- Apply Wednesday
+  Yes,                                    !- Apply Thursday
+  Yes,                                    !- Apply Friday
+  Yes,                                    !- Apply Saturday
+  ,                                       !- Apply Holiday
+  DateRange,                              !- Date Specification Type
+  4,                                      !- Start Month
+  21,                                     !- Start Day
+  10,                                     !- End Month
+  12;                                     !- End Day
+
+OS:Schedule:Day,
+  {fa2ad118-ca2c-4553-b095-349dc079aeba}, !- Handle
+  Schedule Day 67,                        !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  8,                                      !- Hour 1
+  0,                                      !- Minute 1
+  0.150000005960464,                      !- Value Until Time 1
+  20,                                     !- Hour 2
+  0,                                      !- Minute 2
+  0.5,                                    !- Value Until Time 2
+  24,                                     !- Hour 3
+  0,                                      !- Minute 3
+  0.150000005960464;                      !- Value Until Time 3
+
+OS:Schedule:Ruleset,
+  {4236e155-705c-4e11-8ad3-34631ed6aeb9}, !- Handle
+  CE330_oa,                               !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  {26bef1a1-decf-4b3f-96f2-4cca7eb9ff2c}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {26bef1a1-decf-4b3f-96f2-4cca7eb9ff2c}, !- Handle
+  Schedule Day 68,                        !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  24,                                     !- Hour 1
+  0,                                      !- Minute 1
+  0.150000005960464;                      !- Value Until Time 1
+
+OS:Schedule:Rule,
+  {deccb7cd-76d5-4697-950b-3969d0ef9cf8}, !- Handle
+  Schedule Rule 44,                       !- Name
+  {4236e155-705c-4e11-8ad3-34631ed6aeb9}, !- Schedule Ruleset Name
+  0,                                      !- Rule Order
+  {a3f843ab-c812-4844-a503-ff1d6bb453e1}, !- Day Schedule Name
+  Yes,                                    !- Apply Sunday
+  Yes,                                    !- Apply Monday
+  Yes,                                    !- Apply Tuesday
+  Yes,                                    !- Apply Wednesday
+  Yes,                                    !- Apply Thursday
+  Yes,                                    !- Apply Friday
+  Yes,                                    !- Apply Saturday
+  ,                                       !- Apply Holiday
+  DateRange,                              !- Date Specification Type
+  4,                                      !- Start Month
+  21,                                     !- Start Day
+  10,                                     !- End Month
+  12;                                     !- End Day
+
+OS:Schedule:Day,
+  {a3f843ab-c812-4844-a503-ff1d6bb453e1}, !- Handle
+  Schedule Day 69,                        !- Name
+  {522db024-5205-44b8-8848-66fca783fa1b}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  8,                                      !- Hour 1
+  0,                                      !- Minute 1
+  0.150000005960464,                      !- Value Until Time 1
+  20,                                     !- Hour 2
+  0,                                      !- Minute 2
+  1,                                      !- Value Until Time 2
+  24,                                     !- Hour 3
+  0,                                      !- Minute 3
+  0.150000005960464;                      !- Value Until Time 3
+
+OS:Schedule:Ruleset,
+  {ba8a9529-d637-4a27-a09d-c79646520f74}, !- Handle
+  CE350_clg,                              !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  {fcc42d04-6a43-4b9a-85de-5c51062c53dd}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {fcc42d04-6a43-4b9a-85de-5c51062c53dd}, !- Handle
+  Schedule Day 70,                        !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  24,                                     !- Hour 1
+  0,                                      !- Minute 1
+  25;                                     !- Value Until Time 1
+
+OS:Schedule:Rule,
+  {225cdb9b-b3b7-4d91-b875-0bd1d4f31052}, !- Handle
+  Schedule Rule 45,                       !- Name
+  {ba8a9529-d637-4a27-a09d-c79646520f74}, !- Schedule Ruleset Name
+  0,                                      !- Rule Order
+  {f88916b0-fb93-402e-abd5-3eab5c8bf665}, !- Day Schedule Name
+  Yes,                                    !- Apply Sunday
+  Yes,                                    !- Apply Monday
+  Yes,                                    !- Apply Tuesday
+  Yes,                                    !- Apply Wednesday
+  Yes,                                    !- Apply Thursday
+  Yes,                                    !- Apply Friday
+  Yes,                                    !- Apply Saturday
+  ,                                       !- Apply Holiday
+  DateRange,                              !- Date Specification Type
+  4,                                      !- Start Month
+  21,                                     !- Start Day
+  10,                                     !- End Month
+  12;                                     !- End Day
+
+OS:Schedule:Day,
+  {f88916b0-fb93-402e-abd5-3eab5c8bf665}, !- Handle
+  Schedule Day 71,                        !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  7,                                      !- Hour 1
+  0,                                      !- Minute 1
+  35,                                     !- Value Until Time 1
+  20,                                     !- Hour 2
+  0,                                      !- Minute 2
+  25,                                     !- Value Until Time 2
+  24,                                     !- Hour 3
+  0,                                      !- Minute 3
+  35;                                     !- Value Until Time 3
+
+OS:Schedule:Ruleset,
+  {8da22f8d-53ad-49c9-82c0-89de9bb447f4}, !- Handle
+  HE220_htg,                              !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  {c51b292e-288b-49b9-8f38-05209b2aea7b}; !- Default Day Schedule Name
+
+OS:Schedule:Day,
+  {c51b292e-288b-49b9-8f38-05209b2aea7b}, !- Handle
+  Schedule Day 72,                        !- Name
+  {57b6bc05-bcbb-463e-a8aa-a38638baed2e}, !- Schedule Type Limits Name
+  ,                                       !- Interpolate to Timestep
+  6,                                      !- Hour 1
+  0,                                      !- Minute 1
+  15,                                     !- Value Until Time 1
+  23,                                     !- Hour 2
+  0,                                      !- Minute 2
+  20,                                     !- Value Until Time 2
+  24,                                     !- Hour 3
+  0,                                      !- Minute 3
+  15;                                     !- Value Until Time 3
+

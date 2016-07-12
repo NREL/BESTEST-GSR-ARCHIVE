@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_heating_equipment_performance_tests</name>
   <uid>65d31bac-6024-4b64-8029-006e82cd4b87</uid>
-  <version_id>ee258e67-983f-432b-94fd-cfbcf66dacc6</version_id>
-  <version_modified>20160711T213534Z</version_modified>
+  <version_id>458e7c56-8c3a-472c-a6fa-e0aa8e666299</version_id>
+  <version_modified>20160712T160209Z</version_modified>
   <xml_checksum>2438005F</xml_checksum>
   <class_name>BESTESTSpaceHeatingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Heating Equipment Performance Tests</display_name>
@@ -250,27 +250,10 @@
       <checksum>CFF75E65</checksum>
     </file>
     <file>
-      <version>
-        <software_program>OpenStudio</software_program>
-        <identifier>1.11.5</identifier>
-        <min_compatible>1.11.5</min_compatible>
-      </version>
-      <filename>measure.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>script</usage_type>
-      <checksum>5E7AEF8B</checksum>
-    </file>
-    <file>
       <filename>besttest_case_var_lib.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
       <checksum>A41DDB78</checksum>
-    </file>
-    <file>
-      <filename>bestest_resources.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>0AF1052B</checksum>
     </file>
     <file>
       <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
@@ -325,6 +308,23 @@
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
       <checksum>8ED56459</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>1.11.5</identifier>
+        <min_compatible>1.11.5</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>248DDEA1</checksum>
+    </file>
+    <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>6B2DF2E7</checksum>
     </file>
   </files>
 </measure>
