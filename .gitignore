@@ -1,6 +1,4 @@
 
 .idea
 integration_testing/analysis/
-bestest_space_cooling_equipment_performance_tests/tests/output
-bestest_space_heating_equipment_performance_tests/tests/output
-bestest_building_thermal_envelope_and_fabric_load_tests/tests/output
+*/*/tests/output

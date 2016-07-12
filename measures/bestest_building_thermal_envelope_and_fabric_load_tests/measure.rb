@@ -40,8 +40,8 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     choices.each do |choice|
       array << "'#{choice}'"
     end
-    puts "String for spreadsheet"
-    puts "[#{array.join(",")}]"
+    #puts "String for spreadsheet"
+    #puts "[#{array.join(",")}]"
 
     case_num = OpenStudio::Ruleset::OSArgument::makeChoiceArgument("case_num", choices,true)
     case_num.setDisplayName("Test Case Number")
@@ -241,7 +241,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       other_equip_def = res_cother_equip.clone(model).to_OtherEquipmentDefinition.get
       load_inst = OpenStudio::Model::OtherEquipment.new(other_equip_def)
       load_inst.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
-      space = resource_model.getModelObjectByName("BACK ZONE Space").get.to_Space.get
+      space = model.getModelObjectByName("BACK ZONE Space").get.to_Space.get
       load_inst.setSpace(space)
       runner.registerInfo("Internal Loads > Adding #{other_equip_def.name} to #{space.name}.")
     else
@@ -309,11 +309,12 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     end
 
     # create thermostats
-    if !clg_setp.nil? and !htg_setp.nil?
+    model.getThermalZones.each do |zone|
+      next if clg_setp.nil? || htg_setp.nil?
+      next if zone.name.to_s == "SUN ZONE Thermal Zone"
       thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
       thermostat.setCoolingSetpointTemperatureSchedule(clg_setp)
       thermostat.setHeatingSetpointTemperatureSchedule(htg_setp)
-      zone = model.getModelObjectByName("BACK ZONE").get.to_ThermalZone.get
       zone.setThermostatSetpointDualSetpoint(thermostat)
       runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
     end

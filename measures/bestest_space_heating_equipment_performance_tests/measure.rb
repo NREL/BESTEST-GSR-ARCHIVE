@@ -113,6 +113,13 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     geo_model = translator.loadModel(geo_path).get
     geo_model.getBuilding.clone(model)
 
+    # Load resource file
+    file_resource = "bestest_resources.osm"
+    runner.registerInfo("Shared Resources > Loading #{file_resource}")
+    translator = OpenStudio::OSVersion::VersionTranslator.new
+    resource_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_resource}")
+    resource_model = translator.loadModel(resource_path).get
+
     # no internal loads in HE cases
 
     # no infiltration in HE cases

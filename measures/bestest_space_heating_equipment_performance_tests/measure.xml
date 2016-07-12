@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_heating_equipment_performance_tests</name>
   <uid>65d31bac-6024-4b64-8029-006e82cd4b87</uid>
-  <version_id>458e7c56-8c3a-472c-a6fa-e0aa8e666299</version_id>
-  <version_modified>20160712T160209Z</version_modified>
+  <version_id>50b91889-0774-4560-a920-f3cccb4b64e4</version_id>
+  <version_modified>20160712T161202Z</version_modified>
   <xml_checksum>2438005F</xml_checksum>
   <class_name>BESTESTSpaceHeatingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Heating Equipment Performance Tests</display_name>
@@ -310,6 +310,12 @@
       <checksum>8ED56459</checksum>
     </file>
     <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>6B2DF2E7</checksum>
+    </file>
+    <file>
       <version>
         <software_program>OpenStudio</software_program>
         <identifier>1.11.5</identifier>
@@ -318,13 +324,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>248DDEA1</checksum>
-    </file>
-    <file>
-      <filename>bestest_resources.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>6B2DF2E7</checksum>
+      <checksum>073CCC5D</checksum>
     </file>
   </files>
 </measure>
