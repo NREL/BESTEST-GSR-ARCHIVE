@@ -57,14 +57,13 @@ module BestestModelMethods
 
   end
 
-  # add options to method for variables that change across cases
+  # create he case hvac systems
   def self.create_he_system(runner,model,variable_hash)
 
     # BESTEST he system
     # This measure creates:
-    # creates an air loop with heating only and single zone setpoint manager
-    # there is no outdoor air
-    # todo - has ciriculating and draft fan
+    # creates an air loop with AirLoopHVACUnitarySystem object
+    # AirLoopHVACUnitarySystem has CoilHeatingGas and OnOffFan
 
     # create always on schedule
     always_on = model.alwaysOnDiscreteSchedule
@@ -79,9 +78,6 @@ module BestestModelMethods
     air_loop.setName("BESTEST HE air loop")
     air_loop.setDesignSupplyAirFlowRate(air_flow_rate)
     runner.registerInfo("HVAC > Adding airloop named #{air_loop.name}")
-
-    # don't know if I need to edit any air loop sizing properties
-    air_loop_sizing = air_loop.sizingSystem #
 
     # curve for heating coil
     furnace_pldf_curve_default = OpenStudio::Model::CurveCubic.new(model)
@@ -138,7 +134,7 @@ module BestestModelMethods
       htg_coil.setParasiticElectricLoad(variable_hash[:draft_fan_power])
     end
 
-    # todo - FanOnOff doesn't seem to work here
+    # Add FanOnOff
     fan = OpenStudio::Model::FanOnOff.new(model,always_on)
     fan.setMaximumFlowRate(air_flow_rate)
     fan.setMotorInAirstreamFraction(0.0)
@@ -170,7 +166,129 @@ module BestestModelMethods
     unitary_system.setSupplyAirFlowRateMethodDuringHeatingOperation('SupplyAirFlowRate')
     unitary_system.setSupplyAirFlowRateDuringHeatingOperation(air_flow_rate)
     unitary_system.setControllingZoneorThermostatLocation(zone)
-    puts unitary_system
+
+    # Add the components to the air loop
+    # in order from closest to zone to furthest from zone
+    supply_inlet_node = air_loop.supplyInletNode
+    unitary_system.addToNode(supply_inlet_node)
+
+    # Create a diffuser and attach the zone/diffuser pair to the air loop
+    diffuser = OpenStudio::Model::AirTerminalSingleDuctUncontrolled.new(model,always_on)
+    diffuser.setMaximumAirFlowRate(air_flow_rate)
+    air_loop.addBranchForZone(zone,diffuser.to_StraightComponent)
+
+    return air_loop
+
+  end
+
+  # create ce case hvac systems
+  def self.create_ce_system(runner,model,variable_hash)
+
+    # BESTEST ce system
+    # This measure creates:
+    # creates an air loop with AirLoopHVACUnitarySystem object
+    # AirLoopHVACUnitarySystem has CoilHeatingGas and OnOffFan
+
+    # create always on schedule
+    always_on = model.alwaysOnDiscreteSchedule
+
+    air_flow_rate = 1.888
+
+    # get the only zone in the model
+    zone = model.getThermalZones.first
+
+    # Add air loop
+    air_loop = OpenStudio::Model::AirLoopHVAC.new(model)
+    air_loop.setName("BESTEST CE air loop")
+    air_loop.setDesignSupplyAirFlowRate(air_flow_rate)
+    runner.registerInfo("HVAC > Adding airloop named #{air_loop.name}")
+
+    # todo - add in variables from variable_hash
+
+    # Add curve
+    clg_cap_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
+    clg_cap_f_of_temp.setCoefficient1Constant(0.825119244)
+    clg_cap_f_of_temp.setCoefficient2x(0.014461436)
+    clg_cap_f_of_temp.setCoefficient3xPOW2(0.000525383)
+    clg_cap_f_of_temp.setCoefficient4y(-0.003805859)
+    clg_cap_f_of_temp.setCoefficient5yPOW2(-2.71284E-05)
+    clg_cap_f_of_temp.setCoefficient6xTIMESY(-0.000198505)
+    clg_cap_f_of_temp.setMinimumValueofx(0.0)
+    clg_cap_f_of_temp.setMaximumValueofx(100.0)
+    clg_cap_f_of_temp.setMinimumValueofy(0.0)
+    clg_cap_f_of_temp.setMaximumValueofy(100.0)
+
+    # Add curve
+    clg_cap_f_of_flow = OpenStudio::Model::CurveQuadratic.new(model)
+    clg_cap_f_of_flow.setCoefficient1Constant(1.0)
+    clg_cap_f_of_flow.setCoefficient2x(0.0)
+    clg_cap_f_of_flow.setCoefficient3xPOW2(0.0)
+    clg_cap_f_of_flow.setMinimumValueofx(0.0)
+    clg_cap_f_of_flow.setMaximumValueofx(1.0)
+
+    # Add curve
+    clg_energy_input_ratio_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
+    clg_energy_input_ratio_f_of_temp.setCoefficient1Constant(0.630055851)
+    clg_energy_input_ratio_f_of_temp.setCoefficient2x(-0.011998189)
+    clg_energy_input_ratio_f_of_temp.setCoefficient3xPOW2(0.000136923)
+    clg_energy_input_ratio_f_of_temp.setCoefficient4y(0.014636637)
+    clg_energy_input_ratio_f_of_temp.setCoefficient5yPOW2(0.000164506)
+    clg_energy_input_ratio_f_of_temp.setCoefficient6xTIMESY(-0.000238463)
+    clg_energy_input_ratio_f_of_temp.setMinimumValueofx(0.0)
+    clg_energy_input_ratio_f_of_temp.setMaximumValueofx(100.0)
+    clg_energy_input_ratio_f_of_temp.setMinimumValueofy(0.0)
+    clg_energy_input_ratio_f_of_temp.setMaximumValueofy(100.0)
+
+    # Add curve
+    clg_energy_input_ratio_f_of_flow = OpenStudio::Model::CurveQuadratic.new(model)
+    clg_energy_input_ratio_f_of_flow.setCoefficient1Constant(1.0)
+    clg_energy_input_ratio_f_of_flow.setCoefficient2x(0.0)
+    clg_energy_input_ratio_f_of_flow.setCoefficient3xPOW2(0.0)
+    clg_energy_input_ratio_f_of_flow.setMinimumValueofx(0.0)
+    clg_energy_input_ratio_f_of_flow.setMaximumValueofx(1.0)
+
+    # Add curve
+    clg_part_load_ratio = OpenStudio::Model::CurveQuadratic.new(model)
+    clg_part_load_ratio.setCoefficient1Constant(0.771)
+    clg_part_load_ratio.setCoefficient2x(0.229)
+    clg_part_load_ratio.setCoefficient3xPOW2(0.0)
+    clg_part_load_ratio.setMinimumValueofx(0.0)
+    clg_part_load_ratio.setMaximumValueofx(1.0)
+
+    # Add cooling coil
+    clg_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(model,
+                                                               always_on,
+                                                               clg_cap_f_of_temp,
+                                                               clg_cap_f_of_flow,
+                                                               clg_energy_input_ratio_f_of_temp,
+                                                               clg_energy_input_ratio_f_of_flow,
+                                                               clg_part_load_ratio)
+
+    # customize cooling coil
+    clg_coil.setRatedTotalCoolingCapacity (33280.0)
+    clg_coil.setRatedSensibleHeatRatio(0.78245)
+    clg_coil.setRatedCOP(OpenStudio::OptionalDouble.new(3.0448))
+    clg_coil.setRatedAirFlowRate(air_flow_rate)
+
+    # Add FanOnOff
+    fan = OpenStudio::Model::FanOnOff.new(model,always_on)
+    fan.setMaximumFlowRate(air_flow_rate)
+    fan.setMotorInAirstreamFraction(1.0)
+    fan.setFanEfficiency(0.11374)
+    fan.setPressureRise(74.7)
+    fan.setMotorEfficiency(0.94)
+
+    # Add unitary system
+    runner.registerInfo("HVAC > Adding AirLoopHVACUnitarySystem with gas heating coil and OnOff fan.")
+    unitary_system = OpenStudio::Model::AirLoopHVACUnitarySystem.new(model)
+    unitary_system.setAvailabilitySchedule(always_on)
+    unitary_system.setSupplyFan(fan)
+    unitary_system.setFanPlacement('BlowThrough')
+    unitary_system.setCoolingCoil(clg_coil)
+    unitary_system.setMaximumSupplyAirTemperature(80.0)
+    unitary_system.setSupplyAirFlowRateMethodDuringHeatingOperation('SupplyAirFlowRate')
+    unitary_system.setSupplyAirFlowRateDuringHeatingOperation(air_flow_rate)
+    unitary_system.setControllingZoneorThermostatLocation(zone)
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone

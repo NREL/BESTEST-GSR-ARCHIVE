@@ -149,7 +149,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     zone.setThermostatSetpointDualSetpoint(thermostat)
     runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
 
-    # todo - add in HVAC
+    # add in HVAC
     BestestModelMethods.create_he_system(runner,model,variable_hash)
 
     # rename the building

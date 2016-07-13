@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_cooling_equipment_performance_tests</name>
   <uid>eb12d939-e78f-4b84-8af7-1e69e10a0cf4</uid>
-  <version_id>62535c34-1e9c-48ff-a56c-e39339c51431</version_id>
-  <version_modified>20160713T172241Z</version_modified>
+  <version_id>b094d8b1-5790-4085-8824-891466f36dea</version_id>
+  <version_modified>20160713T214510Z</version_modified>
   <xml_checksum>05C5DFDC</xml_checksum>
   <class_name>BESTESTSpaceCoolingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Cooling Equipment Performance Tests</display_name>
@@ -381,13 +381,13 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>BFF24214</checksum>
+      <checksum>221CF270</checksum>
     </file>
     <file>
       <filename>besttest_model_methods.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>91737767</checksum>
+      <checksum>A5411F54</checksum>
     </file>
   </files>
 </measure>
