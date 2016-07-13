@@ -83,8 +83,6 @@ module BestestModelMethods
     # don't know if I need to edit any air loop sizing properties
     air_loop_sizing = air_loop.sizingSystem #
 
-    # todo - idf uses AirLoopHVAC:Unitary:Furnace:HeatOnly. Do I need ot use that?
-
     # curve for heating coil
     furnace_pldf_curve_default = OpenStudio::Model::CurveCubic.new(model)
     if variable_hash[:plr] == 1.0
@@ -141,7 +139,7 @@ module BestestModelMethods
     end
 
     # todo - FanOnOff doesn't seem to work here
-    fan = OpenStudio::Model::FanConstantVolume.new(model,always_on)
+    fan = OpenStudio::Model::FanOnOff.new(model,always_on)
     fan.setMaximumFlowRate(air_flow_rate)
     fan.setMotorInAirstreamFraction(0.0)
     if variable_hash[:circ_fan_power] == 0
@@ -161,25 +159,23 @@ module BestestModelMethods
       returnf false
     end
 
-    # Add outdoor air (is this in unitary in IDF?)
-    # todo - this doesn't add in any oa since zones not requesting it, but can air loop still add some when heating
-    oa_controller = OpenStudio::Model::ControllerOutdoorAir.new(model)
-    oa_controller.setMinimumOutdoorAirFlowRate(air_flow_rate)
-    oa_controller.setMaximumOutdoorAirFlowRate(air_flow_rate)
-    oa_system = OpenStudio::Model::AirLoopHVACOutdoorAirSystem.new(model,oa_controller)
+    # Add unitary system
+    runner.registerInfo("HVAC > Adding AirLoopHVACUnitarySystem with gas heating coil and OnOff fan.")
+    unitary_system = OpenStudio::Model::AirLoopHVACUnitarySystem.new(model)
+    unitary_system.setAvailabilitySchedule(always_on)
+    unitary_system.setSupplyFan(fan)
+    unitary_system.setFanPlacement('BlowThrough')
+    unitary_system.setHeatingCoil(htg_coil)
+    unitary_system.setMaximumSupplyAirTemperature(80.0)
+    unitary_system.setSupplyAirFlowRateMethodDuringHeatingOperation('SupplyAirFlowRate')
+    unitary_system.setSupplyAirFlowRateDuringHeatingOperation(air_flow_rate)
+    unitary_system.setControllingZoneorThermostatLocation(zone)
+    puts unitary_system
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone
     supply_inlet_node = air_loop.supplyInletNode
-    htg_coil.addToNode(supply_inlet_node)
-    fan.addToNode(supply_inlet_node)
-    oa_system.addToNode(supply_inlet_node)
-
-    # Add a setpoint manager single zone reheat to control the
-    # supply air temperature based on the needs of this zone
-    setpoint_mgr_single_zone_reheat = OpenStudio::Model::SetpointManagerSingleZoneReheat.new(model)
-    setpoint_mgr_single_zone_reheat.setControlZone(zone)
-    setpoint_mgr_single_zone_reheat.addToNode(air_loop.supplyOutletNode)
+    unitary_system.addToNode(supply_inlet_node)
 
     # Create a diffuser and attach the zone/diffuser pair to the air loop
     diffuser = OpenStudio::Model::AirTerminalSingleDuctUncontrolled.new(model,always_on)
