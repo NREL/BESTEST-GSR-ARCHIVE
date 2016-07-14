@@ -279,21 +279,39 @@ module BestestModelMethods
     fan.setMotorEfficiency(0.94)
 
     # Add unitary system
-    runner.registerInfo("HVAC > Adding AirLoopHVACUnitarySystem with gas heating coil and OnOff fan.")
+    runner.registerInfo("HVAC > Adding AirLoopHVACUnitarySystem with dx cooling coil and OnOff fan.")
     unitary_system = OpenStudio::Model::AirLoopHVACUnitarySystem.new(model)
     unitary_system.setAvailabilitySchedule(always_on)
     unitary_system.setSupplyFan(fan)
-    unitary_system.setFanPlacement('BlowThrough')
+    unitary_system.setFanPlacement('DrawThrough')
     unitary_system.setCoolingCoil(clg_coil)
-    unitary_system.setMaximumSupplyAirTemperature(80.0)
-    unitary_system.setSupplyAirFlowRateMethodDuringHeatingOperation('SupplyAirFlowRate')
-    unitary_system.setSupplyAirFlowRateDuringHeatingOperation(air_flow_rate)
+    unitary_system.setSupplyAirFlowRateMethodDuringCoolingOperation('SupplyAirFlowRate')
+    unitary_system.setSupplyAirFlowRateDuringCoolingOperation(air_flow_rate)
+    unitary_system.setSupplyAirFlowRateMethodWhenNoCoolingorHeatingisRequired('SupplyAirFlowRate')
+    unitary_system.setSupplyAirFlowRateWhenNoCoolingorHeatingisRequired(air_flow_rate)
     unitary_system.setControllingZoneorThermostatLocation(zone)
+    unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
+
+    # Add outdoor air
+    oa_controller = OpenStudio::Model::ControllerOutdoorAir.new(model)
+    oa_controller.setMinimumOutdoorAirFlowRate(0.283166667)
+    oa_controller.setMaximumOutdoorAirFlowRate(air_flow_rate)
+    oa_controller.setEconomizerControlType('NoEconomizer')
+    oa_controller.setEconomizerControlActionType('ModulateFlow')
+    oa_controller.setEconomizerControlType('NoEconomizer')
+    oa_controller.setEconomizerMaximumLimitDryBulbTemperature(100.0)
+    oa_controller.setEconomizerMaximumLimitEnthalpy(0.0)
+    oa_controller.setEconomizerMaximumLimitDewpointTemperature(0.0)
+    oa_controller.setEconomizerMinimumLimitDryBulbTemperature(0.0)
+    oa_controller.setLockoutType('NoLockout')
+    oa_controller.setMinimumLimitType('FixedMinimum')
+    oa_system = OpenStudio::Model::AirLoopHVACOutdoorAirSystem.new(model,oa_controller)
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone
     supply_inlet_node = air_loop.supplyInletNode
     unitary_system.addToNode(supply_inlet_node)
+    oa_system.addToNode(supply_inlet_node)
 
     # Create a diffuser and attach the zone/diffuser pair to the air loop
     diffuser = OpenStudio::Model::AirTerminalSingleDuctUncontrolled.new(model,always_on)
