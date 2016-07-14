@@ -182,7 +182,7 @@ module BestestModelMethods
   end
 
   # create ce case hvac systems
-  def self.create_ce_system(runner,model,variable_hash)
+  def self.create_ce_system(runner,model,variable_hash,case_num)
 
     # BESTEST ce system
     # This measure creates:
@@ -288,30 +288,72 @@ module BestestModelMethods
     unitary_system.setSupplyAirFlowRateMethodDuringCoolingOperation('SupplyAirFlowRate')
     unitary_system.setSupplyAirFlowRateDuringCoolingOperation(air_flow_rate)
     unitary_system.setSupplyAirFlowRateMethodWhenNoCoolingorHeatingisRequired('SupplyAirFlowRate')
-    unitary_system.setSupplyAirFlowRateWhenNoCoolingorHeatingisRequired(air_flow_rate)
+    if case_num.include?('CE5')
+      unitary_system.setSupplyAirFlowRateWhenNoCoolingorHeatingisRequired(0.0)
+    else
+      unitary_system.setSupplyAirFlowRateWhenNoCoolingorHeatingisRequired(air_flow_rate)
+    end
     unitary_system.setControllingZoneorThermostatLocation(zone)
     unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
-
-    # Add outdoor air
-    oa_controller = OpenStudio::Model::ControllerOutdoorAir.new(model)
-    oa_controller.setMinimumOutdoorAirFlowRate(0.283166667)
-    oa_controller.setMaximumOutdoorAirFlowRate(air_flow_rate)
-    oa_controller.setEconomizerControlType('NoEconomizer')
-    oa_controller.setEconomizerControlActionType('ModulateFlow')
-    oa_controller.setEconomizerControlType('NoEconomizer')
-    oa_controller.setEconomizerMaximumLimitDryBulbTemperature(100.0)
-    oa_controller.setEconomizerMaximumLimitEnthalpy(0.0)
-    oa_controller.setEconomizerMaximumLimitDewpointTemperature(0.0)
-    oa_controller.setEconomizerMinimumLimitDryBulbTemperature(0.0)
-    oa_controller.setLockoutType('NoLockout')
-    oa_controller.setMinimumLimitType('FixedMinimum')
-    oa_system = OpenStudio::Model::AirLoopHVACOutdoorAirSystem.new(model,oa_controller)
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone
     supply_inlet_node = air_loop.supplyInletNode
     unitary_system.addToNode(supply_inlet_node)
-    oa_system.addToNode(supply_inlet_node)
+
+    # todo - add logic for CE1 and CE2
+    # todo - finish adding logic for CE5 cases
+
+    # see of OA system is needed
+    if !(case_num.include?('CE1') || case_num.include?('CE2') || case_num.include?('CE5'))
+
+      # setup oa case specific variables
+      oa_min = nil
+      oa_sch = nil
+      ctrl_type = nil
+      lockout_type = nil
+      if case_num.include?('CE320')
+        oa_min = 0.0
+      elsif case_num.include?('CE330')
+        oa_min = air_flow_rate
+        oa_sch = resource_model.getModelObjectByName("CE330_oa").get.to_ScheduleRuleset.get
+      elsif case_num.include?('CE340')
+        oa_min = air_flow_rate
+        oa_sch = resource_model.getModelObjectByName("CE340_oa").get.to_ScheduleRuleset.get
+      elsif case_num.include?('CE400')
+        ctrl_type = 'DifferentialDryBulb'
+      elsif case_num.include?('CE410')
+        lockout_type = 'LockoutWithCompressor'
+      elsif case_num.include?('CE430') || case_num.include?('CE440')
+        ctrl_type = 'DifferentialEnthalpy'
+      end
+      if oa_min.nil? then oa_min = 0.283166667 end
+      if ctrl_type.nil? then ctrl_type = 'NoEconomizer' end
+      if lockout_type.nil? then lockout_type = 'NoLockout' end
+
+      # add oa system
+      runner.registerInfo("HVAC > Adding Outdoor Air System.")
+      oa_controller = OpenStudio::Model::ControllerOutdoorAir.new(model)
+      oa_controller.setMinimumOutdoorAirFlowRate(oa_min)
+      oa_controller.setMaximumOutdoorAirFlowRate(air_flow_rate)
+      oa_controller.setEconomizerControlType(ctrl_type)
+      oa_controller.setEconomizerControlActionType('ModulateFlow')
+      if case_num.include?('CE420')
+        oa_controller.setEconomizerMaximumLimitDryBulbTemperature(20.0)
+      end
+      if case_num.include?('CE440')
+        oa_controller.setEconomizerMaximumLimitEnthalpy(47250.0)
+      end
+      #oa_controller.setEconomizerMaximumLimitDewpointTemperature(0.0)
+      #oa_controller.setEconomizerMinimumLimitDryBulbTemperature(0.0)
+      oa_controller.setLockoutType(lockout_type)
+      oa_controller.setMinimumLimitType('FixedMinimum')
+      if !oa_sch.nil?
+        oa_controller.setMinimumOutdoorAirSchedule(oa_sch)
+      end
+      oa_system = OpenStudio::Model::AirLoopHVACOutdoorAirSystem.new(model,oa_controller)
+      oa_system.addToNode(supply_inlet_node)
+    end
 
     # Create a diffuser and attach the zone/diffuser pair to the air loop
     diffuser = OpenStudio::Model::AirTerminalSingleDuctUncontrolled.new(model,always_on)

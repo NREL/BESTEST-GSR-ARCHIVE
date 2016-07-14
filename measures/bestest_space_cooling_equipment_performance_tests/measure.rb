@@ -212,6 +212,7 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     end
 
     # Add OA
+    # todo - do I need this or should it be controlled by the hvac system only
     if variable_hash[:oa].nil?
       # do nothing
     elsif variable_hash[:oa] == 0.0
@@ -263,8 +264,8 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     zone.setThermostatSetpointDualSetpoint(thermostat)
     runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
 
-    # todo - add in HVAC
-    BestestModelMethods.create_ce_system(runner,model,variable_hash)
+    # add in HVAC
+    BestestModelMethods.create_ce_system(runner,model,variable_hash,case_num)
 
     # rename the building
     model.getBuilding.setName("BESTEST Case #{case_num}")

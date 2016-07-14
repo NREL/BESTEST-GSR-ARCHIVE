@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_heating_equipment_performance_tests</name>
   <uid>65d31bac-6024-4b64-8029-006e82cd4b87</uid>
-  <version_id>af2f47e1-b8a2-4603-8d5f-ec3f36f07c52</version_id>
-  <version_modified>20160714T171512Z</version_modified>
+  <version_id>eae18e0a-ae02-4158-b8d5-181a036dc4b7</version_id>
+  <version_modified>20160714T213332Z</version_modified>
   <xml_checksum>2438005F</xml_checksum>
   <class_name>BESTESTSpaceHeatingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Heating Equipment Performance Tests</display_name>
@@ -318,13 +318,13 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>35E4DE85</checksum>
+      <checksum>B0B8D82D</checksum>
     </file>
     <file>
       <filename>besttest_model_methods.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>CA1AC606</checksum>
+      <checksum>41706B51</checksum>
     </file>
   </files>
 </measure>

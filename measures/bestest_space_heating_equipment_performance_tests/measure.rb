@@ -128,7 +128,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     bestest_no_clg = resource_model.getModelObjectByName("No Cooling").get.to_ScheduleRuleset.get
     clg_setp = bestest_no_clg.clone(model).to_ScheduleRuleset.get
 
-    # todo - setup htg thermostat schedule
+    # setup htg thermostat schedule
     if variable_hash[:htg_set].is_a? Float
       htg_setp = OpenStudio::Model::ScheduleConstant.new(model)
       htg_setp.setValue(variable_hash[:htg_set])
