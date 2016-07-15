@@ -334,7 +334,7 @@ module OsLib_Reporting_Bestest
     # create table
     table_01 = {}
     table_01[:title] = 'Hourly Incident Unshaded Solar Radiation (W/m^2)'
-    table_01[:header] = ['Date','Orientation',0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    table_01[:header] = ['Date','Orientation',1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
     table_01[:units] = [] # list units in title vs. in each column
     table_01[:data] = []
 
@@ -342,7 +342,7 @@ module OsLib_Reporting_Bestest
     ann_env_pd = OsLib_Reporting_Bestest.ann_env_pd(sqlFile)
     if ann_env_pd
       # get keys
-      keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
+      keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Surface Outside Face Incident Solar Radiation Rate per Area')
 
       if keys.include? 'ZONE ONE'
         key = 'ZONE ONE'
@@ -376,6 +376,7 @@ module OsLib_Reporting_Bestest
             value = OpenStudio.convert(val_at_date_time, source_units, target_units).get
             row_data << value.round(2)
           end
+          runner.registerValue("surf_out_inst_slr_rad_0305_#{surface.name.get.downcase.gsub(" ","_")}",row_data.to_s)
           table_01[:data] << row_data
 
           # get July 27th values
@@ -389,10 +390,11 @@ module OsLib_Reporting_Bestest
             value = OpenStudio.convert(val_at_date_time, source_units, target_units).get
             row_data << value.round(2)
           end
+          runner.registerValue("surf_out_inst_slr_rad_0722_#{surface.name.get.downcase.gsub(" ","_")}",row_data.to_s)
           table_01[:data] << row_data
 
         else
-          runner.registerWarning("Didn't find data for Zone Mean Air Temperature")
+          runner.registerWarning("Didn't find data for Outside Face Incident Solar Radiation Rate per Area")
         end # end of if output_timeseries.is_initialized
 
       end
@@ -412,7 +414,7 @@ module OsLib_Reporting_Bestest
   def self.hourly_heating_cooling_table(model, sqlFile, runner)
     table = {}
     table[:title] = 'Hourly Loads (kWh)'
-    table[:header] = ['Date','Type',0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    table[:header] = ['Date','Type',1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
     table[:units] = [] # list units in title vs. in each column
     table[:data] = []
 
@@ -446,10 +448,11 @@ module OsLib_Reporting_Bestest
           value = OpenStudio.convert(val_at_date_time, source_units, target_units).get
           row_data << value.round(2)
         end
+        hourly_htg = row_data
         table[:data] << row_data
 
       else
-        runner.registerWarning("Didn't find data for Zone Mean Air Temperature")
+        runner.registerWarning("Didn't find data for Zone Air System Sensible Heating Energy")
       end # end of if output_timeseries.is_initialized
 
       # get heating values
@@ -467,13 +470,20 @@ module OsLib_Reporting_Bestest
           value = OpenStudio.convert(val_at_date_time, source_units, target_units).get
           row_data << value.round(2)
         end
+        hourly_clg = row_data
         table[:data] << row_data
 
       else
-        runner.registerWarning("Didn't find data for Zone Mean Air Temperature")
+        runner.registerWarning("Didn't find data for Zone Air System Sensible Cooling Energy")
       end # end of if output_timeseries.is_initialized
 
-      # todo - report asks for single array with negative for cooling, but since timestep is not hourly, couldn't heating and cooling exist in same hour.
+      # combine headting and cooling into one array
+      combined_hourly = []
+      26.times do |i|
+        combined_hourly << hourly_htg[i] + hourly_clg[i]
+      end
+      runner.registerValue("sens_htg_clg_0104",combined_hourly.to_s)
+
 
     end
 
@@ -484,7 +494,7 @@ module OsLib_Reporting_Bestest
   def self.free_floating_temp(model, sqlFile, runner)
     table = {}
     table[:title] = 'Hourly Zone Mean Air Temperature (C)' # only show for Free-Floating cases
-    table[:header] = ['Date','00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
+    table[:header] = ['Date',1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
     table[:units] = [] # list units in title vs. in each column
     table[:data] = []
 
@@ -514,6 +524,7 @@ module OsLib_Reporting_Bestest
           val_at_date_time = output_timeseries.get.value(date_time)
           row_data << val_at_date_time.round(1)
         end
+        runner.registerValue("temp_0104",row_data.to_s)
         table[:data] << row_data
 
         # get July 27th values
@@ -525,6 +536,7 @@ module OsLib_Reporting_Bestest
           val_at_date_time = output_timeseries.get.value(date_time)
           row_data << val_at_date_time.round(1)
         end
+        runner.registerValue("temp_0727",row_data.to_s)
         table[:data] << row_data
 
       else
@@ -754,6 +766,18 @@ module OsLib_Reporting_Bestest
     hourly_values_rnd.sort_by { |k,v| k}.each do |k,v|
       table_01[:data] << [k,v]
     end
+
+    # create array from -20C through 70C for register value
+    full_temp_bin = []
+    puts hourly_values_rnd
+    (-20..70).each do |i|
+      if hourly_values_rnd[i]
+        full_temp_bin << hourly_values_rnd[i]
+      else
+        full_temp_bin << 0
+      end
+    end
+    runner.registerValue("temp_bins",full_temp_bin.to_s)
 
     # store min and max temps as register value
     runner.registerValue('min_temp',min,'C')
