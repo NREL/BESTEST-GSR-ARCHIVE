@@ -4,6 +4,7 @@
 # Run OpenStudio server projects from "integration testing directory"
 # The reporting measure in the project contains runner.registerValues objects that in turn get written into the results csv.
 # In the future the runner.registerValue data will live in the OSW file with each datapoint.
+# run scrpint from directory script is in "Results"
 
 # requires
 require 'csv'
@@ -77,56 +78,31 @@ puts "Populating Annual Houlry Integrated Peak Cooling Loads"
   worksheet.sheet_data[i][3].change_contents(time)
 end
 
-# todo - add registerValue to csv for min, max, and average temps
-=begin
+# todo - tag date and time
 puts "Populating FF Max Hourly Zone Temperature"
 # this also includes case 960
 (253..257).each do |i|
   target_case = worksheet.sheet_data[i][0].value
-
-  # get date and time from raw value
-  raw_value = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmax_hourly_temp_time_display_name]
-  date = raw_value[0,6]
-  time = raw_value[7,2].to_i
-
-  # populate value date and time columns
-  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmax_hourly_temp])
-  worksheet.sheet_data[i][2].change_contents(date)
-  worksheet.sheet_data[i][3].change_contents(time)
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmax_temp])
 end
 
+# todo - tag date and time
 puts "Populating FF Min Hourly Zone Temperature"
 # this also includes case 960
 (262..266).each do |i|
   target_case = worksheet.sheet_data[i][0].value
-
-  # get date and time from raw value
-  raw_value = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmin_hourly_temp_time_display_name]
-  date = raw_value[0,6]
-  time = raw_value[7,2].to_i
-
   # populate value date and time columns
-  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmin_hourly_temp])
-  worksheet.sheet_data[i][2].change_contents(date)
-  worksheet.sheet_data[i][3].change_contents(time)
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmin_temp])
 end
 
+# todo - tag date and time
 puts "Populating FF Average Hourly Zone Temperature"
 # this also includes case 960
 (271..275).each do |i|
   target_case = worksheet.sheet_data[i][0].value
-
-  # get date and time from raw value
-  raw_value = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsavg_hourly_temp_time_display_name]
-  date = raw_value[0,6]
-  time = raw_value[7,2].to_i
-
   # populate value date and time columns
-  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsavg_hourly_temp])
-  worksheet.sheet_data[i][2].change_contents(date)
-  worksheet.sheet_data[i][3].change_contents(time)
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsavg_temp])
 end
-=end
 
 # todo - Annual Incident Total Case 600 (293-294)
 
@@ -142,8 +118,6 @@ counter = 0
   counter += 1
 end
 
-# todo - finish up case 600 South and West March 5th and July 27th
-=begin
 puts "Populating Hourly Incident Solar Radiation Cloudy Day March 5th Case 600 - West"
 array = csv_hash['600'][:bestest_building_thermal_envelope_and_fabric_load_reportssurf_out_inst_slr_rad_0305_zone_surface_west].split(",")
 counter = 0
@@ -155,7 +129,7 @@ end
 puts "Populating Hourly Incident Solar Radiation Clear Day July 27th Case 600 - South"
 array = csv_hash['600'][:bestest_building_thermal_envelope_and_fabric_load_reportssurf_out_inst_slr_rad_0727_zone_surface_south].split(",")
 counter = 0
-(388..411).each do |i|
+(428..451).each do |i|
   worksheet.sheet_data[i][1].change_contents(array[counter+2].to_f)
   counter += 1
 end
@@ -163,19 +137,24 @@ end
 puts "Populating Hourly Incident Solar Radiation Clear Dat July 27th Case 600 - West"
 array = csv_hash['600'][:bestest_building_thermal_envelope_and_fabric_load_reportssurf_out_inst_slr_rad_0727_zone_surface_west].split(",")
 counter = 0
-(388..411).each do |i|
+(468..491).each do |i|
   worksheet.sheet_data[i][1].change_contents(array[counter+2].to_f)
   counter += 1
 end
-=end
 
-# todo - make sure these hourly temps are being captured in registerValues
-=begin
+puts "Hourly FF Temperatures January 4th - Case 600FF"
+array = csv_hash['600FF'][:bestest_building_thermal_envelope_and_fabric_load_reportstemp_0104].split(",")
+counter = 0
+(507..530).each do |i|
+  worksheet.sheet_data[i][1].change_contents(array[counter+1].to_f)
+  counter += 1
+end
+
 puts "Hourly FF Temperatures January 4th - Case 900FF"
 array = csv_hash['900FF'][:bestest_building_thermal_envelope_and_fabric_load_reportstemp_0104].split(",")
 counter = 0
 (547..570).each do |i|
-  worksheet.sheet_data[i][1].change_contents(array[counter+2].to_f)
+  worksheet.sheet_data[i][1].change_contents(array[counter+1].to_f)
   counter += 1
 end
 
@@ -183,7 +162,7 @@ puts "Hourly FF Temperatures July 27 - Case 650FF"
 array = csv_hash['650FF'][:bestest_building_thermal_envelope_and_fabric_load_reportstemp_0727].split(",")
 counter = 0
 (587..610).each do |i|
-  worksheet.sheet_data[i][1].change_contents(array[counter+2].to_f)
+  worksheet.sheet_data[i][1].change_contents(array[counter+1].to_f)
   counter += 1
 end
 
@@ -191,16 +170,15 @@ puts "Hourly FF Temperatures July 27 - Case 950FF"
 array = csv_hash['950FF'][:bestest_building_thermal_envelope_and_fabric_load_reportstemp_0727].split(",")
 counter = 0
 (627..651).each do |i|
-  worksheet.sheet_data[i][1].change_contents(array[counter+2].to_f)
+  worksheet.sheet_data[i][1].change_contents(array[counter+1].to_f)
   counter += 1
 end
-=end
 
 puts "Populating Hourly Heating and Cooling Load 0104 - Case 600"
 array = csv_hash['600'][:bestest_building_thermal_envelope_and_fabric_load_reportssens_htg_clg_0104].split(",")
 counter = 0
 (667..690).each do |i|
-  worksheet.sheet_data[i][1].change_contents(array[counter+2].to_f)
+  worksheet.sheet_data[i][1].change_contents(array[counter+1].to_f)
   counter += 1
 end
 

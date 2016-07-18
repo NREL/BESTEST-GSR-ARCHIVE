@@ -390,7 +390,7 @@ module OsLib_Reporting_Bestest
             value = OpenStudio.convert(val_at_date_time, source_units, target_units).get
             row_data << value.round(2)
           end
-          runner.registerValue("surf_out_inst_slr_rad_0722_#{surface.name.get.downcase.gsub(" ","_")}",row_data.to_s)
+          runner.registerValue("surf_out_inst_slr_rad_0727_#{surface.name.get.downcase.gsub(" ","_")}",row_data.to_s)
           table_01[:data] << row_data
 
         else
@@ -412,6 +412,12 @@ module OsLib_Reporting_Bestest
 
   # create hourly_heating_cooling_table
   def self.hourly_heating_cooling_table(model, sqlFile, runner)
+
+    # FF case gives ruby error on server for this but not local. This should skip it to avoid server
+    if model.getBuilding.name.get.include?("FF")
+      return nil
+    end
+
     table = {}
     table[:title] = 'Hourly Loads (kWh)'
     table[:header] = ['Date','Type',1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
@@ -422,7 +428,7 @@ module OsLib_Reporting_Bestest
     ann_env_pd = OsLib_Reporting_Bestest.ann_env_pd(sqlFile)
     if ann_env_pd
       # get keys
-      keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature')
+      keys = sqlFile.availableKeyValues(ann_env_pd, 'Hourly', 'Zone Air System Sensible Heating Energy')
 
       if keys.include? 'ZONE ONE'
         key = 'ZONE ONE'
@@ -432,6 +438,8 @@ module OsLib_Reporting_Bestest
 
       source_units = 'J'
       target_units = 'kWh'
+      hourly_htg = nil
+      hourly_clg = nil
 
       # get heating values
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', 'Zone Air System Sensible Heating Energy', key)
@@ -713,8 +721,9 @@ module OsLib_Reporting_Bestest
 
     # gather data (we can pre-poplulate 0 value from -20C to 70C if needed)
     hourly_values_rnd = {}
-    min = 0
-    max = 0
+    min = nil
+    max = nil
+    array_8760 = []
 
     # get time series data for main zone
     ann_env_pd = OsLib_Reporting_Bestest.ann_env_pd(sqlFile)
@@ -735,11 +744,14 @@ module OsLib_Reporting_Bestest
         output_timeseries = output_timeseries.get.values
         for i in 0..(output_timeseries.size - 1)
 
+          # using this to get average
+          array_8760 << output_timeseries[i]
+
           # code for min and max
-          if output_timeseries[i] < min
+          if min.nil? || output_timeseries[i] < min
             min = output_timeseries[i]
           end
-          if output_timeseries[i] > max
+          if max.nil? || output_timeseries[i] > max
             max = output_timeseries[i]
           end
 
@@ -779,9 +791,10 @@ module OsLib_Reporting_Bestest
     end
     runner.registerValue("temp_bins",full_temp_bin.to_s)
 
-    # store min and max temps as register value
+    # store min and max and avg temps as register value
     runner.registerValue('min_temp',min,'C')
     runner.registerValue('max_temp',max,'C')
+    runner.registerValue('avg_temp',array_8760.reduce(:+) / array_8760.size.to_f,'C')
 
     # add table to array of tables
     ff_temp_bins_tables << table_01
