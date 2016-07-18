@@ -108,7 +108,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     elsif case_num.include? '195' || '395'
       # add in geometry with no fenestration
       file_to_clone = 'Bestest_Geo_South_0_0_0.osm'
-   elsif variable_hash[:orient] == 'S'
+    elsif variable_hash[:orient] == 'S'
       if variable_hash[:shade] == false
         # add in south glazing without an overhang
         file_to_clone = 'Bestest_Geo_South_12_0_0.osm'

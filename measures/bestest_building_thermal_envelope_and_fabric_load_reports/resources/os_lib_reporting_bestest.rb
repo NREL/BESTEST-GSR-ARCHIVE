@@ -488,7 +488,11 @@ module OsLib_Reporting_Bestest
       # combine headting and cooling into one array
       combined_hourly = []
       26.times do |i|
-        combined_hourly << hourly_htg[i] + hourly_clg[i]
+        if i < 2
+          combined_hourly << hourly_htg[i] + hourly_clg[i]
+        else
+          combined_hourly << hourly_htg[i] - hourly_clg[i]
+        end
       end
       runner.registerValue("sens_htg_clg_0104",combined_hourly.to_s)
 

@@ -178,7 +178,7 @@ puts "Populating Hourly Heating and Cooling Load 0104 - Case 600"
 array = csv_hash['600'][:bestest_building_thermal_envelope_and_fabric_load_reportssens_htg_clg_0104].split(",")
 counter = 0
 (667..690).each do |i|
-  worksheet.sheet_data[i][1].change_contents(array[counter+1].to_f)
+  worksheet.sheet_data[i][1].change_contents(array[counter+2].to_f)
   counter += 1
 end
 

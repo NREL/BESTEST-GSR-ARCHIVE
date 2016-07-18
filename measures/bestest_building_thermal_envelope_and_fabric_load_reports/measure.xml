@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_reports</name>
   <uid>a0b598a6-96b9-4704-bc23-ac403d9f6b1b</uid>
-  <version_id>171a1d13-8265-4765-aa07-c2b5cc2dbb45</version_id>
-  <version_modified>20160718T194011Z</version_modified>
+  <version_id>25ec6e1a-d900-47af-a489-5f6fb7b7217d</version_id>
+  <version_modified>20160718T213223Z</version_modified>
   <xml_checksum>69BA4D91</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadReports</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Reports</display_name>
@@ -269,7 +269,7 @@
       <filename>os_lib_reporting_bestest.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>310CE354</checksum>
+      <checksum>F1B8A18B</checksum>
     </file>
   </files>
 </measure>
