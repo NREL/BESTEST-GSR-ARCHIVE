@@ -18,7 +18,8 @@ require 'rubyXL' # install gem first
 csv_file = 'bestest_os_server_output.csv'
 csv_hash = {}
 CSV.foreach(csv_file, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
-  csv_hash[row.fields[6]] = Hash[row.headers[1..-1].zip(row.fields[1..-1])]
+  short_name = row.fields[6].split(" ").first
+  csv_hash[short_name] = Hash[row.headers[1..-1].zip(row.fields[1..-1])]
 end
 puts "CSV has #{csv_hash.size} entries."
 puts "Hash keys are #{csv_hash.keys}" # keys made from column 6
@@ -34,26 +35,100 @@ workbook = RubyXL::Parser.parse(copy_results_5_2a)
 worksheet = workbook['YourData']
 puts "Loading #{worksheet.sheet_name} Worksheet"
 
-# todo - Popluate Annual Heating Loads
-# to make easier pas in an array of cases or sort and filter keys, and do for each to change index values.
 puts "Populating Annual Heating Loads"
-worksheet.sheet_data[64][1].change_contents(csv_hash['600 - Base Case'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[65][1].change_contents(csv_hash['610 - South Shading'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[66][1].change_contents(csv_hash['620 - East/West Window Orientation'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[67][1].change_contents(csv_hash['630 - East/West Shading'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[68][1].change_contents(csv_hash['640 - Thermostat Setback'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[69][1].change_contents(csv_hash['650 - Night Ventilation'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[70][1].change_contents(csv_hash['900 - High-Mass Base Case'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[71][1].change_contents(csv_hash['910 - High-Mass South Shading'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[72][1].change_contents(csv_hash['920 - High-Mass East/West Window Orientation'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[73][1].change_contents(csv_hash['930 - High-Mass East/West Shading'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[74][1].change_contents(csv_hash['940 - High-Mass Thermostat Setback'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[75][1].change_contents(csv_hash['950 - High-Mass Night Ventilation'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[76][1].change_contents(csv_hash['960 - Sunspace'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[77][1].change_contents(csv_hash['195 - Solid Conduction Test'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[78][1].change_contents(csv_hash['200 - Surface Convection/Infrared Radiation'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[79][1].change_contents(csv_hash['210 - Interior Infrared Radiation'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
-worksheet.sheet_data[80][1].change_contents(csv_hash['215 - Exterior Infrared Radiation'][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
+(64..98).each do |i|
+  target_case = worksheet.sheet_data[i][0].value
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_heating])
+end
+
+puts "Populating Annual Cooling Loads"
+(103..137).each do |i|
+  target_case = worksheet.sheet_data[i][0].value
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsannual_cooling])
+end
+
+puts "Populating Annual Houlry Integrated Peak Heating Loads"
+(145..179).each do |i|
+  target_case = worksheet.sheet_data[i][0].value
+
+  # get date and time from raw value
+  raw_value = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportspeak_heating_time_display_name]
+  date = raw_value[0,6]
+  time = raw_value[7,2].to_i
+
+  # populate value date and time columns
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportspeak_heating_value])
+  worksheet.sheet_data[i][2].change_contents(date)
+  worksheet.sheet_data[i][3].change_contents(time)
+end
+
+puts "Populating Annual Houlry Integrated Peak Cooling Loads"
+(198..232).each do |i|
+  target_case = worksheet.sheet_data[i][0].value
+
+  # get date and time from raw value
+  raw_value = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportspeak_cooling_time_display_name]
+  date = raw_value[0,6]
+  time = raw_value[7,2].to_i
+
+  # populate value date and time columns
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportspeak_cooling_value])
+  worksheet.sheet_data[i][2].change_contents(date)
+  worksheet.sheet_data[i][3].change_contents(time)
+end
+
+# todo - add registerValue to csv for min, max, and average temps
+
+=begin
+puts "Populating FF Max Hourly Zone Temperature"
+# this also includes case 960
+(253..257).each do |i|
+  target_case = worksheet.sheet_data[i][0].value
+
+  # get date and time from raw value
+  raw_value = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmax_hourly_temp_time_display_name]
+  date = raw_value[0,6]
+  time = raw_value[7,2].to_i
+
+  # populate value date and time columns
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmax_hourly_temp])
+  worksheet.sheet_data[i][2].change_contents(date)
+  worksheet.sheet_data[i][3].change_contents(time)
+end
+
+puts "Populating FF Min Hourly Zone Temperature"
+# this also includes case 960
+(262..266).each do |i|
+  target_case = worksheet.sheet_data[i][0].value
+
+  # get date and time from raw value
+  raw_value = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmin_hourly_temp_time_display_name]
+  date = raw_value[0,6]
+  time = raw_value[7,2].to_i
+
+  # populate value date and time columns
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmin_hourly_temp])
+  worksheet.sheet_data[i][2].change_contents(date)
+  worksheet.sheet_data[i][3].change_contents(time)
+end
+
+puts "Populating FF Average Hourly Zone Temperature"
+# this also includes case 960
+(271..275).each do |i|
+  target_case = worksheet.sheet_data[i][0].value
+
+  # get date and time from raw value
+  raw_value = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsavg_hourly_temp_time_display_name]
+  date = raw_value[0,6]
+  time = raw_value[7,2].to_i
+
+  # populate value date and time columns
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsavg_hourly_temp])
+  worksheet.sheet_data[i][2].change_contents(date)
+  worksheet.sheet_data[i][3].change_contents(time)
+end
+=end
+
 
 # Save Updated Excel File
 puts "Saving #{copy_results_5_2a}"
