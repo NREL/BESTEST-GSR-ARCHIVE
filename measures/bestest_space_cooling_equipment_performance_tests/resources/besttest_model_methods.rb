@@ -203,8 +203,6 @@ module BestestModelMethods
     air_loop.setDesignSupplyAirFlowRate(air_flow_rate)
     runner.registerInfo("HVAC > Adding airloop named #{air_loop.name}")
 
-    # todo - add in variables from variable_hash
-
     # Add curve
     clg_cap_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
     clg_cap_f_of_temp.setCoefficient1Constant(0.825119244)
@@ -309,6 +307,7 @@ module BestestModelMethods
 
       # setup oa case specific variables
       oa_min = nil
+      oa_max  = air_flow_rate
       oa_sch = nil
       ctrl_type = nil
       lockout_type = nil
@@ -326,16 +325,20 @@ module BestestModelMethods
         lockout_type = 'LockoutWithCompressor'
       elsif case_num.include?('CE430') || case_num.include?('CE440')
         ctrl_type = 'DifferentialEnthalpy'
+      elsif case_num.include?('CE5')
+        oa_min = 0.0
+        oa_max = 0.0
       end
       if oa_min.nil? then oa_min = 0.283166667 end
       if ctrl_type.nil? then ctrl_type = 'NoEconomizer' end
       if lockout_type.nil? then lockout_type = 'NoLockout' end
 
       # add oa system
+      # todo - address sim errors when using economizer
       runner.registerInfo("HVAC > Adding Outdoor Air System.")
       oa_controller = OpenStudio::Model::ControllerOutdoorAir.new(model)
       oa_controller.setMinimumOutdoorAirFlowRate(oa_min)
-      oa_controller.setMaximumOutdoorAirFlowRate(air_flow_rate)
+      oa_controller.setMaximumOutdoorAirFlowRate(oa_max)
       oa_controller.setEconomizerControlType(ctrl_type)
       oa_controller.setEconomizerControlActionType('ModulateFlow')
       if case_num.include?('CE420')

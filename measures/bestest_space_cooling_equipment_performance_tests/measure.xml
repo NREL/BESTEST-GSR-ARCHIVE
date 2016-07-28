@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_cooling_equipment_performance_tests</name>
   <uid>eb12d939-e78f-4b84-8af7-1e69e10a0cf4</uid>
-  <version_id>2c122292-f9d2-4bab-b36f-9fa5f0a4f816</version_id>
-  <version_modified>20160714T213331Z</version_modified>
+  <version_id>efc0ba2d-b337-42d1-8000-fa56e5a1ddd1</version_id>
+  <version_modified>20160728T164833Z</version_modified>
   <xml_checksum>05C5DFDC</xml_checksum>
   <class_name>BESTESTSpaceCoolingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Cooling Equipment Performance Tests</display_name>
@@ -361,12 +361,6 @@
       <checksum>8ED56459</checksum>
     </file>
     <file>
-      <filename>bestest_space_cooling_equipment_performance_tests_test.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>0C580DC8</checksum>
-    </file>
-    <file>
       <filename>bestest_resources.osm</filename>
       <filetype>osm</filetype>
       <usage_type>resource</usage_type>
@@ -384,10 +378,16 @@
       <checksum>143A3150</checksum>
     </file>
     <file>
+      <filename>bestest_space_cooling_equipment_performance_tests_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>F7398A2B</checksum>
+    </file>
+    <file>
       <filename>besttest_model_methods.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>41706B51</checksum>
+      <checksum>E5AE8DF0</checksum>
     </file>
   </files>
 </measure>
