@@ -182,7 +182,7 @@ module BestestModelMethods
   end
 
   # create ce case hvac systems
-  def self.create_ce_system(runner,model,variable_hash,case_num)
+  def self.create_ce_system(runner,model,resource_model,variable_hash,case_num)
 
     # BESTEST ce system
     # This measure creates:
@@ -202,8 +202,6 @@ module BestestModelMethods
     air_loop.setName("BESTEST CE air loop")
     air_loop.setDesignSupplyAirFlowRate(air_flow_rate)
     runner.registerInfo("HVAC > Adding airloop named #{air_loop.name}")
-
-    # todo - add in variables from variable_hash
 
     # Add curve
     clg_cap_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
@@ -309,6 +307,7 @@ module BestestModelMethods
 
       # setup oa case specific variables
       oa_min = nil
+      oa_max  = air_flow_rate
       oa_sch = nil
       ctrl_type = nil
       lockout_type = nil
@@ -326,6 +325,9 @@ module BestestModelMethods
         lockout_type = 'LockoutWithCompressor'
       elsif case_num.include?('CE430') || case_num.include?('CE440')
         ctrl_type = 'DifferentialEnthalpy'
+      elsif case_num.include?('CE5')
+        oa_min = 0.0
+        oa_max = 0.0
       end
       if oa_min.nil? then oa_min = 0.283166667 end
       if ctrl_type.nil? then ctrl_type = 'NoEconomizer' end
@@ -334,8 +336,10 @@ module BestestModelMethods
       # add oa system
       runner.registerInfo("HVAC > Adding Outdoor Air System.")
       oa_controller = OpenStudio::Model::ControllerOutdoorAir.new(model)
+      #oa_controller.resetEconomizerMaximumLimitDryBulbTemperature
+      #oa_controller.resetEconomizerMaximumLimitEnthalpy
       oa_controller.setMinimumOutdoorAirFlowRate(oa_min)
-      oa_controller.setMaximumOutdoorAirFlowRate(air_flow_rate)
+      oa_controller.setMaximumOutdoorAirFlowRate(oa_max)
       oa_controller.setEconomizerControlType(ctrl_type)
       oa_controller.setEconomizerControlActionType('ModulateFlow')
       if case_num.include?('CE420')
@@ -353,6 +357,21 @@ module BestestModelMethods
       end
       oa_system = OpenStudio::Model::AirLoopHVACOutdoorAirSystem.new(model,oa_controller)
       oa_system.addToNode(supply_inlet_node)
+
+      # Add a setpoint manager next to OA with neutral temp if economizer is used
+      if ctrl_type == 'DifferentialDryBulb' || ctrl_type == 'DifferentialEnthalpy'
+        neutral_sch = OpenStudio::Model::ScheduleRuleset.new(model)
+        neutral_sch.setName("Neutral Temp")
+        neutral_sch.defaultDaySchedule().setName("Neutral Temp Default")
+        neutral_sch.defaultDaySchedule().addValue(OpenStudio::Time.new(0,24,0,0),20.0)
+        sch_stpt_manager = OpenStudio::Model::SetpointManagerScheduled.new(model,neutral_sch)
+
+        # get inlet node for unitary system
+        unitary_node = unitary_system.to_WaterToAirComponent.get.airInletModelObject.get.to_Node.get
+        sch_stpt_manager.addToNode(unitary_node)
+
+      end
+
     end
 
     # Create a diffuser and attach the zone/diffuser pair to the air loop

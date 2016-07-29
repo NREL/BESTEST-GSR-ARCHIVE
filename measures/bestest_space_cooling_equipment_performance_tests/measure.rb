@@ -265,7 +265,7 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
 
     # add in HVAC
-    BestestModelMethods.create_ce_system(runner,model,variable_hash,case_num)
+    BestestModelMethods.create_ce_system(runner,model,resource_model,variable_hash,case_num)
 
     # rename the building
     model.getBuilding.setName("BESTEST Case #{case_num}")
