@@ -100,6 +100,10 @@ module BestestModelMethods
     air_loop = OpenStudio::Model::AirLoopHVAC.new(model)
     air_loop.setName("BESTEST HE air loop")
     air_loop.setDesignSupplyAirFlowRate(air_flow_rate)
+    sizing_system = air_loop.sizingSystem
+    sizing_system.setDesignOutdoorAirFlowRate(air_flow_rate)
+    sizing_system.setCoolingDesignCapacity(0.0)
+    sizing_system.setHeatingDesignCapacity(10000.0)
     runner.registerInfo("HVAC > Adding airloop named #{air_loop.name}")
 
     # curve for heating coil
@@ -219,14 +223,17 @@ module BestestModelMethods
 
     # get the only zone in the model
     zone = model.getThermalZones.first
+    # sizing_zone = zone.sizingZone
 
     # Add air loop
     air_loop = OpenStudio::Model::AirLoopHVAC.new(model)
     air_loop.setName("BESTEST CE air loop")
     air_loop.setDesignSupplyAirFlowRate(air_flow_rate)
+    sizing_system = air_loop.sizingSystem
+    sizing_system.setDesignOutdoorAirFlowRate(air_flow_rate)
+    sizing_system.setCoolingDesignCapacity(33280.0)
+    sizing_system.setHeatingDesignCapacity(0.0)
     runner.registerInfo("HVAC > Adding airloop named #{air_loop.name}")
-
-    # todo - Remove any autosizing
 
     # Add curve
     clg_cap_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
@@ -323,9 +330,6 @@ module BestestModelMethods
     # in order from closest to zone to furthest from zone
     supply_inlet_node = air_loop.supplyInletNode
     unitary_system.addToNode(supply_inlet_node)
-
-    # todo - add logic for CE1 and CE2
-    # todo - finish adding logic for CE5 cases
 
     # see of OA system is needed
     if !(case_num.include?('CE1') || case_num.include?('CE2') || case_num.include?('CE5'))
