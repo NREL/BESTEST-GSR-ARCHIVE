@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_cooling_equipment_performance_tests</name>
   <uid>eb12d939-e78f-4b84-8af7-1e69e10a0cf4</uid>
-  <version_id>287e4298-3de4-42e9-92aa-f35a7a891471</version_id>
-  <version_modified>20160729T154829Z</version_modified>
+  <version_id>5eaef5f1-7380-42d2-b2cc-330fb105687f</version_id>
+  <version_modified>20160804T191647Z</version_modified>
   <xml_checksum>05C5DFDC</xml_checksum>
   <class_name>BESTESTSpaceCoolingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Cooling Equipment Performance Tests</display_name>
@@ -217,12 +217,6 @@
   </attributes>
   <files>
     <file>
-      <filename>example_model.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>test</usage_type>
-      <checksum>C4F35230</checksum>
-    </file>
-    <file>
       <filename>DRYCOLDTMY.epw</filename>
       <filetype>epw</filetype>
       <usage_type>resource</usage_type>
@@ -233,12 +227,6 @@
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
       <checksum>32A9564D</checksum>
-    </file>
-    <file>
-      <filename>Bestest_empty.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>test</usage_type>
-      <checksum>0603845B</checksum>
     </file>
     <file>
       <filename>CE100ATM2.epw</filename>
@@ -370,7 +358,13 @@
       <filename>bestest_space_cooling_equipment_performance_tests_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
-      <checksum>F7398A2B</checksum>
+      <checksum>3A87CF71</checksum>
+    </file>
+    <file>
+      <filename>seed_empty.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>3DFC9D37</checksum>
     </file>
     <file>
       <version>
@@ -381,13 +375,13 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>47CEB121</checksum>
+      <checksum>75982DD1</checksum>
     </file>
     <file>
       <filename>besttest_model_methods.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>33F32531</checksum>
+      <checksum>1A716453</checksum>
     </file>
   </files>
 </measure>

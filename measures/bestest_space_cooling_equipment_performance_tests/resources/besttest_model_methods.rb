@@ -46,6 +46,7 @@ module BestestModelMethods
 
   end
 
+  # add_output_variable
   def self.add_output_variable(runner,model,key_value,variable_name,reporting_frequency)
 
     output_variable = OpenStudio::Model::OutputVariable.new(variable_name,model)
@@ -54,6 +55,28 @@ module BestestModelMethods
       output_variable.setKeyValue(key_value)
     end
     runner.registerInfo("Output Reqeust > #{key_value},#{output_variable.variableName}, #{reporting_frequency}")
+
+  end
+
+  # sim settings same across cases
+  def self.config_sim_settings(runner,model,sca_inside,sca_outside)
+
+    model.getSimulationControl.setSolarDistribution('FullInteriorAndExterior')
+    model.getSimulationControl.setMinimumNumberofWarmupDays(6)
+    model.getSimulationControl.resetMaximumNumberofWarmupDays
+    model.getSite.setTerrain('Country')
+    model.getYearDescription.resetDayofWeekforStartDay
+
+    # todo - CE uses TARP, Envelope uses DOE-2, and HE uses surface specific SurfaceProperty:ConvectionCoefficients objects
+    model.getInsideSurfaceConvectionAlgorithm.setAlgorithm(sca_inside)
+    model.getOutsideSurfaceConvectionAlgorithm.setAlgorithm(sca_outside)
+
+    # todo - Site:HeightVariation will have to be changed in an EnergyPlus measure with Air Temperature Gradient Coefficient set to 0.0
+    # CE and HE use this but not Envelope
+
+    runner.registerInfo("Settings > Configuring Simulation Setting")
+
+    return true
 
   end
 
@@ -77,6 +100,10 @@ module BestestModelMethods
     air_loop = OpenStudio::Model::AirLoopHVAC.new(model)
     air_loop.setName("BESTEST HE air loop")
     air_loop.setDesignSupplyAirFlowRate(air_flow_rate)
+    sizing_system = air_loop.sizingSystem
+    sizing_system.setDesignOutdoorAirFlowRate(air_flow_rate)
+    sizing_system.setCoolingDesignCapacity(0.0)
+    sizing_system.setHeatingDesignCapacity(10000.0)
     runner.registerInfo("HVAC > Adding airloop named #{air_loop.name}")
 
     # curve for heating coil
@@ -196,11 +223,16 @@ module BestestModelMethods
 
     # get the only zone in the model
     zone = model.getThermalZones.first
+    # sizing_zone = zone.sizingZone
 
     # Add air loop
     air_loop = OpenStudio::Model::AirLoopHVAC.new(model)
     air_loop.setName("BESTEST CE air loop")
     air_loop.setDesignSupplyAirFlowRate(air_flow_rate)
+    sizing_system = air_loop.sizingSystem
+    sizing_system.setDesignOutdoorAirFlowRate(air_flow_rate)
+    sizing_system.setCoolingDesignCapacity(33280.0)
+    sizing_system.setHeatingDesignCapacity(0.0)
     runner.registerInfo("HVAC > Adding airloop named #{air_loop.name}")
 
     # Add curve
@@ -298,9 +330,6 @@ module BestestModelMethods
     # in order from closest to zone to furthest from zone
     supply_inlet_node = air_loop.supplyInletNode
     unitary_system.addToNode(supply_inlet_node)
-
-    # todo - add logic for CE1 and CE2
-    # todo - finish adding logic for CE5 cases
 
     # see of OA system is needed
     if !(case_num.include?('CE1') || case_num.include?('CE2') || case_num.include?('CE5'))

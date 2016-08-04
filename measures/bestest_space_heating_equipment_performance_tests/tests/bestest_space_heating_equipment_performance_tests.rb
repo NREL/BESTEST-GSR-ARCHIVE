@@ -21,7 +21,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTestsTest < MiniTest::Unit::TestCas
 
     # load the test model
     translator = OpenStudio::OSVersion::VersionTranslator.new
-    path = OpenStudio::Path.new(File.dirname(__FILE__) + "/Bestest_empty.osm")
+    path = OpenStudio::Path.new(File.dirname(__FILE__) + "/seed_empty.osm")
     model = translator.loadModel(path)
     assert((not model.empty?))
     model = model.get
@@ -71,7 +71,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTestsTest < MiniTest::Unit::TestCas
 
     # load the test model
     translator = OpenStudio::OSVersion::VersionTranslator.new
-    path = OpenStudio::Path.new(File.dirname(__FILE__) + "/Bestest_empty.osm")
+    path = OpenStudio::Path.new(File.dirname(__FILE__) + "/seed_empty.osm")
     model = translator.loadModel(path)
     assert((not model.empty?))
     model = model.get

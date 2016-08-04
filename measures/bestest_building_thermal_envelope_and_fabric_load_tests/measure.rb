@@ -78,7 +78,8 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       variable_hash = variable_hash.first
     end
 
-    # todo - Adjust simulation settings if necessary
+    # Adjust simulation settings if necessary
+    BestestModelMethods.config_sim_settings(runner,model,'TARP','DOE-2')
 
     # Add weather file and design day objects (won't work in apply measures now)
     top_dir = File.dirname(__FILE__)

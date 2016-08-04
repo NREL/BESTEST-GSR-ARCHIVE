@@ -75,9 +75,10 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
       variable_hash = variable_hash.first
     end
 
-    # todo - Adjust simulation settings if necessary
+    # Adjust simulation settings if necessary
+    BestestModelMethods.config_sim_settings(runner,model,'TARP','TARP')
 
-    # Add weather file and design day objects (won't work in apply measures now)
+    # Add weather file (won't work in apply measures now)
     top_dir = File.dirname(__FILE__)
     weather_dir = "#{top_dir}/resources/"
     weather_file_name = "#{variable_hash[:epw]}TM2.epw"
@@ -96,6 +97,11 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     site.setTimeZone(weather_time)
     site.setElevation(weather_elev)
     runner.registerInfo("Weather > setting weather to #{weather_object.url.get}")
+
+    # need design days for OpenStudio to run, but values should not matter
+    summer_design_day = OpenStudio::Model::DesignDay.new(model)
+    winter_design_day = OpenStudio::Model::DesignDay.new(model)
+    winter_design_day.setDayType('WinterDesignDay')
 
     # Lookup envelope
     file_to_clone = nil

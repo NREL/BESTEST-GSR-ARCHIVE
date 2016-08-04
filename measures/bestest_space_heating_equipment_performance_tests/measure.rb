@@ -75,9 +75,11 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
       variable_hash = variable_hash.first
     end
 
-    # todo - Adjust simulation settings if necessary
+    # Adjust simulation settings if necessary
+    # todo - do I want simple or should this be skipped
+    BestestModelMethods.config_sim_settings(runner,model,'Simple','Simple')
 
-    # todo - Add weather file and design day objects (won't work in apply measures now)
+    # todo - Add weather file(won't work in apply measures now)
     top_dir = File.dirname(__FILE__)
     weather_dir = "#{top_dir}/resources/"
     weather_file_name = "#{variable_hash[:epw]}WY2.epw"
@@ -97,6 +99,11 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     site.setElevation(weather_elev)
     runner.registerInfo("Weather > setting weather to #{weather_object.url.get}")
 
+    # need design days for OpenStudio to run, but values should not matter
+    summer_design_day = OpenStudio::Model::DesignDay.new(model)
+    winter_design_day = OpenStudio::Model::DesignDay.new(model)
+    winter_design_day.setDayType('WinterDesignDay')
+
     # Lookup envelope
     file_to_clone = nil
     if case_num.include? 'HE'
@@ -112,6 +119,28 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     geo_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/resources/" + "#{file_to_clone}")
     geo_model = translator.loadModel(geo_path).get
     geo_model.getBuilding.clone(model)
+
+    # change heat balance defaults
+    model.getHeatBalanceAlgorithm.setMinimumSurfaceConvectionHeatTransferCoefficientValue(0.0000001)
+
+    # Specific to HE cases, set SurfacePropertyConvectionCoefficients
+    conv_coef = OpenStudio::Model::SurfacePropertyConvectionCoefficientsMultipleSurface.new(model)
+    conv_coef.setSurfaceType('AllExteriorWalls')
+    conv_coef.setConvectionCoefficient1Location('Inside')
+    conv_coef.setConvectionCoefficient1Type('Value')
+    conv_coef.setConvectionCoefficient1(0.1)
+    conv_coef.setConvectionCoefficient2Location('Outside')
+    conv_coef.setConvectionCoefficient2Type('Value')
+    conv_coef.setConvectionCoefficient2(0.0000001)
+
+    conv_coef = OpenStudio::Model::SurfacePropertyConvectionCoefficientsMultipleSurface.new(model)
+    conv_coef.setSurfaceType('AllExteriorRoofs')
+    conv_coef.setConvectionCoefficient1Location('Inside')
+    conv_coef.setConvectionCoefficient1Type('Value')
+    conv_coef.setConvectionCoefficient1(20.0)
+    conv_coef.setConvectionCoefficient2Location('Outside')
+    conv_coef.setConvectionCoefficient2Type('Value')
+    conv_coef.setConvectionCoefficient2(20.0)
 
     # Load resource file
     file_resource = "bestest_resources.osm"
