@@ -40,7 +40,6 @@ puts "Loading #{worksheet.sheet_name} Worksheet"
 
 # todo - update content
 # make array for columns on table
-# convert to symbolic for use below
 columns = []
 columns << :bestest_ce_reportingclg_energy_consumption_total
 columns << :bestest_ce_reportingclg_energy_consumption_compressor
@@ -93,6 +92,7 @@ worksheet = workbook['YourData']
 puts "Loading #{worksheet.sheet_name} Worksheet"
 
 # todo - update content
+
 
 # Save Updated Excel File
 puts "Saving #{copy_results_5_3b}"

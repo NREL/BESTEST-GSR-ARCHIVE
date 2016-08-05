@@ -180,13 +180,13 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       end
     end
 
-    # if no windows then replace winodws with doors except for case 195 and 295
+    # if no windows then replace winodws with doors except for case 195 and 395
     if variable_hash[:glass_area].nil? || variable_hash[:glass_area] == 0.0
       no_windows = true
     else
       no_windows = false
     end
-    if case_num.include?'195' || '395' || '960'
+    if case_num.include?('195') || case_num.include?('395') || case_num.include?('960')
       add_doors = false
     else
       add_doors = true
@@ -294,9 +294,17 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     end
     model.getSpaces.each do |space|
       infil = OpenStudio::Model::SpaceInfiltrationDesignFlowRate.new(model)
-      infil.setAirChangesperHour(ach)
       infil.setSpace(space)
-      infil.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
+
+      # should be true for 650,950,650FF,950FF
+      if variable_hash[:vent]
+        infil.setDesignFlowRate (0.4911) # value from legacy IDF. Combined infiltraiton and night ventilation
+        infil.setSchedule(bestest_night_vent.clone(model).to_ScheduleRuleset.get)
+      else
+        infil.setAirChangesperHour(ach)
+        infil.setSchedule(always_on.clone(model).to_ScheduleRuleset.get)
+      end
+
       runner.registerInfo("Infiltration > Setting to #{infil.airChangesperHour} ACH for #{space.name}.")
     end
 
@@ -357,16 +365,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       runner.registerInfo("Thermostat > #{zone.name} has clg setpoint sch named #{clg_setp.name} and htg setpoint sch named #{htg_setp.name}.")
     end
 
-    # add in night ventilation
-    if variable_hash[:vent]
-      zone_ventilation = OpenStudio::Model::ZoneVentilationDesignFlowRate.new(model)
-      zone_ventilation.addToThermalZone(model.getThermalZones.first)
-      zone_ventilation.setVentilationType("Natural")
-      zone_ventilation.setDesignFlowRateCalculationMethod("AirChanges/Hour")
-      zone_ventilation.setAirChangesperHour(13.14)
-      zone_ventilation.setSchedule(bestest_night_vent.clone(model).to_ScheduleRuleset.get)
-      runner.registerInfo("Ventilation > Creating zone ventilation design flow rate object with ventilation rate of #{zone_ventilation.airChangesperHour} ACH")
-    end
+    # add in night ventilation (added as extra infiltration)
 
     # add in HVAC
     if !variable_hash[:ff]

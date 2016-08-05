@@ -1,0 +1,84 @@
+[RunManager.ConfigOptions] <-1> Tools list in QSettings is from a previous version of OpenStudio, ignoring
+[RunManager.ConfigOptions] <-1> RunManager settings in QSettings is from a previous version of OpenStudio, ignoring
+[openstudio.LocalLibraryController] <-2> Creating LocalLibraryController with base app 0x7fff52be6aa0
+[utilities.bcl.BCLMeasure] <-2> Loading measures in path: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/CalibrationReports
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/CalibrationReports
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/RadianceMeasure
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/RadianceMeasure
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/ReplaceModel
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/ReplaceModel
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/ReportRequest
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/ReportRequest
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/StandardReports
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Applications/OpenStudio 1.12.0/OpenStudio.app/Contents/share/openstudio-1.12.0/pat/Measures/StandardReports
+[utilities.bcl.BCLMeasure] <-2> Loading measures in path: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_reports
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_reports
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_ce_reporting
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_ce_reporting
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_he_reporting
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_he_reporting
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_space_cooling_equipment_performance_tests
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_space_cooling_equipment_performance_tests
+[utilities.bcl.BCLMeasure] <-2> Attempting to load measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_space_heating_equipment_performance_tests
+[utilities.bcl.BCLMeasure] <-2> Success loading measure: /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_space_heating_equipment_performance_tests
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.model.YearDescription] <1> 'UseWeatherFile' is not yet a supported option for YearDescription
+[openstudio.openstudio_lib.MainRightColumnController] <-2> Setting new edit widget: 0x7f815fa9a6f0
+[openstudio.runmanager.Workflow] <-2> creating workflow
+[openstudio.runmanager.Job_Impl] <-2> Returning previously saved outputfiles
+[openstudio.runmanager.RunManager] <-2> (/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources/run.db) Persisting job status for {7001fb87-bd35-4f23-b76a-e88469ae798a}
+[openstudio.runmanager.RunManager] <-2> Deleted previous data job status for {7001fb87-bd35-4f23-b76a-e88469ae798a}
+[openstudio.runmanager.RunManager] <-2> Not persisting, job has not actually finished {7001fb87-bd35-4f23-b76a-e88469ae798a}
+[openstudio.runmanager.Job_Impl] <-2> Returning previously saved outputfiles
+[openstudio.runmanager.RunManager] <-2> (/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources/run.db) Persisting job status for {da10b9f9-7604-492d-9073-01428e1103ed}
+[openstudio.runmanager.RunManager] <-2> Deleted previous data job status for {da10b9f9-7604-492d-9073-01428e1103ed}
+[openstudio.runmanager.RunManager] <-2> Not persisting, job has not actually finished {da10b9f9-7604-492d-9073-01428e1103ed}
+[openstudio.runmanager.Job_Impl] <-2> Returning previously saved outputfiles
+[openstudio.runmanager.RunManager] <-2> (/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources/run.db) Persisting job status for {de2e6bef-f468-4e91-8c5d-9c124ef28ef3}
+[openstudio.runmanager.RunManager] <-2> Deleted previous data job status for {de2e6bef-f468-4e91-8c5d-9c124ef28ef3}
+[openstudio.runmanager.RunManager] <-2> Not persisting, job has not actually finished {de2e6bef-f468-4e91-8c5d-9c124ef28ef3}
+[openstudio.runmanager.Job_Impl] <-2> Returning previously saved outputfiles
+[openstudio.runmanager.RunManager] <-2> (/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources/run.db) Persisting job status for {7eeb3029-1080-49d4-98dc-b05bb855cd9c}
+[openstudio.runmanager.RunManager] <-2> Deleted previous data job status for {7eeb3029-1080-49d4-98dc-b05bb855cd9c}
+[openstudio.runmanager.RunManager] <-2> Not persisting, job has not actually finished {7eeb3029-1080-49d4-98dc-b05bb855cd9c}
+[openstudio.runmanager.Job_Impl] <-2> Returning previously saved outputfiles
+[openstudio.runmanager.RunManager] <-2> (/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources/run.db) Persisting job status for {ba9affec-8661-4069-8b2d-3cd42f356eaa}
+[openstudio.runmanager.RunManager] <-2> Deleted previous data job status for {ba9affec-8661-4069-8b2d-3cd42f356eaa}
+[openstudio.runmanager.RunManager] <-2> Not persisting, job has not actually finished {ba9affec-8661-4069-8b2d-3cd42f356eaa}
+[openstudio.project.ProjectDatabase] <-1> DB Message: cannot start a transaction within a transaction Unable to begin transaction
+[saveModel] <-2> Saved model to '/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/in.osm'
+[saveModelTempDir] <-2> Copying /var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources to /Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests/resources/bestest_resources
+[copyDir] <-1> copyDir '/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources' to '/Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests/resources/bestest_resources'
+[copyDir] <-1> Creating directory named = 'bestest_resources' in parentDstDir = '/Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests/resources'
+[synchDirStructures] <-1> Synching destination '/Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests/resources/bestest_resources' with source '/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources'
+[copyDir] <-1> copyDir '/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources/files' to '/Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests/resources/bestest_resources/files'
+[copyDir] <-1> Creating directory named = 'files' in parentDstDir = '/Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests/resources/bestest_resources'
+[synchDirStructures] <-1> Synching destination '/Users/dgoldwas/Documents/GitHub/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_tests/resources/bestest_resources/files' with source '/var/folders/83/rcnbz4dd5qqgf7rpc69354_x0g1kng/T/OpenStudio.w40715/resources/files'
