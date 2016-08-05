@@ -279,9 +279,15 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
 
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
+    # Add output requests (consider adding to case hash instead of adding logic here)
+    # this gather any non standard output requests. Analysis of output such as binning temps for FF will occur in reporting measure
+    # Table 6-1 describes the specific day of results that will be used for testing
+    hourly_variables = []
+    hourly_variables << 'Site Outdoor Air Drybulb Temperature'
 
-    # todo - Add output requests (consider adding to case hash instead of adding logic here)
-
+    hourly_variables.each do |variable|
+      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly')
+    end
 
     # report final condition of model
     runner.registerFinalCondition("The final model named #{model.getBuilding.name} has #{model.numObjects} objects.")

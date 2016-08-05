@@ -1,0 +1,65 @@
+<measure>
+  <schema_version>3.0</schema_version>
+  <name>bestesthe_reporting</name>
+  <uid>0c315265-09b3-40ae-a50f-e8920b468264</uid>
+  <version_id>71252fcf-d155-4f26-9a65-1f120e9064a2</version_id>
+  <version_modified>20160804T223334Z</version_modified>
+  <xml_checksum>9BF1E6AC</xml_checksum>
+  <class_name>BESTESTHEReporting</class_name>
+  <display_name>BESTEST HE Reporting</display_name>
+  <description>This doesn't generate a user HTML file with any meaningful content. It is here to create runner.RegisterValue objects that will be post processed downstream.</description>
+  <modeler_description>The CSV project for the analysis will be downloaded from the server and then a script will run to pull data into Local Excel File.</modeler_description>
+  <arguments/>
+  <provenances/>
+  <tags>
+    <tag>Reporting.QAQC</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ReportingMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>bestesthe_reporting_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>539D71BF</checksum>
+    </file>
+    <file>
+      <filename>example_model.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>A0199A45</checksum>
+    </file>
+    <file>
+      <filename>report.html.in</filename>
+      <filetype>in</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>3501204C</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>1.12.1</identifier>
+        <min_compatible>1.12.1</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>242D4CF8</checksum>
+    </file>
+  </files>
+</measure>

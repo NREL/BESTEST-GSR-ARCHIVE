@@ -79,7 +79,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     # todo - do I want simple or should this be skipped
     BestestModelMethods.config_sim_settings(runner,model,'Simple','Simple')
 
-    # todo - Add weather file(won't work in apply measures now)
+    # Add weather file(won't work in apply measures now)
     top_dir = File.dirname(__FILE__)
     weather_dir = "#{top_dir}/resources/"
     weather_file_name = "#{variable_hash[:epw]}WY2.epw"
@@ -103,6 +103,12 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     summer_design_day = OpenStudio::Model::DesignDay.new(model)
     winter_design_day = OpenStudio::Model::DesignDay.new(model)
     winter_design_day.setDayType('WinterDesignDay')
+
+    # set runperiod
+    run_period = model.getRunPeriod
+    run_period.setEndMonth(3)
+    run_period.setEndDayOfMonth (31)
+    runner.registerInfo("Run Period > Setting Simulation Run Period from 1/1 through 3/31.")
 
     # Lookup envelope
     file_to_clone = nil
@@ -187,9 +193,61 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
 
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
+    # Add output requests (consider adding to case hash instead of adding logic here)
+    # this gather any non standard output requests. Analysis of output such as binning temps for FF will occur in reporting measure
+    # Table 6-1 describes the specific day of results that will be used for testing
+    hourly_variables = []
 
-    # todo - Add output requests (consider adding to case hash instead of adding logic here)
+    # variables for all HE cases
+    hourly_variables << 'Site Outdoor Air Drybulb Temperature'
+    hourly_variables << 'Site Outdoor Air Wetbulb Temperature'
+    hourly_variables << 'Site Outdoor Air Dewpoint Temperature'
+    hourly_variables << 'Site Outdoor Air Enthalpy'
+    hourly_variables << 'Site Outdoor Air Humidity Ratio'
+    hourly_variables << 'Site Outdoor Air Relative Humidity'
+    hourly_variables << 'Site Outdoor Air Density'
+    hourly_variables << 'Site Outdoor Air Barometric Pressure'
+    hourly_variables << 'Site Wind Speed'
+    hourly_variables << 'Site Direct Solar Radiation Rate per Area'
+    hourly_variables << 'Site Diffuse Solar Radiation Rate per Area'
+    hourly_variables << 'Zone Mean Air Temperature'
+    hourly_variables << 'Zone Air System Sensible Heating Energy'
+    hourly_variables << 'Zone Air System Sensible Cooling Energy'
+    hourly_variables << 'Zone Air Temperature,Hourly'
+    hourly_variables << 'Zone Air Humidity Ratio'
+    hourly_variables << 'Surface Inside face Temperature'
+    hourly_variables << 'Surface Outside face Temperature'
+    hourly_variables << 'Surface Inside Face Convection Heat Transfer Coefficient'
+    hourly_variables << 'Surface Outside Face Convection Heat Transfer Coefficient'
+    hourly_variables << 'Zone Air System Sensible Heating Energy'
+    hourly_variables << 'Zone Air System Sensible Cooling Energy'
+    hourly_variables << 'Zone Air Temperature'
+    hourly_variables << 'Zone Total Internal Latent Gain Energy'
+    hourly_variables << 'Zone Air Humidity Ratio'
+    hourly_variables << 'Fan Electric Power'
+    hourly_variables << 'Fan Rise in Air Temperature'
+    hourly_variables << 'Fan Electric Energy'
+    hourly_variables << 'Heating Coil Air Heating Energy'
+    hourly_variables << 'Heating Coil Air Heating Rate'
+    hourly_variables << 'Heating Coil Gas Energy'
+    hourly_variables << 'Heating Coil Gas Rate'
+    hourly_variables << 'Fan Runtime Fraction'
+    hourly_variables << 'System Node Temperature'
+    hourly_variables << 'System Node Mass Flow Rate'
 
+    # variables for HE150-170
+    if case_num.include? "HE150" ||"HE160" || "HE170"
+      # fan variables needed already in generic list
+    end
+
+    # variables for HE210-230
+    if case_num.include? "HE210" ||"HE220" || "HE230"
+      # zone air temperature variables needed already in generic list
+    end
+
+    hourly_variables.each do |variable|
+      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly')
+    end
 
     # report final condition of model
     runner.registerFinalCondition("The final model named #{model.getBuilding.name} has #{model.numObjects} objects.")

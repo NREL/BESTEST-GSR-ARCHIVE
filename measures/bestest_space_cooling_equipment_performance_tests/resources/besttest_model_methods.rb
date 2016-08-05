@@ -64,6 +64,7 @@ module BestestModelMethods
     model.getSimulationControl.setSolarDistribution('FullInteriorAndExterior')
     model.getSimulationControl.setMinimumNumberofWarmupDays(6)
     model.getSimulationControl.resetMaximumNumberofWarmupDays
+    model.getSimulationControl.setRunSimulationforSizingPeriods(false)
     model.getSite.setTerrain('Country')
     model.getYearDescription.resetDayofWeekforStartDay
 
