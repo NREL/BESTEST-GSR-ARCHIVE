@@ -283,7 +283,71 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     # this gather any non standard output requests. Analysis of output such as binning temps for FF will occur in reporting measure
     # Table 6-1 describes the specific day of results that will be used for testing
     hourly_variables = []
+
+    # variables for all CE cases
     hourly_variables << 'Site Outdoor Air Drybulb Temperature'
+    hourly_variables << 'Site Outdoor Air Humidity Ratio'
+    hourly_variables << 'Surface Inside face Temperature'
+    hourly_variables << 'Surface Outside face Temperature'
+    hourly_variables << 'Surface Inside Face Convection Heat Transfer Coefficient'
+    hourly_variables << 'Surface Outside Face Convection Heat Transfer Coefficient'
+    hourly_variables << 'Zone Mean Air Temperature'
+    hourly_variables << 'Zone Air Temperature'
+    hourly_variables << 'Zone Air Humidity Ratio'
+    hourly_variables << 'Zone Air System Sensible Heating Energy'
+    hourly_variables << 'Zone Air System Sensible Cooling Energy'
+    hourly_variables << 'Zone Total Internal Latent Gain Energy'
+    hourly_variables << 'Fan Electric Power'
+    hourly_variables << 'Fan Rise in Air Temperature'
+    hourly_variables << 'Fan Electric Energy'
+    hourly_variables << 'Cooling Coil Total Cooling Energy'
+    hourly_variables << 'Cooling Coil Sensible Cooling Rate'
+    hourly_variables << 'Cooling Coil Sensible Cooling Energy'
+    hourly_variables << 'Cooling Coil Electric Power'
+    hourly_variables << 'Cooling Coil Electric Energy'
+    hourly_variables << 'Cooling Coil Latent Cooling Rate'
+    hourly_variables << 'Cooling Coil Latent Cooling Energy'
+
+    # Unitary outputs in these models vs. Zone Window Air Conditioner outputs in legacy
+    hourly_variables << 'Unitary System Part Load Ratio'
+    hourly_variables << 'Unitary System Total Cooling Rate'
+    hourly_variables << 'Unitary System Sensible Cooling Rate'
+    hourly_variables << 'Unitary System Latent Cooling Rate'
+    hourly_variables << 'Unitary System Total Heating Rate'
+    hourly_variables << 'Unitary System Sensible Heating Rate'
+    hourly_variables << 'Unitary System Latent Heating Rate'
+    hourly_variables << 'Unitary System Ancillary Electric Power'
+    hourly_variables << 'Unitary System Dehumidification Induced Heating Demand Rate'
+    hourly_variables << 'Unitary System Fan Part Load Ratio'
+    hourly_variables << 'Unitary System Compressor Part Load Ratio'
+    hourly_variables << 'Unitary System Frost Control Status'
+
+    # variables CE 1x through 2x
+    if case_num.include? "CE1" ||"CE2"
+      hourly_variables << 'Site Outdoor Air Wetbulb Temperature'
+      hourly_variables << 'Site Outdoor Air Dewpoint Temperature'
+      hourly_variables << 'Site Outdoor Air Enthalpy'
+      hourly_variables << 'Site Outdoor Air Relative Humidity'
+      hourly_variables << 'Site Outdoor Air Density'
+      hourly_variables << 'Site Outdoor Air Barometric Pressure'
+      hourly_variables << 'Site Wind Speed'
+      hourly_variables << 'Site Direct Solar Radiation Rate per Area'
+      hourly_variables << 'Site Diffuse Solar Radiation Rate per Area'
+    elsif case_num.include? "CE3"
+      hourly_variables << 'System Node Temperature'
+      hourly_variables << 'System Node Mass Flow Rate'
+    elsif case_num.include? "CE4" || "CE5"
+      hourly_variables << 'System Node Temperature'
+      hourly_variables << 'System Node Mass Flow Rate'
+      hourly_variables << 'System Node Setpoint Temperature'
+      hourly_variables << 'Zone Other Equipment Radiant Heating Energy'
+      hourly_variables << 'Zone Other Equipment Convective Heating Energy'
+      hourly_variables << 'Zone Other Equipment Latent Gain Energy'
+      hourly_variables << 'Zone Other Equipment Lost Heat Energy'
+      hourly_variables << 'Zone Other Equipment Total Heating Energy'
+    else
+      runner.registerWarning("Unexpected Case Number")
+    end
 
     hourly_variables.each do |variable|
       BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly')
