@@ -4,23 +4,20 @@
 require 'erb'
 
 #start the measure
-class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
+class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 
   # human readable name
   def name
-    return "BESTEST HE Reporting"
+    return "BESTEST CE Reporting"
   end
-
   # human readable description
   def description
     return "This doesn't generate a user HTML file with any meaningful content. It is here to create runner.RegisterValue objects that will be post processed downstream."
   end
-
   # human readable description of modeling approach
   def modeler_description
     return "The CSV project for the analysis will be downloaded from the server and then a script will run to pull data into Local Excel File."
   end
-
   # define the arguments that the user will input
   def arguments()
     args = OpenStudio::Ruleset::OSArgumentVector.new
@@ -137,11 +134,10 @@ class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
       end
     end
 
-    # close the sql file
-    sqlFile.close()
-
     # todo - add runner.registerValues for bestest reporting
 
+    # close the sql file
+    sqlFile.close()
 
     return true
  
@@ -150,4 +146,4 @@ class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
 end
 
 # register the measure to be used by the application
-BESTESTHEReporting.new.registerWithApplication
+BESTESTCEReporting.new.registerWithApplication

@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_reports</name>
   <uid>a0b598a6-96b9-4704-bc23-ac403d9f6b1b</uid>
-  <version_id>25ec6e1a-d900-47af-a489-5f6fb7b7217d</version_id>
-  <version_modified>20160718T213223Z</version_modified>
+  <version_id>c9c24eb0-93c4-4fae-9453-f1655fc966d6</version_id>
+  <version_modified>20160805T063024Z</version_modified>
   <xml_checksum>69BA4D91</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadReports</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Reports</display_name>
@@ -223,12 +223,6 @@
       <filetype>erb</filetype>
       <usage_type>resource</usage_type>
       <checksum>6AD259AE</checksum>
-    </file>
-    <file>
-      <filename>ExampleReport.pdf</filename>
-      <filetype>pdf</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>FBA35C89</checksum>
     </file>
     <file>
       <filename>DRYCOLDTMY.epw</filename>

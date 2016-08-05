@@ -1,12 +1,12 @@
 <measure>
   <schema_version>3.0</schema_version>
-  <name>bestestce_reporting</name>
-  <uid>4f921756-b4bf-483e-b845-12ba3dd4bc69</uid>
-  <version_id>54c8bd9c-6bae-40ed-b518-b5aa44fa3cea</version_id>
-  <version_modified>20160805T030854Z</version_modified>
-  <xml_checksum>F44A8258</xml_checksum>
-  <class_name>BESTESTCEReporting</class_name>
-  <display_name>BESTEST CE Reporting</display_name>
+  <name>bestesthe_reporting</name>
+  <uid>0c315265-09b3-40ae-a50f-e8920b468264</uid>
+  <version_id>a1569d86-d857-4e5f-bf62-be739802de44</version_id>
+  <version_modified>20160805T063025Z</version_modified>
+  <xml_checksum>9BF1E6AC</xml_checksum>
+  <class_name>BESTESTHEReporting</class_name>
+  <display_name>BESTEST HE Reporting</display_name>
   <description>This doesn't generate a user HTML file with any meaningful content. It is here to create runner.RegisterValue objects that will be post processed downstream.</description>
   <modeler_description>The CSV project for the analysis will be downloaded from the server and then a script will run to pull data into Local Excel File.</modeler_description>
   <arguments/>
@@ -15,16 +15,6 @@
     <tag>Reporting.QAQC</tag>
   </tags>
   <attributes>
-    <attribute>
-      <name>Intended Software Tool</name>
-      <value>OpenStudio Application</value>
-      <datatype>string</datatype>
-    </attribute>
-    <attribute>
-      <name>Intended Software Tool</name>
-      <value>Parametric Analysis Tool</value>
-      <datatype>string</datatype>
-    </attribute>
     <attribute>
       <name>Measure Type</name>
       <value>ReportingMeasure</value>
@@ -43,22 +33,16 @@
   </attributes>
   <files>
     <file>
-      <filename>example_model.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>test</usage_type>
-      <checksum>A0199A45</checksum>
-    </file>
-    <file>
       <filename>report.html.in</filename>
       <filetype>in</filetype>
       <usage_type>resource</usage_type>
       <checksum>3501204C</checksum>
     </file>
     <file>
-      <filename>bestestce_reporting_test.rb</filename>
+      <filename>bestesthe_reporting_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
-      <checksum>175A656B</checksum>
+      <checksum>F1FDC8CE</checksum>
     </file>
     <file>
       <version>
@@ -69,7 +53,31 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>2EC9C838</checksum>
+      <checksum>D3D9AD43</checksum>
+    </file>
+    <file>
+      <filename>HE100_test_output.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>812ABF72</checksum>
+    </file>
+    <file>
+      <filename>HE100WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>test</usage_type>
+      <checksum>FB484A5B</checksum>
+    </file>
+    <file>
+      <filename>os_lib_helper_methods.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>A6430141</checksum>
+    </file>
+    <file>
+      <filename>os_lib_reporting_bestest.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>F1B8A18B</checksum>
     </file>
   </files>
 </measure>

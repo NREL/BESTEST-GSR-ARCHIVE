@@ -3,21 +3,27 @@
 
 require 'erb'
 
+require "#{File.dirname(__FILE__)}/resources/os_lib_reporting_bestest"
+require "#{File.dirname(__FILE__)}/resources/os_lib_helper_methods"
+
 #start the measure
-class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
+class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
 
   # human readable name
   def name
-    return "BESTEST CE Reporting"
+    return "BESTEST HE Reporting"
   end
+
   # human readable description
   def description
     return "This doesn't generate a user HTML file with any meaningful content. It is here to create runner.RegisterValue objects that will be post processed downstream."
   end
+
   # human readable description of modeling approach
   def modeler_description
     return "The CSV project for the analysis will be downloaded from the server and then a script will run to pull data into Local Excel File."
   end
+
   # define the arguments that the user will input
   def arguments()
     args = OpenStudio::Ruleset::OSArgumentVector.new
@@ -134,11 +140,73 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       end
     end
 
-    # close the sql file
-    sqlFile.close()
-
     # todo - add runner.registerValues for bestest reporting
 
+    runner.registerValue('furnace_load','tbd')
+
+    runner.registerValue('furnace_input','tbd')
+
+    # annual fuel
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='AnnualBuildingUtilityPerformanceSummary' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='End Uses' and "
+    query << "RowName='Heating' and "
+    query << "ColumnName='Natural Gas' and "
+    query << "Units='GJ';"
+    query_results = sqlFile.execAndReturnFirstDouble(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for heating end use.')
+      return false
+    else
+      runner.registerValue('fuel_consumption',query_results.get,'GJ')
+    end
+
+    # annual fans
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='AnnualBuildingUtilityPerformanceSummary' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='End Uses' and "
+    query << "RowName='Fans' and "
+    query << "ColumnName='Electricity' and "
+    query << "Units='GJ';"
+    query_results = sqlFile.execAndReturnFirstDouble(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for fan end use.')
+      return false
+    else
+      runner.registerValue('fan_energy',query_results.get,'GJ')
+    end
+
+    # get time series data for main zone
+    array_temps = []
+    ann_env_pd = OsLib_Reporting_Bestest.ann_env_pd(sqlFile)
+    if ann_env_pd
+
+      # create array from values
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', 'Zone Mean Air Temperature', 'ZONE ONE')
+      if output_timeseries.is_initialized # checks to see if time_series exists
+
+        output_timeseries = output_timeseries.get.values
+        for i in 0..(output_timeseries.size - 1)
+
+          # using this to get average
+          array_temps << output_timeseries[i]
+
+        end
+      else
+        runner.registerWarning("Didn't find data for Zone Mean Air Temperature")
+      end # end of if output_timeseries.is_initialized
+
+    end
+
+    # store min and max and avg temps as register value
+    runner.registerValue('minimum_zone_temperature',array_temps.min,'C')
+    runner.registerValue('maximum_zone_temperature',array_temps.max,'C')
+    runner.registerValue('mean_zone_temperature',array_temps.reduce(:+) / array_temps.size.to_f,'C')
+
+    # close the sql file
+    sqlFile.close()
 
     return true
  
@@ -147,4 +215,4 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 end
 
 # register the measure to be used by the application
-BESTESTCEReporting.new.registerWithApplication
+BESTESTHEReporting.new.registerWithApplication
