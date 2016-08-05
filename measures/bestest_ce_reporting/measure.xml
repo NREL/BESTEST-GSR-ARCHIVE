@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestestce_reporting</name>
   <uid>4f921756-b4bf-483e-b845-12ba3dd4bc69</uid>
-  <version_id>a39e62df-7ddc-46fe-813e-91caeb987e9f</version_id>
-  <version_modified>20160805T063026Z</version_modified>
+  <version_id>99cb74a4-d1a1-4b50-b476-7c944477d8eb</version_id>
+  <version_modified>20160805T191501Z</version_modified>
   <xml_checksum>F44A8258</xml_checksum>
   <class_name>BESTESTCEReporting</class_name>
   <display_name>BESTEST CE Reporting</display_name>
@@ -69,7 +69,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>E490DE11</checksum>
+      <checksum>39FFDA24</checksum>
     </file>
   </files>
 </measure>

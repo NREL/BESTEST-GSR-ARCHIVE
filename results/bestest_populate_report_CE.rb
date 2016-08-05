@@ -16,7 +16,7 @@ require 'rubyXL' # install gem first
 
 
 # Load in CSV file
-csv_file = 'bestest_os_server_output_he.csv'
+csv_file = 'bestest_os_server_output_ce.csv'
 csv_hash = {}
 CSV.foreach(csv_file, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
   short_name = row.fields[6].split(" ").first
@@ -42,25 +42,25 @@ puts "Loading #{worksheet.sheet_name} Worksheet"
 # make array for columns on table
 # convert to symbolic for use below
 columns = []
-columns << :clg_energy_consumption_total
-columns << :clg_energy_consumption_compressor
-columns << :clg_energy_consumption_supply_fan
-columns << :clg_energy_consumption_condenser_fan
-columns << :evaporator_coil_load_total
-columns << :evaporator_coil_load_sensible
-columns << :evaporator_coil_load_latent
-columns << :zone_load_total
-columns << :zone_load_sensible
-columns << :zone_load_latent
-columns << :feb_mean_cop
-columns << :feb_mean_idb
-columns << :feb_mean_humidity_ratio
-columns << :feb_max_cop
-columns << :feb_max_idb
-columns << :feb_max_humidity_ratio
-columns << :feb_min_cop
-columns << :feb_min_idb
-columns << :feb_min_humidity_ratio
+columns << :bestest_ce_reportingclg_energy_consumption_total
+columns << :bestest_ce_reportingclg_energy_consumption_compressor
+columns << :bestest_ce_reportingclg_energy_consumption_supply_fan
+columns << :bestest_ce_reportingclg_energy_consumption_condenser_fan
+columns << :bestest_ce_reportingevaporator_coil_load_total
+columns << :bestest_ce_reportingevaporator_coil_load_sensible
+columns << :bestest_ce_reportingevaporator_coil_load_latent
+columns << :bestest_ce_reportingzone_load_total
+columns << :bestest_ce_reportingzone_load_sensible
+columns << :bestest_ce_reportingzone_load_latent
+columns << :bestest_ce_reportingfeb_mean_cop
+columns << :bestest_ce_reportingfeb_mean_idb
+columns << :bestest_ce_reportingfeb_mean_humidity_ratio
+columns << :bestest_ce_reportingfeb_max_cop
+columns << :bestest_ce_reportingfeb_max_idb
+columns << :bestest_ce_reportingfeb_max_humidity_ratio
+columns << :bestest_ce_reportingfeb_min_cop
+columns << :bestest_ce_reportingfeb_min_idb
+columns << :bestest_ce_reportingfeb_min_humidity_ratio
 
 # populate table on YourData
 puts "Populating main table for 5-3A"
@@ -69,8 +69,8 @@ puts "Populating main table for 5-3A"
 
   puts "Adding row for #{target_case}"
   # loop through columns for each case
-  columns.each do |column|
-    worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][column])
+  columns.each_with_index do |column,j|
+    worksheet.sheet_data[i][j+1].change_contents(csv_hash[target_case][column])
   end
 
 end

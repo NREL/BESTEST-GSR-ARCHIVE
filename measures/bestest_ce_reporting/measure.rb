@@ -135,6 +135,26 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
     end
 
     # todo - add runner.registerValues for bestest reporting
+    runner.registerValue('clg_energy_consumption_total','tbd')
+    runner.registerValue('clg_energy_consumption_compressor','tbd')
+    runner.registerValue('clg_energy_consumption_supply_fan','tbd')
+    runner.registerValue('clg_energy_consumption_condenser_fan','tbd')
+    runner.registerValue('evaporator_coil_load_total','tbd')
+    runner.registerValue('evaporator_coil_load_sensible','tbd')
+    runner.registerValue('evaporator_coil_load_latent','tbd')
+    runner.registerValue('zone_load_total','tbd')
+    runner.registerValue('zone_load_sensible','tbd')
+    runner.registerValue('zone_load_latent','tbd')
+    runner.registerValue('feb_mean_cop','tbd')
+    runner.registerValue('feb_mean_idb','tbd')
+    runner.registerValue('feb_mean_humidity_ratio','tbd')
+    runner.registerValue('feb_max_cop','tbd')
+    runner.registerValue('feb_max_idb','tbd')
+    runner.registerValue('feb_max_humidity_ratio','tbd')
+    runner.registerValue('feb_min_cop','tbd')
+    runner.registerValue('feb_min_idb','tbd')
+    runner.registerValue('feb_min_humidity_ratio','tbd')
+
 
     # close the sql file
     sqlFile.close()
