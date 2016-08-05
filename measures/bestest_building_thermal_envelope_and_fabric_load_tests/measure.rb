@@ -143,6 +143,43 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     geo_model = translator.loadModel(geo_path).get
     geo_model.getBuilding.clone(model)
 
+    if case_num.include? ('960')
+
+=begin
+      # surface match to fix issue with clone building
+      #put all of the spaces in the model into a vector
+      spaces = OpenStudio::Model::SpaceVector.new
+      model.getSpaces.each do |space|
+        spaces << space
+      end
+
+      #match surfaces for each space in the vector
+      OpenStudio::Model.unmatchSurfaces(spaces)
+      OpenStudio::Model.matchSurfaces(spaces)
+=end
+
+      name_a = 'SUN ZONE SURFACE NORTH'
+      name_b = 'ZONE SURFACE SOUTH'
+      surface_a = nil
+      surface_b = nil
+
+      model.getSurfaces.each do |surface|
+        puts surface.name
+        if surface.name.to_s == name_a
+          surface_a = surface
+        end
+        if surface.name.to_s == name_b
+          surface_b = surface
+        end
+      end
+
+      if surface_a.nil? || surface_b.nil?
+        runner.registerError("Didn't find expected surfaces")
+      else
+        surface_a.setAdjacentSurface (surface_b)
+      end
+    end
+
     # if no windows then replace winodws with doors except for case 195 and 295
     if variable_hash[:glass_area].nil? || variable_hash[:glass_area] == 0.0
       no_windows = true
@@ -312,7 +349,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     # create thermostats
     model.getThermalZones.each do |zone|
       next if clg_setp.nil? || htg_setp.nil?
-      next if zone.name.to_s == "SUN ZONE Thermal Zone"
+      next if zone.name.to_s == "SUN ZONE"
       thermostat = OpenStudio::Model::ThermostatSetpointDualSetpoint.new(model)
       thermostat.setCoolingSetpointTemperatureSchedule(clg_setp)
       thermostat.setHeatingSetpointTemperatureSchedule(htg_setp)
@@ -334,7 +371,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     # add in HVAC
     if !variable_hash[:ff]
       model.getThermalZones.each do |zone|
-        next if zone.name.to_s == "SUN ZONE Thermal Zone"
+        next if zone.name.to_s == "SUN ZONE"
         zone.setUseIdealAirLoads(true)
         runner.registerInfo("HVAC > Adding ideal air loads to #{zone.name}.")
       end

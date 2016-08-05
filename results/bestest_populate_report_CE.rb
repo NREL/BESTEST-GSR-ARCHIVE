@@ -39,6 +39,41 @@ worksheet = workbook['YourData']
 puts "Loading #{worksheet.sheet_name} Worksheet"
 
 # todo - update content
+# make array for columns on table
+# convert to symbolic for use below
+columns = []
+columns << :clg_energy_consumption_total
+columns << :clg_energy_consumption_compressor
+columns << :clg_energy_consumption_supply_fan
+columns << :clg_energy_consumption_condenser_fan
+columns << :evaporator_coil_load_total
+columns << :evaporator_coil_load_sensible
+columns << :evaporator_coil_load_latent
+columns << :zone_load_total
+columns << :zone_load_sensible
+columns << :zone_load_latent
+columns << :feb_mean_cop
+columns << :feb_mean_idb
+columns << :feb_mean_humidity_ratio
+columns << :feb_max_cop
+columns << :feb_max_idb
+columns << :feb_max_humidity_ratio
+columns << :feb_min_cop
+columns << :feb_min_idb
+columns << :feb_min_humidity_ratio
+
+# populate table on YourData
+puts "Populating main table for 5-3A"
+(24..37).each do |i|
+  target_case = worksheet.sheet_data[i][0].value.to_s.split(':').first
+
+  puts "Adding row for #{target_case}"
+  # loop through columns for each case
+  columns.each do |column|
+    worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][column])
+  end
+
+end
 
 # Save Updated Excel File
 puts "Saving #{copy_results_5_3a}"

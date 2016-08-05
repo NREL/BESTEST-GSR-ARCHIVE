@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_tests</name>
   <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
-  <version_id>c9ba73a1-4e97-47d3-8116-18d702e2e180</version_id>
-  <version_modified>20160804T221407Z</version_modified>
+  <version_id>30abd6fc-8ad8-4a9e-9747-cc32db9b5b2b</version_id>
+  <version_modified>20160805T175950Z</version_modified>
   <xml_checksum>28AD5222</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadTests</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Tests</display_name>
@@ -366,6 +366,12 @@
       <checksum>3DFC9D37</checksum>
     </file>
     <file>
+      <filename>besttest_model_methods.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>898A5CA2</checksum>
+    </file>
+    <file>
       <version>
         <software_program>OpenStudio</software_program>
         <identifier>1.11.5</identifier>
@@ -374,13 +380,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>A650F8CC</checksum>
-    </file>
-    <file>
-      <filename>besttest_model_methods.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>898A5CA2</checksum>
+      <checksum>0F55EBA2</checksum>
     </file>
   </files>
 </measure>

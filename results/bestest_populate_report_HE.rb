@@ -36,7 +36,6 @@ workbook = RubyXL::Parser.parse(copy_results_5_4)
 worksheet = workbook['YourData']
 puts "Loading #{worksheet.sheet_name} Worksheet"
 
-# todo - update content
 puts "Populating Total Furnace Load"
 (19..29).each do |i|
   target_case = worksheet.sheet_data[i][0].value.to_s.split(':').first
@@ -69,10 +68,10 @@ puts "Populating Mean Zone Temperature"
 end
 
 puts "Populating Maximum Zone Temperature"
-  (86..88).each do |i|
-    target_case = worksheet.sheet_data[i][0].value.to_s.split(':').first
-    worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_he_reportingmaximum_zone_temperature])
-  end
+(86..88).each do |i|
+  target_case = worksheet.sheet_data[i][0].value.to_s.split(':').first
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_he_reportingmaximum_zone_temperature])
+end
 
 puts "Populating Minimum Zone Temperature"
 (94..96).each do |i|
