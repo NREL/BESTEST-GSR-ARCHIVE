@@ -258,17 +258,17 @@ end
 
 # make array for columns on table
 columns = []
-columns << :bestest_ce_reporting0430_day_energy_consumption_total
-columns << :bestest_ce_reporting0430_day_energy_consumption_compressor
-columns << :bestest_ce_reporting0430_day_energy_consumption_supply_fan
-columns << :bestest_ce_reporting0430_day_energy_consumption_condenser_fan
-columns << :bestest_ce_reporting0430_day_evaporator_coil_load_total
-columns << :bestest_ce_reporting0430_day_evaporator_coil_load_sensible
-columns << :bestest_ce_reporting0430_day_evaporator_coil_load_latent
-columns << :bestest_ce_reporting0430_day_zone_humidity_ratio
-columns << :bestest_ce_reporting0430_day_cop2
-columns << :bestest_ce_reporting0430_day_odb
-columns << :bestest_ce_reporting0430_day_edb
+columns << :bestest_ce_reporting0625_day_energy_consumption_total
+columns << :bestest_ce_reporting0625_day_energy_consumption_compressor
+columns << :bestest_ce_reporting0625_day_energy_consumption_supply_fan
+columns << :bestest_ce_reporting0625_day_energy_consumption_condenser_fan
+columns << :bestest_ce_reporting0625_day_evaporator_coil_load_total
+columns << :bestest_ce_reporting0625_day_evaporator_coil_load_sensible
+columns << :bestest_ce_reporting0625_day_evaporator_coil_load_latent
+columns << :bestest_ce_reporting0625_day_zone_humidity_ratio
+columns << :bestest_ce_reporting0625_day_cop2
+columns << :bestest_ce_reporting0625_day_odb
+columns << :bestest_ce_reporting0625_day_edb
 
 columns.each_with_index do |column,j|
   worksheet.sheet_data[120][j+1].change_contents(csv_hash['CE500'][column])
