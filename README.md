@@ -23,7 +23,7 @@ https://drive.google.com/folderview?id=0BziGk7eItbVVYk5JX3VNcFk0bjQ&usp=sharing
 ### Overview
 
 * Currently not all ASHRAE Standard 140-2014 test cases are made. Only test cases required for 179D are created. The following sections are modeled
-    * Section 5.2 (Builidng Thermal Envelope and Fabric Load Tests) except for Section 5.2.4 (Ground Coupling)
+    * Section 5.2 (Building Thermal Envelope and Fabric Load Tests) except for Section 5.2.4 (Ground Coupling)
         * model measure - bestest_building_thermal_envelope_and_fabric_load_tests
         * reporting measure - bestest_building_thermal_envelope_and_fabric_load_reports
         * integration testing project - bestest_01.xlsx
