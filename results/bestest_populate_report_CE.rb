@@ -93,12 +93,17 @@ puts "Loading #{worksheet.sheet_name} Worksheet"
 # make array for columns on table
 columns = []
 
+columns << :bestest_ce_reportingann_sum_clg_energy_consumption_total
+columns << :bestest_ce_reportingann_sum_clg_energy_consumption_compressor
+columns << :bestest_ce_reportingann_sum_clg_energy_consumption_supply_fan
+columns << :bestest_ce_reportingann_sum_clg_energy_consumption_condenser_fan
 columns << :bestest_ce_reportingann_sum_evap_coil_load_total
 columns << :bestest_ce_reportingann_sum_evap_coil_load_sensible
 columns << :bestest_ce_reportingann_sum_evap_coil_load_latent
 columns << :bestest_ce_reportingann_mean_cop2
 columns << :bestest_ce_reportingann_mean_idb
-columns << :bestest_ce_reportingann_mean_zone_relative_humidity_ratio
+columns << :bestest_ce_reportingann_mean_zone_humidity_ratio
+columns << :bestest_ce_reportingann_mean_zone_relative_humidity
 columns << :bestest_ce_reportingann_mean_odb # CE300 only
 columns << :bestest_ce_reportingann_mean_outdoor_humidity_ratio #CE300 only
 
@@ -122,6 +127,7 @@ end
 end
 
 # Fill in two special rows in table for CE500 and CE510 only
+columns = []
 columns << :bestest_ce_reportingmay_sept_sum_clg_consumption_total
 columns << :bestest_ce_reportingmay_sept_sum_clg_consumption_compressor
 columns << :bestest_ce_reportingmay_sept_sum_clg_consumption_cond_fan
@@ -131,7 +137,9 @@ columns << :bestest_ce_reportingmay_sept_sum_evap_coil_load_sensible
 columns << :bestest_ce_reportingmay_sept_sum_evap_coil_load_latent
 columns << :bestest_ce_reportingmay_sept_mean_cop2
 columns << :bestest_ce_reportingmay_sept_mean_idb
-columns << :bestest_ce_reportingmay_sept_mean_zone_relative_humidity_ratio
+columns << :bestest_ce_reportingmay_sept_mean_zone_humidity_ratio
+columns << :bestest_ce_reportingmay_sept_mean_zone_relative_humidity
+
 # CE500 May-Sep
 columns.each_with_index do |column,j|
   worksheet.sheet_data[74][j+1].change_contents(csv_hash["CE500"][column])
@@ -162,6 +170,7 @@ columns << :bestest_ce_reportingweather_outdoor_humidity_ratio_c # CE300 only
 columns << :bestest_ce_reportingweather_outdoor_humidity_ratio_date # CE300 only
 columns << :bestest_ce_reportingweather_outdoor_humidity_ratio_hr # CE300 only
 
+=begin
 # populate table on YourData
 puts "Annual Hourly Integrated Maxima Consumptions and Loads Table"
 (61..80).each do |i|
@@ -172,6 +181,7 @@ puts "Annual Hourly Integrated Maxima Consumptions and Loads Table"
     worksheet.sheet_data[i][j+16].change_contents(csv_hash[target_case][column])
   end
 end
+=end
 
 # make array for columns on table
 columns = []
@@ -200,6 +210,7 @@ columns << :bestest_ce_reportingrh_min_relative_humidity
 columns << :bestest_ce_reportingrh_min_date
 columns << :bestest_ce_reportingrh_min_hr
 
+=begin
 # populate table on YourData
 puts "Annual Hourly Integrated Maxima - COP2 and Zone Table"
 (88..107).each do |i|
@@ -210,9 +221,10 @@ puts "Annual Hourly Integrated Maxima - COP2 and Zone Table"
     worksheet.sheet_data[i][j+16].change_contents(csv_hash[target_case][column])
   end
 end
+=end
 
 # pouplate table
-# todo - each column is registerValue with string that can be converted to array with 24 items
+# each column is registerValue with string that can be converted to array with 24 items
 columns = []
 columns << :bestest_ce_reporting0628_hourly_energy_consumpton_compressor
 columns << :bestest_ce_reporting0628_hourly_energy_consumpton_cond_fan
@@ -228,7 +240,7 @@ columns << :bestest_ce_reporting0628_hourly_outdoor_humidity_ratio
 
 puts "Case 300 June 28th Hourly Table"
 columns.each_with_index do |column,j|
-  array = csv_hash['CE300'][column]
+  array = csv_hash['CE300'][column].split(',')
   array.each_with_index do |hourly_value,i|
     worksheet.sheet_data[i+88][j+1].change_contents(hourly_value)
   end

@@ -1109,6 +1109,18 @@ module BestestCaseVarLib
         :b1_7_note_a => false,
         :b1_7_note_b => true
     ]
+    variable_hash_lookup['CE525 - High EDB'] = [
+        :series => '0 oa',
+        :int_gen_sensible => 'mid2',
+        :int_gen_latent => 'mid2',
+        :clg_set => 35.0,
+        :weather_odb => nil,
+        :epw => 'CE300',
+        :infil => 0.0,
+        :oa => 0.0,
+        :b1_7_note_a => false,
+        :b1_7_note_b => true
+    ]
     variable_hash_lookup['CE530 - Dry Coil'] = [
         :series => '0 oa',
         :int_gen_sensible => 'mid2',
