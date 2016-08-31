@@ -11,19 +11,6 @@ class BESTESTCEReporting_Test < MiniTest::Unit::TestCase
   # class level variable
   @@co = OpenStudio::Runmanager::ConfigOptions.new(true)
 
-  def model_in_path
-    return "#{File.dirname(__FILE__)}/example_model.osm"
-  end
-  
-  def epw_path
-    # make sure we have a weather data location
-    assert(!@@co.getDefaultEPWLocation.to_s.empty?)
-    epw = @@co.getDefaultEPWLocation / OpenStudio::Path.new("USA_CO_Golden-NREL.724666_TMY3.epw")
-    assert(File.exist?(epw.to_s))
-    
-    return epw.to_s
-  end
-
   def run_dir(test_name)
     # always generate test output in specially named 'output' directory so result files are not made part of the measure
     return "#{File.dirname(__FILE__)}/output/#{test_name}"
@@ -42,7 +29,7 @@ class BESTESTCEReporting_Test < MiniTest::Unit::TestCase
   end
 
   # create test files if they do not exist when the test first runs 
-  def setup_test(test_name, idf_output_requests)
+  def setup_test(test_name, model_in_path, epw_path,  idf_output_requests)
   
     @@co.findTools(false, true, false, true)
     
@@ -87,18 +74,11 @@ class BESTESTCEReporting_Test < MiniTest::Unit::TestCase
     end
   end
 
-  def test_number_of_arguments_and_argument_names
-    # create an instance of the measure
-    measure = BESTESTCEReporting.new
-
-    # get arguments and test that they are what we are expecting
-    arguments = measure.arguments()
-    assert_equal(0, arguments.size)
-  end
-
-  def test_good_argument_values
+  def test_case_CE100
   
-    test_name = "test_good_argument_values"
+    test_name = "test_case_CE100"
+    model_in_path = "#{File.dirname(__FILE__)}/CE100_test_output.osm"
+    epw_path = "#{File.dirname(__FILE__)}/CE100ATM2.epw"
 
     # create an instance of the measure
     measure = BESTESTCEReporting.new
@@ -112,10 +92,10 @@ class BESTESTCEReporting_Test < MiniTest::Unit::TestCase
     
     # get the energyplus output requests, this will be done automatically by OS App and PAT
     idf_output_requests = measure.energyPlusOutputRequests(runner, argument_map)
-    assert_equal(1, idf_output_requests.size)
+    assert_equal(0, idf_output_requests.size)
 
     # mimic the process of running this measure in OS App or PAT
-    setup_test(test_name, idf_output_requests)
+    setup_test(test_name,model_in_path,epw_path,idf_output_requests)
     
     assert(File.exist?(model_out_path(test_name)))
     assert(File.exist?(sql_path(test_name)))

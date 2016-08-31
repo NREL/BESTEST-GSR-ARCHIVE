@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestestce_reporting</name>
   <uid>4f921756-b4bf-483e-b845-12ba3dd4bc69</uid>
-  <version_id>b0a84c2a-8200-40ea-aec0-d105d9d4e05f</version_id>
-  <version_modified>20160814T061036Z</version_modified>
+  <version_id>5c795f1d-dc49-43e8-a8e4-d73cfddb94aa</version_id>
+  <version_modified>20160831T210559Z</version_modified>
   <xml_checksum>F44A8258</xml_checksum>
   <class_name>BESTESTCEReporting</class_name>
   <display_name>BESTEST CE Reporting</display_name>
@@ -43,22 +43,10 @@
   </attributes>
   <files>
     <file>
-      <filename>example_model.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>test</usage_type>
-      <checksum>A0199A45</checksum>
-    </file>
-    <file>
       <filename>report.html.in</filename>
       <filetype>in</filetype>
       <usage_type>resource</usage_type>
       <checksum>3501204C</checksum>
-    </file>
-    <file>
-      <filename>bestestce_reporting_test.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>175A656B</checksum>
     </file>
     <file>
       <version>
@@ -70,6 +58,24 @@
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
       <checksum>3ADD5B00</checksum>
+    </file>
+    <file>
+      <filename>bestestce_reporting_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>93DC87FE</checksum>
+    </file>
+    <file>
+      <filename>CE100_test_output.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>664174AB</checksum>
+    </file>
+    <file>
+      <filename>CE100ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>test</usage_type>
+      <checksum>5F480EBD</checksum>
     </file>
   </files>
 </measure>
