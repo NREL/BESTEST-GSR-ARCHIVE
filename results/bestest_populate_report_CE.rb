@@ -104,8 +104,10 @@ columns << :bestest_ce_reportingann_mean_cop2
 columns << :bestest_ce_reportingann_mean_idb
 columns << :bestest_ce_reportingann_mean_zone_humidity_ratio
 columns << :bestest_ce_reportingann_mean_zone_relative_humidity
-columns << :bestest_ce_reportingann_mean_odb # CE300 only
-columns << :bestest_ce_reportingann_mean_outdoor_humidity_ratio #CE300 only
+
+columns_extra_300 = []
+columns_extra_300 << :bestest_ce_reportingann_mean_odb # CE300 only
+columns_extra_300 << :bestest_ce_reportingann_mean_outdoor_humidity_ratio #CE300 only
 
 # populate table on YourData
 puts "Populating Annual Sums and Means Table"
@@ -115,6 +117,12 @@ puts "Populating Annual Sums and Means Table"
   # loop through columns for each case
   columns.each_with_index do |column,j|
     worksheet.sheet_data[i][j+1].change_contents(csv_hash[target_case][column])
+  end
+  # extra columns just for CE300
+  if target_case.include? 'CE300'
+    columns_extra_300.each_with_index do |column,j|
+      worksheet.sheet_data[i][j+12].change_contents(csv_hash[target_case][column])
+    end
   end
 end
 (76..81).each do |i|
@@ -163,25 +171,31 @@ columns << :bestest_ce_reportingevap_coil_load_latent_hr
 columns << :bestest_ce_reportingevap_coil_load_sensible_and_latent_wh
 columns << :bestest_ce_reportingevap_coil_load_sensible_and_latent_date
 columns << :bestest_ce_reportingevap_coil_load_sensible_and_latent_hr
-columns << :bestest_ce_reportingweather_odb_c # CE300 only
-columns << :bestest_ce_reportingweather_odb_date # CE300 only
-columns << :bestest_ce_reportingweather_odb_hr # CE300 only
-columns << :bestest_ce_reportingweather_outdoor_humidity_ratio_c # CE300 only
-columns << :bestest_ce_reportingweather_outdoor_humidity_ratio_date # CE300 only
-columns << :bestest_ce_reportingweather_outdoor_humidity_ratio_hr # CE300 only
 
-=begin
+columns_extra_300 = []
+columns_extra_300 << :bestest_ce_reportingweather_odb_c # CE300 only
+columns_extra_300 << :bestest_ce_reportingweather_odb_date # CE300 only
+columns_extra_300 << :bestest_ce_reportingweather_odb_hr # CE300 only
+columns_extra_300 << :bestest_ce_reportingweather_outdoor_humidity_ratio_c # CE300 only
+columns_extra_300 << :bestest_ce_reportingweather_outdoor_humidity_ratio_date # CE300 only
+columns_extra_300 << :bestest_ce_reportingweather_outdoor_humidity_ratio_hr # CE300 only
+
 # populate table on YourData
 puts "Annual Hourly Integrated Maxima Consumptions and Loads Table"
 (61..80).each do |i|
   target_case = worksheet.sheet_data[i][15].value
-  puts "Adding row for #{target_case}"
+  if target_case.include? "CE500" then target_case = "CE500" end # raw spreadsheet has extra space in cell
   # loop through columns for each case
   columns.each_with_index do |column,j|
     worksheet.sheet_data[i][j+16].change_contents(csv_hash[target_case][column])
   end
+  # extra columns just for CE300
+  if target_case.include? 'CE300'
+    columns_extra_300.each_with_index do |column,j|
+      worksheet.sheet_data[i][j+28].change_contents(csv_hash[target_case][column])
+    end
+  end
 end
-=end
 
 # make array for columns on table
 columns = []
@@ -210,18 +224,17 @@ columns << :bestest_ce_reportingrh_min_relative_humidity
 columns << :bestest_ce_reportingrh_min_date
 columns << :bestest_ce_reportingrh_min_hr
 
-=begin
 # populate table on YourData
 puts "Annual Hourly Integrated Maxima - COP2 and Zone Table"
 (88..107).each do |i|
   target_case = worksheet.sheet_data[i][15].value
+  if target_case.include? "CE500" then target_case = "CE500" end # raw spreadsheet has extra space in cell
   puts "Adding row for #{target_case}"
   # loop through columns for each case
   columns.each_with_index do |column,j|
     worksheet.sheet_data[i][j+16].change_contents(csv_hash[target_case][column])
   end
 end
-=end
 
 # pouplate table
 # each column is registerValue with string that can be converted to array with 24 items
