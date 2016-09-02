@@ -186,9 +186,9 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       variable_name = "Air System Fan Electric Energy"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
       value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
-      runner.registerValue('clg_energy_consumption_supply_fan','tbd')
+      runner.registerValue('clg_energy_consumption_supply_fan',value_kwh)
       # todo - can I get d directly or does d = a - b - c
-      runner.registerValue('clg_energy_consumption_condenser_fan',value_kwh)
+      runner.registerValue('clg_energy_consumption_condenser_fan','tbd')
 
       # get evaporator_coil_load_total
       key_value =  "COIL COOLING DX SINGLE SPEED 1"

@@ -74,6 +74,7 @@ puts "Populating main table for 5-3A"
 end
 
 # Save Updated Excel File
+# todo - Sheet A that refers to YourData isn't updating cells that refer to YourData. Not sure why. Workaround for now is to copy and paste YourData when I first open it, but shouldn't have to do that.
 puts "Saving #{copy_results_5_3a}"
 workbook.write(copy_results_5_3a)
 
