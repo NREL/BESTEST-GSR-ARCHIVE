@@ -134,26 +134,107 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       end
     end
 
+    def process_output_timeseries (sqlFile, runner, ann_env_pd, time_step, variable_name, key_value)
+
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, time_step, variable_name, key_value)
+      if output_timeseries.empty?
+        runner.registerWarning("Timeseries not found for #{variable_name}.")
+        return false
+      else
+        runner.registerInfo("Found timeseries for #{variable_name}.")
+        output_timeseries = output_timeseries.get.values
+        array = []
+        sum = 0.0
+        min = nil
+        max = nil
+
+        for i in 0..(output_timeseries.size - 1)
+
+          # using this to get average
+          array << output_timeseries[i]
+          sum += output_timeseries[i]
+
+          # code for min and max
+          if min.nil? || output_timeseries[i] < min
+            min = output_timeseries[i]
+          end
+          if max.nil? || output_timeseries[i] > max
+            max = output_timeseries[i]
+          end
+
+        end
+        return {:array => array, :sum => sum, :avg => sum/array.size.to_f, :min => min, :max => max}
+      end
+
+    end
+
     # todo - add runner.registerValues for bestest reporting 5-3A (replace tbd with real values)
-    runner.registerValue('clg_energy_consumption_total','tbd')
-    runner.registerValue('clg_energy_consumption_compressor','tbd')
-    runner.registerValue('clg_energy_consumption_supply_fan','tbd')
-    runner.registerValue('clg_energy_consumption_condenser_fan','tbd')
-    runner.registerValue('evaporator_coil_load_total','tbd')
-    runner.registerValue('evaporator_coil_load_sensible','tbd')
-    runner.registerValue('evaporator_coil_load_latent','tbd')
-    runner.registerValue('zone_load_total','tbd')
-    runner.registerValue('zone_load_sensible','tbd')
-    runner.registerValue('zone_load_latent','tbd')
-    runner.registerValue('feb_mean_cop','tbd')
-    runner.registerValue('feb_mean_idb','tbd')
-    runner.registerValue('feb_mean_humidity_ratio','tbd')
-    runner.registerValue('feb_max_cop','tbd')
-    runner.registerValue('feb_max_idb','tbd')
-    runner.registerValue('feb_max_humidity_ratio','tbd')
-    runner.registerValue('feb_min_cop','tbd')
-    runner.registerValue('feb_min_idb','tbd')
-    runner.registerValue('feb_min_humidity_ratio','tbd')
+    if model.getBuilding.name.to_s.include? "CE1" or model.getBuilding.name.to_s.include? "CE2"
+      # todo - get single monthly time series value for February
+      # get clg_energy_consumption_total
+      key_value =  "BESTEST CE AIR LOOP"
+      variable_name = "Air System Electric Energy"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
+      runner.registerValue('clg_energy_consumption_total',value_kwh)
+      # get clg_energy_consumption_compressor
+      variable_name = "Air System DX Cooling Coil Electric Energy"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
+      runner.registerValue('clg_energy_consumption_compressor',value_kwh)
+      # get clg_energy_consumption_supply_fan
+      variable_name = "Air System Fan Electric Energy"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
+      runner.registerValue('clg_energy_consumption_supply_fan','tbd')
+      # todo - can I get d directly or does d = a - b - c
+      runner.registerValue('clg_energy_consumption_condenser_fan',value_kwh)
+
+      # get evaporator_coil_load_total
+      key_value =  "COIL COOLING DX SINGLE SPEED 1"
+      variable_name = "Cooling Coil Total Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
+      runner.registerValue('evaporator_coil_load_total',value_kwh)
+      # get evaporator_coil_load_sensible
+      variable_name = "Cooling Coil Sensible Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
+      runner.registerValue('evaporator_coil_load_sensible',value_kwh)
+      # get evaporator_coil_load_latent
+      variable_name = "Cooling Coil Latent Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
+      runner.registerValue('evaporator_coil_load_latent',value_kwh)
+
+      # get zone_load_total
+      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
+      variable_name = "Unitary System Total Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
+      runner.registerValue('zone_load_total',value_kwh)
+      # get zone_load_sensible
+      variable_name = "Unitary System Sensible Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
+      runner.registerValue('zone_load_sensible',value_kwh)
+      # get zone_load_latent
+      variable_name = "Unitary System Latent Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
+      runner.registerValue('zone_load_latent',value_kwh)
+
+      # todo - calculate COP using hourly variable. For min and max report IDB and humidity ratio at time of min/max COP
+      runner.registerValue('feb_mean_cop','tbd')
+      runner.registerValue('feb_mean_idb','tbd')
+      runner.registerValue('feb_mean_humidity_ratio','tbd')
+      runner.registerValue('feb_max_cop','tbd')
+      runner.registerValue('feb_max_idb','tbd')
+      runner.registerValue('feb_max_humidity_ratio','tbd')
+      runner.registerValue('feb_min_cop','tbd')
+      runner.registerValue('feb_min_idb','tbd')
+      runner.registerValue('feb_min_humidity_ratio','tbd')
+    end
 
     # todo - add runner.registerValues for bestest reporting 5-3B (replace tbd with real values)
     runner.registerValue('ann_sum_clg_energy_consumption_total','tbd')

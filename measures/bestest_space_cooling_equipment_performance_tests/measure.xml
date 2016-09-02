@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_cooling_equipment_performance_tests</name>
   <uid>eb12d939-e78f-4b84-8af7-1e69e10a0cf4</uid>
-  <version_id>fdd93820-01b7-4481-91b8-8b78128dc763</version_id>
-  <version_modified>20160814T051850Z</version_modified>
+  <version_id>28a7a441-d28f-4881-a7ba-541ffd0832aa</version_id>
+  <version_modified>20160902T191852Z</version_modified>
   <xml_checksum>05C5DFDC</xml_checksum>
   <class_name>BESTESTSpaceCoolingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Cooling Equipment Performance Tests</display_name>
@@ -353,22 +353,28 @@
       <checksum>6B2DF2E7</checksum>
     </file>
     <file>
-      <filename>bestest_space_cooling_equipment_performance_tests_test.rb</filename>
+      <filename>besttest_case_var_lib.rb</filename>
       <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>3A87CF71</checksum>
+      <usage_type>resource</usage_type>
+      <checksum>1A565470</checksum>
     </file>
     <file>
       <filename>seed_empty.osm</filename>
       <filetype>osm</filetype>
       <usage_type>test</usage_type>
-      <checksum>3DFC9D37</checksum>
+      <checksum>BD6B9875</checksum>
     </file>
     <file>
       <filename>besttest_model_methods.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>898A5CA2</checksum>
+      <checksum>59F090AB</checksum>
+    </file>
+    <file>
+      <filename>bestest_space_cooling_equipment_performance_tests_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>5A0260BB</checksum>
     </file>
     <file>
       <version>
@@ -379,13 +385,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>BFC07550</checksum>
-    </file>
-    <file>
-      <filename>besttest_case_var_lib.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>1A565470</checksum>
+      <checksum>391AEEA4</checksum>
     </file>
   </files>
 </measure>

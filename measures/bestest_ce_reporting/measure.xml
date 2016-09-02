@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestestce_reporting</name>
   <uid>4f921756-b4bf-483e-b845-12ba3dd4bc69</uid>
-  <version_id>5c795f1d-dc49-43e8-a8e4-d73cfddb94aa</version_id>
-  <version_modified>20160831T210559Z</version_modified>
+  <version_id>56550b2d-5a00-46cf-92e6-f37f9e115b96</version_id>
+  <version_modified>20160902T191852Z</version_modified>
   <xml_checksum>F44A8258</xml_checksum>
   <class_name>BESTESTCEReporting</class_name>
   <display_name>BESTEST CE Reporting</display_name>
@@ -49,6 +49,12 @@
       <checksum>3501204C</checksum>
     </file>
     <file>
+      <filename>CE100ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>test</usage_type>
+      <checksum>5F480EBD</checksum>
+    </file>
+    <file>
       <version>
         <software_program>OpenStudio</software_program>
         <identifier>1.12.1</identifier>
@@ -57,25 +63,31 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>3ADD5B00</checksum>
+      <checksum>79124AF3</checksum>
     </file>
     <file>
       <filename>bestestce_reporting_test.rb</filename>
       <filetype>rb</filetype>
       <usage_type>test</usage_type>
-      <checksum>93DC87FE</checksum>
+      <checksum>8E40C595</checksum>
     </file>
     <file>
       <filename>CE100_test_output.osm</filename>
       <filetype>osm</filetype>
       <usage_type>test</usage_type>
-      <checksum>664174AB</checksum>
+      <checksum>DBC0008A</checksum>
     </file>
     <file>
-      <filename>CE100ATM2.epw</filename>
+      <filename>CE200_test_output.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>DA90A1CF</checksum>
+    </file>
+    <file>
+      <filename>CE200ATM2.epw</filename>
       <filetype>epw</filetype>
       <usage_type>test</usage_type>
-      <checksum>5F480EBD</checksum>
+      <checksum>53932B90</checksum>
     </file>
   </files>
 </measure>

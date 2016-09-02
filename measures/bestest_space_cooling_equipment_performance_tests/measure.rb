@@ -284,6 +284,10 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     # Table 6-1 describes the specific day of results that will be used for testing
     hourly_variables = []
 
+    # adding collection of ranges and timesteps for different variables
+    # todo - populate these
+    hourly_var_feb = [] # used for Case 1xx and 2xx
+
     # variables for all CE cases
     hourly_variables << 'Site Outdoor Air Drybulb Temperature'
     hourly_variables << 'Site Outdoor Air Humidity Ratio'
@@ -291,8 +295,8 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables << 'Surface Outside face Temperature'
     hourly_variables << 'Surface Inside Face Convection Heat Transfer Coefficient'
     hourly_variables << 'Surface Outside Face Convection Heat Transfer Coefficient'
-    hourly_variables << 'Zone Mean Air Temperature'
-    hourly_variables << 'Zone Air Temperature'
+    #hourly_variables << 'Zone Mean Air Temperature'
+    #hourly_variables << 'Zone Air Temperature'
     hourly_variables << 'Zone Air Humidity Ratio'
     hourly_variables << 'Zone Air System Sensible Heating Energy'
     hourly_variables << 'Zone Air System Sensible Cooling Energy'
@@ -300,9 +304,9 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables << 'Fan Electric Power'
     hourly_variables << 'Fan Rise in Air Temperature'
     hourly_variables << 'Fan Electric Energy'
-    hourly_variables << 'Cooling Coil Total Cooling Energy'
-    hourly_variables << 'Cooling Coil Sensible Cooling Rate'
-    hourly_variables << 'Cooling Coil Sensible Cooling Energy'
+    #hourly_variables << 'Cooling Coil Total Cooling Energy'
+    #hourly_variables << 'Cooling Coil Sensible Cooling Rate'
+    #hourly_variables << 'Cooling Coil Sensible Cooling Energy'
     hourly_variables << 'Cooling Coil Electric Power'
     hourly_variables << 'Cooling Coil Electric Energy'
     hourly_variables << 'Cooling Coil Latent Cooling Rate'
@@ -312,9 +316,9 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables << 'Unitary System Part Load Ratio'
     hourly_variables << 'Unitary System Total Cooling Rate'
     hourly_variables << 'Unitary System Sensible Cooling Rate'
-    hourly_variables << 'Unitary System Latent Cooling Rate'
-    hourly_variables << 'Unitary System Total Heating Rate'
-    hourly_variables << 'Unitary System Sensible Heating Rate'
+    #hourly_variables << 'Unitary System Latent Cooling Rate'
+    #hourly_variables << 'Unitary System Total Heating Rate'
+    #hourly_variables << 'Unitary System Sensible Heating Rate'
     hourly_variables << 'Unitary System Latent Heating Rate'
     hourly_variables << 'Unitary System Ancillary Electric Power'
     hourly_variables << 'Unitary System Dehumidification Induced Heating Demand Rate'
@@ -323,7 +327,8 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables << 'Unitary System Frost Control Status'
 
     # variables CE 1x through 2x
-    if case_num.include? "CE1" ||"CE2"
+    # todo - see why CE200 row isn't getting data
+    if case_num.include? "CE1" or case_num.include? "CE2"
       hourly_variables << 'Site Outdoor Air Wetbulb Temperature'
       hourly_variables << 'Site Outdoor Air Dewpoint Temperature'
       hourly_variables << 'Site Outdoor Air Enthalpy'
@@ -333,10 +338,35 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
       hourly_variables << 'Site Wind Speed'
       hourly_variables << 'Site Direct Solar Radiation Rate per Area'
       hourly_variables << 'Site Diffuse Solar Radiation Rate per Area'
+
+      # hourly for february
+
+      #6.3.1.1 (a,b,c,d)
+      hourly_var_feb << 'Air System Electric Energy' #J
+      hourly_var_feb << 'Air System DX Cooling Coil Electric Energy' #J
+      hourly_var_feb << 'Air System Fan Electric Energy' #J
+      # todo - can I get d directly or does d = a - b - c
+
+      #6.3.1.2 (a,b,c)
+      hourly_var_feb << 'Cooling Coil Total Cooling Rate' #W
+      hourly_var_feb << 'Cooling Coil Sensible Cooling Rate' #W
+      hourly_var_feb << 'Cooling Coil Latent Cooling Rate' #W
+
+      #6.3.1.3 (a,b,c)
+      hourly_var_feb << 'Unitary System Total Cooling Rate' #W
+      hourly_var_feb << 'Unitary System Sensible Cooling Rate' #W
+      hourly_var_feb << 'Unitary System Latent Cooling Rate' #W
+
+      #6.3.1.4 (a,b,c)
+      # a: calculated from other variables
+      hourly_var_feb << 'Zone Mean Air Temperature'
+      hourly_var_feb << 'Zone Mean Air Humidity Ratio'
+
+
     elsif case_num.include? "CE3"
       hourly_variables << 'System Node Temperature'
       hourly_variables << 'System Node Mass Flow Rate'
-    elsif case_num.include? "CE4" || "CE5"
+    elsif case_num.include? "CE4" or case_num.include? "CE5"
       hourly_variables << 'System Node Temperature'
       hourly_variables << 'System Node Mass Flow Rate'
       hourly_variables << 'System Node Setpoint Temperature'
@@ -352,6 +382,11 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables.each do |variable|
       BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly')
     end
+
+    hourly_var_feb.each do |variable|
+      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly','02/01','02/29')
+    end
+
 
     # report final condition of model
     runner.registerFinalCondition("The final model named #{model.getBuilding.name} has #{model.numObjects} objects.")

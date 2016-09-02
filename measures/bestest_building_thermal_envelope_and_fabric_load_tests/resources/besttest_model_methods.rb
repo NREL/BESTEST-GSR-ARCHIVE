@@ -47,13 +47,45 @@ module BestestModelMethods
   end
 
   # add_output_variable
-  def self.add_output_variable(runner,model,key_value,variable_name,reporting_frequency)
+  def self.add_output_variable(runner,model,key_value,variable_name,reporting_frequency,range_start = nil,range_end = nil)
 
     output_variable = OpenStudio::Model::OutputVariable.new(variable_name,model)
     output_variable.setReportingFrequency(reporting_frequency)
     if !key_value.nil?
       output_variable.setKeyValue(key_value)
     end
+
+    # set schedule for reporting when required
+    if !range_start.nil? and !range_end.nil?
+
+      # make schedule
+      var_sch = OpenStudio::Model::ScheduleRuleset.new(model)
+      var_sch.setName("#{variable_name} Sch")
+      var_sch.defaultDaySchedule().setName("#{variable_name} Default Profile")
+      var_sch.defaultDaySchedule().addValue(OpenStudio::Time.new(0,24,0,0),0.0)
+      rule = OpenStudio::Model::ScheduleRule.new(var_sch)
+      rule.setName("#{variable_name} Rule")
+      start_date = range_start.split('/')
+      end_date = range_end.split('/')
+      # note, model used must be set for year that has leap year such as 2008
+      rule.setStartDate(model.getYearDescription.makeDate(start_date[0].to_i, start_date[1].to_i))
+      rule.setEndDate(model.getYearDescription.makeDate(end_date[0].to_i, end_date[1].to_i))
+      rule.setApplySunday(true)
+      rule.setApplyMonday(true)
+      rule.setApplyTuesday(true)
+      rule.setApplyWednesday(true)
+      rule.setApplyThursday(true)
+      rule.setApplyFriday(true)
+      rule.setApplySaturday(true)
+      day_schedule = rule.daySchedule
+      day_schedule.setName("#{variable_name} Day Schedule")
+      day_schedule.addValue(OpenStudio::Time.new(0,24,0,0),1.0)
+
+      # assign schedule to output variable
+      output_variable.setSchedule(var_sch)
+
+    end
+
     runner.registerInfo("Output Reqeust > #{key_value},#{output_variable.variableName}, #{reporting_frequency}")
 
   end
