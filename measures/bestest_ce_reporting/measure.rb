@@ -168,9 +168,9 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 
     end
 
-    # todo - add runner.registerValues for bestest reporting 5-3A (replace tbd with real values)
+    # add runner.registerValues for bestest reporting 5-3A (replace tbd with real values)
     if model.getBuilding.name.to_s.include? "CE1" or model.getBuilding.name.to_s.include? "CE2"
-      # todo - get single monthly time series value for February
+
       # get clg_energy_consumption_total
       key_value =  "BESTEST CE AIR LOOP"
       variable_name = "Air System Electric Energy"
@@ -226,31 +226,29 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
       runner.registerValue('zone_load_latent',value_kwh)
 
-      # todo - calculate COP using hourly variable. For min and max report IDB and humidity ratio at time of min/max COP
-
-      # get feb_mean_cop
+      # get feb_cop
       mean_cop = net_refrigeration_effect_w[:avg] / (total_cooling_energy_consumption_j[:avg]/3600.0) # W = J/s
       runner.registerValue('feb_mean_cop',mean_cop)
-      # get feb_mean_idb
+      cop_array = []
+      696.times.each do |i|
+        cop_array << net_refrigeration_effect_w[:array][i]/(total_cooling_energy_consumption_j[:array][i]/3600.0) # W = J/s
+      end
+      runner.registerValue('feb_max_cop',cop_array.max)
+      runner.registerValue('feb_min_cop',cop_array.min)
+      # get feb_idb
       key_value =  "ZONE ONE"
       variable_name = "Zone Mean Air Temperature"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
-      value_c = timeseries_hash[:avg]
-      runner.registerValue('feb_mean_idb',value_c)
-      # get feb_mean_humidity_ratio
+      runner.registerValue('feb_mean_idb',timeseries_hash[:avg])
+      runner.registerValue('feb_max_idb',timeseries_hash[:max])
+      runner.registerValue('feb_min_idb',timeseries_hash[:min])
+      # get feb_humidity_ratio
       key_value =  "ZONE ONE"
       variable_name = "Zone Mean Air Humidity Ratio"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
-      value = timeseries_hash[:avg]
-      runner.registerValue('feb_mean_humidity_ratio',value)
-
-      runner.registerValue('feb_max_cop','tbd')
-      runner.registerValue('feb_max_idb','tbd')
-      runner.registerValue('feb_max_humidity_ratio','tbd')
-
-      runner.registerValue('feb_min_cop','tbd')
-      runner.registerValue('feb_min_idb','tbd')
-      runner.registerValue('feb_min_humidity_ratio','tbd')
+      runner.registerValue('feb_mean_humidity_ratio',timeseries_hash[:avg])
+      runner.registerValue('feb_max_humidity_ratio',timeseries_hash[:max])
+      runner.registerValue('feb_min_humidity_ratio',timeseries_hash[:min])
     end
 
     # todo - add runner.registerValues for bestest reporting 5-3B (replace tbd with real values)
