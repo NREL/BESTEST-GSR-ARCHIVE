@@ -52,7 +52,7 @@ end
 puts "Populating Fuel Consumption"
 (51..61).each do |i|
   target_case = worksheet.sheet_data[i][0].value.to_s.split(':').first
-  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_he_reportingfuel_consumption])
+  worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_he_reportingaverage_fuel_consumption])
 end
 
 puts "Populating Fan Energy"

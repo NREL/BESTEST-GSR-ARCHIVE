@@ -197,6 +197,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     # this gather any non standard output requests. Analysis of output such as binning temps for FF will occur in reporting measure
     # Table 6-1 describes the specific day of results that will be used for testing
     hourly_variables = []
+    run_period_variables = []
 
     # variables for all HE cases
     hourly_variables << 'Site Outdoor Air Drybulb Temperature'
@@ -234,6 +235,8 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables << 'Fan Runtime Fraction'
     hourly_variables << 'System Node Temperature'
     hourly_variables << 'System Node Mass Flow Rate'
+
+    # adding run_period variables as needed
 
     # variables for HE150-170
     if case_num.include? "HE150" ||"HE160" || "HE170"

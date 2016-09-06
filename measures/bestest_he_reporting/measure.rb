@@ -140,13 +140,23 @@ class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
       end
     end
 
-    # todo - add runner.registerValues for bestest reporting
+    # total furnace load
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='SensibleHeatGainSummary' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='Annual Building Sensible Heat Gain Components' and "
+    query << "RowName='ZONE ONE' and "
+    query << "ColumnName='HVAC Terminal Unit Sensible Air Heating' and "
+    query << "Units='GJ';"
+    query_results = sqlFile.execAndReturnFirstDouble(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for sensible air heating for ZONE ONE.')
+      return false
+    else
+      runner.registerValue('total_furnace_load',query_results.get,'GJ')
+    end
 
-    runner.registerValue('furnace_load','tbd')
-
-    runner.registerValue('furnace_input','tbd')
-
-    # annual fuel
+    # total furnace input
     query = 'SELECT Value FROM tabulardatawithstrings WHERE '
     query << "ReportName='AnnualBuildingUtilityPerformanceSummary' and "
     query << "ReportForString='Entire Facility' and "
@@ -159,7 +169,12 @@ class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
       runner.registerWarning('Did not find value for heating end use.')
       return false
     else
-      runner.registerValue('fuel_consumption',query_results.get,'GJ')
+      runner.registerValue('total_furnace_input',query_results.get,'GJ')
+
+      # calculate average rate from this (per formula in section 6.4.1.3)
+      hhv = 38.0 # MJ/m^3
+      avg_fuel_rate = (query_results.get/(hhv * 7.776 * 10**6)) * 1000.0
+      runner.registerValue('average_fuel_consumption',avg_fuel_rate,'m^3/sec')
     end
 
     # annual fans
@@ -175,7 +190,7 @@ class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
       runner.registerWarning('Did not find value for fan end use.')
       return false
     else
-      runner.registerValue('fan_energy',query_results.get,'GJ')
+      runner.registerValue('fan_energy',OpenStudio.convert(query_results.get,'GJ','kWh').get,'kWh')
     end
 
     # get time series data for main zone

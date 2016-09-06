@@ -285,7 +285,6 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables = []
 
     # adding collection of ranges and timesteps for different variables
-    # todo - populate these
     hourly_var_feb = [] # used for Case 1xx and 2xx
 
     # variables for all CE cases

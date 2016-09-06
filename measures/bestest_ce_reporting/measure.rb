@@ -193,7 +193,7 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 
       # get evaporator_coil_load_total
       key_value =  "COIL COOLING DX SINGLE SPEED 1"
-      variable_name = "Cooling Coil Total Cooling Rate"
+        variable_name = "Cooling Coil Total Cooling Rate"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
       value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
       runner.registerValue('evaporator_coil_load_total',value_kwh)
