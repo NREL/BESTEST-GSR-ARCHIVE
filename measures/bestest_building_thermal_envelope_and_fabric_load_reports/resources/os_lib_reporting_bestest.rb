@@ -160,7 +160,6 @@ module OsLib_Reporting_Bestest
     return general_building_information
   end
 
-  # this is in CE and Envelope, move to shared resource
   def self.process_output_timeseries (sqlFile, runner, ann_env_pd, time_step, variable_name, key_value)
 
     output_timeseries = sqlFile.timeSeries(ann_env_pd, time_step, variable_name, key_value)
@@ -169,28 +168,34 @@ module OsLib_Reporting_Bestest
       return false
     else
       runner.registerInfo("Found timeseries for #{variable_name}.")
-      output_timeseries = output_timeseries.get.values
+      output_values = output_timeseries.get.values
+      puts "hello"
+      puts output_values
+      output_times = output_timeseries.get.dateTimes
+      puts output_times
       array = []
       sum = 0.0
       min = nil
+      min_date_time = nil
       max = nil
+      max_date_time = nil
 
-      for i in 0..(output_timeseries.size - 1)
+      for i in 0..(output_values.size - 1)
 
         # using this to get average
-        array << output_timeseries[i]
-        sum += output_timeseries[i]
+        array << output_values[i]
+        sum += output_values[i]
 
         # code for min and max
-        if min.nil? || output_timeseries[i] < min
-          min = output_timeseries[i]
+        if min.nil? || output_values[i] < min
+          min = output_values[i]
         end
-        if max.nil? || output_timeseries[i] > max
-          max = output_timeseries[i]
+        if max.nil? || output_values[i] > max
+          max = output_values[i]
         end
 
       end
-      return {:array => array, :sum => sum, :avg => sum/array.size.to_f, :min => min, :max => max}
+      return {:array => array, :sum => sum, :avg => sum/array.size.to_f, :min => min, :max => max, :min_time => min_date_time, :max_date_time => max_date_time}
     end
 
   end

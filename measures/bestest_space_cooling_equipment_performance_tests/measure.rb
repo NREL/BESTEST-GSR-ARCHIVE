@@ -326,7 +326,6 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables << 'Unitary System Frost Control Status'
 
     # variables CE 1x through 2x
-    # todo - see why CE200 row isn't getting data
     if case_num.include? "CE1" or case_num.include? "CE2"
       hourly_variables << 'Site Outdoor Air Wetbulb Temperature'
       hourly_variables << 'Site Outdoor Air Dewpoint Temperature'

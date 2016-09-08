@@ -79,6 +79,7 @@ puts "Populating Annual Houlry Integrated Peak Cooling Loads"
 end
 
 # date format should be dd-MMM. Hour is integer
+# todo - would be nice to redo this to use process_output_timeseries in reporting measure to get time directly
 def self.return_date_time_from_8760_index(index)
 
   date_string = nil

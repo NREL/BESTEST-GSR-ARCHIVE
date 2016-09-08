@@ -182,7 +182,7 @@ columns_extra_300 << :bestest_ce_reportingweather_outdoor_humidity_ratio_date # 
 columns_extra_300 << :bestest_ce_reportingweather_outdoor_humidity_ratio_hr # CE300 only
 
 # populate table on YourData
-puts "Annual Hourly Integrated Maxima Consumptions and Loads Table"
+puts "Populating Annual Hourly Integrated Maxima Consumptions and Loads Table"
 (61..80).each do |i|
   target_case = worksheet.sheet_data[i][15].value
   if target_case.include? "CE500" then target_case = "CE500" end # raw spreadsheet has extra space in cell
@@ -226,7 +226,7 @@ columns << :bestest_ce_reportingrh_min_date
 columns << :bestest_ce_reportingrh_min_hr
 
 # populate table on YourData
-puts "Annual Hourly Integrated Maxima - COP2 and Zone Table"
+puts "Populating Annual Hourly Integrated Maxima - COP2 and Zone Table"
 (88..107).each do |i|
   target_case = worksheet.sheet_data[i][15].value
   if target_case.include? "CE500" then target_case = "CE500" end # raw spreadsheet has extra space in cell
@@ -252,7 +252,7 @@ columns << :bestest_ce_reporting0628_hourly_edb
 columns << :bestest_ce_reporting0628_hourly_ewb
 columns << :bestest_ce_reporting0628_hourly_outdoor_humidity_ratio
 
-puts "Case 300 June 28th Hourly Table"
+puts "Populating Case 300 June 28th Hourly Table"
 columns.each_with_index do |column,j|
   array = csv_hash['CE300'][column].split(',')
   array.each_with_index do |hourly_value,i|
@@ -261,7 +261,7 @@ columns.each_with_index do |column,j|
 end
 
 # pouplate table
-puts "Case 500 and 530 Average Daily Outputs"
+puts "Populating Case 500 and 530 Average Daily Outputs"
 
 # make array for columns on table
 columns = []
