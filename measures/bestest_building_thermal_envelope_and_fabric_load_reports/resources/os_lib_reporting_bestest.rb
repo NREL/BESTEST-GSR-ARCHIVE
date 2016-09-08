@@ -841,8 +841,6 @@ module OsLib_Reporting_Bestest
 
     # gather data (we can pre-poplulate 0 value from -20C to 70C if needed)
     hourly_values_rnd = {}
-    min = nil
-    max = nil
     array_8760 = []
 
     # get time series data for main zone
@@ -866,15 +864,6 @@ module OsLib_Reporting_Bestest
 
           # using this to get average
           array_8760 << output_timeseries[i]
-
-          # code for min and max
-          if min.nil? || output_timeseries[i] < min
-            min = output_timeseries[i]
-          end
-          if max.nil? || output_timeseries[i] > max
-            max = output_timeseries[i]
-          end
-
 
           if output_timeseries[i].truncate != output_timeseries[i] and output_timeseries[i] < 0
             # without this negeative numbers seem to truncate towards zero vs. colder temp
@@ -911,9 +900,12 @@ module OsLib_Reporting_Bestest
     end
     runner.registerValue("temp_bins",full_temp_bin.to_s)
 
-    # store min and max and avg temps as register value
-    runner.registerValue('min_temp',min,'C')
-    runner.registerValue('max_temp',max,'C')
+    # store min and max and avg temps as register value, along with index position
+    # will convert index to date/time downstream
+    runner.registerValue('min_temp',array_8760.min,'C')
+    runner.registerValue('min_index_position',array_8760.each_with_index.min[1])
+    runner.registerValue('max_temp',array_8760.max,'C')
+    runner.registerValue('max_index_position',array_8760.each_with_index.max[1])
     runner.registerValue('avg_temp',array_8760.reduce(:+) / array_8760.size.to_f,'C')
 
     # add table to array of tables

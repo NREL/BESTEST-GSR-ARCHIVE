@@ -78,24 +78,71 @@ puts "Populating Annual Houlry Integrated Peak Cooling Loads"
   worksheet.sheet_data[i][3].change_contents(time)
 end
 
-# todo - tag date and time
+# date format should be dd-MMM. Hour is integer
+def self.return_date_time_from_8760_index(index)
+
+  date_string = nil
+  dd = nil
+  mmm = nil
+  hour = nil
+
+  # assuming non leep year
+  month_hash = {}
+  month_hash['JAN'] = 31
+  month_hash['FEB'] = 28
+  month_hash['MAR'] = 31
+  month_hash['APR'] = 30
+  month_hash['MAY'] = 31
+  month_hash['JUN'] = 30
+  month_hash['JUL'] = 31
+  month_hash['AUG'] = 31
+  month_hash['SEP'] = 30
+  month_hash['OCT'] = 31
+  month_hash['NOV'] = 30
+  month_hash['DEC'] = 31
+
+  raw_date = (index/24.0).floor
+  counter = 0
+  month_hash.each do |k,v|
+    if raw_date - counter <= v
+      # found month
+      mmm = k
+      dd = raw_date - counter
+      date_string = "#{"%02d" % dd}-#{mmm}"
+      hour = (index % 24)
+      return [date_string,hour]
+    else
+      counter = counter + v
+    end
+  end
+  return nil # shouldn't hit this
+end
+
+# tag date and time
 puts "Populating FF Max Hourly Zone Temperature"
 # this also includes case 960
 (253..257).each do |i|
   target_case = worksheet.sheet_data[i][0].value
   worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmax_temp])
+  index_position = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmax_index_position]
+  date_time_array = return_date_time_from_8760_index(index_position)
+  worksheet.sheet_data[i][2].change_contents(date_time_array[0])
+  worksheet.sheet_data[i][3].change_contents(date_time_array[1])
 end
 
-# todo - tag date and time
+# tag date and time
 puts "Populating FF Min Hourly Zone Temperature"
 # this also includes case 960
 (262..266).each do |i|
   target_case = worksheet.sheet_data[i][0].value
   # populate value date and time columns
   worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmin_temp])
+  index_position = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsmin_index_position]
+  date_time_array = return_date_time_from_8760_index(index_position)
+  worksheet.sheet_data[i][2].change_contents(date_time_array[0])
+  worksheet.sheet_data[i][3].change_contents(date_time_array[1])
 end
 
-# todo - tag date and time
 puts "Populating FF Average Hourly Zone Temperature"
 # this also includes case 960
 (271..275).each do |i|
@@ -104,7 +151,7 @@ puts "Populating FF Average Hourly Zone Temperature"
   worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsavg_temp])
 end
 
-# Annual Incident Total Case 600 (293-294)
+puts 'Populating Annual Incident Total Case 600'
 target_case = '600'
 worksheet.sheet_data[293][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsnorth_incident_solar_radiation])
 worksheet.sheet_data[294][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportseast_incident_solar_radiation])
@@ -112,11 +159,11 @@ worksheet.sheet_data[295][1].change_contents(csv_hash[target_case][:bestest_buil
 worksheet.sheet_data[296][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportssouth_incident_solar_radiation])
 worksheet.sheet_data[297][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportshorizontal_incident_solar_radiation])
 
-# Unshaded Annual Transmitted Cases 920 and 900 (312-313)
+puts 'Populating Unshaded Annual Transmitted Cases 920 and 900'
 worksheet.sheet_data[312][1].change_contents(csv_hash['920'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
 worksheet.sheet_data[313][1].change_contents(csv_hash['900'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
 
-# Shaded Annual Transmitted Cases 930 and 910 (332-333)
+puts 'Populating Shaded Annual Transmitted Cases 930 and 910'
 worksheet.sheet_data[332][1].change_contents(csv_hash['930'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
 worksheet.sheet_data[333][1].change_contents(csv_hash['910'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
 
@@ -179,7 +226,7 @@ end
 puts "Hourly FF Temperatures July 27 - Case 950FF"
 array = csv_hash['950FF'][:bestest_building_thermal_envelope_and_fabric_load_reportstemp_0727].split(",")
 counter = 0
-(627..651).each do |i|
+(627..650).each do |i|
   worksheet.sheet_data[i][1].change_contents(array[counter+1].to_f)
   counter += 1
 end
