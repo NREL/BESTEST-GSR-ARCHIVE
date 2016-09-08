@@ -104,11 +104,21 @@ puts "Populating FF Average Hourly Zone Temperature"
   worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsavg_temp])
 end
 
-# todo - Annual Incident Total Case 600 (293-294)
+# Annual Incident Total Case 600 (293-294)
+target_case = '600'
+worksheet.sheet_data[293][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportsnorth_incident_solar_radiation])
+worksheet.sheet_data[294][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportseast_incident_solar_radiation])
+worksheet.sheet_data[295][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportswest_incident_solar_radiation])
+worksheet.sheet_data[296][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportssouth_incident_solar_radiation])
+worksheet.sheet_data[297][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportshorizontal_incident_solar_radiation])
 
-# todo - Unshaded Annual Transmitted Cases 920 and 900 (312-313)
+# Unshaded Annual Transmitted Cases 920 and 900 (312-313)
+worksheet.sheet_data[312][1].change_contents(csv_hash['920'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
+worksheet.sheet_data[313][1].change_contents(csv_hash['900'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
 
-# todo - Shaded Annual Transmitted Cases 930 and 910 (332-333)
+# Shaded Annual Transmitted Cases 930 and 910 (332-333)
+worksheet.sheet_data[332][1].change_contents(csv_hash['930'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
+worksheet.sheet_data[333][1].change_contents(csv_hash['910'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
 
 puts "Populating Hourly Incident Solar Radiation Cloudy Day March 5th Case 600 - South"
 array = csv_hash['600'][:bestest_building_thermal_envelope_and_fabric_load_reportssurf_out_inst_slr_rad_0305_zone_surface_south].split(",")

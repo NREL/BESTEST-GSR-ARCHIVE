@@ -197,7 +197,6 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     # this gather any non standard output requests. Analysis of output such as binning temps for FF will occur in reporting measure
     # Table 6-1 describes the specific day of results that will be used for testing
     hourly_variables = []
-    run_period_variables = []
 
     # variables for all HE cases
     hourly_variables << 'Site Outdoor Air Drybulb Temperature'

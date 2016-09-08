@@ -160,6 +160,41 @@ module OsLib_Reporting_Bestest
     return general_building_information
   end
 
+  # this is in CE and Envelope, move to shared resource
+  def self.process_output_timeseries (sqlFile, runner, ann_env_pd, time_step, variable_name, key_value)
+
+    output_timeseries = sqlFile.timeSeries(ann_env_pd, time_step, variable_name, key_value)
+    if output_timeseries.empty?
+      runner.registerWarning("Timeseries not found for #{variable_name}.")
+      return false
+    else
+      runner.registerInfo("Found timeseries for #{variable_name}.")
+      output_timeseries = output_timeseries.get.values
+      array = []
+      sum = 0.0
+      min = nil
+      max = nil
+
+      for i in 0..(output_timeseries.size - 1)
+
+        # using this to get average
+        array << output_timeseries[i]
+        sum += output_timeseries[i]
+
+        # code for min and max
+        if min.nil? || output_timeseries[i] < min
+          min = output_timeseries[i]
+        end
+        if max.nil? || output_timeseries[i] > max
+          max = output_timeseries[i]
+        end
+
+      end
+      return {:array => array, :sum => sum, :avg => sum/array.size.to_f, :min => min, :max => max}
+    end
+
+  end
+
   # create output_6_2_1_1_section
   def self.output_6_2_1_1_section(model, sqlFile, runner, name_only = false)
     # array to hold tables
@@ -582,12 +617,54 @@ module OsLib_Reporting_Bestest
     table_01[:units] = ['','kWh/m^2']
     table_01[:data] = []
 
-    # add rows to table
-    table_01[:data] << ['North',]
-    table_01[:data] << ['East',]
-    table_01[:data] << ['West',]
-    table_01[:data] << ['South',]
-    table_01[:data] << ['Horizontal',]
+    # TODO -  should update to fail gracefully if this isn't valid
+    # get the weather file run period (as opposed to design day run period)
+    ann_env_pd = nil
+    sqlFile.availableEnvPeriods.each do |env_pd|
+      env_type = sqlFile.environmentType(env_pd)
+      if env_type.is_initialized
+        if env_type.get == OpenStudio::EnvironmentType.new("WeatherRunPeriod")
+          ann_env_pd = env_pd
+          break
+        end
+      end
+    end
+
+    # north_incident_solar_radiation
+    key_value =  "ZONE SURFACE NORTH"
+    variable_name = "Surface Outside Face Incident Solar Radiation Rate per Area"
+    timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+    value_kwh_m2 = OpenStudio.convert(timeseries_hash[:sum],'Wh/m^2','kWh/m^2').get # using Wh since timestep is hourly
+    runner.registerValue('north_incident_solar_radiation',value_kwh_m2,'kWh/m^2')
+    table_01[:data] << ['North',value_kwh_m2.round(2)]
+    # east_incident_solar_radiation
+    key_value =  "ZONE SURFACE EAST"
+    variable_name = "Surface Outside Face Incident Solar Radiation Rate per Area"
+    timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+    value_kwh_m2 = OpenStudio.convert(timeseries_hash[:sum],'Wh/m^2','kWh/m^2').get # using Wh since timestep is hourly
+    runner.registerValue('east_incident_solar_radiation',value_kwh_m2,'kWh/m^2')
+    table_01[:data] << ['East',value_kwh_m2.round(2)]
+    # west_incident_solar_radiation
+    key_value =  "ZONE SURFACE WEST"
+    variable_name = "Surface Outside Face Incident Solar Radiation Rate per Area"
+    timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+    value_kwh_m2 = OpenStudio.convert(timeseries_hash[:sum],'Wh/m^2','kWh/m^2').get # using Wh since timestep is hourly
+    runner.registerValue('west_incident_solar_radiation',value_kwh_m2,'kWh/m^2')
+    table_01[:data] << ['West',value_kwh_m2.round(2)]
+    # south_incident_solar_radiation
+    key_value =  "ZONE SURFACE SOUTH"
+    variable_name = "Surface Outside Face Incident Solar Radiation Rate per Area"
+    timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+    value_kwh_m2 = OpenStudio.convert(timeseries_hash[:sum],'Wh/m^2','kWh/m^2').get # using Wh since timestep is hourly
+    runner.registerValue('south_incident_solar_radiation',value_kwh_m2,'kWh/m^2')
+    table_01[:data] << ['South',value_kwh_m2.round(2)]
+    # horizontal_incident_solar_radiation
+    key_value =  "ZONE SURFACE ROOF"
+    variable_name = "Surface Outside Face Incident Solar Radiation Rate per Area"
+    timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+    value_kwh_m2 = OpenStudio.convert(timeseries_hash[:sum],'Wh/m^2','kWh/m^2').get # using Wh since timestep is hourly
+    runner.registerValue('horizontal_incident_solar_radiation',value_kwh_m2,'kWh/m^2')
+    table_01[:data] << ['Horizontal',value_kwh_m2.round(2)]
 
     # add table to array of tables
     case_600_only_tables << table_01
@@ -606,6 +683,45 @@ module OsLib_Reporting_Bestest
     case_600_only_tables << table_02
 
     return @case_600_only_section
+  end
+
+  # create case_9xx_only_section
+  def self.case_9xx_only_section(model, sqlFile, runner, name_only = false)
+    # array to hold tables
+    case_9xx_only_tables = []
+
+    # gather data for section
+    @case_9xx_only_section = {}
+    @case_9xx_only_section[:title] = 'runner.registerValues for 9xx cases'
+    @case_9xx_only_section[:tables] = case_9xx_only_tables
+
+    # stop here if only name is requested this is used to populate display name for arguments
+    if name_only == true
+      return @case_9xx_only_section
+    end
+
+    # TODO -  should update to fail gracefully if this isn't valid
+    # get the weather file run period (as opposed to design day run period)
+    ann_env_pd = nil
+    sqlFile.availableEnvPeriods.each do |env_pd|
+      env_type = sqlFile.environmentType(env_pd)
+      if env_type.is_initialized
+        if env_type.get == OpenStudio::EnvironmentType.new("WeatherRunPeriod")
+          ann_env_pd = env_pd
+          break
+        end
+      end
+    end
+
+    # zone_total_transmitted_beam_solar_radiation
+    key_value =  "ZONE ONE"
+    variable_name = "Zone Exterior Windows Total Transmitted Beam Solar Radiation Rate"
+    timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+    value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get # using Wh since timestep is hourly
+    value_kwh_m2 = value_kwh / 12.0 # all zones with windows have 12m^2
+    runner.registerValue('zone_total_transmitted_beam_solar_radiation',value_kwh_m2,'kWh/m^2')
+
+    return @case_9xx_only_section
   end
 
   # create case_610_only_section

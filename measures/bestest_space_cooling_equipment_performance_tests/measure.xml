@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_cooling_equipment_performance_tests</name>
   <uid>eb12d939-e78f-4b84-8af7-1e69e10a0cf4</uid>
-  <version_id>aad58736-0ecd-4dec-8bd5-01ea425ef19f</version_id>
-  <version_modified>20160906T192636Z</version_modified>
+  <version_id>d0a6789e-a24e-4375-bf77-30cac3a45a2e</version_id>
+  <version_modified>20160907T154804Z</version_modified>
   <xml_checksum>05C5DFDC</xml_checksum>
   <class_name>BESTESTSpaceCoolingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Cooling Equipment Performance Tests</display_name>

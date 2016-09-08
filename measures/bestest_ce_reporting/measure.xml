@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestestce_reporting</name>
   <uid>4f921756-b4bf-483e-b845-12ba3dd4bc69</uid>
-  <version_id>eb4c04c7-4998-427e-a35c-9bfcde524e81</version_id>
-  <version_modified>20160906T192636Z</version_modified>
+  <version_id>462e5238-a860-45a0-9f2f-84cf6f6a936f</version_id>
+  <version_modified>20160907T154804Z</version_modified>
   <xml_checksum>F44A8258</xml_checksum>
   <class_name>BESTESTCEReporting</class_name>
   <display_name>BESTEST CE Reporting</display_name>

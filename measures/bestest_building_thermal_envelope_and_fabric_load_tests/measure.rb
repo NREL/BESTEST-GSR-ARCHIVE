@@ -400,7 +400,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       end
 
       # get windows variables for subset of cases
-      if case_num.include? "600" ||"610" || "620" || "630"
+      if case_num.include? "600" or case_num.include? "610" or case_num.include? "620" or case_num.include? "630"
         hourly_variables << 'Surface Window Transmitted Solar Radiation Rate'
         hourly_variables << 'Surface Window Transmitted Beam Solar Radiation Rate'
         hourly_variables << 'Surface Window Transmitted Diffuse Solar Radiation Rate'
@@ -409,9 +409,14 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
         hourly_variables << 'Surface Window Transmitted Diffuse Solar Radiation Energy'
       end
 
+      # get windows variables for subset of cases
+      if case_num.include? "900" or case_num.include? "910" or case_num.include? "920" or case_num.include? "930"
+        hourly_variables << 'Zone Exterior Windows Total Transmitted Beam Solar Radiation Rate'
+      end
+
     end
     hourly_variables.each do |variable|
-      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly')
+      BestestModelMethods.add_output_variable(runner,model,nil,variable,'Hourly')
     end
 
     # report final condition of model

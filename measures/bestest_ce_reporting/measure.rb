@@ -134,6 +134,7 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       end
     end
 
+    # this is in CE and Envelope, move to shared resource
     def process_output_timeseries (sqlFile, runner, ann_env_pd, time_step, variable_name, key_value)
 
       output_timeseries = sqlFile.timeSeries(ann_env_pd, time_step, variable_name, key_value)

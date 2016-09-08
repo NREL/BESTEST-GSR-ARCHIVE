@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_space_heating_equipment_performance_tests</name>
   <uid>65d31bac-6024-4b64-8029-006e82cd4b87</uid>
-  <version_id>5f88f3ec-3d1c-48d3-acce-9033e9a5caba</version_id>
-  <version_modified>20160906T192636Z</version_modified>
+  <version_id>50eb8ec7-73c4-4588-82ef-7f1fc67e4067</version_id>
+  <version_modified>20160907T154804Z</version_modified>
   <xml_checksum>2438005F</xml_checksum>
   <class_name>BESTESTSpaceHeatingEquipmentPerformanceTests</class_name>
   <display_name>BESTEST Space Heating Equipment Performance Tests</display_name>

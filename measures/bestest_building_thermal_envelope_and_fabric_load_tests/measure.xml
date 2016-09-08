@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestest_building_thermal_envelope_and_fabric_load_tests</name>
   <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
-  <version_id>5e060edc-5829-4dc1-a7f6-de48ced1ccb1</version_id>
-  <version_modified>20160906T192636Z</version_modified>
+  <version_id>6b6f3e54-83b8-471a-9bed-3fd1a865686f</version_id>
+  <version_modified>20160907T154804Z</version_modified>
   <xml_checksum>28AD5222</xml_checksum>
   <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadTests</class_name>
   <display_name>BESTEST Building Thermal Envelope and Fabric Load Tests</display_name>

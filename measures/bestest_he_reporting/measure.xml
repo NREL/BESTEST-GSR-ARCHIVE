@@ -2,8 +2,8 @@
   <schema_version>3.0</schema_version>
   <name>bestesthe_reporting</name>
   <uid>0c315265-09b3-40ae-a50f-e8920b468264</uid>
-  <version_id>4bf4f74c-1bcf-4741-802a-10e79b0cfa7d</version_id>
-  <version_modified>20160906T192636Z</version_modified>
+  <version_id>21ae3540-5175-4193-8b97-d8320dd3d71f</version_id>
+  <version_modified>20160907T154804Z</version_modified>
   <xml_checksum>9BF1E6AC</xml_checksum>
   <class_name>BESTESTHEReporting</class_name>
   <display_name>BESTEST HE Reporting</display_name>
