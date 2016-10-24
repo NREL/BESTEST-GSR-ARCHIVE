@@ -106,7 +106,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     if variable_hash[:custom] == true and case_num.include? '960'
       # add in sun space geometry
       file_to_clone = 'Bestest_Geo_Sunspace.osm'
-    elsif case_num.include? '195' || '395'
+    elsif case_num.include? '195' or case_num.include? '395'
       # add in geometry with no fenestration
       file_to_clone = 'Bestest_Geo_South_0_0_0.osm'
     elsif variable_hash[:orient] == 'S'
