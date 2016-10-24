@@ -145,6 +145,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 
     if case_num.include? ('960')
 
+=begin
       # surface match to fix issue with clone building
       #put all of the spaces in the model into a vector
       spaces = OpenStudio::Model::SpaceVector.new
@@ -155,6 +156,7 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       #match surfaces for each space in the vector
       OpenStudio::Model.unmatchSurfaces(spaces)
       OpenStudio::Model.matchSurfaces(spaces)
+=end
 
       name_a = 'SUN ZONE SURFACE NORTH'
       name_b = 'ZONE SURFACE SOUTH'
