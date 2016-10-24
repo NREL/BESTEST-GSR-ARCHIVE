@@ -371,7 +371,18 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     if !variable_hash[:ff]
       model.getThermalZones.each do |zone|
         next if zone.name.to_s == "SUN ZONE"
-        zone.setUseIdealAirLoads(true)
+
+        # doesn't give control I need
+        #zone.setUseIdealAirLoads(true)
+
+        # use this instead
+        ideal_loads = OpenStudio::Model::ZoneHVACIdealLoadsAirSystem.new(model)
+        ideal_loads.addToThermalZone(zone)
+        ideal_loads.setMaximumHeatingSupplyAirHumidityRatio(0.01)
+        ideal_loads.setMinimumCoolingSupplyAirHumidityRatio(0.01)
+        ideal_loads.setDehumidificationControlType('ConstantSupplyHumidityRatio')
+        ideal_loads.setHumidificationControlType('ConstantSupplyHumidityRatio')
+
         runner.registerInfo("HVAC > Adding ideal air loads to #{zone.name}.")
       end
     end
@@ -379,6 +390,11 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     # rename the building
     model.getBuilding.setName("BESTEST Case #{case_num}")
     runner.registerInfo("Renaming Building > #{model.getBuilding.name}")
+
+
+    # set timesteps per hour
+    timestep = model.getTimestep
+    timestep.setNumberOfTimestepsPerHour(4)
 
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
