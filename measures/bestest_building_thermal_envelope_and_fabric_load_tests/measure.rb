@@ -396,6 +396,16 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
     timestep = model.getTimestep
     timestep.setNumberOfTimestepsPerHour(4)
 
+    # set shadow calcs
+    shadow_calc_freq = model.getShadowCalculation
+    shadow_calc_freq.setCalculationFrequency(1)
+
+    # set ground temps
+    ground_temps = model.getSiteGroundTemperatureBuildingSurface
+    (1..12).each do |i|
+      ground_temps.setTemperatureByMonth(i,10.0)
+    end
+
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
     # Add output requests (consider adding to case hash instead of adding logic here)
