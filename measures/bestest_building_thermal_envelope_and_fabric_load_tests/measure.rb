@@ -436,8 +436,8 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       end
 
       # get windows variables for subset of cases
-      if case_num.include? "900" or case_num.include? "910" or case_num.include? "920" or case_num.include? "930"
-        hourly_variables << 'Zone Exterior Windows Total Transmitted Beam Solar Radiation Rate'
+      if case_num.include? "900" or case_num.include? "910" or case_num.include? "920" or case_num.include? "930" or case_num.include? "600" or case_num.include? "620"
+        hourly_variables << 'Zone Windows Total Transmitted Solar Radiation Rate'
       end
 
     end

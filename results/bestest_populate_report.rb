@@ -160,13 +160,14 @@ worksheet.sheet_data[295][1].change_contents(csv_hash[target_case][:bestest_buil
 worksheet.sheet_data[296][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportssouth_incident_solar_radiation])
 worksheet.sheet_data[297][1].change_contents(csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportshorizontal_incident_solar_radiation])
 
-puts 'Populating Unshaded Annual Transmitted Cases 920 and 900'
-worksheet.sheet_data[312][1].change_contents(csv_hash['920'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
-worksheet.sheet_data[313][1].change_contents(csv_hash['900'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
+# changing cases not to match what 
+puts 'Populating Unshaded Annual Transmitted Cases 620 and 600'
+worksheet.sheet_data[312][1].change_contents(csv_hash['620'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_solar_radiation])
+worksheet.sheet_data[313][1].change_contents(csv_hash['600'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_solar_radiation])
 
 puts 'Populating Shaded Annual Transmitted Cases 930 and 910'
-worksheet.sheet_data[332][1].change_contents(csv_hash['930'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
-worksheet.sheet_data[333][1].change_contents(csv_hash['910'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_beam_solar_radiation])
+worksheet.sheet_data[332][1].change_contents(csv_hash['930'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_solar_radiation])
+worksheet.sheet_data[333][1].change_contents(csv_hash['910'][:bestest_building_thermal_envelope_and_fabric_load_reportszone_total_transmitted_solar_radiation])
 
 puts "Populating Hourly Incident Solar Radiation Cloudy Day March 5th Case 600 - South"
 array = csv_hash['600'][:bestest_building_thermal_envelope_and_fabric_load_reportssurf_out_inst_slr_rad_0305_zone_surface_south].split(",")
