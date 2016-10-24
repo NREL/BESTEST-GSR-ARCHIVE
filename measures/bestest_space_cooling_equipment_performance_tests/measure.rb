@@ -277,6 +277,16 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     model.getBuilding.setName("BESTEST Case #{case_num}")
     runner.registerInfo("Renaming Building > #{model.getBuilding.name}")
 
+    # set timesteps per hour
+    timestep = model.getTimestep
+    timestep.setNumberOfTimestepsPerHour(4)
+
+    # set shadow calcs
+    if case_num.include? "CE1" or case_num.include? "CE2"
+      shadow_calc_freq = model.getShadowCalculation
+      shadow_calc_freq.setCalculationFrequency(1)
+    end
+
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
     # Add output requests (consider adding to case hash instead of adding logic here)

@@ -406,6 +406,9 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
       ground_temps.setTemperatureByMonth(i,10.0)
     end
 
+    # set ground reflectance (default is 0.2 which is what has been used in the past)
+    # ground_reflectance = model.getSiteGroundReflectance
+
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
     # Add output requests (consider adding to case hash instead of adding logic here)
