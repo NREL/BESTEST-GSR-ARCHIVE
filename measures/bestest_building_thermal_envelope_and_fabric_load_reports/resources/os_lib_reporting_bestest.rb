@@ -482,8 +482,8 @@ module OsLib_Reporting_Bestest
 
       if keys.include? 'ZONE ONE'
         key = 'ZONE ONE'
-      elsif keys.include? 'SUN ZONE'
-        key = 'SUN ZONE'
+      elsif keys.include? 'BACK ZONE'
+        key = 'BACK ZONE'
       end
 
       source_units = 'J'
@@ -569,8 +569,8 @@ module OsLib_Reporting_Bestest
 
       if keys.include? 'ZONE ONE'
         key = 'ZONE ONE'
-      elsif keys.include? 'SUN ZONE'
-        key = 'SUN ZONE'
+      elsif keys.include? 'BACK ZONE'
+        key = 'BACK ZONE'
       end
 
       source_units = 'J'
@@ -610,8 +610,8 @@ module OsLib_Reporting_Bestest
 
       if keys.include? 'ZONE ONE'
         key = 'ZONE ONE'
-      elsif keys.include? 'SUN ZONE'
-        key = 'SUN ZONE'
+      elsif keys.include? 'BACK ZONE'
+        key = 'BACK ZONE'
       end
 
       source_units = 'J'
