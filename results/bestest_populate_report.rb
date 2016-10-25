@@ -51,6 +51,7 @@ end
 puts "Populating Annual Houlry Integrated Peak Heating Loads"
 (145..179).each do |i|
   target_case = worksheet.sheet_data[i][0].value
+  puts "working on case #{target_case}"
 
   # get date and time from raw value
   raw_value = csv_hash[target_case][:bestest_building_thermal_envelope_and_fabric_load_reportspeak_heating_time_display_name]
