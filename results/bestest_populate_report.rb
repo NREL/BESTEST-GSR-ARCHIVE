@@ -88,7 +88,7 @@ def self.return_date_time_from_8760_index(index)
   mmm = nil
   hour = nil
 
-  # assuming non leep year
+  # assuming non leap year
   month_hash = {}
   month_hash['JAN'] = 31
   month_hash['FEB'] = 28
@@ -109,7 +109,7 @@ def self.return_date_time_from_8760_index(index)
     if raw_date - counter <= v
       # found month
       mmm = k
-      dd = raw_date - counter
+      dd = 1 + raw_date - counter
       date_string = "#{"%02d" % dd}-#{mmm}"
       hour = (index % 24)
       return [date_string,hour]

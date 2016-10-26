@@ -210,11 +210,52 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
           month = "Dec"
       end
 
-      array << "#{day_of_month}-#{month}"
+      array << "#{"%02d" % day_of_month}-#{month}"
       array << hour
 
       return array
 
+    end
+
+    # date format should be dd-MMM. Hour is integer
+    # note: This is also used in the bestest_populate_report.rb for envelope
+    def self.return_date_time_from_8760_index(index)
+
+      date_string = nil
+      dd = nil
+      mmm = nil
+      hour = nil
+
+      # assuming non leap year
+      month_hash = {}
+      month_hash['JAN'] = 31
+      month_hash['FEB'] = 28
+      month_hash['MAR'] = 31
+      month_hash['APR'] = 30
+      month_hash['MAY'] = 31
+      month_hash['JUN'] = 30
+      month_hash['JUL'] = 31
+      month_hash['AUG'] = 31
+      month_hash['SEP'] = 30
+      month_hash['OCT'] = 31
+      month_hash['NOV'] = 30
+      month_hash['DEC'] = 31
+
+      raw_date = (index/24.0).floor
+      counter = 0
+      month_hash.each do |k,v|
+        if raw_date - counter <= v
+          # found month
+          mmm = k
+          dd = 1 + raw_date - counter
+          date_string = "#{"%02d" % dd}-#{mmm}"
+          hour = (index % 24)
+          return [date_string,hour]
+        else
+          counter = counter + v
+        end
+      end
+      return nil # shouldn't hit this
     end
 
     # add runner.registerValues for bestest reporting 5-3A
@@ -371,6 +412,7 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
       runner.registerValue('ann_mean_outdoor_humidity_ratio',timeseries_hash[:avg])
 
+      # todo - populate may_sept data
       runner.registerValue('may_sept_sum_clg_consumption_total','tbd')
       runner.registerValue('may_sept_sum_clg_consumption_compressor','tbd')
       runner.registerValue('may_sept_sum_clg_consumption_cond_fan','tbd')
@@ -424,34 +466,88 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       variable_name = "Site Outdoor Air Humidity Ratio"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
       runner.registerValue('weather_outdoor_humidity_ratio_c',timeseries_hash[:max])
-      runner.registerValue('weather_outdoor_humidity_ratio_date',date_time_parse(timeseries_hash[:max_date_time])[1])
+      runner.registerValue('weather_outdoor_humidity_ratio_date',date_time_parse(timeseries_hash[:max_date_time])[0])
       runner.registerValue('weather_outdoor_humidity_ratio_hr',date_time_parse(timeseries_hash[:max_date_time])[1])
 
       # Annual Hourly Integrated Maxima - COP2 and Zone Table
-      runner.registerValue('cop2_max_cop2','tbd')
-      runner.registerValue('cop2_max_date','tbd')
-      runner.registerValue('cop2_max_hr','tbd')
-      runner.registerValue('cop2_min_cop2','tbd')
-      runner.registerValue('cop2_min_date','tbd')
-      runner.registerValue('cop2_min_hr','tbd')
-      runner.registerValue('idb_max_idb','tbd')
-      runner.registerValue('idb_max_date','tbd')
-      runner.registerValue('idb_max_hr','tbd')
-      runner.registerValue('idb_min_idb','tbd')
-      runner.registerValue('idb_min_date','tbd')
-      runner.registerValue('idb_min_hr','tbd')
-      runner.registerValue('hr_max_humidity_ratio','tbd')
-      runner.registerValue('hr_max_date','tbd')
-      runner.registerValue('hr_max_hr','tbd')
-      runner.registerValue('hr_min_humidity_ratio','tbd')
-      runner.registerValue('hr_min_date','tbd')
-      runner.registerValue('hr_min_hr','tbd')
-      runner.registerValue('rh_max_relative_humidity','tbd')
-      runner.registerValue('rh_max_date','tbd')
-      runner.registerValue('rh_max_hr','tbd')
-      runner.registerValue('rh_min_relative_humidity','tbd')
-      runner.registerValue('rh_min_date','tbd')
-      runner.registerValue('rh_min_hr','tbd')
+
+      # get clg_energy_consumption_total (for cop calc)
+      key_value =  "BESTEST CE AIR LOOP"
+      variable_name = "Air System Electric Energy"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      total_cooling_energy_consumption_j_array = timeseries_hash[:array]
+      # get zone_load_total (for net_refrigeration_effect_w)
+      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
+      variable_name = "Unitary System Total Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      net_refrigeration_effect_w_array = timeseries_hash[:array]
+      # calculate 8760 cop
+      cop_8760 = []
+      total_cooling_energy_consumption_j_array.size.times.each do |i|
+        cop_8760 << net_refrigeration_effect_w_array[i] / (total_cooling_energy_consumption_j_array[i]/3600.0) # W = J/s
+      end
+      index_of_max = cop_8760.each_index.max
+      index_of_min = cop_8760.each_index.min
+      runner.registerValue('cop2_max_cop2',cop_8760.max)
+      runner.registerValue('cop2_max_date',return_date_time_from_8760_index(index_of_max)[0])
+      runner.registerValue('cop2_max_hr',return_date_time_from_8760_index(index_of_max)[1])
+      runner.registerValue('cop2_min_cop2',cop_8760.min)
+      runner.registerValue('cop2_min_date',return_date_time_from_8760_index(index_of_min)[0])
+      runner.registerValue('cop2_min_hr',return_date_time_from_8760_index(index_of_min)[1])
+      # get idb
+      key_value =  "ZONE ONE"
+      variable_name = "Zone Mean Air Temperature"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('idb_max_idb',timeseries_hash[:max])
+      runner.registerValue('idb_max_date',date_time_parse(timeseries_hash[:max_date_time])[0])
+      runner.registerValue('idb_max_hr',date_time_parse(timeseries_hash[:max_date_time])[1])
+      runner.registerValue('idb_min_idb',timeseries_hash[:min])
+      runner.registerValue('idb_min_date',date_time_parse(timeseries_hash[:min_date_time])[0])
+      runner.registerValue('idb_min_hr',date_time_parse(timeseries_hash[:min_date_time])[1])
+      # get humidity_ratio
+      variable_name = "Zone Mean Air Humidity Ratio"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('hr_max_humidity_ratio',timeseries_hash[:max])
+      runner.registerValue('hr_max_date',date_time_parse(timeseries_hash[:max_date_time])[0])
+      runner.registerValue('hr_max_hr',date_time_parse(timeseries_hash[:max_date_time])[1])
+      runner.registerValue('hr_min_humidity_ratio',timeseries_hash[:min])
+      runner.registerValue('hr_min_date',date_time_parse(timeseries_hash[:min_date_time])[0])
+      runner.registerValue('hr_min_hr',date_time_parse(timeseries_hash[:min_date_time])[1])
+      # get relative_humidity
+      variable_name = "Zone Air Relative Humidity"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('rh_max_relative_humidity',timeseries_hash[:max])
+      runner.registerValue('rh_max_date',date_time_parse(timeseries_hash[:max_date_time])[0])
+      runner.registerValue('rh_max_hr',date_time_parse(timeseries_hash[:max_date_time])[1])
+      runner.registerValue('rh_min_relative_humidity',timeseries_hash[:min])
+      runner.registerValue('rh_min_date',date_time_parse(timeseries_hash[:min_date_time])[0])
+      runner.registerValue('rh_min_hr',date_time_parse(timeseries_hash[:min_date_time])[1])
+
+      # todo - populate april_dec data
+      runner.registerValue('apr_dec_cop2_max_cop2','tbd')
+      runner.registerValue('apr_dec_cop2_max_date','tbd')
+      runner.registerValue('apr_dec_cop2_max_hr','tbd')
+      runner.registerValue('apr_dec_cop2_min_cop2','tbd')
+      runner.registerValue('apr_dec_cop2_min_date','tbd')
+      runner.registerValue('apr_dec_cop2_min_hr','tbd')
+      runner.registerValue('apr_dec_idb_max_idb','tbd')
+      runner.registerValue('apr_dec_idb_max_date','tbd')
+      runner.registerValue('apr_dec_idb_max_hr','tbd')
+      runner.registerValue('apr_dec_idb_min_idb','tbd')
+      runner.registerValue('apr_dec_idb_min_date','tbd')
+      runner.registerValue('apr_dec_idb_min_hr','tbd')
+      runner.registerValue('apr_dec_hr_max_humidity_ratio','tbd')
+      runner.registerValue('apr_dec_hr_max_date','tbd')
+      runner.registerValue('apr_dec_hr_max_hr','tbd')
+      runner.registerValue('apr_dec_hr_min_humidity_ratio','tbd')
+      runner.registerValue('apr_dec_hr_min_date','tbd')
+      runner.registerValue('apr_dec_hr_min_hr','tbd')
+      runner.registerValue('apr_dec_rh_max_relative_humidity','tbd')
+      runner.registerValue('apr_dec_rh_max_date','tbd')
+      runner.registerValue('apr_dec_rh_max_hr','tbd')
+      runner.registerValue('apr_dec_rh_min_relative_humidity','tbd')
+      runner.registerValue('apr_dec_rh_min_date','tbd')
+      runner.registerValue('apr_dec_rh_min_hr','tbd')
 
       # temp array of 24 tbd strings
       hourly_single_day_array = []

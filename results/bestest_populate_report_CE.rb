@@ -227,7 +227,45 @@ columns << :bestest_ce_reportingrh_min_hr
 
 # populate table on YourData
 puts "Populating Annual Hourly Integrated Maxima - COP2 and Zone Table"
-(88..107).each do |i|
+(88..99).each do |i|
+  target_case = worksheet.sheet_data[i][15].value
+  puts "Adding row for #{target_case}"
+  # loop through columns for each case
+  columns.each_with_index do |column,j|
+    worksheet.sheet_data[i][j+16].change_contents(csv_hash[target_case][column])
+  end
+end
+
+# make array for columns on table
+columns = []
+columns << :bestest_ce_reportingapr_dec_cop2_max_cop2
+columns << :bestest_ce_reportingapr_dec_cop2_max_date
+columns << :bestest_ce_reportingapr_dec_cop2_max_hr
+columns << :bestest_ce_reportingapr_dec_cop2_min_cop2
+columns << :bestest_ce_reportingapr_dec_cop2_min_date
+columns << :bestest_ce_reportingapr_dec_cop2_min_hr
+columns << :bestest_ce_reportingapr_dec_idb_max_idb
+columns << :bestest_ce_reportingapr_dec_idb_max_date
+columns << :bestest_ce_reportingapr_dec_idb_max_hr
+columns << :bestest_ce_reportingapr_dec_idb_min_idb
+columns << :bestest_ce_reportingapr_dec_idb_min_date
+columns << :bestest_ce_reportingapr_dec_idb_min_hr
+columns << :bestest_ce_reportingapr_dec_hr_max_humidity_ratio
+columns << :bestest_ce_reportingapr_dec_hr_max_date
+columns << :bestest_ce_reportingapr_dec_hr_max_hr
+columns << :bestest_ce_reportingapr_dec_hr_min_humidity_ratio
+columns << :bestest_ce_reportingapr_dec_hr_min_date
+columns << :bestest_ce_reportingapr_dec_hr_min_hr
+columns << :bestest_ce_reportingapr_dec_rh_max_relative_humidity
+columns << :bestest_ce_reportingapr_dec_rh_max_date
+columns << :bestest_ce_reportingapr_dec_rh_max_hr
+columns << :bestest_ce_reportingapr_dec_rh_min_relative_humidity
+columns << :bestest_ce_reportingapr_dec_rh_min_date
+columns << :bestest_ce_reportingapr_dec_rh_min_hr
+
+# populate table on YourData
+puts "Populating Annual Hourly Integrated Maxima - COP2 and Zone Table"
+(100..107).each do |i|
   target_case = worksheet.sheet_data[i][15].value
   if target_case.include? "CE500" then target_case = "CE500" end # raw spreadsheet has extra space in cell
   puts "Adding row for #{target_case}"
