@@ -283,9 +283,9 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
 
     # set shadow calcs
     if case_num.include? "CE1" or case_num.include? "CE2"
-      shadow_calc_freq = model.getShadowCalculation
-      shadow_calc_freq.setCalculationFrequency(1)
+
     end
+
 
     # note: set interior solar distribution fractions isn't needed if E+ auto calcualtes it
 
@@ -296,6 +296,9 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
 
     # adding collection of ranges and timesteps for different variables
     hourly_var_feb = [] # used for Case 1xx and 2xx
+    # todo - update vars for subset of case 5xx to use partial year data
+    hourly_var_may_sept = [] # used for Case 500 and 510 (for avg)
+    hourly_var_april_dec = [] # used for Case 5xx (for min/max)
 
     # variables for all CE cases
     hourly_variables << 'Site Outdoor Air Drybulb Temperature'
@@ -374,6 +377,26 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     elsif case_num.include? "CE3"
       hourly_variables << 'System Node Temperature'
       hourly_variables << 'System Node Mass Flow Rate'
+
+      # adding same variables to CE3-5 as CD 1-2, but annualy instead of for February
+      hourly_variables << 'Air System Electric Energy' #J
+      hourly_variables << 'Air System DX Cooling Coil Electric Energy' #J
+      hourly_variables << 'Air System Fan Electric Energy' #J
+      # todo - can I get d directly or does d = a - b - c
+      hourly_variables << 'Cooling Coil Total Cooling Rate' #W
+      hourly_variables << 'Cooling Coil Sensible Cooling Rate' #W
+      hourly_variables << 'Cooling Coil Latent Cooling Rate' #W
+      hourly_variables << 'Unitary System Total Cooling Rate' #W
+      hourly_variables << 'Unitary System Sensible Cooling Rate' #W
+      hourly_variables << 'Unitary System Latent Cooling Rate' #W
+      hourly_variables << 'Zone Mean Air Temperature'
+      hourly_variables << 'Zone Mean Air Humidity Ratio'
+
+      # extra for 3x - 5x
+      hourly_variables << 'Zone Air Relative Humidity'
+      hourly_variables << 'Site Outdoor Air Drybulb Temperature'
+      hourly_variables << 'Site Outdoor Air Humidity Ratio'
+
     elsif case_num.include? "CE4" or case_num.include? "CE5"
       hourly_variables << 'System Node Temperature'
       hourly_variables << 'System Node Mass Flow Rate'
@@ -383,6 +406,26 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
       hourly_variables << 'Zone Other Equipment Latent Gain Energy'
       hourly_variables << 'Zone Other Equipment Lost Heat Energy'
       hourly_variables << 'Zone Other Equipment Total Heating Energy'
+
+      # adding same variables to CE3-5 as CD 1-2, but annualy instead of for February
+      hourly_variables << 'Air System Electric Energy' #J
+      hourly_variables << 'Air System DX Cooling Coil Electric Energy' #J
+      hourly_variables << 'Air System Fan Electric Energy' #J
+      # todo - can I get d directly or does d = a - b - c
+      hourly_variables << 'Cooling Coil Total Cooling Rate' #W
+      hourly_variables << 'Cooling Coil Sensible Cooling Rate' #W
+      hourly_variables << 'Cooling Coil Latent Cooling Rate' #W
+      hourly_variables << 'Unitary System Total Cooling Rate' #W
+      hourly_variables << 'Unitary System Sensible Cooling Rate' #W
+      hourly_variables << 'Unitary System Latent Cooling Rate' #W
+      hourly_variables << 'Zone Mean Air Temperature'
+      hourly_variables << 'Zone Mean Air Humidity Ratio'
+
+      # extra for 3x - 5x
+      hourly_variables << 'Zone Air Relative Humidity'
+      hourly_variables << 'Site Outdoor Air Drybulb Temperature'
+      hourly_variables << 'Site Outdoor Air Humidity Ratio'
+
     else
       runner.registerWarning("Unexpected Case Number")
     end
@@ -393,6 +436,14 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
 
     hourly_var_feb.each do |variable|
       BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly','02/01','02/29')
+    end
+
+    hourly_var_may_sept.each do |variable|
+      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly','05/01','09/30')
+    end
+
+    hourly_var_april_dec.each do |variable|
+      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly','04/01','12/31')
     end
 
 

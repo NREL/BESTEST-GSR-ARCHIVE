@@ -259,19 +259,77 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       # todo - add runner.registerValues for bestest reporting 5-3B (replace tbd with real values)
 
       # Annual Sums and Means Table
-      runner.registerValue('ann_sum_clg_energy_consumption_total','tbd')
-      runner.registerValue('ann_sum_clg_energy_consumption_compressor','tbd')
-      runner.registerValue('ann_sum_clg_energy_consumption_supply_fan','tbd')
+
+      # get clg_energy_consumption_total
+      key_value =  "BESTEST CE AIR LOOP"
+      variable_name = "Air System Electric Energy"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      total_cooling_energy_consumption_j = timeseries_hash
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
+      runner.registerValue('ann_sum_clg_energy_consumption_total',value_kwh)
+      # get clg_energy_consumption_compressor
+      variable_name = "Air System DX Cooling Coil Electric Energy"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
+      runner.registerValue('ann_sum_clg_energy_consumption_compressor',value_kwh)
+      # get clg_energy_consumption_supply_fan
+      variable_name = "Air System Fan Electric Energy"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
+      runner.registerValue('ann_sum_clg_energy_consumption_supply_fan',value_kwh)
+      # todo - can I get d directly or does d = a - b - c
       runner.registerValue('ann_sum_clg_energy_consumption_condenser_fan','tbd')
-      runner.registerValue('ann_sum_evap_coil_load_total','tbd')
-      runner.registerValue('ann_sum_evap_coil_load_sensible','tbd')
-      runner.registerValue('ann_sum_evap_coil_load_latent','tbd')
-      runner.registerValue('ann_mean_cop2','tbd')
-      runner.registerValue('ann_mean_idb','tbd')
-      runner.registerValue('ann_mean_zone_humidity_ratio','tbd')
-      runner.registerValue('ann_mean_zone_relative_humidity','tbd')
-      runner.registerValue('ann_mean_odb','tbd')
-      runner.registerValue('ann_mean_outdoor_humidity_ratio','tbd')
+
+      # get evaporator_coil_load_total
+      key_value =  "COIL COOLING DX SINGLE SPEED 1"
+      variable_name = "Cooling Coil Total Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
+      runner.registerValue('ann_sum_evap_coil_load_total',value_kwh)
+      # get evaporator_coil_load_sensible
+      variable_name = "Cooling Coil Sensible Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
+      runner.registerValue('ann_sum_evap_coil_load_sensible',value_kwh)
+      # get evaporator_coil_load_latent
+      variable_name = "Cooling Coil Latent Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      value_kwh = OpenStudio.convert(timeseries_hash[:sum],'Wh','kWh').get
+      runner.registerValue('ann_sum_evap_coil_load_latent',value_kwh)
+
+      # get zone_load_total (for net_refrigeration_effect_w)
+      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
+      variable_name = "Unitary System Total Cooling Rate"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      net_refrigeration_effect_w = timeseries_hash
+      # get cop
+      mean_cop = net_refrigeration_effect_w[:avg] / (total_cooling_energy_consumption_j[:avg]/3600.0) # W = J/s
+      runner.registerValue('ann_mean_cop2',mean_cop)
+      # get idb
+      key_value =  "ZONE ONE"
+      variable_name = "Zone Mean Air Temperature"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('ann_mean_idb',timeseries_hash[:avg])
+      # get humidity_ratio
+      key_value =  "ZONE ONE"
+      variable_name = "Zone Mean Air Humidity Ratio"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('ann_mean_zone_humidity_ratio',timeseries_hash[:avg])
+      # get relative_humidity
+      key_value =  "ZONE ONE"
+      variable_name = "Zone Air Relative Humidity"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('ann_mean_zone_relative_humidity',timeseries_hash[:avg])
+      # get site avg odb
+      key_value =  "Environment"
+      variable_name = "Site Outdoor Air Drybulb Temperature"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('ann_mean_odb',timeseries_hash[:avg])
+      # get site avg humidity ratio
+      key_value =  "Environment"
+      variable_name = "Site Outdoor Air Humidity Ratio"
+      timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('ann_mean_outdoor_humidity_ratio',timeseries_hash[:avg])
 
       runner.registerValue('may_sept_sum_clg_consumption_total','tbd')
       runner.registerValue('may_sept_sum_clg_consumption_compressor','tbd')
