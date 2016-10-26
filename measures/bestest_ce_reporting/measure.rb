@@ -144,10 +144,7 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       else
         runner.registerInfo("Found timeseries for #{variable_name}.")
         output_values = output_timeseries.get.values
-        puts "hello"
-        puts output_values
         output_times = output_timeseries.get.dateTimes
-        puts output_times
         array = []
         sum = 0.0
         min = nil
@@ -175,7 +172,7 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 
     end
 
-    # add runner.registerValues for bestest reporting 5-3A (replace tbd with real values)
+    # add runner.registerValues for bestest reporting 5-3A
     if model.getBuilding.name.to_s.include? "CE1" or model.getBuilding.name.to_s.include? "CE2"
 
       # get clg_energy_consumption_total
@@ -256,128 +253,131 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       runner.registerValue('feb_mean_humidity_ratio',timeseries_hash[:avg])
       runner.registerValue('feb_max_humidity_ratio',timeseries_hash[:max])
       runner.registerValue('feb_min_humidity_ratio',timeseries_hash[:min])
+
+    else
+
+      # todo - add runner.registerValues for bestest reporting 5-3B (replace tbd with real values)
+
+      # Annual Sums and Means Table
+      runner.registerValue('ann_sum_clg_energy_consumption_total','tbd')
+      runner.registerValue('ann_sum_clg_energy_consumption_compressor','tbd')
+      runner.registerValue('ann_sum_clg_energy_consumption_supply_fan','tbd')
+      runner.registerValue('ann_sum_clg_energy_consumption_condenser_fan','tbd')
+      runner.registerValue('ann_sum_evap_coil_load_total','tbd')
+      runner.registerValue('ann_sum_evap_coil_load_sensible','tbd')
+      runner.registerValue('ann_sum_evap_coil_load_latent','tbd')
+      runner.registerValue('ann_mean_cop2','tbd')
+      runner.registerValue('ann_mean_idb','tbd')
+      runner.registerValue('ann_mean_zone_humidity_ratio','tbd')
+      runner.registerValue('ann_mean_zone_relative_humidity','tbd')
+      runner.registerValue('ann_mean_odb','tbd')
+      runner.registerValue('ann_mean_outdoor_humidity_ratio','tbd')
+
+      runner.registerValue('may_sept_sum_clg_consumption_total','tbd')
+      runner.registerValue('may_sept_sum_clg_consumption_compressor','tbd')
+      runner.registerValue('may_sept_sum_clg_consumption_cond_fan','tbd')
+      runner.registerValue('may_sept_sum_clg_consumption_indoor_fan','tbd')
+      runner.registerValue('may_sept_sum_evap_coil_load_total','tbd')
+      runner.registerValue('may_sept_sum_evap_coil_load_sensible','tbd')
+      runner.registerValue('may_sept_sum_evap_coil_load_latent','tbd')
+      runner.registerValue('may_sept_mean_cop2','tbd')
+      runner.registerValue('may_sept_mean_idb','tbd')
+      runner.registerValue('may_sept_mean_zone_humidity_ratio','tbd')
+      runner.registerValue('may_sept_mean_zone_relative_humidity','tbd')
+
+      # Annual Hourly Integrated Maxima Consumptions and Loads Table
+      runner.registerValue('energy_consumption_comp_both_fans_wh','tbd')
+      runner.registerValue('energy_consumption_comp_both_fans_date','tbd')
+      runner.registerValue('energy_consumption_comp_both_fans_hr','tbd')
+      runner.registerValue('evap_coil_load_sensible_wh','tbd')
+      runner.registerValue('evap_coil_load_sensible_date','tbd')
+      runner.registerValue('evap_coil_load_sensible_hr','tbd')
+      runner.registerValue('evap_coil_load_latent_wh','tbd')
+      runner.registerValue('evap_coil_load_latent_date','tbd')
+      runner.registerValue('evap_coil_load_latent_hr','tbd')
+      runner.registerValue('evap_coil_load_sensible_and_latent_wh','tbd')
+      runner.registerValue('evap_coil_load_sensible_and_latent_date','tbd')
+      runner.registerValue('evap_coil_load_sensible_and_latent_hr','tbd')
+      runner.registerValue('weather_odb_c','tbd')
+      runner.registerValue('weather_odb_date','tbd')
+      runner.registerValue('weather_odb_hr','tbd')
+      runner.registerValue('weather_outdoor_humidity_ratio_c','tbd')
+      runner.registerValue('weather_outdoor_humidity_ratio_date','tbd')
+      runner.registerValue('weather_outdoor_humidity_ratio_hr','tbd')
+
+      # Annual Hourly Integrated Maxima - COP2 and Zone Table
+      runner.registerValue('cop2_max_cop2','tbd')
+      runner.registerValue('cop2_max_date','tbd')
+      runner.registerValue('cop2_max_hr','tbd')
+      runner.registerValue('cop2_min_cop2','tbd')
+      runner.registerValue('cop2_min_date','tbd')
+      runner.registerValue('cop2_min_hr','tbd')
+      runner.registerValue('idb_max_idb','tbd')
+      runner.registerValue('idb_max_date','tbd')
+      runner.registerValue('idb_max_hr','tbd')
+      runner.registerValue('idb_min_idb','tbd')
+      runner.registerValue('idb_min_date','tbd')
+      runner.registerValue('idb_min_hr','tbd')
+      runner.registerValue('hr_max_humidity_ratio','tbd')
+      runner.registerValue('hr_max_date','tbd')
+      runner.registerValue('hr_max_hr','tbd')
+      runner.registerValue('hr_min_humidity_ratio','tbd')
+      runner.registerValue('hr_min_date','tbd')
+      runner.registerValue('hr_min_hr','tbd')
+      runner.registerValue('rh_max_relative_humidity','tbd')
+      runner.registerValue('rh_max_date','tbd')
+      runner.registerValue('rh_max_hr','tbd')
+      runner.registerValue('rh_min_relative_humidity','tbd')
+      runner.registerValue('rh_min_date','tbd')
+      runner.registerValue('rh_min_hr','tbd')
+
+      # temp array of 24 tbd strings
+      hourly_single_day_array = []
+      24.times.each do |i|
+        hourly_single_day_array << 'tbd'
+      end
+
+      # make string from array.
+      hourly_single_day_array = hourly_single_day_array.join(',')
+
+      # Case 300 June 28th Hourly Table
+      runner.registerValue('0628_hourly_energy_consumpton_compressor',hourly_single_day_array)
+      runner.registerValue('0628_hourly_energy_consumpton_cond_fan',hourly_single_day_array)
+      runner.registerValue('0628_hourly_evaporator_coil_load_total',hourly_single_day_array)
+      runner.registerValue('0628_hourly_evaporator_coil_load_sensible',hourly_single_day_array)
+      runner.registerValue('0628_hourly_evaporator_coil_load_latent',hourly_single_day_array)
+      runner.registerValue('0628_hourly_zone_humidity_ratio',hourly_single_day_array)
+      runner.registerValue('0628_hourly_cop2',hourly_single_day_array)
+      runner.registerValue('0628_hourly_odb',hourly_single_day_array)
+      runner.registerValue('0628_hourly_edb',hourly_single_day_array)
+      runner.registerValue('0628_hourly_ewb',hourly_single_day_array)
+      runner.registerValue('0628_hourly_outdoor_humidity_ratio',hourly_single_day_array)
+
+      # Case 500 and 530 Average Daily Outputs
+      runner.registerValue('0430_day_energy_consumption_total','tbd')
+      runner.registerValue('0430_day_energy_consumption_compressor','tbd')
+      runner.registerValue('0430_day_energy_consumption_supply_fan','tbd')
+      runner.registerValue('0430_day_energy_consumption_condenser_fan','tbd')
+      runner.registerValue('0430_day_evaporator_coil_load_total','tbd')
+      runner.registerValue('0430_day_evaporator_coil_load_sensible','tbd')
+      runner.registerValue('0430_day_evaporator_coil_load_latent','tbd')
+      runner.registerValue('0430_day_zone_humidity_ratio','tbd')
+      runner.registerValue('0430_day_cop2','tbd')
+      runner.registerValue('0430_day_odb','tbd')
+      runner.registerValue('0430_day_edb','tbd')
+      runner.registerValue('0625_day_energy_consumption_total','tbd')
+      runner.registerValue('0625_day_energy_consumption_compressor','tbd')
+      runner.registerValue('0625_day_energy_consumption_supply_fan','tbd')
+      runner.registerValue('0625_day_energy_consumption_condenser_fan','tbd')
+      runner.registerValue('0625_day_evaporator_coil_load_total','tbd')
+      runner.registerValue('0625_day_evaporator_coil_load_sensible','tbd')
+      runner.registerValue('0625_day_evaporator_coil_load_latent','tbd')
+      runner.registerValue('0625_day_zone_humidity_ratio','tbd')
+      runner.registerValue('0625_day_cop2','tbd')
+      runner.registerValue('0625_day_odb','tbd')
+      runner.registerValue('0625_day_edb','tbd')
+
     end
-
-    # todo - add runner.registerValues for bestest reporting 5-3B (replace tbd with real values)
-
-    # Annual Sums and Means Table
-    runner.registerValue('ann_sum_clg_energy_consumption_total','tbd')
-    runner.registerValue('ann_sum_clg_energy_consumption_compressor','tbd')
-    runner.registerValue('ann_sum_clg_energy_consumption_supply_fan','tbd')
-    runner.registerValue('ann_sum_clg_energy_consumption_condenser_fan','tbd')
-    runner.registerValue('ann_sum_evap_coil_load_total','tbd')
-    runner.registerValue('ann_sum_evap_coil_load_sensible','tbd')
-    runner.registerValue('ann_sum_evap_coil_load_latent','tbd')
-    runner.registerValue('ann_mean_cop2','tbd')
-    runner.registerValue('ann_mean_idb','tbd')
-    runner.registerValue('ann_mean_zone_humidity_ratio','tbd')
-    runner.registerValue('ann_mean_zone_relative_humidity','tbd')
-    runner.registerValue('ann_mean_odb','tbd')
-    runner.registerValue('ann_mean_outdoor_humidity_ratio','tbd')
-
-    runner.registerValue('may_sept_sum_clg_consumption_total','tbd')
-    runner.registerValue('may_sept_sum_clg_consumption_compressor','tbd')
-    runner.registerValue('may_sept_sum_clg_consumption_cond_fan','tbd')
-    runner.registerValue('may_sept_sum_clg_consumption_indoor_fan','tbd')
-    runner.registerValue('may_sept_sum_evap_coil_load_total','tbd')
-    runner.registerValue('may_sept_sum_evap_coil_load_sensible','tbd')
-    runner.registerValue('may_sept_sum_evap_coil_load_latent','tbd')
-    runner.registerValue('may_sept_mean_cop2','tbd')
-    runner.registerValue('may_sept_mean_idb','tbd')
-    runner.registerValue('may_sept_mean_zone_humidity_ratio','tbd')
-    runner.registerValue('may_sept_mean_zone_relative_humidity','tbd')
-
-    # Annual Hourly Integrated Maxima Consumptions and Loads Table
-    runner.registerValue('energy_consumption_comp_both_fans_wh','tbd')
-    runner.registerValue('energy_consumption_comp_both_fans_date','tbd')
-    runner.registerValue('energy_consumption_comp_both_fans_hr','tbd')
-    runner.registerValue('evap_coil_load_sensible_wh','tbd')
-    runner.registerValue('evap_coil_load_sensible_date','tbd')
-    runner.registerValue('evap_coil_load_sensible_hr','tbd')
-    runner.registerValue('evap_coil_load_latent_wh','tbd')
-    runner.registerValue('evap_coil_load_latent_date','tbd')
-    runner.registerValue('evap_coil_load_latent_hr','tbd')
-    runner.registerValue('evap_coil_load_sensible_and_latent_wh','tbd')
-    runner.registerValue('evap_coil_load_sensible_and_latent_date','tbd')
-    runner.registerValue('evap_coil_load_sensible_and_latent_hr','tbd')
-    runner.registerValue('weather_odb_c','tbd')
-    runner.registerValue('weather_odb_date','tbd')
-    runner.registerValue('weather_odb_hr','tbd')
-    runner.registerValue('weather_outdoor_humidity_ratio_c','tbd')
-    runner.registerValue('weather_outdoor_humidity_ratio_date','tbd')
-    runner.registerValue('weather_outdoor_humidity_ratio_hr','tbd')
-
-    # Annual Hourly Integrated Maxima - COP2 and Zone Table
-    runner.registerValue('cop2_max_cop2','tbd')
-    runner.registerValue('cop2_max_date','tbd')
-    runner.registerValue('cop2_max_hr','tbd')
-    runner.registerValue('cop2_min_cop2','tbd')
-    runner.registerValue('cop2_min_date','tbd')
-    runner.registerValue('cop2_min_hr','tbd')
-    runner.registerValue('idb_max_idb','tbd')
-    runner.registerValue('idb_max_date','tbd')
-    runner.registerValue('idb_max_hr','tbd')
-    runner.registerValue('idb_min_idb','tbd')
-    runner.registerValue('idb_min_date','tbd')
-    runner.registerValue('idb_min_hr','tbd')
-    runner.registerValue('hr_max_humidity_ratio','tbd')
-    runner.registerValue('hr_max_date','tbd')
-    runner.registerValue('hr_max_hr','tbd')
-    runner.registerValue('hr_min_humidity_ratio','tbd')
-    runner.registerValue('hr_min_date','tbd')
-    runner.registerValue('hr_min_hr','tbd')
-    runner.registerValue('rh_max_relative_humidity','tbd')
-    runner.registerValue('rh_max_date','tbd')
-    runner.registerValue('rh_max_hr','tbd')
-    runner.registerValue('rh_min_relative_humidity','tbd')
-    runner.registerValue('rh_min_date','tbd')
-    runner.registerValue('rh_min_hr','tbd')
-
-    # temp array of 24 tbd strings
-    hourly_single_day_array = []
-    24.times.each do |i|
-      hourly_single_day_array << 'tbd'
-    end
-
-    # make string from array.
-    hourly_single_day_array = hourly_single_day_array.join(',')
-
-    # Case 300 June 28th Hourly Table
-    runner.registerValue('0628_hourly_energy_consumpton_compressor',hourly_single_day_array)
-    runner.registerValue('0628_hourly_energy_consumpton_cond_fan',hourly_single_day_array)
-    runner.registerValue('0628_hourly_evaporator_coil_load_total',hourly_single_day_array)
-    runner.registerValue('0628_hourly_evaporator_coil_load_sensible',hourly_single_day_array)
-    runner.registerValue('0628_hourly_evaporator_coil_load_latent',hourly_single_day_array)
-    runner.registerValue('0628_hourly_zone_humidity_ratio',hourly_single_day_array)
-    runner.registerValue('0628_hourly_cop2',hourly_single_day_array)
-    runner.registerValue('0628_hourly_odb',hourly_single_day_array)
-    runner.registerValue('0628_hourly_edb',hourly_single_day_array)
-    runner.registerValue('0628_hourly_ewb',hourly_single_day_array)
-    runner.registerValue('0628_hourly_outdoor_humidity_ratio',hourly_single_day_array)
-
-    # Case 500 and 530 Average Daily Outputs
-    runner.registerValue('0430_day_energy_consumption_total','tbd')
-    runner.registerValue('0430_day_energy_consumption_compressor','tbd')
-    runner.registerValue('0430_day_energy_consumption_supply_fan','tbd')
-    runner.registerValue('0430_day_energy_consumption_condenser_fan','tbd')
-    runner.registerValue('0430_day_evaporator_coil_load_total','tbd')
-    runner.registerValue('0430_day_evaporator_coil_load_sensible','tbd')
-    runner.registerValue('0430_day_evaporator_coil_load_latent','tbd')
-    runner.registerValue('0430_day_zone_humidity_ratio','tbd')
-    runner.registerValue('0430_day_cop2','tbd')
-    runner.registerValue('0430_day_odb','tbd')
-    runner.registerValue('0430_day_edb','tbd')
-    runner.registerValue('0625_day_energy_consumption_total','tbd')
-    runner.registerValue('0625_day_energy_consumption_compressor','tbd')
-    runner.registerValue('0625_day_energy_consumption_supply_fan','tbd')
-    runner.registerValue('0625_day_energy_consumption_condenser_fan','tbd')
-    runner.registerValue('0625_day_evaporator_coil_load_total','tbd')
-    runner.registerValue('0625_day_evaporator_coil_load_sensible','tbd')
-    runner.registerValue('0625_day_evaporator_coil_load_latent','tbd')
-    runner.registerValue('0625_day_zone_humidity_ratio','tbd')
-    runner.registerValue('0625_day_cop2','tbd')
-    runner.registerValue('0625_day_odb','tbd')
-    runner.registerValue('0625_day_edb','tbd')
 
     # close the sql file
     sqlFile.close()
