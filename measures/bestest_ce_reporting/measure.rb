@@ -574,6 +574,17 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 
       end
 
+      # loop to gather hourly data as string from 0628
+      def avg_from_hourly_values(output_timeseries,target_date)
+
+        array = hourly_values(output_timeseries,target_date).split(',')
+        array.map! {|item| item.to_f}
+        avg = array.reduce(0, :+)/array.size
+
+        return avg
+
+      end
+
       # Case 300 June 28th Hourly Table
 
       # get clg_energy_consumption_compressor
@@ -637,27 +648,109 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       runner.registerValue('0628_hourly_outdoor_humidity_ratio',hourly_values(output_timeseries,'2009-06-28'))
 
       # Case 500 and 530 Average Daily Outputs
-      runner.registerValue('0430_day_energy_consumption_total','tbd')
-      runner.registerValue('0430_day_energy_consumption_compressor','tbd')
-      runner.registerValue('0430_day_energy_consumption_supply_fan','tbd')
+
+      # get clg_energy_consumption_total
+      key_value =  "BESTEST CE AIR LOOP"
+      variable_name = "Air System Electric Energy"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      runner.registerValue('0430_day_energy_consumption_total',avg)
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      runner.registerValue('0625_day_energy_consumption_total',avg)
+      # get clg_energy_consumption_compressor
+      variable_name = "Air System DX Cooling Coil Electric Energy"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      runner.registerValue('0430_day_energy_consumption_compressor',avg)
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      runner.registerValue('0625_day_energy_consumption_compressor',avg)
+      # get clg_energy_consumption_supply_fan
+      variable_name = "Air System Fan Electric Energy"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      runner.registerValue('0430_day_energy_consumption_supply_fan',avg)
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      runner.registerValue('0625_day_energy_consumption_supply_fan',avg)
+
       runner.registerValue('0430_day_energy_consumption_condenser_fan','tbd')
-      runner.registerValue('0430_day_evaporator_coil_load_total','tbd')
-      runner.registerValue('0430_day_evaporator_coil_load_sensible','tbd')
-      runner.registerValue('0430_day_evaporator_coil_load_latent','tbd')
-      runner.registerValue('0430_day_zone_humidity_ratio','tbd')
-      runner.registerValue('0430_day_cop2','tbd')
-      runner.registerValue('0430_day_odb','tbd')
-      runner.registerValue('0430_day_edb','tbd')
-      runner.registerValue('0625_day_energy_consumption_total','tbd')
-      runner.registerValue('0625_day_energy_consumption_compressor','tbd')
-      runner.registerValue('0625_day_energy_consumption_supply_fan','tbd')
       runner.registerValue('0625_day_energy_consumption_condenser_fan','tbd')
-      runner.registerValue('0625_day_evaporator_coil_load_total','tbd')
-      runner.registerValue('0625_day_evaporator_coil_load_sensible','tbd')
-      runner.registerValue('0625_day_evaporator_coil_load_latent','tbd')
-      runner.registerValue('0625_day_zone_humidity_ratio','tbd')
-      runner.registerValue('0625_day_cop2','tbd')
-      runner.registerValue('0625_day_odb','tbd')
+
+      # get evaporator_coil_load_total
+      key_value =  "COIL COOLING DX SINGLE SPEED 1"
+      variable_name = "Cooling Coil Total Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      runner.registerValue('0430_day_evaporator_coil_load_total',avg)
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      runner.registerValue('0625_day_evaporator_coil_load_total',avg)
+      # get evaporator_coil_load_sensible
+      variable_name = "Cooling Coil Sensible Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      runner.registerValue('0430_day_evaporator_coil_load_sensible',avg)
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      runner.registerValue('0625_day_evaporator_coil_load_sensible',avg)
+      # get evaporator_coil_load_latent
+      variable_name = "Cooling Coil Latent Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      runner.registerValue('0430_day_evaporator_coil_load_latent',avg)
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      runner.registerValue('0625_day_evaporator_coil_load_latent',avg)
+
+      # get humidity_ratio
+      key_value =  "ZONE ONE"
+      variable_name = "Zone Mean Air Humidity Ratio"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      runner.registerValue('0430_day_zone_humidity_ratio',avg)
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      runner.registerValue('0625_day_zone_humidity_ratio',avg)
+
+      # get clg_energy_consumption_total (for cop calc)
+      key_value =  "BESTEST CE AIR LOOP"
+      variable_name = "Air System Electric Energy"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      total_cooling_energy_consumption_j_array = hourly_values(output_timeseries,'2009-04-30').split(",")
+      # get zone_load_total (for net_refrigeration_effect_w)
+      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
+      variable_name = "Unitary System Total Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      net_refrigeration_effect_w_array = hourly_values(output_timeseries,'2009-04-30').split(",")
+      # calculate 24 cop
+      cop_24 = []
+      total_cooling_energy_consumption_j_array.size.times.each do |i|
+        cop_24 << net_refrigeration_effect_w_array[i].to_f / (total_cooling_energy_consumption_j_array[i].to_f/3600.0) # W = J/s
+      end
+      runner.registerValue('0430_day_cop2',cop_24.reduce(0, :+)/cop_24.size)
+
+      # get clg_energy_consumption_total (for cop calc)
+      key_value =  "BESTEST CE AIR LOOP"
+      variable_name = "Air System Electric Energy"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      total_cooling_energy_consumption_j_array = hourly_values(output_timeseries,'2009-06-25').split(",")
+      # get zone_load_total (for net_refrigeration_effect_w)
+      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
+      variable_name = "Unitary System Total Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      net_refrigeration_effect_w_array = hourly_values(output_timeseries,'2009-06-25').split(",")
+      # calculate 24 cop
+      cop_24 = []
+      total_cooling_energy_consumption_j_array.size.times.each do |i|
+        cop_24 << net_refrigeration_effect_w_array[i].to_f / (total_cooling_energy_consumption_j_array[i].to_f/3600.0) # W = J/s
+      end
+      runner.registerValue('0625_day_cop2',cop_24.reduce(0, :+)/cop_24.size)
+
+      # get site avg odb
+      key_value =  "Environment"
+      variable_name = "Site Outdoor Air Drybulb Temperature"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      runner.registerValue('0430_day_odb',avg)
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      runner.registerValue('0625_day_odb',avg)
+
+      runner.registerValue('0430_day_edb','tbd')
       runner.registerValue('0625_day_edb','tbd')
 
     end
