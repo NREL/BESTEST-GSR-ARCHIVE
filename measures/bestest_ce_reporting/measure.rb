@@ -554,22 +554,87 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       24.times.each do |i|
         hourly_single_day_array << 'tbd'
       end
-
-      # make string from array.
       hourly_single_day_array = hourly_single_day_array.join(',')
 
+      # loop to gather hourly data as string from 0628
+      def hourly_values(output_timeseries,target_date)
+
+        hourly_single_day_array = []
+        24.times.each do |i|
+          date_string = "#{target_date} #{i+1}:00:00.000"
+          date_time = OpenStudio::DateTime.new(date_string)
+          val_at_date_time = output_timeseries.get.value(date_time)
+          value = OpenStudio.convert(val_at_date_time, 'J', 'Wh').get
+          hourly_single_day_array << value
+
+        end
+        hourly_single_day_array = hourly_single_day_array.join(',')
+
+        return hourly_single_day_array
+
+      end
+
       # Case 300 June 28th Hourly Table
-      runner.registerValue('0628_hourly_energy_consumpton_compressor',hourly_single_day_array)
-      runner.registerValue('0628_hourly_energy_consumpton_cond_fan',hourly_single_day_array)
-      runner.registerValue('0628_hourly_evaporator_coil_load_total',hourly_single_day_array)
-      runner.registerValue('0628_hourly_evaporator_coil_load_sensible',hourly_single_day_array)
-      runner.registerValue('0628_hourly_evaporator_coil_load_latent',hourly_single_day_array)
-      runner.registerValue('0628_hourly_zone_humidity_ratio',hourly_single_day_array)
-      runner.registerValue('0628_hourly_cop2',hourly_single_day_array)
-      runner.registerValue('0628_hourly_odb',hourly_single_day_array)
+
+      # get clg_energy_consumption_compressor
+      key_value =  "BESTEST CE AIR LOOP"
+      variable_name = "Air System DX Cooling Coil Electric Energy"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_energy_consumpton_compressor',hourly_values(output_timeseries,'2009-06-28'))
+      # get clg_energy_consumption_supply_fan
+      variable_name = "Air System Fan Electric Energy"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_energy_consumpton_cond_fan',hourly_values(output_timeseries,'2009-06-28'))
+      # get evaporator_coil_load_total
+      key_value =  "COIL COOLING DX SINGLE SPEED 1"
+      variable_name = "Cooling Coil Total Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_evaporator_coil_load_total',hourly_values(output_timeseries,'2009-06-28'))
+      # get evaporator_coil_load_sensible
+      variable_name = "Cooling Coil Sensible Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_evaporator_coil_load_sensible',hourly_values(output_timeseries,'2009-06-28'))
+      # get evaporator_coil_load_latent
+      variable_name = "Cooling Coil Latent Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_evaporator_coil_load_latent',hourly_values(output_timeseries,'2009-06-28'))
+      # get humidity_ratio
+      key_value =  "ZONE ONE"
+      variable_name = "Zone Mean Air Humidity Ratio"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_zone_humidity_ratio',hourly_values(output_timeseries,'2009-06-28'))
+
+      # get clg_energy_consumption_total (for cop calc)
+      key_value =  "BESTEST CE AIR LOOP"
+      variable_name = "Air System Electric Energy"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      total_cooling_energy_consumption_j_array = hourly_values(output_timeseries,'2009-06-28').split(",")
+      # get zone_load_total (for net_refrigeration_effect_w)
+      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
+      variable_name = "Unitary System Total Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      net_refrigeration_effect_w_array = hourly_values(output_timeseries,'2009-06-28').split(",")
+      # calculate 24 cop
+      cop_24 = []
+      total_cooling_energy_consumption_j_array.size.times.each do |i|
+        cop_24 << net_refrigeration_effect_w_array[i].to_f / (total_cooling_energy_consumption_j_array[i].to_f/3600.0) # W = J/s
+      end
+      runner.registerValue('0628_hourly_cop2',cop_24.join(","))
+
+      # get site odb
+      key_value =  "Environment"
+      variable_name = "Site Outdoor Air Drybulb Temperature"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_odb',hourly_values(output_timeseries,'2009-06-28'))
+
+      # todo - what is e in edb and ewb
       runner.registerValue('0628_hourly_edb',hourly_single_day_array)
       runner.registerValue('0628_hourly_ewb',hourly_single_day_array)
-      runner.registerValue('0628_hourly_outdoor_humidity_ratio',hourly_single_day_array)
+
+      # get site avg humidity ratio
+      variable_name = "Site Outdoor Air Humidity Ratio"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_outdoor_humidity_ratio',hourly_values(output_timeseries,'2009-06-28'))
 
       # Case 500 and 530 Average Daily Outputs
       runner.registerValue('0430_day_energy_consumption_total','tbd')

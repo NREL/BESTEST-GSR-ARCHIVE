@@ -339,9 +339,6 @@ columns.each_with_index do |column,j|
   worksheet.sheet_data[129][j+1].change_contents(csv_hash['CE530'][column])
 end
 
-# todo - pouplate table
-puts "Case 530 Average Daily Outputs"
-
 # Save Updated Excel File
 puts "Saving #{copy_results_5_3b}"
 workbook.write(copy_results_5_3b)
