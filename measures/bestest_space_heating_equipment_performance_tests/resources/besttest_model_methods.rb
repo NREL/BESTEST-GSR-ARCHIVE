@@ -202,14 +202,10 @@ module BestestModelMethods
       fan.setFanEfficiency(1.0)
       fan.setPressureRise(0.0)
       fan.setMotorEfficiency(1.0)
-    elsif variable_hash[:circ_fan_power] == 200.0 and variable_hash[:circ_fan_type] == "cont"
+    elsif variable_hash[:circ_fan_power] == 200.0
       fan.setFanEfficiency(0.441975)
       fan.setPressureRise(249.0)
       fan.setMotorEfficiency(0.441975)
-    elsif variable_hash[:circ_fan_power] == 200.0 and variable_hash[:circ_fan_type] == "cyclic"
-      fan.setFanEfficiency(0.441975)
-      fan.setPressureRise(249.0)
-      fan.setMotorEfficiency(0.9)
     else
       runner.registerError("Unexpected circulating fan variable values")
       returnf false
@@ -226,6 +222,10 @@ module BestestModelMethods
     unitary_system.setSupplyAirFlowRateMethodDuringHeatingOperation('SupplyAirFlowRate')
     unitary_system.setSupplyAirFlowRateDuringHeatingOperation(air_flow_rate)
     unitary_system.setControllingZoneorThermostatLocation(zone)
+    # set mode schedule when not cyclic
+    if variable_hash[:circ_fan_type] == "cont"
+      unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
+    end
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone

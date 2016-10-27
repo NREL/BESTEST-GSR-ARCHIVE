@@ -1258,7 +1258,7 @@ module BestestCaseVarLib
         :ss_eff => 80.0,
         :plr => [0.0,0.8],
         :circ_fan_power => 200.0,
-        :circ_fan_type => 'cyclic',
+        :circ_fan_type => 'cont',
         :draft_fan_power => 50.0,
         :draft_fan_type => 'cyclic'
     ]

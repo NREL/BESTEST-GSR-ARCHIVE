@@ -190,8 +190,27 @@ class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
       runner.registerWarning('Did not find value for fan end use.')
       return false
     else
-      runner.registerValue('fan_energy',OpenStudio.convert(query_results.get,'GJ','kWh').get,'kWh')
+      circulating_fan = OpenStudio.convert(query_results.get,'GJ','kWh').get
     end
+
+    # draft fan run as parasitic load on heating coil
+    query = 'SELECT Value FROM tabulardatawithstrings WHERE '
+    query << "ReportName='AnnualBuildingUtilityPerformanceSummary' and "
+    query << "ReportForString='Entire Facility' and "
+    query << "TableName='End Uses' and "
+    query << "RowName='Heating' and "
+    query << "ColumnName='Electricity' and "
+    query << "Units='GJ';"
+    query_results = sqlFile.execAndReturnFirstDouble(query)
+    if query_results.empty?
+      runner.registerWarning('Did not find value for fan end use.')
+      return false
+    else
+      draft_fan = OpenStudio.convert(query_results.get,'GJ','kWh').get
+    end
+
+    runner.registerValue('fan_energy',circulating_fan + draft_fan,'kWh')
+
 
     # get time series data for main zone
     array_temps = []

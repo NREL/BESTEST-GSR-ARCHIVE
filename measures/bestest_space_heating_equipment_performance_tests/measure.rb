@@ -239,17 +239,8 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables << 'System Node Temperature'
     hourly_variables << 'System Node Mass Flow Rate'
 
-    # adding run_period variables as needed
-
-    # variables for HE150-170
-    if case_num.include? "HE150" ||"HE160" || "HE170"
-      # fan variables needed already in generic list
-    end
-
-    # variables for HE210-230
-    if case_num.include? "HE210" ||"HE220" || "HE230"
-      # zone air temperature variables needed already in generic list
-    end
+    # parasitic heating coil output that represents draft fan
+    hourly_variables << 'Heating Coil Electric Power'
 
     hourly_variables.each do |variable|
       BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly')
