@@ -486,7 +486,7 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 
       # get supply_fan
       key_value =  "BESTEST CE AIR LOOP"
-      variable_name = "Air System Fan Electric Energy"
+      variable_name = "Air System Electric Energy"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
       value_wh = OpenStudio.convert(timeseries_hash[:max],'J','Wh').get
       runner.registerValue('energy_consumption_comp_both_fans_wh',value_wh)
