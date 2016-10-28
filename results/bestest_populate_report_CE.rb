@@ -295,6 +295,9 @@ puts "Populating Case 300 June 28th Hourly Table"
 columns.each_with_index do |column,j|
   array = csv_hash['CE300'][column].split(',')
   array.each_with_index do |hourly_value,i|
+    if not hourly_value == "tbd"
+      hourly_value = hourly_value.to_f
+    end
     worksheet.sheet_data[i+88][j+1].change_contents(hourly_value)
   end
 end

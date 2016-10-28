@@ -649,14 +649,14 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       hourly_single_day_array = hourly_single_day_array.join(',')
 
       # loop to gather hourly data as string from 0628
-      def hourly_values(output_timeseries,target_date)
+      def hourly_values(output_timeseries,target_date,source_unit = '',target_unit = '')
 
         hourly_single_day_array = []
         24.times.each do |i|
           date_string = "#{target_date} #{i+1}:00:00.000"
           date_time = OpenStudio::DateTime.new(date_string)
           val_at_date_time = output_timeseries.get.value(date_time)
-          value = OpenStudio.convert(val_at_date_time, 'J', 'Wh').get
+          value = OpenStudio.convert(val_at_date_time, source_unit, target_unit).get
           hourly_single_day_array << value
 
         end
@@ -667,9 +667,9 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       end
 
       # loop to gather hourly data as string from 0628
-      def avg_from_hourly_values(output_timeseries,target_date)
+      def avg_from_hourly_values(output_timeseries,target_date,source_unit = '',target_unit = '')
 
-        array = hourly_values(output_timeseries,target_date).split(',')
+        array = hourly_values(output_timeseries,target_date,source_unit,target_unit).split(',')
         array.map! {|item| item.to_f}
         avg = array.reduce(0, :+)/array.size
 
@@ -683,11 +683,11 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       key_value =  "BESTEST CE AIR LOOP"
       variable_name = "Air System DX Cooling Coil Electric Energy"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      runner.registerValue('0628_hourly_energy_consumpton_compressor',hourly_values(output_timeseries,'2009-06-28'))
+      runner.registerValue('0628_hourly_energy_consumpton_compressor',hourly_values(output_timeseries,'2009-06-28','J','Wh'))
       # get clg_energy_consumption_supply_fan
       variable_name = "Air System Fan Electric Energy"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      runner.registerValue('0628_hourly_energy_consumpton_cond_fan',hourly_values(output_timeseries,'2009-06-28'))
+      runner.registerValue('0628_hourly_energy_consumpton_cond_fan',hourly_values(output_timeseries,'2009-06-28','J','Wh'))
       # get evaporator_coil_load_total
       key_value =  "COIL COOLING DX SINGLE SPEED 1"
       variable_name = "Cooling Coil Total Cooling Rate"
@@ -745,23 +745,23 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       key_value =  "BESTEST CE AIR LOOP"
       variable_name = "Air System Electric Energy"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30','J', 'Wh')
       runner.registerValue('0430_day_energy_consumption_total',avg)
-      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25','J', 'Wh')
       runner.registerValue('0625_day_energy_consumption_total',avg)
       # get clg_energy_consumption_compressor
       variable_name = "Air System DX Cooling Coil Electric Energy"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30','J', 'Wh')
       runner.registerValue('0430_day_energy_consumption_compressor',avg)
-      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25','J', 'Wh')
       runner.registerValue('0625_day_energy_consumption_compressor',avg)
       # get clg_energy_consumption_supply_fan
       variable_name = "Air System Fan Electric Energy"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30','J', 'Wh')
       runner.registerValue('0430_day_energy_consumption_supply_fan',avg)
-      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25','J', 'Wh')
       runner.registerValue('0625_day_energy_consumption_supply_fan',avg)
 
       runner.registerValue('0430_day_energy_consumption_condenser_fan','tbd')
