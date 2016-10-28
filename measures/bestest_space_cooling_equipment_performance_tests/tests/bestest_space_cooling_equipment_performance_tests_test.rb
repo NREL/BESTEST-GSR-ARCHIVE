@@ -60,6 +60,13 @@ class BESTESTSpaceCoolingEquipmentPerformanceTestsTest < MiniTest::Unit::TestCas
     # save the model to test output directory
     output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/CE100_test_output.osm")
     model.save(output_file_path,true)
+
+    # forward translate OSM file to IDF file
+    ft = OpenStudio::EnergyPlus::ForwardTranslator.new
+    workspace = ft.translateModel(model)
+    output_file_path_idf = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/CE100_test_output.idf")
+    workspace.save(output_file_path_idf,true)
+
   end
 
   def test_case_ce200
@@ -160,6 +167,13 @@ class BESTESTSpaceCoolingEquipmentPerformanceTestsTest < MiniTest::Unit::TestCas
     # save the model to test output directory
     output_file_path = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/CE300_test_output.osm")
     model.save(output_file_path,true)
+
+    # forward translate OSM file to IDF file
+    ft = OpenStudio::EnergyPlus::ForwardTranslator.new
+    workspace = ft.translateModel(model)
+    output_file_path_idf = OpenStudio::Path.new(File.dirname(__FILE__) + "/output/CE300_test_output.idf")
+    workspace.save(output_file_path_idf,true)
+
   end
 
   def test_case_ce_310
