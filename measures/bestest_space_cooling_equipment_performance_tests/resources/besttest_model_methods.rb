@@ -257,6 +257,7 @@ module BestestModelMethods
 
     # create always on schedule
     always_on = model.alwaysOnDiscreteSchedule
+    always_off = model.alwaysOffDiscreteSchedule
 
     # default airflow rate by case
     if (case_num.include?('CE1') || case_num.include?('CE2'))
@@ -448,8 +449,10 @@ module BestestModelMethods
     unitary_system.setControllingZoneorThermostatLocation(zone)
 
     # set to always on for 3x - 5x
-    if !(case_num.include?('CE1') || case_num.include?('CE2'))
+    if !(case_num.include?('CE1') || case_num.include?('CE2') || case_num.include?('CE5'))
       unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
+    else
+      unitary_system.setSupplyAirFanOperatingModeSchedule(always_off)
     end
 
     # Add the components to the air loop
