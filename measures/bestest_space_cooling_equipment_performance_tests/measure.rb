@@ -296,9 +296,6 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
 
     # adding collection of ranges and timesteps for different variables
     hourly_var_feb = [] # used for Case 1xx and 2xx
-    # todo - update vars for subset of case 5xx to use partial year data
-    hourly_var_may_sept = [] # used for Case 500 and 510 (for avg)
-    hourly_var_april_dec = [] # used for Case 5xx (for min/max)
 
     # variables for all CE cases
     hourly_variables << 'Site Outdoor Air Drybulb Temperature'
@@ -435,16 +432,13 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     end
 
     hourly_var_feb.each do |variable|
-      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly','02/01','02/29')
+      # note: reporting entire runperiod and wil grab feb resutls in post processing
+      #BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly','02/01','02/29')
+
+      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly')
+
     end
 
-    hourly_var_may_sept.each do |variable|
-      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly','05/01','09/30')
-    end
-
-    hourly_var_april_dec.each do |variable|
-      BestestModelMethods.add_output_variable(runner,model,nil,variable,'hourly','04/01','12/31')
-    end
 
 
     # report final condition of model
