@@ -20,6 +20,12 @@ module BestestModelMethods
       ground_constructions = const_set.defaultGroundContactSurfaceConstructions.get
       floor = ground_constructions.floorConstruction.get.to_LayeredConstruction.get
       interior_materials << floor.layers.last.to_OpaqueMaterial.get
+
+      # process opaque sub-surfaces
+      ext_sub_surface_constructions = const_set.defaultExteriorSubSurfaceConstructions.get
+      ext_door = ext_sub_surface_constructions.doorConstruction.get.to_LayeredConstruction.get
+      exterior_materials << ext_door.layers.first.to_OpaqueMaterial.get
+      interior_materials << ext_door.layers.last.to_OpaqueMaterial.get
     end
 
     # alter materials (ok to alter in place since no materials used on interior and exterior)
@@ -28,16 +34,16 @@ module BestestModelMethods
       if !variable_hash[:int_sw_absorpt].nil?
         int_opt_double = OpenStudio::OptionalDouble.new(variable_hash[:int_sw_absorpt])
         int_mat.setSolarAbsorptance(int_opt_double)
-        int_mat.setSolarAbsorptance(int_opt_double)
+        int_mat.setVisibleAbsorptance(int_opt_double)
       end
       altered_materials << int_mat
     end
     exterior_materials.uniq.each do |ext_mat|
       ext_mat.setThermalAbsorptance(variable_hash[:ext_ir_emit])
-      if !variable_hash[:int_sw_absorpt].nil?
+      if !variable_hash[:ext_sw_absorpt].nil?
         ext_opt_double = OpenStudio::OptionalDouble.new(variable_hash[:ext_sw_absorpt])
         ext_mat.setSolarAbsorptance(ext_opt_double)
-        ext_mat.setSolarAbsorptance(ext_opt_double)
+        ext_mat.setVisibleAbsorptance(ext_opt_double)
       end
       altered_materials << ext_mat
     end
@@ -202,10 +208,14 @@ module BestestModelMethods
       fan.setFanEfficiency(1.0)
       fan.setPressureRise(0.0)
       fan.setMotorEfficiency(1.0)
-    elsif variable_hash[:circ_fan_power] == 200.0
+    elsif variable_hash[:circ_fan_power] == 200.0 and variable_hash[:circ_fan_type] == "cont"
       fan.setFanEfficiency(0.441975)
       fan.setPressureRise(249.0)
       fan.setMotorEfficiency(0.441975)
+    elsif variable_hash[:circ_fan_power] == 200.0 and variable_hash[:circ_fan_type] == "cyclic"
+      fan.setFanEfficiency(0.441975)
+      fan.setPressureRise(249.0)
+      fan.setMotorEfficiency(0.9)
     else
       runner.registerError("Unexpected circulating fan variable values")
       returnf false
@@ -222,10 +232,6 @@ module BestestModelMethods
     unitary_system.setSupplyAirFlowRateMethodDuringHeatingOperation('SupplyAirFlowRate')
     unitary_system.setSupplyAirFlowRateDuringHeatingOperation(air_flow_rate)
     unitary_system.setControllingZoneorThermostatLocation(zone)
-    # set mode schedule when not cyclic
-    if variable_hash[:circ_fan_type] == "cont"
-      unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
-    end
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone

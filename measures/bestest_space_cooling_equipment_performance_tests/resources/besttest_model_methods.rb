@@ -20,6 +20,12 @@ module BestestModelMethods
       ground_constructions = const_set.defaultGroundContactSurfaceConstructions.get
       floor = ground_constructions.floorConstruction.get.to_LayeredConstruction.get
       interior_materials << floor.layers.last.to_OpaqueMaterial.get
+
+      # process opaque sub-surfaces
+      ext_sub_surface_constructions = const_set.defaultExteriorSubSurfaceConstructions.get
+      ext_door = ext_sub_surface_constructions.doorConstruction.get.to_LayeredConstruction.get
+      exterior_materials << ext_door.layers.first.to_OpaqueMaterial.get
+      interior_materials << ext_door.layers.last.to_OpaqueMaterial.get
     end
 
     # alter materials (ok to alter in place since no materials used on interior and exterior)
@@ -28,16 +34,16 @@ module BestestModelMethods
       if !variable_hash[:int_sw_absorpt].nil?
         int_opt_double = OpenStudio::OptionalDouble.new(variable_hash[:int_sw_absorpt])
         int_mat.setSolarAbsorptance(int_opt_double)
-        int_mat.setSolarAbsorptance(int_opt_double)
+        int_mat.setVisibleAbsorptance(int_opt_double)
       end
       altered_materials << int_mat
     end
     exterior_materials.uniq.each do |ext_mat|
       ext_mat.setThermalAbsorptance(variable_hash[:ext_ir_emit])
-      if !variable_hash[:int_sw_absorpt].nil?
+      if !variable_hash[:ext_sw_absorpt].nil?
         ext_opt_double = OpenStudio::OptionalDouble.new(variable_hash[:ext_sw_absorpt])
         ext_mat.setSolarAbsorptance(ext_opt_double)
-        ext_mat.setSolarAbsorptance(ext_opt_double)
+        ext_mat.setVisibleAbsorptance(ext_opt_double)
       end
       altered_materials << ext_mat
     end
@@ -357,10 +363,7 @@ module BestestModelMethods
       unitary_system.setSupplyAirFlowRateWhenNoCoolingorHeatingisRequired(air_flow_rate)
     end
     unitary_system.setControllingZoneorThermostatLocation(zone)
-
-    # if set to alway off or don't set 10 sims run with sever errors that halt reports.
-    # error effects case 320 and 340, which both of infiltraiton, and all 5xx cases, which have no OA
-    #unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
+    unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone
