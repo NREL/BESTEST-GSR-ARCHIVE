@@ -357,7 +357,10 @@ module BestestModelMethods
       unitary_system.setSupplyAirFlowRateWhenNoCoolingorHeatingisRequired(air_flow_rate)
     end
     unitary_system.setControllingZoneorThermostatLocation(zone)
-    unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
+
+    # if set to alway off or don't set 10 sims run with sever errors that halt reports.
+    # error effects case 320 and 340, which both of infiltraiton, and all 5xx cases, which have no OA
+    #unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone

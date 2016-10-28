@@ -484,7 +484,11 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       # calculate 8760 cop
       cop_8760 = []
       total_cooling_energy_consumption_j_array.size.times.each do |i|
-        cop_8760 << net_refrigeration_effect_w_array[i] / (total_cooling_energy_consumption_j_array[i]/3600.0) # W = J/s
+        if total_cooling_energy_consumption_j_array[i] > 0.0
+          cop_8760 << net_refrigeration_effect_w_array[i] / (total_cooling_energy_consumption_j_array[i]/3600.0) # W = J/s
+        else
+          cop_8760 << 0.0 # don't like putting value here but if I don't put value can't get min and max, and if I skip entry index position will be wrong
+        end
       end
       index_of_max = cop_8760.each_index.max
       index_of_min = cop_8760.each_index.min
