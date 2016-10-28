@@ -20,6 +20,12 @@ module BestestModelMethods
       ground_constructions = const_set.defaultGroundContactSurfaceConstructions.get
       floor = ground_constructions.floorConstruction.get.to_LayeredConstruction.get
       interior_materials << floor.layers.last.to_OpaqueMaterial.get
+
+      # process opaque sub-surfaces
+      ext_sub_surface_constructions = const_set.defaultExteriorSubSurfaceConstructions.get
+      ext_door = ext_sub_surface_constructions.doorConstruction.get.to_LayeredConstruction.get
+      exterior_materials << ext_door.layers.first.to_OpaqueMaterial.get
+      interior_materials << ext_door.layers.last.to_OpaqueMaterial.get
     end
 
     # alter materials (ok to alter in place since no materials used on interior and exterior)
