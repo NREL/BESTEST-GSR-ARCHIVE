@@ -335,6 +335,11 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
     hourly_variables << 'Unitary System Compressor Part Load Ratio'
     hourly_variables << 'Unitary System Frost Control Status'
 
+    # variables for EDB and EWB 'Node 6' is the terminal
+    # todo - update reporting for 3B to use this
+    hourly_variables << 'System Node Temperature'
+    hourly_variables << 'System Node Wetbulb Temperature'
+
     # variables CE 1x through 2x
     if case_num.include? "CE1" or case_num.include? "CE2"
       hourly_variables << 'Site Outdoor Air Wetbulb Temperature'
