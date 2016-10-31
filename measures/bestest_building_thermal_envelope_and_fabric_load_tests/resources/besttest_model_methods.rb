@@ -285,6 +285,80 @@ module BestestModelMethods
 
       # Add curve
       clg_cap_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
+      clg_cap_f_of_temp.setCoefficient1Constant(0.43863482)
+      clg_cap_f_of_temp.setCoefficient2x(0.04259180)
+      clg_cap_f_of_temp.setCoefficient3xPOW2(0.00015024)
+      clg_cap_f_of_temp.setCoefficient4y(0.00100248)
+      clg_cap_f_of_temp.setCoefficient5yPOW2(-0.00003314)
+      clg_cap_f_of_temp.setCoefficient6xTIMESY(-0.00046664)
+      clg_cap_f_of_temp.setMinimumValueofx(13.0)
+      clg_cap_f_of_temp.setMaximumValueofx(23.7)
+      clg_cap_f_of_temp.setMinimumValueofy(27.4)
+      clg_cap_f_of_temp.setMaximumValueofy(48.1)
+
+      # Add curve
+      clg_cap_f_of_flow = OpenStudio::Model::CurveQuadratic.new(model)
+      clg_cap_f_of_flow.setCoefficient1Constant(1.0)
+      clg_cap_f_of_flow.setCoefficient2x(0.0)
+      clg_cap_f_of_flow.setCoefficient3xPOW2(0.0)
+      clg_cap_f_of_flow.setMinimumValueofx(0.0)
+      clg_cap_f_of_flow.setMaximumValueofx(1.0)
+
+      # Add curve
+      clg_energy_input_ratio_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
+      clg_energy_input_ratio_f_of_temp.setCoefficient1Constant(0.77127580)
+      clg_energy_input_ratio_f_of_temp.setCoefficient2x(-0.02218018)
+      clg_energy_input_ratio_f_of_temp.setCoefficient3xPOW2(0.00074086)
+      clg_energy_input_ratio_f_of_temp.setCoefficient4y(0.01306849)
+      clg_energy_input_ratio_f_of_temp.setCoefficient5yPOW2(0.00039124)
+      clg_energy_input_ratio_f_of_temp.setCoefficient6xTIMESY(-0.00082052)
+      clg_energy_input_ratio_f_of_temp.setMinimumValueofx(13.0)
+      clg_energy_input_ratio_f_of_temp.setMaximumValueofx(23.7)
+      clg_energy_input_ratio_f_of_temp.setMinimumValueofy(27.4)
+      clg_energy_input_ratio_f_of_temp.setMaximumValueofy(48.1)
+
+      # Add curve
+      clg_energy_input_ratio_f_of_flow = OpenStudio::Model::CurveQuadratic.new(model)
+      clg_energy_input_ratio_f_of_flow.setCoefficient1Constant(1.0)
+      clg_energy_input_ratio_f_of_flow.setCoefficient2x(0.0)
+      clg_energy_input_ratio_f_of_flow.setCoefficient3xPOW2(0.0)
+      clg_energy_input_ratio_f_of_flow.setMinimumValueofx(0.0)
+      clg_energy_input_ratio_f_of_flow.setMaximumValueofx(1.0)
+
+      # Add curve
+      clg_part_load_ratio = OpenStudio::Model::CurveQuadratic.new(model)
+      clg_part_load_ratio.setCoefficient1Constant(0.771)
+      clg_part_load_ratio.setCoefficient2x(0.229)
+      clg_part_load_ratio.setCoefficient3xPOW2(0.0)
+      clg_part_load_ratio.setMinimumValueofx(0.0)
+      clg_part_load_ratio.setMaximumValueofx(1.0)
+
+      # Add cooling coil
+      clg_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(model,
+                                                                 always_on,
+                                                                 clg_cap_f_of_temp,
+                                                                 clg_cap_f_of_flow,
+                                                                 clg_energy_input_ratio_f_of_temp,
+                                                                 clg_energy_input_ratio_f_of_flow,
+                                                                 clg_part_load_ratio)
+
+      clg_coil.setRatedTotalCoolingCapacity (8181.0)
+      clg_coil.setRatedSensibleHeatRatio(0.7774)
+      clg_coil.setRatedCOP(OpenStudio::OptionalDouble.new(4.161))
+      clg_coil.setRatedAirFlowRate(air_flow_rate)
+
+      # Add FanOnOff
+      fan = OpenStudio::Model::FanOnOff.new(model,always_on)
+      fan.setMaximumFlowRate(air_flow_rate)
+      fan.setMotorInAirstreamFraction(1.0)
+      fan.setFanEfficiency(0.5)
+      fan.setPressureRise(271.0)
+      fan.setMotorEfficiency(1.0)
+
+    else
+
+      # Add curve
+      clg_cap_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
       clg_cap_f_of_temp.setCoefficient1Constant(0.825119244)
       clg_cap_f_of_temp.setCoefficient2x(0.014461436)
       clg_cap_f_of_temp.setCoefficient3xPOW2(0.000525383)
@@ -342,80 +416,6 @@ module BestestModelMethods
                                                                  clg_energy_input_ratio_f_of_flow,
                                                                  clg_part_load_ratio)
 
-      clg_coil.setRatedTotalCoolingCapacity (8181.0)
-      clg_coil.setRatedSensibleHeatRatio(0.7774)
-      clg_coil.setRatedCOP(OpenStudio::OptionalDouble.new(4.161))
-      clg_coil.setRatedAirFlowRate(air_flow_rate)
-
-      # Add FanOnOff
-      fan = OpenStudio::Model::FanOnOff.new(model,always_on)
-      fan.setMaximumFlowRate(air_flow_rate)
-      fan.setMotorInAirstreamFraction(1.0)
-      fan.setFanEfficiency(0.5)
-      fan.setPressureRise(271.0)
-      fan.setMotorEfficiency(1.0)
-
-    else
-
-      # Add curve
-      clg_cap_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
-      clg_cap_f_of_temp.setCoefficient1Constant(0.43863482)
-      clg_cap_f_of_temp.setCoefficient2x(0.04259180)
-      clg_cap_f_of_temp.setCoefficient3xPOW2(0.00015024)
-      clg_cap_f_of_temp.setCoefficient4y(0.00100248)
-      clg_cap_f_of_temp.setCoefficient5yPOW2(-0.000198505)
-      clg_cap_f_of_temp.setCoefficient6xTIMESY(-0.00046664)
-      clg_cap_f_of_temp.setMinimumValueofx(13.0)
-      clg_cap_f_of_temp.setMaximumValueofx(23.7)
-      clg_cap_f_of_temp.setMinimumValueofy(27.4)
-      clg_cap_f_of_temp.setMaximumValueofy(48.1)
-
-      # Add curve
-      clg_cap_f_of_flow = OpenStudio::Model::CurveQuadratic.new(model)
-      clg_cap_f_of_flow.setCoefficient1Constant(1.0)
-      clg_cap_f_of_flow.setCoefficient2x(0.0)
-      clg_cap_f_of_flow.setCoefficient3xPOW2(0.0)
-      clg_cap_f_of_flow.setMinimumValueofx(0.0)
-      clg_cap_f_of_flow.setMaximumValueofx(1.0)
-
-      # Add curve
-      clg_energy_input_ratio_f_of_temp = OpenStudio::Model::CurveBiquadratic.new(model)
-      clg_energy_input_ratio_f_of_temp.setCoefficient1Constant(0.77127580)
-      clg_energy_input_ratio_f_of_temp.setCoefficient2x(-0.02218018)
-      clg_energy_input_ratio_f_of_temp.setCoefficient3xPOW2(0.00074086)
-      clg_energy_input_ratio_f_of_temp.setCoefficient4y(0.01306849)
-      clg_energy_input_ratio_f_of_temp.setCoefficient5yPOW2(0.00039124)
-      clg_energy_input_ratio_f_of_temp.setCoefficient6xTIMESY(-0.00082052)
-      clg_energy_input_ratio_f_of_temp.setMinimumValueofx(13.0)
-      clg_energy_input_ratio_f_of_temp.setMaximumValueofx(23.7)
-      clg_energy_input_ratio_f_of_temp.setMinimumValueofy(27.4)
-      clg_energy_input_ratio_f_of_temp.setMaximumValueofy(48.1)
-
-      # Add curve
-      clg_energy_input_ratio_f_of_flow = OpenStudio::Model::CurveQuadratic.new(model)
-      clg_energy_input_ratio_f_of_flow.setCoefficient1Constant(1.0)
-      clg_energy_input_ratio_f_of_flow.setCoefficient2x(0.0)
-      clg_energy_input_ratio_f_of_flow.setCoefficient3xPOW2(0.0)
-      clg_energy_input_ratio_f_of_flow.setMinimumValueofx(0.0)
-      clg_energy_input_ratio_f_of_flow.setMaximumValueofx(1.0)
-
-      # Add curve
-      clg_part_load_ratio = OpenStudio::Model::CurveQuadratic.new(model)
-      clg_part_load_ratio.setCoefficient1Constant(0.771)
-      clg_part_load_ratio.setCoefficient2x(0.229)
-      clg_part_load_ratio.setCoefficient3xPOW2(0.0)
-      clg_part_load_ratio.setMinimumValueofx(0.0)
-      clg_part_load_ratio.setMaximumValueofx(1.0)
-
-      # Add cooling coil
-      clg_coil = OpenStudio::Model::CoilCoolingDXSingleSpeed.new(model,
-                                                                 always_on,
-                                                                 clg_cap_f_of_temp,
-                                                                 clg_cap_f_of_flow,
-                                                                 clg_energy_input_ratio_f_of_temp,
-                                                                 clg_energy_input_ratio_f_of_flow,
-                                                                 clg_part_load_ratio)
-
       clg_coil.setRatedTotalCoolingCapacity (33280.0)
       clg_coil.setRatedSensibleHeatRatio(0.78245)
       clg_coil.setRatedCOP(OpenStudio::OptionalDouble.new(3.0448))
@@ -447,7 +447,12 @@ module BestestModelMethods
       unitary_system.setSupplyAirFlowRateWhenNoCoolingorHeatingisRequired(air_flow_rate)
     end
     unitary_system.setControllingZoneorThermostatLocation(zone)
-    unitary_system.setSupplyAirFanOperatingModeSchedule(always_off)
+
+    if !(case_num.include?('CE1') || case_num.include?('CE2') || case_num.include?('CE5'))
+      unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
+    else
+      unitary_system.setSupplyAirFanOperatingModeSchedule(always_off)
+    end
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone

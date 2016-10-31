@@ -359,13 +359,13 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
       value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
       runner.registerValue('ann_sum_clg_energy_consumption_compressor',value_kwh)
-      # get clg_energy_consumption_supply_fan  (can't calculate this)
-      runner.registerValue('ann_sum_clg_energy_consumption_supply_fan','tbd')
       # indoor fan
       variable_name = "Air System Fan Electric Energy"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
       value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
-      runner.registerValue('ann_sum_clg_energy_consumption_condenser_fan',value_kwh)
+      runner.registerValue('ann_sum_clg_energy_consumption_supply_fan',value_kwh)
+      # get clg_energy_consumption_supply_fan  (can't calculate this)
+      runner.registerValue('ann_sum_clg_energy_consumption_condenser_fan','tbd')
       # get evaporator_coil_load_total
       key_value =  "COIL COOLING DX SINGLE SPEED 1"
       variable_name = "Cooling Coil Total Cooling Rate"
@@ -426,12 +426,12 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value,120,92)
       value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
       runner.registerValue('may_sept_sum_clg_consumption_compressor',value_kwh)
-      # get clg_energy_consumption_supply_fan (can't calculate this)
-      runner.registerValue('may_sept_sum_clg_consumption_cond_fan','tbd')
       variable_name = "Air System Fan Electric Energy"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value,120,92)
       value_kwh = OpenStudio.convert(timeseries_hash[:sum],'J','kWh').get
       runner.registerValue('may_sept_sum_clg_consumption_indoor_fan',value_kwh)
+      # get clg_energy_consumption_supply_fan (can't calculate this)
+      runner.registerValue('may_sept_sum_clg_consumption_cond_fan','tbd')
       # get evaporator_coil_load_total
       key_value =  "COIL COOLING DX SINGLE SPEED 1"
       variable_name = "Cooling Coil Total Cooling Rate"
@@ -638,13 +638,6 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       runner.registerValue('apr_dec_rh_min_date',date_time_parse(timeseries_hash[:min_date_time])[0])
       runner.registerValue('apr_dec_rh_min_hr',date_time_parse(timeseries_hash[:min_date_time])[1])
 
-      # temp array of 24 tbd strings
-      hourly_single_day_array = []
-      24.times.each do |i|
-        hourly_single_day_array << 'tbd'
-      end
-      hourly_single_day_array = hourly_single_day_array.join(',')
-
       # loop to gather hourly data as string from 0628
       def hourly_values(output_timeseries,target_date,source_unit = '',target_unit = '')
 
@@ -681,10 +674,8 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       variable_name = "Air System DX Cooling Coil Electric Energy"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
       runner.registerValue('0628_hourly_energy_consumpton_compressor',hourly_values(output_timeseries,'2009-06-28','J','Wh'))
-      # get clg_energy_consumption_supply_fan
-      variable_name = "Air System Fan Electric Energy"
-      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      runner.registerValue('0628_hourly_energy_consumpton_cond_fan',hourly_values(output_timeseries,'2009-06-28','J','Wh'))
+      # get clg_energy_consumption_supply_fan (can't calculate)
+      runner.registerValue('0628_hourly_energy_consumpton_cond_fan','tbd')
       # get evaporator_coil_load_total
       key_value =  "COIL COOLING DX SINGLE SPEED 1"
       variable_name = "Cooling Coil Total Cooling Rate"
@@ -727,11 +718,18 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
       runner.registerValue('0628_hourly_odb',hourly_values(output_timeseries,'2009-06-28'))
 
-      # todo - what is e in edb and ewb
-      runner.registerValue('0628_hourly_edb',hourly_single_day_array)
-      runner.registerValue('0628_hourly_ewb',hourly_single_day_array)
+      # get terminal drybulb and wetbulb
+      key_value =  "NODE 6"
+      variable_name = "System Node Temperature"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_edb',hourly_values(output_timeseries,'2009-06-28'))
+      key_value =  "NODE 6"
+      variable_name = "System Node Wetbulb Temperature"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      runner.registerValue('0628_hourly_ewb',hourly_values(output_timeseries,'2009-06-28'))
 
       # get site avg humidity ratio
+      key_value =  "Environment"
       variable_name = "Site Outdoor Air Humidity Ratio"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
       runner.registerValue('0628_hourly_outdoor_humidity_ratio',hourly_values(output_timeseries,'2009-06-28'))
@@ -838,9 +836,16 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       runner.registerValue('0430_day_odb',avg)
       avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
       runner.registerValue('0625_day_odb',avg)
-
-      runner.registerValue('0430_day_edb','tbd')
-      runner.registerValue('0625_day_edb','tbd')
+      key_value =  "NODE 6"
+      variable_name = "System Node Temperature"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+      runner.registerValue('0430_day_edb',avg)
+      key_value =  "NODE 6"
+      variable_name = "System Node Wetbulb Temperature"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+      runner.registerValue('0625_day_edb',avg)
 
     end
 
