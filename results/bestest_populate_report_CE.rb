@@ -68,6 +68,11 @@ puts "Populating main table for 5-3A"
   puts "Adding row for #{target_case}"
   # loop through columns for each case
   columns.each_with_index do |column,j|
+
+    # skip specifc columns that can't be calculated
+    next if column == :bestest_ce_reportingclg_energy_consumption_compressor
+    next if column == :bestest_ce_reportingclg_energy_consumption_condenser_fan
+
     worksheet.sheet_data[i][j+1].change_contents(csv_hash[target_case][column])
   end
 
@@ -117,11 +122,17 @@ puts "Populating Annual Sums and Means Table"
   puts "Adding row for #{target_case}"
   # loop through columns for each case
   columns.each_with_index do |column,j|
+
+    # skip specifc columns that can't be calculated
+    # todo - clean up this so reporting variable makes sense
+    next if column == :bestest_ce_reportingann_sum_clg_energy_consumption_supply_fan
+
     worksheet.sheet_data[i][j+1].change_contents(csv_hash[target_case][column])
   end
   # extra columns just for CE300
   if target_case.include? 'CE300'
     columns_extra_300.each_with_index do |column,j|
+
       worksheet.sheet_data[i][j+12].change_contents(csv_hash[target_case][column])
     end
   end
@@ -131,6 +142,10 @@ end
   puts "Adding row for #{target_case}"
   # loop through columns for each case
   columns.each_with_index do |column,j|
+
+    # skip specifc columns that can't be calculated
+    next if column == :bestest_ce_reportingann_sum_clg_energy_consumption_supply_fan
+
     worksheet.sheet_data[i][j+1].change_contents(csv_hash[target_case][column])
   end
 end
@@ -151,10 +166,18 @@ columns << :bestest_ce_reportingmay_sept_mean_zone_relative_humidity
 
 # CE500 May-Sep
 columns.each_with_index do |column,j|
+
+  # skip specifc columns that can't be calculated
+  next if column == :bestest_ce_reportingann_sum_clg_energy_consumption_supply_fan
+
   worksheet.sheet_data[74][j+1].change_contents(csv_hash["CE500"][column])
 end
 # CE510 May-Sep
 columns.each_with_index do |column,j|
+
+  # skip specifc columns that can't be calculated
+  next if column == :bestest_ce_reportingann_sum_clg_energy_consumption_supply_fan
+
   worksheet.sheet_data[75][j+1].change_contents(csv_hash["CE510"][column])
 end
 
