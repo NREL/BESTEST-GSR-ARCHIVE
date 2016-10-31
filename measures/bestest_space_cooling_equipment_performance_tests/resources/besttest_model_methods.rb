@@ -447,7 +447,12 @@ module BestestModelMethods
       unitary_system.setSupplyAirFlowRateWhenNoCoolingorHeatingisRequired(air_flow_rate)
     end
     unitary_system.setControllingZoneorThermostatLocation(zone)
-    unitary_system.setSupplyAirFanOperatingModeSchedule(always_off)
+
+    if case_num.include?('CE5')
+      unitary_system.setSupplyAirFanOperatingModeSchedule(always_off)
+    else
+      unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
+    end
 
     # Add the components to the air loop
     # in order from closest to zone to furthest from zone
