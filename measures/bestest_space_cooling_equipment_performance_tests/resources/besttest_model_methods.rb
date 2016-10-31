@@ -448,10 +448,10 @@ module BestestModelMethods
     end
     unitary_system.setControllingZoneorThermostatLocation(zone)
 
-    if case_num.include?('CE5')
-      unitary_system.setSupplyAirFanOperatingModeSchedule(always_off)
-    else
+    if !(case_num.include?('CE1') || case_num.include?('CE2') || case_num.include?('CE5'))
       unitary_system.setSupplyAirFanOperatingModeSchedule(always_on)
+    else
+      unitary_system.setSupplyAirFanOperatingModeSchedule(always_off)
     end
 
     # Add the components to the air loop
