@@ -726,15 +726,27 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
       runner.registerValue('0628_hourly_odb',hourly_values(output_timeseries,'2009-06-28'))
 
-      # get terminal drybulb and wetbulb
-      key_value =  "NODE 6"
-      variable_name = "System Node Temperature"
-      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      runner.registerValue('0628_hourly_edb',hourly_values(output_timeseries,'2009-06-28'))
-      key_value =  "NODE 6"
-      variable_name = "System Node Wetbulb Temperature"
-      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      runner.registerValue('0628_hourly_ewb',hourly_values(output_timeseries,'2009-06-28'))
+      # todo - in future navigate air loop to find right node
+      if model.getBuilding.name.to_s.include? "CE300"
+        # get return air drybulb and wetbulb
+        key_value =  "NODE 9"
+        variable_name = "System Node Temperature"
+        output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+        runner.registerValue('0628_hourly_edb',hourly_values(output_timeseries,'2009-06-28'))
+        key_value =  "NODE 9"
+        variable_name = "System Node Wetbulb Temperature"
+        output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+        runner.registerValue('0628_hourly_ewb',hourly_values(output_timeseries,'2009-06-28'))
+      elsif model.getBuilding.name.to_s.include? "CE500" or model.getBuilding.name.to_s.include? "CE530"
+        key_value =  "NODE 2"
+        variable_name = "System Node Temperature"
+        output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+        runner.registerValue('0628_hourly_edb',hourly_values(output_timeseries,'2009-06-28'))
+        key_value =  "NODE 2"
+        variable_name = "System Node Wetbulb Temperature"
+        output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+        runner.registerValue('0628_hourly_ewb',hourly_values(output_timeseries,'2009-06-28'))
+      end
 
       # get site avg humidity ratio
       key_value =  "Environment"
@@ -849,16 +861,31 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       runner.registerValue('0430_day_odb',avg)
       avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
       runner.registerValue('0625_day_odb',avg)
-      key_value =  "NODE 6"
-      variable_name = "System Node Temperature"
-      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
-      runner.registerValue('0430_day_edb',avg)
-      key_value =  "NODE 6"
-      variable_name = "System Node Wetbulb Temperature"
-      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
-      runner.registerValue('0625_day_edb',avg)
+
+      # todo - in future navigate air loop to find right node
+      if model.getBuilding.name.to_s.include? "CE300"
+        key_value =  "NODE 9"
+        variable_name = "System Node Temperature"
+        output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+        avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+        runner.registerValue('0430_day_edb',avg)
+        key_value =  "NODE 9"
+        variable_name = "System Node Wetbulb Temperature"
+        output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+        avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+        runner.registerValue('0625_day_edb',avg)
+      elsif model.getBuilding.name.to_s.include? "CE500" or model.getBuilding.name.to_s.include? "CE530"
+        key_value =  "NODE 2"
+        variable_name = "System Node Temperature"
+        output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+        avg = avg_from_hourly_values(output_timeseries,'2009-04-30')
+        runner.registerValue('0430_day_edb',avg)
+        key_value =  "NODE 2"
+        variable_name = "System Node Wetbulb Temperature"
+        output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+        avg = avg_from_hourly_values(output_timeseries,'2009-06-25')
+        runner.registerValue('0625_day_edb',avg)
+      end
 
     end
 
