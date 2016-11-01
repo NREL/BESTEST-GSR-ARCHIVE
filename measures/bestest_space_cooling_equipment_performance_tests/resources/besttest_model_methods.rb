@@ -473,9 +473,11 @@ module BestestModelMethods
       elsif case_num.include?('CE330')
         oa_min = air_flow_rate
         oa_sch = resource_model.getModelObjectByName("CE330_oa").get.to_ScheduleRuleset.get
+        oa_sch = oa_sch.clone(model).to_ScheduleRuleset.get
       elsif case_num.include?('CE340')
         oa_min = air_flow_rate
         oa_sch = resource_model.getModelObjectByName("CE340_oa").get.to_ScheduleRuleset.get
+        oa_sch = oa_sch.clone(model).to_ScheduleRuleset.get
       elsif case_num.include?('CE400')
         ctrl_type = 'DifferentialDryBulb'
       elsif case_num.include?('CE410')
@@ -511,6 +513,8 @@ module BestestModelMethods
       oa_controller.setMinimumLimitType('FixedMinimum')
       if !oa_sch.nil?
         oa_controller.setMinimumOutdoorAirSchedule(oa_sch)
+        puts "hello case #{case_num}"
+        puts oa_controller
       end
       oa_system = OpenStudio::Model::AirLoopHVACOutdoorAirSystem.new(model,oa_controller)
       oa_system.addToNode(supply_inlet_node)

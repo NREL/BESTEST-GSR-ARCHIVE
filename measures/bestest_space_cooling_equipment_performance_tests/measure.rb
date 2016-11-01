@@ -232,15 +232,15 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
       if variable_hash[:b1_7_note_a]
         if case_num.include?("CE330")
           resource_sch = resource_model.getModelObjectByName("CE330_oa").get.to_ScheduleRuleset.get
-          sch = resource_sch.clone(model).to_ScheduleRuleset.get
+          #sch = resource_sch.clone(model).to_ScheduleRuleset.get
         elsif case_num.include?("CE340")
           resource_sch = resource_model.getModelObjectByName("CE340_oa").get.to_ScheduleRuleset.get
-          sch = resource_sch.clone(model).to_ScheduleRuleset.get
+          #sch = resource_sch.clone(model).to_ScheduleRuleset.get
         else
           runner.registerError("Couldn't identify case for note a")
           return false
         end
-        oa.setOutdoorAirFlowRateFractionSchedule(sch)
+        #oa.setOutdoorAirFlowRateFractionSchedule(sch)
       end
       runner.registerInfo("Outdoor Air > Setting to #{oa.outdoorAirFlowAirChangesperHour } ACH for #{model.getSpaces.first.name}.")
     end
