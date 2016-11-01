@@ -779,7 +779,7 @@ OS:Schedule:Day,
   1,                                      !- Value Until Time 1
   18,                                     !- Hour 2
   0,                                      !- Minute 2
-  0.0366524122655392,                     !- Value Until Time 2
+  0,                                      !- Value Until Time 2
   24,                                     !- Hour 3
   0,                                      !- Minute 3
   1;                                      !- Value Until Time 3
@@ -2833,7 +2833,7 @@ OS:Schedule:Day,
   ,                                       !- Interpolate to Timestep
   24,                                     !- Hour 1
   0,                                      !- Minute 1
-  0.150000005960464;                      !- Value Until Time 1
+  0;                                      !- Value Until Time 1
 
 OS:Schedule:Rule,
   {c382122f-12d4-46b4-9beb-e3a5aae711eb}, !- Handle
