@@ -217,6 +217,17 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
       runner.registerInfo("Infiltration > Setting to #{infil.airChangesperHour} ACH for #{model.getSpaces.first.name}.")
     end
 
+    # special infiltraiton used to initialize CE5xx cases without latent loads
+    if case_num.include?("CE530") or case_num.include?("CE540") or case_num.include?("CE545")
+      inst_to_clone = resource_model.getModelObjectByName("infil_gen").get.to_SpaceInfiltrationDesignFlowRate.get
+      infil = inst_to_clone.clone(model).to_SpaceInfiltrationDesignFlowRate.get
+      infil.setDesignFlowRate (1.0)
+      infil.setSpace(model.getSpaces.first)
+      resource_sch = resource_model.getModelObjectByName("infil_initialization").get.to_ScheduleRuleset.get
+      sch = resource_sch.clone(model).to_ScheduleRuleset.get
+      infil.setSchedule(sch)
+    end
+
     # Add OA
     # todo - do I need this or should it be controlled by the hvac system only
     if variable_hash[:oa].nil?
