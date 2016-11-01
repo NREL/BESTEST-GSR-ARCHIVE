@@ -234,10 +234,12 @@ class BESTESTSpaceCoolingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
           #resource_sch = resource_model.getModelObjectByName("CE330_oa").get.to_ScheduleRuleset.get
           #sch = resource_sch.clone(model).to_ScheduleRuleset.get
           oa.resetOutdoorAirFlowRateFractionSchedule
+          oa.remove
         elsif case_num.include?("CE340")
           #resource_sch = resource_model.getModelObjectByName("CE340_oa").get.to_ScheduleRuleset.get
           #sch = resource_sch.clone(model).to_ScheduleRuleset.get
           oa.resetOutdoorAirFlowRateFractionSchedule
+          oa.remove
         else
           runner.registerError("Couldn't identify case for note a")
           return false

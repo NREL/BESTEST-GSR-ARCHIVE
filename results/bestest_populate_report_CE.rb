@@ -70,6 +70,7 @@ puts "Populating main table for 5-3A"
   columns.each_with_index do |column,j|
 
     # skip specifc columns that can't be calculated
+    next if column == :bestest_ce_reportingclg_energy_consumption_compressor
     next if column == :bestest_ce_reportingclg_energy_consumption_condenser_fan
 
     worksheet.sheet_data[i][j+1].change_contents(csv_hash[target_case][column])
@@ -140,6 +141,7 @@ puts "Populating Annual Sums and Means Table"
   columns.each_with_index do |column,j|
 
     # skip specifc columns that can't be calculated
+    next if column == :bestest_ce_reportingann_sum_clg_energy_consumption_compressor
     next if column == :bestest_ce_reportingann_sum_clg_energy_consumption_condenser_fan
 
     worksheet.sheet_data[i][j+1].change_contents(csv_hash[target_case][column])
@@ -159,6 +161,7 @@ end
   columns.each_with_index do |column,j|
 
     # skip specifc columns that can't be calculated
+    next if column == :bestest_ce_reportingann_sum_clg_energy_consumption_compressor
     next if column == :bestest_ce_reportingann_sum_clg_energy_consumption_condenser_fan
 
     worksheet.sheet_data[i][j+1].change_contents(csv_hash[target_case][column])
@@ -183,6 +186,7 @@ columns << :bestest_ce_reportingmay_sept_mean_zone_relative_humidity
 columns.each_with_index do |column,j|
 
   # skip specifc columns that can't be calculated
+  next if column == :bestest_ce_reportingmay_sept_sum_clg_consumption_compressor
   next if column == :bestest_ce_reportingmay_sept_sum_clg_consumption_cond_fan
 
   worksheet.sheet_data[74][j+1].change_contents(csv_hash["CE500"][column])
@@ -191,6 +195,7 @@ end
 columns.each_with_index do |column,j|
 
   # skip specifc columns that can't be calculated
+  next if column == :bestest_ce_reportingmay_sept_sum_clg_consumption_compressor
   next if column == :bestest_ce_reportingmay_sept_sum_clg_consumption_cond_fan
 
   worksheet.sheet_data[75][j+1].change_contents(csv_hash["CE510"][column])
@@ -364,6 +369,7 @@ columns << :bestest_ce_reporting0430_day_edb
 columns.each_with_index do |column,j|
 
   # skip specifc columns that can't be calculated
+  next if column == :bestest_ce_reporting0430_day_energy_consumption_compressor
   next if column == :bestest_ce_reporting0430_day_energy_consumption_condenser_fan
 
   worksheet.sheet_data[119][j+1].change_contents(csv_hash['CE500'][column])
@@ -387,6 +393,7 @@ columns << :bestest_ce_reporting0625_day_edb
 columns.each_with_index do |column,j|
 
   # skip specifc columns that can't be calculated
+  next if column == :bestest_ce_reporting0625_day_energy_consumption_compressor
   next if column == :bestest_ce_reporting0625_day_energy_consumption_condenser_fan
 
   worksheet.sheet_data[120][j+1].change_contents(csv_hash['CE500'][column])

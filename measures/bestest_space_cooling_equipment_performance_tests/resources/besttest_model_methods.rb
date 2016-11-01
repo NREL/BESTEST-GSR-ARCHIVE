@@ -481,7 +481,10 @@ module BestestModelMethods
       elsif case_num.include?('CE400')
         ctrl_type = 'DifferentialDryBulb'
       elsif case_num.include?('CE410')
+        ctrl_type = 'DifferentialDryBulb'
         lockout_type = 'LockoutWithCompressor'
+      elsif case_num.include?('CE420')
+        ctrl_type = 'DifferentialDryBulb'
       elsif case_num.include?('CE430') || case_num.include?('CE440')
         ctrl_type = 'DifferentialEnthalpy'
       elsif case_num.include?('CE5')
