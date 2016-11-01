@@ -12,7 +12,7 @@ require 'fileutils'
 require 'rubyXL' # install gem first
 # gem documentation # http://www.rubydoc.info/gems/rubyXL/1.1.12/RubyXL/Cell
 # https://github.com/weshatheleopard/rubyXL
-
+require "#{File.dirname(__FILE__)}/resources/common_info"
 
 
 # Load in CSV file
@@ -78,6 +78,14 @@ puts "Populating Minimum Zone Temperature"
   target_case = worksheet.sheet_data[i][0].value.to_s.split(':').first
   worksheet.sheet_data[i][1].change_contents(csv_hash[target_case][:bestest_he_reportingminimum_zone_temperature])
 end
+
+puts "Adding General Information"
+# todo - gather general information
+common_info = BestestResults.populate_common_info
+puts common_info
+
+# todo - populate generalinfo
+
 
 # Save Updated Excel File
 puts "Saving #{copy_results_5_4}"
