@@ -521,33 +521,39 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 
       # Annual Hourly Integrated Maxima - COP2 and Zone Table
 
-      # get clg_energy_consumption_total (for cop calc)
+      # get denominator for cop2
       key_value =  "BESTEST CE AIR LOOP"
-      variable_name = "Air System Electric Energy"
+      variable_name = "Air System DX Cooling Coil Electric Energy"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
-      total_cooling_energy_consumption_j_array = timeseries_hash[:array]
-      # get zone_load_total (for net_refrigeration_effect_w)
-      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
-      variable_name = "Unitary System Total Cooling Rate"
+      compressor_and_outdoor_fan_array = timeseries_hash[:array]
+      # get nominator for cop2
+      key_value =  "COIL COOLING DX SINGLE SPEED 1"
+      variable_name = "Cooling Coil Total Cooling Rate"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value)
-      net_refrigeration_effect_w_array = timeseries_hash[:array]
+      evaporator_coil_load_array = timeseries_hash[:array]
       # calculate 8760 cop
-      cop_8760 = []
-      total_cooling_energy_consumption_j_array.size.times.each do |i|
-        if total_cooling_energy_consumption_j_array[i] > 0.0
-          cop_8760 << net_refrigeration_effect_w_array[i] / (total_cooling_energy_consumption_j_array[i]/3600.0) # W = J/s
+      cop2_8760 = []
+      compressor_and_outdoor_fan_array.size.times.each do |i|
+        if compressor_and_outdoor_fan_array[i] > 0.0
+          cop2_8760 << evaporator_coil_load_array[i] / (compressor_and_outdoor_fan_array[i]/3600.0) # W = J/s
         else
-          cop_8760 << 0.0 # don't like putting value here but if I don't put value can't get min and max, and if I skip entry index position will be wrong
+          cop2_8760 << 0.0 # don't like putting value here but if I don't put value can't get min and max, and if I skip entry index position will be wrong
         end
       end
-      index_of_max = cop_8760.each_index.max
-      index_of_min = cop_8760.each_index.min
-      runner.registerValue('cop2_max_cop2',cop_8760.max)
+      remove_zeros = {}
+      cop2_8760.each.with_index do |value,i|
+        if value > 0
+          remove_zeros[i] = value
+        end
+      end
+      index_of_max = cop2_8760.each_index.max
+      hash_min = remove_zeros.values.min
+      runner.registerValue('cop2_max_cop2',cop2_8760.max)
       runner.registerValue('cop2_max_date',return_date_time_from_8760_index(index_of_max)[0])
       runner.registerValue('cop2_max_hr',return_date_time_from_8760_index(index_of_max)[1])
-      runner.registerValue('cop2_min_cop2',cop_8760.min)
-      runner.registerValue('cop2_min_date',return_date_time_from_8760_index(index_of_min)[0])
-      runner.registerValue('cop2_min_hr',return_date_time_from_8760_index(index_of_min)[1])
+      runner.registerValue('cop2_min_cop2',hash_min)
+      runner.registerValue('cop2_min_date',return_date_time_from_8760_index(remove_zeros.key(hash_min))[0])
+      runner.registerValue('cop2_min_hr',return_date_time_from_8760_index(remove_zeros.key(hash_min))[1])
       # get idb
       key_value =  "ZONE ONE"
       variable_name = "Zone Mean Air Temperature"
@@ -578,33 +584,39 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
       runner.registerValue('rh_min_hr',date_time_parse(timeseries_hash[:min_date_time])[1])
 
       # populate april_dec data
-      # get clg_energy_consumption_total (for cop calc)
+      # get denominator for cop2
       key_value =  "BESTEST CE AIR LOOP"
-      variable_name = "Air System Electric Energy"
+      variable_name = "Air System DX Cooling Coil Electric Energy"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value,90)
-      total_cooling_energy_consumption_j_array = timeseries_hash[:array]
-      # get zone_load_total (for net_refrigeration_effect_w)
-      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
-      variable_name = "Unitary System Total Cooling Rate"
+      compressor_and_outdoor_fan_array = timeseries_hash[:array]
+      # get nominator for cop2
+      key_value =  "COIL COOLING DX SINGLE SPEED 1"
+      variable_name = "Cooling Coil Total Cooling Rate"
       timeseries_hash = process_output_timeseries(sqlFile, runner, ann_env_pd, 'Hourly', variable_name, key_value,90)
-      net_refrigeration_effect_w_array = timeseries_hash[:array]
+      evaporator_coil_load_array = timeseries_hash[:array]
       # calculate 8760 cop
-      cop_8760 = []
-      total_cooling_energy_consumption_j_array.size.times.each do |i|
-        if total_cooling_energy_consumption_j_array[i] > 0.0
-          cop_8760 << net_refrigeration_effect_w_array[i] / (total_cooling_energy_consumption_j_array[i]/3600.0) # W = J/s
+      cop2_8760 = []
+      compressor_and_outdoor_fan_array.size.times.each do |i|
+        if compressor_and_outdoor_fan_array[i] > 0.0
+          cop2_8760 << evaporator_coil_load_array[i] / (compressor_and_outdoor_fan_array[i]/3600.0) # W = J/s
         else
-          cop_8760 << 0.0 # don't like putting value here but if I don't put value can't get min and max, and if I skip entry index position will be wrong
+          cop2_8760 << 0.0 # don't like putting value here but if I don't put value can't get min and max, and if I skip entry index position will be wrong
         end
       end
-      index_of_max = cop_8760.each_index.max
-      index_of_min = cop_8760.each_index.min
-      runner.registerValue('apr_dec_cop2_max_cop2',cop_8760.max)
+      remove_zeros = {}
+      cop2_8760.each.with_index do |value,i|
+        if value > 0
+          remove_zeros[i] = value
+        end
+      end
+      index_of_max = cop2_8760.each_index.max
+      hash_min = remove_zeros.values.min
+      runner.registerValue('apr_dec_cop2_max_cop2',cop2_8760.max)
       runner.registerValue('apr_dec_cop2_max_date',return_date_time_from_8760_index(index_of_max)[0])
       runner.registerValue('apr_dec_cop2_max_hr',return_date_time_from_8760_index(index_of_max)[1])
-      runner.registerValue('apr_dec_cop2_min_cop2',cop_8760.min)
-      runner.registerValue('apr_dec_cop2_min_date',return_date_time_from_8760_index(index_of_min)[0])
-      runner.registerValue('apr_dec_cop2_min_hr',return_date_time_from_8760_index(index_of_min)[1])
+      runner.registerValue('apr_dec_cop2_min_cop2',hash_min)
+      runner.registerValue('apr_dec_cop2_min_date',return_date_time_from_8760_index(remove_zeros.key(hash_min))[0])
+      runner.registerValue('apr_dec_cop2_min_hr',return_date_time_from_8760_index(remove_zeros.key(hash_min))[1])
       # get idb
       key_value =  "ZONE ONE"
       variable_name = "Zone Mean Air Temperature"
@@ -693,20 +705,20 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 
       # get clg_energy_consumption_total (for cop calc)
       key_value =  "BESTEST CE AIR LOOP"
-      variable_name = "Air System Electric Energy"
+      variable_name = "Air System DX Cooling Coil Electric Energy"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      total_cooling_energy_consumption_j_array = hourly_values(output_timeseries,'2009-06-28').split(",")
+      compressor_and_outdoor_fan_array = hourly_values(output_timeseries,'2009-06-28').split(",")
       # get zone_load_total (for net_refrigeration_effect_w)
-      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
-      variable_name = "Unitary System Total Cooling Rate"
+      key_value =  "COIL COOLING DX SINGLE SPEED 1"
+      variable_name = "Cooling Coil Total Cooling Rate"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      net_refrigeration_effect_w_array = hourly_values(output_timeseries,'2009-06-28').split(",")
-      # calculate 24 cop
-      cop_24 = []
-      total_cooling_energy_consumption_j_array.size.times.each do |i|
-        cop_24 << net_refrigeration_effect_w_array[i].to_f / (total_cooling_energy_consumption_j_array[i].to_f/3600.0) # W = J/s
+      evaporator_coil_load_array = hourly_values(output_timeseries,'2009-06-28').split(",")
+      # calculate cop2_24
+      cop2_24 = []
+      compressor_and_outdoor_fan_array.size.times.each do |i|
+        cop2_24 << evaporator_coil_load_array[i].to_f / (compressor_and_outdoor_fan_array[i].to_f/3600.0) # W = J/s
       end
-      runner.registerValue('0628_hourly_cop2',cop_24.join(","))
+      runner.registerValue('0628_hourly_cop2',cop2_24.join(","))
 
       # get site odb
       key_value =  "Environment"
@@ -792,37 +804,42 @@ class BESTESTCEReporting < OpenStudio::Ruleset::ReportingUserScript
 
       # get clg_energy_consumption_total (for cop calc)
       key_value =  "BESTEST CE AIR LOOP"
-      variable_name = "Air System Electric Energy"
+      variable_name = "Air System DX Cooling Coil Electric Energy"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      total_cooling_energy_consumption_j_array = hourly_values(output_timeseries,'2009-04-30').split(",")
-      # get zone_load_total (for net_refrigeration_effect_w)
-      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
-      variable_name = "Unitary System Total Cooling Rate"
-      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      net_refrigeration_effect_w_array = hourly_values(output_timeseries,'2009-04-30').split(",")
-      # calculate 24 cop
-      cop_24 = []
-      total_cooling_energy_consumption_j_array.size.times.each do |i|
-        cop_24 << net_refrigeration_effect_w_array[i].to_f / (total_cooling_energy_consumption_j_array[i].to_f/3600.0) # W = J/s
+      compressor_and_outdoor_fan_array = hourly_values(output_timeseries,'2009-04-30').split(",")
+      compressor_and_outdoor_fan = 0
+      compressor_and_outdoor_fan_array.each do |value|
+        compressor_and_outdoor_fan += value.to_f
       end
-      runner.registerValue('0430_day_cop2',cop_24.reduce(0, :+)/cop_24.size)
+      # get zone_load_total (for net_refrigeration_effect_w)
+      key_value =  "COIL COOLING DX SINGLE SPEED 1"
+      variable_name = "Cooling Coil Total Cooling Rate"
+      output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
+      evaporator_coil_load_array = hourly_values(output_timeseries,'2009-04-30').split(",")
+      evaporator_coil_load = 0
+      evaporator_coil_load_array.each do |value|
+        evaporator_coil_load += value.to_f
+      end
+      # calculate cop2_24
+      cop2_24 = evaporator_coil_load / (compressor_and_outdoor_fan/3600.0) # W = J/s
+      runner.registerValue('0430_day_cop2',cop2_24)
 
       # get clg_energy_consumption_total (for cop calc)
       key_value =  "BESTEST CE AIR LOOP"
-      variable_name = "Air System Electric Energy"
+      variable_name = "Air System DX Cooling Coil Electric Energy"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
-      total_cooling_energy_consumption_j_array = hourly_values(output_timeseries,'2009-06-25').split(",")
+      compressor_and_outdoor_fan_array = hourly_values(output_timeseries,'2009-06-25').split(",")
       # get zone_load_total (for net_refrigeration_effect_w)
-      key_value =  "AIR LOOP HVAC UNITARY SYSTEM 1"
-      variable_name = "Unitary System Total Cooling Rate"
+      key_value =  "COIL COOLING DX SINGLE SPEED 1"
+      variable_name = "Cooling Coil Total Cooling Rate"
       output_timeseries = sqlFile.timeSeries(ann_env_pd, 'Hourly', variable_name, key_value)
       net_refrigeration_effect_w_array = hourly_values(output_timeseries,'2009-06-25').split(",")
-      # calculate 24 cop
-      cop_24 = []
-      total_cooling_energy_consumption_j_array.size.times.each do |i|
-        cop_24 << net_refrigeration_effect_w_array[i].to_f / (total_cooling_energy_consumption_j_array[i].to_f/3600.0) # W = J/s
+      # calculate cop2_24
+      cop2_24 = []
+      compressor_and_outdoor_fan_array.size.times.each do |i|
+        cop2_24 << evaporator_coil_load_array[i].to_f / (compressor_and_outdoor_fan_array[i].to_f/3600.0) # W = J/s
       end
-      runner.registerValue('0625_day_cop2',cop_24.reduce(0, :+)/cop_24.size)
+      runner.registerValue('0625_day_cop2',cop2_24.reduce(0, :+)/cop2_24.size)
 
       # get site avg odb
       key_value =  "Environment"
