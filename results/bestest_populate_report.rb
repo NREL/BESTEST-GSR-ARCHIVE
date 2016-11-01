@@ -12,7 +12,7 @@ require 'fileutils'
 require 'rubyXL' # install gem first
 # gem documentation # http://www.rubydoc.info/gems/rubyXL/1.1.12/RubyXL/Cell
 # https://github.com/weshatheleopard/rubyXL
-
+require "#{File.dirname(__FILE__)}/resources/common_info"
 
 
 # Load in CSV file
@@ -258,6 +258,23 @@ counter = 0
   worksheet.sheet_data[i][1].change_contents(array[counter+2].to_f)
   counter += 1
 end
+
+puts "Adding General Information"
+# gather general information
+common_info = BestestResults.populate_common_info
+
+# starting position
+gen_info_row = 45
+gen_info_col = 0
+
+# populate generalinfo
+worksheet.sheet_data[gen_info_row][gen_info_col].change_contents(common_info[:program_name_and_version])
+worksheet.sheet_data[gen_info_row+1][gen_info_col+4].change_contents(common_info[:program_version_release_date])
+worksheet.sheet_data[gen_info_row+2][gen_info_col+4].change_contents(common_info[:program_name_short])
+worksheet.sheet_data[gen_info_row+3][gen_info_col+4].change_contents(common_info[:results_submission_date])
+# row skiped in Excel
+worksheet.sheet_data[gen_info_row+5][gen_info_col].change_contents(common_info[:organization])
+worksheet.sheet_data[gen_info_row+6][gen_info_col+4].change_contents(common_info[:organization_short])
 
 # Save Updated Excel File
 puts "Saving #{copy_results_5_2a}"
