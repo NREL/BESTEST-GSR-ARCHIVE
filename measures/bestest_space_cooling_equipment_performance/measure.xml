@@ -1,12 +1,12 @@
 <measure>
   <schema_version>3.0</schema_version>
-  <name>bestest_space_cooling_equipment_performance_tests</name>
+  <name>bestest_space_cooling_equipment_performance</name>
   <uid>eb12d939-e78f-4b84-8af7-1e69e10a0cf4</uid>
-  <version_id>d0a6789e-a24e-4375-bf77-30cac3a45a2e</version_id>
-  <version_modified>20160907T154804Z</version_modified>
+  <version_id>509d86f3-01bc-4bea-8254-2682bfc3faf9</version_id>
+  <version_modified>20170513T024047Z</version_modified>
   <xml_checksum>05C5DFDC</xml_checksum>
-  <class_name>BESTESTSpaceCoolingEquipmentPerformanceTests</class_name>
-  <display_name>BESTEST Space Cooling Equipment Performance Tests</display_name>
+  <class_name>BestestSpaceCoolingEquipmentPerformance</class_name>
+  <display_name>Bestest Space Cooling Equipment Performance</display_name>
   <description>Creates test cases described in ASHRAE Standard 140-2014 sections 5.3.1, 5.3.2, 5.33, and 5.3.4.</description>
   <modeler_description>This is intended to run on an empty model. It will create the proper model associate it with the proper weather file, and add in necessary output requests. Internally to the measure the test case argument will be mapped to the proper inputs needed to assemble the model. The measure will make some objects on the fly, other objects will be pulled from existing data resources. This measure creates cases described all of section 5.3.</modeler_description>
   <arguments>
@@ -158,6 +158,7 @@
       </choices>
     </argument>
   </arguments>
+  <outputs/>
   <provenances/>
   <tags>
     <tag>Whole Building.Space Types</tag>
@@ -347,34 +348,28 @@
       <checksum>8ED56459</checksum>
     </file>
     <file>
-      <filename>bestest_resources.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>6B2DF2E7</checksum>
-    </file>
-    <file>
-      <filename>besttest_case_var_lib.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>1A565470</checksum>
-    </file>
-    <file>
       <filename>seed_empty.osm</filename>
       <filetype>osm</filetype>
       <usage_type>test</usage_type>
       <checksum>BD6B9875</checksum>
     </file>
     <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>50D7A429</checksum>
+    </file>
+    <file>
+      <filename>besttest_case_var_lib.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>25375833</checksum>
+    </file>
+    <file>
       <filename>besttest_model_methods.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>59F090AB</checksum>
-    </file>
-    <file>
-      <filename>bestest_space_cooling_equipment_performance_tests_test.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>5A0260BB</checksum>
+      <checksum>2727A122</checksum>
     </file>
     <file>
       <version>
@@ -385,19 +380,13 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>317D73F4</checksum>
+      <checksum>B494F9B3</checksum>
     </file>
     <file>
-      <filename>.DS_Store</filename>
-      <filetype>DS_Store</filetype>
+      <filename>bestest_space_cooling_equipment_performance_test.rb</filename>
+      <filetype>rb</filetype>
       <usage_type>test</usage_type>
-      <checksum>6D88006A</checksum>
-    </file>
-    <file>
-      <filename>.DS_Store</filename>
-      <filetype>DS_Store</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>6D88006A</checksum>
+      <checksum>7218C3D4</checksum>
     </file>
   </files>
 </measure>

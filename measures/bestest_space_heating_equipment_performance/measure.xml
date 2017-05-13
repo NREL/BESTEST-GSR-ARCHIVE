@@ -1,12 +1,12 @@
 <measure>
   <schema_version>3.0</schema_version>
-  <name>bestest_space_heating_equipment_performance_tests</name>
+  <name>bestest_space_heating_equipment_performance</name>
   <uid>65d31bac-6024-4b64-8029-006e82cd4b87</uid>
-  <version_id>50eb8ec7-73c4-4588-82ef-7f1fc67e4067</version_id>
-  <version_modified>20160907T154804Z</version_modified>
+  <version_id>0822509e-16ec-43fe-a7ef-0109d514ed5d</version_id>
+  <version_modified>20170512T170638Z</version_modified>
   <xml_checksum>2438005F</xml_checksum>
-  <class_name>BESTESTSpaceHeatingEquipmentPerformanceTests</class_name>
-  <display_name>BESTEST Space Heating Equipment Performance Tests</display_name>
+  <class_name>BestestSpaceHeatingEquipmentPerformance</class_name>
+  <display_name>Bestest Space Heating Equipment Performance</display_name>
   <description>Creates test cases described in ASHRAE Standard 140-2014 sections 5.4.1, 5.4.2, and 5.4.3</description>
   <modeler_description>This is intended to run on an empty model. It will create the proper model associate it with the proper weather file, and add in necessary output requests. Internally to the measure the test case argument will be mapped to the proper inputs needed to assemble the model. The measure will make some objects on the fly, other objects will be pulled from existing data resources. This measure creates cases described all of section 5.3.</modeler_description>
   <arguments>
@@ -66,6 +66,7 @@
       </choices>
     </argument>
   </arguments>
+  <outputs/>
   <provenances/>
   <tags>
     <tag>Whole Building.Space Types</tag>
@@ -280,34 +281,28 @@
       <checksum>8ED56459</checksum>
     </file>
     <file>
-      <filename>bestest_resources.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>6B2DF2E7</checksum>
-    </file>
-    <file>
-      <filename>bestest_space_heating_equipment_performance_tests.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>12BC9BC2</checksum>
-    </file>
-    <file>
       <filename>seed_empty.osm</filename>
       <filetype>osm</filetype>
       <usage_type>test</usage_type>
       <checksum>3DFC9D37</checksum>
     </file>
     <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>50D7A429</checksum>
+    </file>
+    <file>
       <filename>besttest_case_var_lib.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>1A565470</checksum>
+      <checksum>25375833</checksum>
     </file>
     <file>
       <filename>besttest_model_methods.rb</filename>
       <filetype>rb</filetype>
       <usage_type>resource</usage_type>
-      <checksum>59F090AB</checksum>
+      <checksum>2727A122</checksum>
     </file>
     <file>
       <version>
@@ -318,19 +313,13 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>5D995301</checksum>
+      <checksum>D421BC98</checksum>
     </file>
     <file>
-      <filename>.DS_Store</filename>
-      <filetype>DS_Store</filetype>
+      <filename>bestest_space_heating_equipment_performance_test.rb</filename>
+      <filetype>rb</filetype>
       <usage_type>test</usage_type>
-      <checksum>6D88006A</checksum>
-    </file>
-    <file>
-      <filename>.DS_Store</filename>
-      <filetype>DS_Store</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>6D88006A</checksum>
+      <checksum>2E1C1F2A</checksum>
     </file>
   </files>
 </measure>

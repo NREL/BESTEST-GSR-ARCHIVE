@@ -7,11 +7,11 @@ require "#{File.dirname(__FILE__)}/resources/besttest_model_methods"
 require "#{File.dirname(__FILE__)}/resources/epw"
 
 # start the measure
-class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::ModelUserScript
+class BestestBuildingThermalEnvelopeAndFabricLoad < OpenStudio::Ruleset::ModelUserScript
 
   # human readable name
   def name
-    return "BESTEST Building Thermal Envelope and Fabric Load Tests"
+    return "Bestest Building Thermal Envelope and Fabric Load"
   end
 
   # human readable description
@@ -445,4 +445,4 @@ class BESTESTBuildingThermalEnvelopeAndFabricLoadTests < OpenStudio::Ruleset::Mo
 end
 
 # register the measure to be used by the application
-BESTESTBuildingThermalEnvelopeAndFabricLoadTests.new.registerWithApplication
+BestestBuildingThermalEnvelopeAndFabricLoad.new.registerWithApplication

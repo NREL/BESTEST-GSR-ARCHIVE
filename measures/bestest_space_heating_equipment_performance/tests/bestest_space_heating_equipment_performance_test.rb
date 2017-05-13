@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require_relative '../measure.rb'
 require 'fileutils'
 
-class BESTESTSpaceHeatingEquipmentPerformanceTestsTest < MiniTest::Unit::TestCase
+class BestestSpaceHeatingEquipmentPerformance_Test < MiniTest::Unit::TestCase
 
   # def setup
   # end
@@ -14,7 +14,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTestsTest < MiniTest::Unit::TestCas
 
   def test_he100
     # create an instance of the measure
-    measure = BESTESTSpaceHeatingEquipmentPerformanceTests.new
+    measure = BestestSpaceHeatingEquipmentPerformance.new
 
     # create an instance of a runner
     runner = OpenStudio::Ruleset::OSRunner.new
@@ -64,7 +64,7 @@ class BESTESTSpaceHeatingEquipmentPerformanceTestsTest < MiniTest::Unit::TestCas
 
   def test_he170
     # create an instance of the measure
-    measure = BESTESTSpaceHeatingEquipmentPerformanceTests.new
+    measure = BestestSpaceHeatingEquipmentPerformance.new
 
     # create an instance of a runner
     runner = OpenStudio::Ruleset::OSRunner.new

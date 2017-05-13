@@ -6,16 +6,27 @@ require_relative '../measure.rb'
 
 require 'fileutils'
 
-class BESTESTHEReporting_Test < MiniTest::Unit::TestCase
-  # class level variable
-  @@co = OpenStudio::Runmanager::ConfigOptions.new(true)
+class BestestHeReporting_Test < MiniTest::Unit::TestCase
 
-  def epw_path
+  def is_openstudio_2?
+    begin
+      workflow = OpenStudio::WorkflowJSON.new
+    rescue
+      return false
+    end
+    return true
+  end
+
+  def model_in_path_default
+    return nil # no default input model for this test
+  end
+
+  def epw_path_default
     # make sure we have a weather data location
-    epw = OpenStudio::Path.new(File.dirname(__FILE__)) / OpenStudio::Path.new('HE100WWY2.epw')
+    epw = nil
+    epw = OpenStudio::Path.new("#{File.dirname(__FILE__)}/HE100WWY2.epw")
     assert(File.exist?(epw.to_s))
-
-    epw.to_s
+    return epw.to_s
   end
 
   def run_dir(test_name)
@@ -24,26 +35,71 @@ class BESTESTHEReporting_Test < MiniTest::Unit::TestCase
   end
 
   def model_out_path(test_name)
-    "#{run_dir(test_name)}/HE100_test_output.osm"
+    "#{run_dir(test_name)}/TestOutput.osm"
   end
 
   def workspace_path(test_name)
-    "#{run_dir(test_name)}/ModelToIdf/in.idf"
+    if is_openstudio_2?
+      return "#{run_dir(test_name)}/run/in.idf"
+    else
+      return "#{run_dir(test_name)}/ModelToIdf/in.idf"
+    end
   end
 
   def sql_path(test_name)
-    "#{run_dir(test_name)}/ModelToIdf/EnergyPlusPreProcess-0/ExpandObjects-0/EnergyPlus-0/eplusout.sql"
+    if is_openstudio_2?
+      return "#{run_dir(test_name)}/run/eplusout.sql"
+    else
+      return "#{run_dir(test_name)}/ModelToIdf/EnergyPlusPreProcess-0/EnergyPlus-0/eplusout.sql"
+    end
   end
 
   def report_path(test_name)
     "#{run_dir(test_name)}/report.html"
   end
 
-  # create test files if they do not exist when the test first runs
-  def setup_test(test_name,model_in_path,idf_output_requests)
-    @@co.findTools(false, true, false, true)
+  # method for running the test simulation using OpenStudio 1.x API
+  def setup_test_1(test_name, epw_path)
 
-    unless File.exist?(run_dir(test_name))
+    co = OpenStudio::Runmanager::ConfigOptions.new(true)
+    co.findTools(false, true, false, true)
+
+    if !File.exist?(sql_path(test_name))
+      puts "Running EnergyPlus"
+
+      wf = OpenStudio::Runmanager::Workflow.new("modeltoidf->energypluspreprocess->energyplus")
+      wf.add(co.getTools())
+      job = wf.create(OpenStudio::Path.new(run_dir(test_name)), OpenStudio::Path.new(model_out_path(test_name)), OpenStudio::Path.new(epw_path))
+
+      rm = OpenStudio::Runmanager::RunManager.new
+      rm.enqueue(job, true)
+      rm.waitForFinished
+    end
+  end
+
+  # method for running the test simulation using OpenStudio 2.x API
+  def setup_test_2(test_name, epw_path)
+
+    if !File.exist?(sql_path(test_name))
+      osw_path = File.join(run_dir(test_name), 'in.osw')
+      osw_path = File.absolute_path(osw_path)
+
+      workflow = OpenStudio::WorkflowJSON.new
+      workflow.setSeedFile(File.absolute_path(model_out_path(test_name)))
+      workflow.setWeatherFile(File.absolute_path(epw_path))
+      workflow.saveAs(osw_path)
+
+      cli_path = OpenStudio.getOpenStudioCLI
+      cmd = "\"#{cli_path}\" run -w \"#{osw_path}\""
+      puts cmd
+      system(cmd)
+    end
+  end
+
+  # create test files if they do not exist when the test first runs
+  def setup_test(test_name, idf_output_requests, model_in_path = model_in_path_default, epw_path = epw_path_default)
+
+    if !File.exist?(run_dir(test_name))
       FileUtils.mkdir_p(run_dir(test_name))
     end
     assert(File.exist?(run_dir(test_name)))
@@ -59,34 +115,29 @@ class BESTESTHEReporting_Test < MiniTest::Unit::TestCase
     end
 
     # convert output requests to OSM for testing, OS App and PAT will add these to the E+ Idf
-    workspace = OpenStudio::Workspace.new('Draft'.to_StrictnessLevel, 'EnergyPlus'.to_IddFileType)
+    workspace = OpenStudio::Workspace.new("Draft".to_StrictnessLevel, "EnergyPlus".to_IddFileType)
     workspace.addObjects(idf_output_requests)
     rt = OpenStudio::EnergyPlus::ReverseTranslator.new
     request_model = rt.translateWorkspace(workspace)
 
-    model = OpenStudio::Model::Model.load(model_in_path).get
+    translator = OpenStudio::OSVersion::VersionTranslator.new
+    model = translator.loadModel(model_in_path)
+    assert((not model.empty?))
+    model = model.get
     model.addObjects(request_model.objects)
     model.save(model_out_path(test_name), true)
 
-    unless File.exist?(sql_path(test_name))
-      puts 'Running EnergyPlus'
-
-      wf = OpenStudio::Runmanager::Workflow.new('modeltoidf->energypluspreprocess->expandobjects->energyplus')
-      wf.add(@@co.getTools)
-      job = wf.create(OpenStudio::Path.new(run_dir(test_name)), OpenStudio::Path.new(model_out_path(test_name)), OpenStudio::Path.new(epw_path))
-
-      rm = OpenStudio::Runmanager::RunManager.new
-      rm.enqueue(job, true)
-      rm.waitForFinished
+    if is_openstudio_2?
+      setup_test_2(test_name, epw_path)
+    else
+      setup_test_1(test_name, epw_path)
     end
   end
 
-  def test_case_HE100
-    test_name = 'test_case_HE100'
-    model_in_path = "#{File.dirname(__FILE__)}/HE100_test_output.osm"
+  def apply_measure_to_model(test_name, args_hash, model_in_path, epw_path)
 
     # create an instance of the measure
-    measure = BESTESTHEReporting.new
+    measure = BestestHeReporting.new
 
     # create an instance of a runner
     runner = OpenStudio::Ruleset::OSRunner.new
@@ -94,9 +145,6 @@ class BESTESTHEReporting_Test < MiniTest::Unit::TestCase
     # get arguments
     arguments = measure.arguments
     argument_map = OpenStudio::Ruleset.convertOSArgumentVectorToMap(arguments)
-
-    # create hash of argument values
-    args_hash = {}
 
     # populate argument with specified hash value if specified
     arguments.each do |arg|
@@ -112,7 +160,7 @@ class BESTESTHEReporting_Test < MiniTest::Unit::TestCase
     assert_equal(0, idf_output_requests.size)
 
     # mimic the process of running this measure in OS App or PAT
-    setup_test(test_name,model_in_path,idf_output_requests)
+    setup_test(test_name,idf_output_requests,model_in_path,epw_path)
 
     assert(File.exist?(model_out_path(test_name)))
     assert(File.exist?(sql_path(test_name)))
@@ -140,12 +188,21 @@ class BESTESTHEReporting_Test < MiniTest::Unit::TestCase
       result = runner.result
       show_output(result)
       assert_equal('Success', result.value.valueName)
+
     ensure
       Dir.chdir(start_dir)
     end
 
     # make sure the report file exists
     assert(File.exist?(report_path(test_name)))
+  end
+
+  def test_case_HE100
+    args = {}
+    model_in_path = "#{File.dirname(__FILE__)}/HE100_test_output.osm"
+    epw_path = "#{File.dirname(__FILE__)}/HE100WWY2.epw"
+
+    apply_measure_to_model(__method__.to_s.gsub('test_',''), args, model_in_path, epw_path)
   end
 
 end

@@ -1,12 +1,12 @@
 <measure>
   <schema_version>3.0</schema_version>
-  <name>bestest_building_thermal_envelope_and_fabric_load_tests</name>
+  <name>bestest_building_thermal_envelope_and_fabric_load</name>
   <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
-  <version_id>6b6f3e54-83b8-471a-9bed-3fd1a865686f</version_id>
-  <version_modified>20160907T154804Z</version_modified>
+  <version_id>fe389601-c843-4cca-a33c-bb57058aaa59</version_id>
+  <version_modified>20170513T024047Z</version_modified>
   <xml_checksum>28AD5222</xml_checksum>
-  <class_name>BESTESTBuildingThermalEnvelopeAndFabricLoadTests</class_name>
-  <display_name>BESTEST Building Thermal Envelope and Fabric Load Tests</display_name>
+  <class_name>BestestBuildingThermalEnvelopeAndFabricLoad</class_name>
+  <display_name>Bestest Building Thermal Envelope and Fabric Load</display_name>
   <description>Creates test cases described in ASHRAE Standard 140-2014 sections 5.2.1, 5.2.2, and 5.2.3.</description>
   <modeler_description>This is intended to run on an empty model. It will create the proper model associate it with the proper weather file, and add in necessary output requests. Internally to the measure the test case argument will be mapped to the proper inputs needed to assemble the model. The measure will make some objects on the fly, other objects will be pulled from existing data resources. This measure creates cases described all of section 5.2 except for section 5.2.4 - Ground-Coupled Slab-on-Grade Analytical Verification Tests.</modeler_description>
   <arguments>
@@ -178,6 +178,7 @@
       </choices>
     </argument>
   </arguments>
+  <outputs/>
   <provenances/>
   <tags>
     <tag>Whole Building.Space Types</tag>
@@ -342,16 +343,28 @@
       <checksum>7B2088F0</checksum>
     </file>
     <file>
-      <filename>bestest_building_thermal_envelope_and_fabric_load_tests_test.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>test</usage_type>
-      <checksum>B56B6284</checksum>
-    </file>
-    <file>
       <filename>seed_empty.osm</filename>
       <filetype>osm</filetype>
       <usage_type>test</usage_type>
       <checksum>3DFC9D37</checksum>
+    </file>
+    <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>50D7A429</checksum>
+    </file>
+    <file>
+      <filename>besttest_case_var_lib.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>25375833</checksum>
+    </file>
+    <file>
+      <filename>besttest_model_methods.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>2727A122</checksum>
     </file>
     <file>
       <version>
@@ -362,37 +375,13 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>1032319F</checksum>
+      <checksum>25A9C7BF</checksum>
     </file>
     <file>
-      <filename>bestest_resources.osm</filename>
-      <filetype>osm</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>3004F452</checksum>
-    </file>
-    <file>
-      <filename>besttest_case_var_lib.rb</filename>
+      <filename>bestest_building_thermal_envelope_and_fabric_load_test.rb</filename>
       <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>1A565470</checksum>
-    </file>
-    <file>
-      <filename>besttest_model_methods.rb</filename>
-      <filetype>rb</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>59F090AB</checksum>
-    </file>
-    <file>
-      <filename>.DS_Store</filename>
-      <filetype>DS_Store</filetype>
       <usage_type>test</usage_type>
-      <checksum>6D88006A</checksum>
-    </file>
-    <file>
-      <filename>.DS_Store</filename>
-      <filetype>DS_Store</filetype>
-      <usage_type>resource</usage_type>
-      <checksum>6D88006A</checksum>
+      <checksum>26EF2722</checksum>
     </file>
   </files>
 </measure>

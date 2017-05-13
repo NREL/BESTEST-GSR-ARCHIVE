@@ -113,8 +113,9 @@ Or run `rake clean`".red
     puts 'Starting cluster...'.cyan
 
     # Don't use the old API (Version 1)
+    ami_version = options['openstudio_server_version'][0] == '2' ? 3 : 2
     aws_options = {
-        ami_lookup_version: 2,
+        ami_lookup_version: ami_version,
         openstudio_server_version: options['openstudio_server_version']
     }
     aws = OpenStudio::Aws::Aws.new(aws_options)
@@ -154,7 +155,7 @@ def configure_target_server(cluster_name, target)
   server_dns = nil
   case target.downcase
     when 'vagrant'
-      server_dns = 'http://localhost:8080'
+      server_dns = 'http://192.168.99.100:8080'
     when 'nrel24a'
       server_dns = 'http://bball-130553.nrel.gov:8080'
     when 'nrel24b'
@@ -170,6 +171,8 @@ def configure_target_server(cluster_name, target)
         json = JSON.parse(File.read("#{cluster_name}.json"), symbolize_names: true)
         server_dns = "http://#{json[:server][:dns]}"
       end
+    else
+      server_dns = target
   end
 end
 
@@ -205,17 +208,21 @@ def run_analysis(analysis, run_options, target = 'aws', download = false)
   options = {hostname: server_dns}
   api = OpenStudio::Analysis::ServerApi.new(options)
 
-  if run_options[:batch_run_method]
-    analysis_id = api.run(formulation_file,
-                          analysis_zip_file,
-                          run_options['analysis_type'],
-                          { batch_run_method: run_options[:batch_run_method]}
-    )
-  else
-    analysis_id = api.run(formulation_file,
-                          analysis_zip_file,
-                          run_options['analysis_type']
-    )
+  begin
+    if run_options[:batch_run_method]
+      analysis_id = api.run(formulation_file,
+                            analysis_zip_file,
+                            run_options['analysis_type'],
+                            { batch_run_method: run_options[:batch_run_method]}
+      )
+    else
+      analysis_id = api.run(formulation_file,
+                            analysis_zip_file,
+                            run_options['analysis_type']
+      )
+    end
+  rescue => e
+    puts "Analysis submission failed with message `#{e.message}` in:\n#{e.backtrace.join("\n")}"
   end
 
 
@@ -446,50 +453,17 @@ task :create_measure_csv do
   csv.close
 end
 
-desc 'update measure.json files'
-task :update_measure_jsons do
-  require 'bcl'
-  bcl = BCL::ComponentMethods.new
-
-  Dir['./**/measure.rb'].each do |m|
-    puts "Parsing #{m}"
-    j = bcl.parse_measure_file('useless', m)
-    m_j = "#{File.join(File.dirname(m), File.basename(m, '.*'))}.json"
-    puts "Writing #{m_j}"
-    File.open(m_j, 'w') { |f| f << JSON.pretty_generate(j) }
-  end
-end
-
 desc 'update measure.xml files'
 task :update_measure_xmls do
-  begin
-    require 'openstudio'
-    require 'git'
-
-    # g = Git.open(File.dirname(__FILE__), :log => Logger.new("update_measure_xmls.log"))
-    # g = Git.init
-    # g.status.untracked.each do |u|
-    #  puts u
-    # end
-
-    os_version = OpenStudio::VersionString.new(OpenStudio.openStudioVersion)
-    min_os_version = OpenStudio::VersionString.new('1.4.0')
-    if os_version >= min_os_version
-      Dir['./**/measure.rb'].each do |m|
-        # DLM: todo, check for untracked files in this directory and do not compute checksums if they exist
-        measure = OpenStudio::BCLMeasure.load(OpenStudio::Path.new("#{File.dirname(m)}"))
-        if measure.empty?
-          puts "Directory #{m} is not a measure"
-        else
-          measure = measure.get
-          measure.checkForUpdates
-          # measure.save
-        end
-      end
+  # Path to openstudio CLI
+  openstudio_cli = ENV['OPENSTUDIO_CLI']
+  if openstudio_cli && File.exist?(openstudio_cli)
+    Dir['./measures/**/*.xml'].each do |measure|
+      puts "#{measure} :: #{File.dirname(measure)}"
+      puts `#{openstudio_cli} measure -u "#{File.dirname(measure)}"`
     end
-
-  rescue LoadError
-    puts 'Cannot require openstudio or git'
+  else
+    puts "OPENSTUDIO_CLI env var is not set. Download and install OpenStudio CLI and set OPENSTUDIO_CLI to binary"
   end
 end
 
@@ -545,12 +519,6 @@ task :run_local do
   task(:run_custom).invoke('local')
 end
 
-desc 'run local development (localhost:3000)'
-task :run_local_development do
-  # task(:run_custom).invoke('local_development', nil, nil, 'batch_run' )
-  task(:run_custom).invoke('local_development', nil, nil, 'batch_run_local' )
-end
-
 desc 'run NREL24a'
 task :run_NREL24a do
   task(:run_custom).invoke('nrel24a')
@@ -565,3 +533,9 @@ desc "run NREL24"
 task :run_NREL24 do |t, args|
   task(:run_custom).invoke('nrel24')
 end
+
+desc "run LCNode1"
+task :run_lcnode1 do |t, args|
+  task(:run_custom).invoke('http://10.60.7.61:8080')
+end
+

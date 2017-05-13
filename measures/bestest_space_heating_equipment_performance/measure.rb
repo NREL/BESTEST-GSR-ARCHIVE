@@ -7,11 +7,11 @@ require "#{File.dirname(__FILE__)}/resources/besttest_model_methods"
 require "#{File.dirname(__FILE__)}/resources/epw"
 
 # start the measure
-class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelUserScript
+class BestestSpaceHeatingEquipmentPerformance < OpenStudio::Ruleset::ModelUserScript
 
   # human readable name
   def name
-    return "BESTEST Space Heating Equipment Performance Tests"
+    return "Bestest Space Heating Equipment Performance"
   end
   # human readable description
   def description
@@ -256,4 +256,4 @@ class BESTESTSpaceHeatingEquipmentPerformanceTests < OpenStudio::Ruleset::ModelU
 end
 
 # register the measure to be used by the application
-BESTESTSpaceHeatingEquipmentPerformanceTests.new.registerWithApplication
+BestestSpaceHeatingEquipmentPerformance.new.registerWithApplication

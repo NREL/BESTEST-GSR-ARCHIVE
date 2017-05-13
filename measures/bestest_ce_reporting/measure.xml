@@ -1,15 +1,16 @@
 <measure>
   <schema_version>3.0</schema_version>
-  <name>bestestce_reporting</name>
+  <name>bestest_ce_reporting</name>
   <uid>4f921756-b4bf-483e-b845-12ba3dd4bc69</uid>
-  <version_id>462e5238-a860-45a0-9f2f-84cf6f6a936f</version_id>
-  <version_modified>20160907T154804Z</version_modified>
+  <version_id>1eea948f-86c0-4eb4-8ac5-39176b500291</version_id>
+  <version_modified>20170513T024047Z</version_modified>
   <xml_checksum>F44A8258</xml_checksum>
-  <class_name>BESTESTCEReporting</class_name>
-  <display_name>BESTEST CE Reporting</display_name>
+  <class_name>BestestCeReporting</class_name>
+  <display_name>Bestest Ce Reporting</display_name>
   <description>This doesn't generate a user HTML file with any meaningful content. It is here to create runner.RegisterValue objects that will be post processed downstream.</description>
   <modeler_description>The CSV project for the analysis will be downloaded from the server and then a script will run to pull data into Local Excel File.</modeler_description>
   <arguments/>
+  <outputs/>
   <provenances/>
   <tags>
     <tag>Reporting.QAQC</tag>
@@ -55,28 +56,52 @@
       <checksum>5F480EBD</checksum>
     </file>
     <file>
-      <filename>bestestce_reporting_test.rb</filename>
-      <filetype>rb</filetype>
+      <filename>CE200ATM2.epw</filename>
+      <filetype>epw</filetype>
       <usage_type>test</usage_type>
-      <checksum>8E40C595</checksum>
+      <checksum>53932B90</checksum>
     </file>
     <file>
       <filename>CE100_test_output.osm</filename>
       <filetype>osm</filetype>
       <usage_type>test</usage_type>
-      <checksum>DBC0008A</checksum>
+      <checksum>DADC3077</checksum>
     </file>
     <file>
       <filename>CE200_test_output.osm</filename>
       <filetype>osm</filetype>
       <usage_type>test</usage_type>
-      <checksum>DA90A1CF</checksum>
+      <checksum>1B2C738A</checksum>
     </file>
     <file>
-      <filename>CE200ATM2.epw</filename>
+      <filename>CE300_test_output.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>056ABB62</checksum>
+    </file>
+    <file>
+      <filename>CE300TM2.epw</filename>
       <filetype>epw</filetype>
       <usage_type>test</usage_type>
-      <checksum>53932B90</checksum>
+      <checksum>96FC79DF</checksum>
+    </file>
+    <file>
+      <filename>CE400_test_output.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>39D28D69</checksum>
+    </file>
+    <file>
+      <filename>CE500_test_output.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>B82586BE</checksum>
+    </file>
+    <file>
+      <filename>bestest_ce_reporting_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>B6926A86</checksum>
     </file>
     <file>
       <version>
@@ -87,13 +112,7 @@
       <filename>measure.rb</filename>
       <filetype>rb</filetype>
       <usage_type>script</usage_type>
-      <checksum>10DF5BFB</checksum>
-    </file>
-    <file>
-      <filename>.DS_Store</filename>
-      <filetype>DS_Store</filetype>
-      <usage_type>test</usage_type>
-      <checksum>6D88006A</checksum>
+      <checksum>F094338D</checksum>
     </file>
   </files>
 </measure>

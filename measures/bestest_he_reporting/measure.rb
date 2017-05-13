@@ -7,11 +7,11 @@ require "#{File.dirname(__FILE__)}/resources/os_lib_reporting_bestest"
 require "#{File.dirname(__FILE__)}/resources/os_lib_helper_methods"
 
 #start the measure
-class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
+class BestestHeReporting < OpenStudio::Ruleset::ReportingUserScript
 
   # human readable name
   def name
-    return "BESTEST HE Reporting"
+    return "Bestest He Reporting"
   end
 
   # human readable description
@@ -44,6 +44,19 @@ class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
       return result
     end
     
+    return result
+  end
+
+def outputs 
+    result = OpenStudio::Measure::OSOutputVector.new
+    result << OpenStudio::Measure::OSOutput.makeDoubleOutput('mean_zone_temperature') # C
+    result << OpenStudio::Measure::OSOutput.makeDoubleOutput('maximum_zone_temperature') # C
+    result << OpenStudio::Measure::OSOutput.makeDoubleOutput('minimum_zone_temperature') # C
+    result << OpenStudio::Measure::OSOutput.makeDoubleOutput('fan_energy') #kWh
+    result << OpenStudio::Measure::OSOutput.makeDoubleOutput('total_furnace_load') #GJ
+    result << OpenStudio::Measure::OSOutput.makeDoubleOutput('total_furnace_input') #GJ
+    result << OpenStudio::Measure::OSOutput.makeDoubleOutput('average_fuel_consumption') #m^3/sec
+
     return result
   end
   
@@ -249,4 +262,4 @@ class BESTESTHEReporting < OpenStudio::Ruleset::ReportingUserScript
 end
 
 # register the measure to be used by the application
-BESTESTHEReporting.new.registerWithApplication
+BestestHeReporting.new.registerWithApplication

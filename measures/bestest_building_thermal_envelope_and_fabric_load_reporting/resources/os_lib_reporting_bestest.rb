@@ -451,7 +451,9 @@ module OsLib_Reporting_Bestest
     end
 
     # add table to array of tables
-    table_6_1_tables << table_01
+    if table_01[:data].size > 0
+      table_6_1_tables << table_01
+    end
 
     # use helper method that generates additional table for section
     table_6_1_tables << OsLib_Reporting_Bestest.hourly_heating_cooling_table(model, sqlFile, runner)
@@ -777,7 +779,7 @@ module OsLib_Reporting_Bestest
     table_02[:data] << ['South',]
 
     # add table to array of tables
-    case_600_only_tables << table_02
+    # case_600_only_tables << table_02
 
     return @case_600_only_section
   end
@@ -821,6 +823,7 @@ module OsLib_Reporting_Bestest
     return @case_9xx_only_section
   end
 
+=begin
   # create case_610_only_section
   def self.case_610_only_section(model, sqlFile, runner, name_only = false)
     # array to hold tables
@@ -913,6 +916,7 @@ module OsLib_Reporting_Bestest
 
     return @case_630_only_section
   end
+=end
   
   # create ff_temp_bins_section
   def self.ff_temp_bins_section(model, sqlFile, runner, name_only = false)
