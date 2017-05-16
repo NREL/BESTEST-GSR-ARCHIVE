@@ -280,3 +280,30 @@ worksheet.sheet_data[gen_info_row+6][gen_info_col+4].change_contents(common_info
 # Save Updated Excel File
 puts "Saving #{copy_results_5_2a}"
 workbook.write(copy_results_5_2a)
+
+# create OpenStudio copy with updated program info
+# Copy Excel File
+os_copy_results_5_2a = 'RESULTS5-2a_OS.xlsx'
+puts "Making an OpenStudio copy of #{copy_results_5_2a}"
+FileUtils.cp(copy_results_5_2a, os_copy_results_5_2a)
+
+puts "Adding General Information"
+# gather general information
+common_info = BestestResults.populate_common_info("OS")
+
+# starting position
+gen_info_row = 45
+gen_info_col = 0
+
+# populate generalinfo
+worksheet.sheet_data[gen_info_row][gen_info_col].change_contents(common_info[:program_name_and_version])
+worksheet.sheet_data[gen_info_row+1][gen_info_col+4].change_contents(common_info[:program_version_release_date])
+worksheet.sheet_data[gen_info_row+2][gen_info_col+4].change_contents(common_info[:program_name_short])
+worksheet.sheet_data[gen_info_row+3][gen_info_col+4].change_contents(common_info[:results_submission_date])
+# row skiped in Excel
+worksheet.sheet_data[gen_info_row+5][gen_info_col].change_contents(common_info[:organization])
+worksheet.sheet_data[gen_info_row+6][gen_info_col+4].change_contents(common_info[:organization_short])
+
+# Save Updated Excel File
+puts "Saving #{os_copy_results_5_2a}"
+workbook.write(os_copy_results_5_2a)
