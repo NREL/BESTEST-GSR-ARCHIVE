@@ -5,10 +5,10 @@ module BestestResults
 
     hash = {}
 
-    hash[:program_name_and_version] = "EnergyPlus 8.6.0"
-    hash[:program_version_release_date] = "9//30/2016"
+    hash[:program_name_and_version] = "EnergyPlus 8.7.0"
+    hash[:program_version_release_date] = "3//30/2017"
     hash[:program_name_short] = "E+"
-    hash[:results_submission_date] = "11/1/2016"
+    hash[:results_submission_date] = "05/19/2017"
     hash[:organization] = "National Renewable Energy Laboratory"
     hash[:organization_short] = "NREL"
 

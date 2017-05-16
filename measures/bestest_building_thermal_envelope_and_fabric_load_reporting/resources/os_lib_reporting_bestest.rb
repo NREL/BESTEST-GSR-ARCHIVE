@@ -302,10 +302,8 @@ module OsLib_Reporting_Bestest
       return false
     else
       display = 'Peak Heating Time'
-      source_units = 'TIMESTEP'
-      target_units = 'TIMESTEP'
       peak_htg_time = query_results.get
-      runner.registerValue(display.downcase.gsub(" ","_"), peak_htg_time, target_units)
+      runner.registerValue(display.downcase.gsub(" ","_"), peak_htg_time)
     end
 
 
@@ -350,10 +348,8 @@ module OsLib_Reporting_Bestest
       return false
     else
       display = 'Peak Cooling Time'
-      source_units = 'TIMESTEP'
-      target_units = 'TIMESTEP'
       peak_clg_time = query_results.get
-      runner.registerValue(display.downcase.gsub(" ","_"), peak_clg_time, target_units)
+      runner.registerValue(display.downcase.gsub(" ","_"), peak_clg_time)
     end
 
     # add rows to table
