@@ -1,0 +1,8 @@
+{
+   "created_at" : "20170516T163750Z",
+   "hash" : "AF1E7E5E",
+   "seed_file" : "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_reporting/tests/output/case_600/TestOutput.osm",
+   "steps" : [],
+   "updated_at" : "20170516T163750Z",
+   "weather_file" : "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_reporting/tests/DRYCOLDTMY.epw"
+}

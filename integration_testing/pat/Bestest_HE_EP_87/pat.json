@@ -1,0 +1,696 @@
+{
+  "projectName": "Bestest_HE_EP_87",
+  "projectDir": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/integration_testing/pat/Bestest_HE_EP_87",
+  "seed": "seed_empty.osm",
+  "weatherFile": "USA_MA_Boston-Logan.Intl.AP.725090_TMY3.epw",
+  "analysis_type": "Algorithmic",
+  "remoteSettings": {
+    "open": true,
+    "remoteType": "Existing Remote Server",
+    "remoteServerURL": "http://bball-130553.nrel.gov:8080/",
+    "aws": {},
+    "credentials": {
+      "yamlFilename": null,
+      "accessKey": null,
+      "region": "us-east-1"
+    }
+  },
+  "samplingMethod": {
+    "id": "lhs",
+    "name": "analysis.type.lhs",
+    "link": "https://cran.r-project.org/web/packages/lhs/lhs.pdf"
+  },
+  "algorithmSettings": [
+    {
+      "name": "sample_method",
+      "displayName": "Sample Method",
+      "description": "Options: individual_variables or all_variables",
+      "defaultValue": "individual_variables",
+      "type": "string",
+      "value": "individual_variables",
+      "$$hashKey": "object:11182"
+    },
+    {
+      "name": "number_of_samples",
+      "displayName": "Number of Samples",
+      "description": "Positive integer (if individual, total simulations is this times each variable)",
+      "defaultValue": 5,
+      "type": "number",
+      "value": 11,
+      "$$hashKey": "object:3494"
+    },
+    {
+      "name": "failed_f_value",
+      "displayName": "Failed F Value",
+      "description": "Return Value for F(x) if F fails",
+      "defaultValue": 1000000000000000000,
+      "type": "number",
+      "value": 1000000000000000000,
+      "$$hashKey": "object:3495"
+    },
+    {
+      "name": "debug_messages",
+      "displayName": "Debug Messages",
+      "description": "Options: 1 or 0 (True or False)",
+      "defaultValue": 0,
+      "type": "number",
+      "value": 1,
+      "$$hashKey": "object:3496"
+    }
+  ],
+  "rubyMD5": "",
+  "mongoMD5": "",
+  "openstudioServerMD5": "",
+  "openstudioCLIMD5": "",
+  "openstudioMD5": "",
+  "measures": [
+    {
+      "measure_dir": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/integration_testing/pat/Bestest_HE_EP_87/measures/bestest_space_heating_equipment_performance",
+      "name": "bestest_space_heating_equipment_performance",
+      "directory": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/measures/bestest_space_heating_equipment_performance",
+      "uid": "65d31bac-6024-4b64-8029-006e82cd4b87",
+      "uuid": "{65d31bac-6024-4b64-8029-006e82cd4b87}",
+      "version_id": "a2a1b1f1-4d28-4059-b60c-0901ac39018e",
+      "version_uuid": "{a2a1b1f1-4d28-4059-b60c-0901ac39018e}",
+      "version_modified": "20170516T203810Z",
+      "xml_checksum": "2438005F",
+      "display_name": "Bestest Space Heating Equipment Performance",
+      "class_name": "BestestSpaceHeatingEquipmentPerformance",
+      "description": "Creates test cases described in ASHRAE Standard 140-2014 sections 5.4.1, 5.4.2, and 5.4.3",
+      "modeler_description": "This is intended to run on an empty model. It will create the proper model associate it with the proper weather file, and add in necessary output requests. Internally to the measure the test case argument will be mapped to the proper inputs needed to assemble the model. The measure will make some objects on the fly, other objects will be pulled from existing data resources. This measure creates cases described all of section 5.3.",
+      "tags": "Whole Building.Space Types",
+      "outputs": [],
+      "attributes": [
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Apply Measure Now"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "OpenStudio Application"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Parametric Analysis Tool"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Analysis Spreadsheet"
+        },
+        {
+          "name": "Intended Use Case",
+          "display_name": "Intended Use Case",
+          "value": "Model Articulation"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Apply Measure Now"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "OpenStudio Application"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Parametric Analysis Tool"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Analysis Spreadsheet"
+        },
+        {
+          "name": "Intended Use Case",
+          "display_name": "Intended Use Case",
+          "value": "Model Articulation"
+        },
+        {
+          "name": "Measure Type",
+          "display_name": "Measure Type",
+          "value": "ModelMeasure"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Apply Measure Now"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "OpenStudio Application"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Parametric Analysis Tool"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Analysis Spreadsheet"
+        },
+        {
+          "name": "Intended Use Case",
+          "display_name": "Intended Use Case",
+          "value": "Model Articulation"
+        }
+      ],
+      "arguments": [
+        {
+          "specialRowId": "optionDelete",
+          "$$hashKey": "uiGrid-00SC",
+          "inputs": {
+            "relationship": null,
+            "choiceDisplayNames": [],
+            "variableSetting": "Argument",
+            "distribution": "Uniform",
+            "discreteVariables": [],
+            "maximum": null,
+            "minimum": null,
+            "mean": null,
+            "deltaX": null,
+            "stdDev": null,
+            "default_value": null,
+            "showWarningIcon": false
+          }
+        },
+        {
+          "specialRowId": "optionName",
+          "type": "String",
+          "$$hashKey": "uiGrid-00SE",
+          "inputs": {
+            "relationship": null,
+            "choiceDisplayNames": [],
+            "variableSetting": "Argument",
+            "distribution": "Uniform",
+            "discreteVariables": [],
+            "maximum": "",
+            "minimum": "",
+            "mean": "",
+            "deltaX": "",
+            "stdDev": "",
+            "default_value": "",
+            "showWarningIcon": false
+          }
+        },
+        {
+          "specialRowId": "optionDescription",
+          "type": "String",
+          "$$hashKey": "uiGrid-00SG",
+          "inputs": {
+            "relationship": null,
+            "choiceDisplayNames": [],
+            "variableSetting": "Argument",
+            "distribution": "Uniform",
+            "discreteVariables": [],
+            "maximum": "",
+            "minimum": "",
+            "mean": "",
+            "deltaX": "",
+            "stdDev": "",
+            "default_value": "",
+            "showWarningIcon": false
+          }
+        },
+        {
+          "name": "case_num",
+          "display_name": "Test Case Number",
+          "description": "Measure will generate selected test case.",
+          "type": "Choice",
+          "required": true,
+          "model_dependent": false,
+          "default_value": "HE100 - Base-case Building and Mechanical Systems",
+          "choice_values": [
+            "HE100 - Base-case Building and Mechanical Systems",
+            "HE110 - Efficiency Test",
+            "HE120 - Stead Par-Load Test",
+            "HE130 - No-Load Test",
+            "HE140 - Periodically Varying Part-Load Test",
+            "HE150 - Circulating Fan Test",
+            "HE160 - Cycling Circulating Fan Test",
+            "HE170 - Draft Fan Test",
+            "HE210 - Realistic Weather Data",
+            "HE220 - Setback Thermostat",
+            "HE230 - Undersized Furnace"
+          ],
+          "choice_display_names": [
+            "HE100 - Base-case Building and Mechanical Systems",
+            "HE110 - Efficiency Test",
+            "HE120 - Stead Par-Load Test",
+            "HE130 - No-Load Test",
+            "HE140 - Periodically Varying Part-Load Test",
+            "HE150 - Circulating Fan Test",
+            "HE160 - Cycling Circulating Fan Test",
+            "HE170 - Draft Fan Test",
+            "HE210 - Realistic Weather Data",
+            "HE220 - Setback Thermostat",
+            "HE230 - Undersized Furnace"
+          ],
+          "$$hashKey": "uiGrid-00SI",
+          "display_name_short": "case_num",
+          "inputs": {
+            "relationship": null,
+            "choiceDisplayNames": [
+              "HE100 - Base-case Building and Mechanical Systems",
+              "HE110 - Efficiency Test",
+              "HE120 - Stead Par-Load Test",
+              "HE130 - No-Load Test",
+              "HE140 - Periodically Varying Part-Load Test",
+              "HE150 - Circulating Fan Test",
+              "HE160 - Cycling Circulating Fan Test",
+              "HE170 - Draft Fan Test",
+              "HE210 - Realistic Weather Data",
+              "HE220 - Setback Thermostat",
+              "HE230 - Undersized Furnace"
+            ],
+            "variableSetting": "Pivot",
+            "distribution": "Uniform",
+            "discreteVariables": [
+              {
+                "value": "HE100 - Base-case Building and Mechanical Systems",
+                "weight": 0.1,
+                "$$hashKey": "object:3549"
+              },
+              {
+                "value": "HE110 - Efficiency Test",
+                "weight": 0.1,
+                "$$hashKey": "object:3560"
+              },
+              {
+                "value": "HE120 - Stead Par-Load Test",
+                "weight": 0.1,
+                "$$hashKey": "object:3570"
+              },
+              {
+                "value": "HE130 - No-Load Test",
+                "weight": 0.1,
+                "$$hashKey": "object:3580"
+              },
+              {
+                "value": "HE140 - Periodically Varying Part-Load Test",
+                "weight": 0.1,
+                "$$hashKey": "object:3590"
+              },
+              {
+                "value": "HE150 - Circulating Fan Test",
+                "weight": 0.1,
+                "$$hashKey": "object:3600"
+              },
+              {
+                "value": "HE160 - Cycling Circulating Fan Test",
+                "weight": 0.1,
+                "$$hashKey": "object:3610"
+              },
+              {
+                "value": "HE170 - Draft Fan Test",
+                "weight": 0.1,
+                "$$hashKey": "object:3620"
+              },
+              {
+                "value": "HE210 - Realistic Weather Data",
+                "weight": 0.1,
+                "$$hashKey": "object:3630"
+              },
+              {
+                "value": "HE220 - Setback Thermostat",
+                "weight": 0.5,
+                "$$hashKey": "object:3640"
+              },
+              {
+                "value": "HE230 - Undersized Furnace",
+                "weight": 0.5,
+                "$$hashKey": "object:3650"
+              }
+            ],
+            "maximum": "HE100 - Base-case Building and Mechanical Systems",
+            "minimum": "HE100 - Base-case Building and Mechanical Systems",
+            "mean": "HE100 - Base-case Building and Mechanical Systems",
+            "deltaX": "HE100 - Base-case Building and Mechanical Systems",
+            "stdDev": "HE100 - Base-case Building and Mechanical Systems",
+            "default_value": "HE100 - Base-case Building and Mechanical Systems",
+            "showWarningIcon": false
+          }
+        }
+      ],
+      "edit": "",
+      "status": "",
+      "bcl_update": false,
+      "location": "my",
+      "add": "",
+      "open": true,
+      "addedToProject": true,
+      "date": "5/16/2017",
+      "author": "",
+      "type": "ModelMeasure",
+      "seed": "seed_empty.osm",
+      "workflow_index": 0,
+      "options": [],
+      "instanceId": 0.1085624026454246,
+      "numberOfOptions": 0,
+      "$$hashKey": "object:2140",
+      "skip": false,
+      "showWarningText": false,
+      "outputMeasure": false
+    },
+    {
+      "measure_dir": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/integration_testing/pat/Bestest_HE_EP_87/measures/bestest_he_reporting",
+      "name": "bestest_he_reporting",
+      "directory": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/measures/bestest_he_reporting",
+      "uid": "0c315265-09b3-40ae-a50f-e8920b468264",
+      "uuid": "{0c315265-09b3-40ae-a50f-e8920b468264}",
+      "version_id": "93c3fae1-f316-4554-9ca2-47aa2c4f44b5",
+      "version_uuid": "{93c3fae1-f316-4554-9ca2-47aa2c4f44b5}",
+      "version_modified": "20170512T170638Z",
+      "xml_checksum": "9BF1E6AC",
+      "display_name": "Bestest He Reporting",
+      "class_name": "BestestHeReporting",
+      "description": "This doesn't generate a user HTML file with any meaningful content. It is here to create runner.RegisterValue objects that will be post processed downstream.",
+      "modeler_description": "The CSV project for the analysis will be downloaded from the server and then a script will run to pull data into Local Excel File.",
+      "tags": "Reporting.QAQC",
+      "outputs": [
+        {
+          "name": "mean_zone_temperature",
+          "display_name": "mean_zone_temperature",
+          "short_name": "mean_zone_temperature",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3864",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "maximum_zone_temperature",
+          "display_name": "maximum_zone_temperature",
+          "short_name": "maximum_zone_temperature",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3865",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "minimum_zone_temperature",
+          "display_name": "minimum_zone_temperature",
+          "short_name": "minimum_zone_temperature",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3866",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "fan_energy",
+          "display_name": "fan_energy",
+          "short_name": "fan_energy",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3867",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "total_furnace_load",
+          "display_name": "total_furnace_load",
+          "short_name": "total_furnace_load",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3868",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "total_furnace_input",
+          "display_name": "total_furnace_input",
+          "short_name": "total_furnace_input",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3869",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "average_fuel_consumption",
+          "display_name": "average_fuel_consumption",
+          "short_name": "average_fuel_consumption",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3870",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "Measure Type",
+          "display_name": "Measure Type",
+          "value": "ReportingMeasure"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "OpenStudio Application"
+        },
+        {
+          "name": "Intended Software Tool",
+          "display_name": "Intended Software Tool",
+          "value": "Parametric Analysis Tool"
+        }
+      ],
+      "arguments": [
+        {
+          "specialRowId": "optionDelete",
+          "$$hashKey": "uiGrid-00Y8",
+          "inputs": {
+            "relationship": null,
+            "choiceDisplayNames": [],
+            "variableSetting": "Argument",
+            "distribution": "Uniform",
+            "discreteVariables": [],
+            "maximum": null,
+            "minimum": null,
+            "mean": null,
+            "deltaX": null,
+            "stdDev": null,
+            "default_value": null,
+            "showWarningIcon": false
+          }
+        },
+        {
+          "specialRowId": "optionName",
+          "type": "String",
+          "$$hashKey": "uiGrid-00YA",
+          "inputs": {
+            "relationship": null,
+            "choiceDisplayNames": [],
+            "variableSetting": "Argument",
+            "distribution": "Uniform",
+            "discreteVariables": [],
+            "maximum": "",
+            "minimum": "",
+            "mean": "",
+            "deltaX": "",
+            "stdDev": "",
+            "default_value": "",
+            "showWarningIcon": false
+          }
+        },
+        {
+          "specialRowId": "optionDescription",
+          "type": "String",
+          "$$hashKey": "uiGrid-00YC",
+          "inputs": {
+            "relationship": null,
+            "choiceDisplayNames": [],
+            "variableSetting": "Argument",
+            "distribution": "Uniform",
+            "discreteVariables": [],
+            "maximum": "",
+            "minimum": "",
+            "mean": "",
+            "deltaX": "",
+            "stdDev": "",
+            "default_value": "",
+            "showWarningIcon": false
+          }
+        }
+      ],
+      "edit": "",
+      "status": "",
+      "bcl_update": false,
+      "location": "my",
+      "add": "",
+      "open": false,
+      "addedToProject": true,
+      "date": "5/12/2017",
+      "author": "",
+      "type": "ReportingMeasure",
+      "seed": "seed_empty.osm",
+      "workflow_index": 1,
+      "options": [],
+      "instanceId": 0.09985677997141762,
+      "numberOfOptions": 0,
+      "$$hashKey": "object:3086",
+      "skip": false,
+      "showWarningText": false,
+      "outputMeasure": true,
+      "userDefinedOutputs": [],
+      "analysisOutputs": [
+        {
+          "name": "mean_zone_temperature",
+          "display_name": "mean_zone_temperature",
+          "short_name": "mean_zone_temperature",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3864",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "maximum_zone_temperature",
+          "display_name": "maximum_zone_temperature",
+          "short_name": "maximum_zone_temperature",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3865",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "minimum_zone_temperature",
+          "display_name": "minimum_zone_temperature",
+          "short_name": "minimum_zone_temperature",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3866",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "fan_energy",
+          "display_name": "fan_energy",
+          "short_name": "fan_energy",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3867",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "total_furnace_load",
+          "display_name": "total_furnace_load",
+          "short_name": "total_furnace_load",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3868",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "total_furnace_input",
+          "display_name": "total_furnace_input",
+          "short_name": "total_furnace_input",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3869",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        },
+        {
+          "name": "average_fuel_consumption",
+          "display_name": "average_fuel_consumption",
+          "short_name": "average_fuel_consumption",
+          "description": "",
+          "type": "Double",
+          "model_dependent": false,
+          "$$hashKey": "object:3870",
+          "checked": true,
+          "visualize": "true",
+          "measure_name": "bestest_he_reporting",
+          "measure_class_name": "BestestHeReporting",
+          "measure_uid": "0c315265-09b3-40ae-a50f-e8920b468264"
+        }
+      ]
+    }
+  ],
+  "filesToInclude": [],
+  "serverScripts": {
+    "server_initialization": {
+      "file": null,
+      "arguments": []
+    },
+    "server_finalization": {
+      "file": null,
+      "arguments": []
+    },
+    "worker_initialization": {
+      "file": null,
+      "arguments": []
+    },
+    "worker_finalization": {
+      "file": null,
+      "arguments": []
+    }
+  },
+  "designAlternatives": [],
+  "analysisID": "c76bce89-6730-483a-baca-3eb262a80f15",
+  "datapoints": []
+}
