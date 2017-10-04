@@ -1,0 +1,392 @@
+<measure>
+  <schema_version>3.0</schema_version>
+  <name>bestest_space_cooling_equipment_performance</name>
+  <uid>eb12d939-e78f-4b84-8af7-1e69e10a0cf4</uid>
+  <version_id>2c6c3c91-e72a-4ed4-a5db-262ef9f801da</version_id>
+  <version_modified>20170516T203809Z</version_modified>
+  <xml_checksum>05C5DFDC</xml_checksum>
+  <class_name>BestestSpaceCoolingEquipmentPerformance</class_name>
+  <display_name>Bestest Space Cooling Equipment Performance</display_name>
+  <description>Creates test cases described in ASHRAE Standard 140-2014 sections 5.3.1, 5.3.2, 5.33, and 5.3.4.</description>
+  <modeler_description>This is intended to run on an empty model. It will create the proper model associate it with the proper weather file, and add in necessary output requests. Internally to the measure the test case argument will be mapped to the proper inputs needed to assemble the model. The measure will make some objects on the fly, other objects will be pulled from existing data resources. This measure creates cases described all of section 5.3.</modeler_description>
+  <arguments>
+    <argument>
+      <name>case_num</name>
+      <display_name>Test Case Number</display_name>
+      <description>Measure will generate selected test case.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>CE100 - Base-Case Building and Mechanical System</default_value>
+      <choices>
+        <choice>
+          <value>CE100 - Base-Case Building and Mechanical System</value>
+          <display_name>CE100 - Base-Case Building and Mechanical System</display_name>
+        </choice>
+        <choice>
+          <value>CE110 - Reduced Outdoor Dry-Bulb Temperature</value>
+          <display_name>CE110 - Reduced Outdoor Dry-Bulb Temperature</display_name>
+        </choice>
+        <choice>
+          <value>CE120 - Increased Thermostat Setpoint</value>
+          <display_name>CE120 - Increased Thermostat Setpoint</display_name>
+        </choice>
+        <choice>
+          <value>CE130 - Low Part-Load Ratio</value>
+          <display_name>CE130 - Low Part-Load Ratio</display_name>
+        </choice>
+        <choice>
+          <value>CE140 - Reduced Outdoor Dry-Bulb Temperature at Low Part-Load Ratio</value>
+          <display_name>CE140 - Reduced Outdoor Dry-Bulb Temperature at Low Part-Load Ratio</display_name>
+        </choice>
+        <choice>
+          <value>CE150 - Latent Load at High Sensible Heat Ratio</value>
+          <display_name>CE150 - Latent Load at High Sensible Heat Ratio</display_name>
+        </choice>
+        <choice>
+          <value>CE160 - Increased Thermostat Setpoint at High Sensible Heat Ratio</value>
+          <display_name>CE160 - Increased Thermostat Setpoint at High Sensible Heat Ratio</display_name>
+        </choice>
+        <choice>
+          <value>CE165 - Variatino fo Thermostat Setpoint and Outdoor Dry-Bulb Temperature at High Sensible Heat Ratio</value>
+          <display_name>CE165 - Variatino fo Thermostat Setpoint and Outdoor Dry-Bulb Temperature at High Sensible Heat Ratio</display_name>
+        </choice>
+        <choice>
+          <value>CE170 - Reduced Sensible Load</value>
+          <display_name>CE170 - Reduced Sensible Load</display_name>
+        </choice>
+        <choice>
+          <value>CE180 - Increased Latent Load</value>
+          <display_name>CE180 - Increased Latent Load</display_name>
+        </choice>
+        <choice>
+          <value>CE185 - Increased Outdoor Dry-Bulb Temperature at Low Sensible Heat Ratio</value>
+          <display_name>CE185 - Increased Outdoor Dry-Bulb Temperature at Low Sensible Heat Ratio</display_name>
+        </choice>
+        <choice>
+          <value>CE190 - Low Part-Load Ratio at Low Sensible Heat Ratio</value>
+          <display_name>CE190 - Low Part-Load Ratio at Low Sensible Heat Ratio</display_name>
+        </choice>
+        <choice>
+          <value>CE195 - Increased Outdoor Dry-Bulb Temperature at Low Sensible Heat Rato and Low Part-Load Rato</value>
+          <display_name>CE195 - Increased Outdoor Dry-Bulb Temperature at Low Sensible Heat Rato and Low Part-Load Rato</display_name>
+        </choice>
+        <choice>
+          <value>CE200 - Full-Load Test at AHRI Conditions</value>
+          <display_name>CE200 - Full-Load Test at AHRI Conditions</display_name>
+        </choice>
+        <choice>
+          <value>CE300 - Base Case 15% OA</value>
+          <display_name>CE300 - Base Case 15% OA</display_name>
+        </choice>
+        <choice>
+          <value>CE310 - High Latent Load</value>
+          <display_name>CE310 - High Latent Load</display_name>
+        </choice>
+        <choice>
+          <value>CE320 - Infiltration</value>
+          <display_name>CE320 - Infiltration</display_name>
+        </choice>
+        <choice>
+          <value>CE330 - Outside Air</value>
+          <display_name>CE330 - Outside Air</display_name>
+        </choice>
+        <choice>
+          <value>CE340 - Infil/OA Interaction</value>
+          <display_name>CE340 - Infil/OA Interaction</display_name>
+        </choice>
+        <choice>
+          <value>CE350 - Thermostat Set Up</value>
+          <display_name>CE350 - Thermostat Set Up</display_name>
+        </choice>
+        <choice>
+          <value>CE360 - Undersize</value>
+          <display_name>CE360 - Undersize</display_name>
+        </choice>
+        <choice>
+          <value>CE400 - Temperature Control</value>
+          <display_name>CE400 - Temperature Control</display_name>
+        </choice>
+        <choice>
+          <value>CE410 - Compressor Lockout</value>
+          <display_name>CE410 - Compressor Lockout</display_name>
+        </choice>
+        <choice>
+          <value>CE420 - ODB Limit</value>
+          <display_name>CE420 - ODB Limit</display_name>
+        </choice>
+        <choice>
+          <value>CE430 - Enthalpy Control</value>
+          <display_name>CE430 - Enthalpy Control</display_name>
+        </choice>
+        <choice>
+          <value>CE440 - Outdoor Enthalpy Limit</value>
+          <display_name>CE440 - Outdoor Enthalpy Limit</display_name>
+        </choice>
+        <choice>
+          <value>CE500 - Base Case (0% OA)</value>
+          <display_name>CE500 - Base Case (0% OA)</display_name>
+        </choice>
+        <choice>
+          <value>CE510 - High PLR</value>
+          <display_name>CE510 - High PLR</display_name>
+        </choice>
+        <choice>
+          <value>CE520 - Low EDB 15C</value>
+          <display_name>CE520 - Low EDB 15C</display_name>
+        </choice>
+        <choice>
+          <value>CE522 - Low EDB 20C</value>
+          <display_name>CE522 - Low EDB 20C</display_name>
+        </choice>
+        <choice>
+          <value>CE525 - High EDB</value>
+          <display_name>CE525 - High EDB</display_name>
+        </choice>
+        <choice>
+          <value>CE530 - Dry Coil</value>
+          <display_name>CE530 - Dry Coil</display_name>
+        </choice>
+        <choice>
+          <value>CE540 - Dry Coil, Low EDB</value>
+          <display_name>CE540 - Dry Coil, Low EDB</display_name>
+        </choice>
+        <choice>
+          <value>CE545 - Dry Coil, High EDB</value>
+          <display_name>CE545 - Dry Coil, High EDB</display_name>
+        </choice>
+      </choices>
+    </argument>
+  </arguments>
+  <outputs/>
+  <provenances/>
+  <tags>
+    <tag>Whole Building.Space Types</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Analysis Spreadsheet</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Analysis Spreadsheet</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>DRYCOLDTMY.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>08DEB5B3</checksum>
+    </file>
+    <file>
+      <filename>epw.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>32A9564D</checksum>
+    </file>
+    <file>
+      <filename>CE100ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>5F480EBD</checksum>
+    </file>
+    <file>
+      <filename>CE110ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>A0DB1D54</checksum>
+    </file>
+    <file>
+      <filename>CE165ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>659530A0</checksum>
+    </file>
+    <file>
+      <filename>CE200ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>53932B90</checksum>
+    </file>
+    <file>
+      <filename>CE300TM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>96FC79DF</checksum>
+    </file>
+    <file>
+      <filename>HE100WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>FB484A5B</checksum>
+    </file>
+    <file>
+      <filename>HE120WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>559784AA</checksum>
+    </file>
+    <file>
+      <filename>HE130WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>0C47A954</checksum>
+    </file>
+    <file>
+      <filename>HE140WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>003B129F</checksum>
+    </file>
+    <file>
+      <filename>HE210WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>CFF75E65</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>72619382</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_0_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>2DBFA8B2</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>2B0D8DB6</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_1_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>619B4059</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_Sunspace.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>C146694E</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_1_1.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>940F5679</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_CE100.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>ED429B37</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_CE300.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>7B2088F0</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_HE100.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>8ED56459</checksum>
+    </file>
+    <file>
+      <filename>seed_empty.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>BD6B9875</checksum>
+    </file>
+    <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>50D7A429</checksum>
+    </file>
+    <file>
+      <filename>besttest_case_var_lib.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>25375833</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>1.11.5</identifier>
+        <min_compatible>1.11.5</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>B494F9B3</checksum>
+    </file>
+    <file>
+      <filename>bestest_space_cooling_equipment_performance_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>7218C3D4</checksum>
+    </file>
+    <file>
+      <filename>besttest_model_methods.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>FEB85365</checksum>
+    </file>
+  </files>
+</measure>

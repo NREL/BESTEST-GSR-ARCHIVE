@@ -1,0 +1,387 @@
+<measure>
+  <schema_version>3.0</schema_version>
+  <name>bestest_building_thermal_envelope_and_fabric_load</name>
+  <uid>2ea72aae-b05a-4ca3-b47c-1b140b7eef43</uid>
+  <version_id>dcdcc5e7-f979-4be6-8740-d073361e088a</version_id>
+  <version_modified>20170516T203809Z</version_modified>
+  <xml_checksum>28AD5222</xml_checksum>
+  <class_name>BestestBuildingThermalEnvelopeAndFabricLoad</class_name>
+  <display_name>Bestest Building Thermal Envelope and Fabric Load</display_name>
+  <description>Creates test cases described in ASHRAE Standard 140-2014 sections 5.2.1, 5.2.2, and 5.2.3.</description>
+  <modeler_description>This is intended to run on an empty model. It will create the proper model associate it with the proper weather file, and add in necessary output requests. Internally to the measure the test case argument will be mapped to the proper inputs needed to assemble the model. The measure will make some objects on the fly, other objects will be pulled from existing data resources. This measure creates cases described all of section 5.2 except for section 5.2.4 - Ground-Coupled Slab-on-Grade Analytical Verification Tests.</modeler_description>
+  <arguments>
+    <argument>
+      <name>case_num</name>
+      <display_name>Test Case Number</display_name>
+      <description>Measure will generate selected test case.</description>
+      <type>Choice</type>
+      <required>true</required>
+      <model_dependent>false</model_dependent>
+      <default_value>600 - Base Case</default_value>
+      <choices>
+        <choice>
+          <value>195 - Solid Conduction Test</value>
+          <display_name>195 - Solid Conduction Test</display_name>
+        </choice>
+        <choice>
+          <value>200 - Surface Convection/Infrared Radiation</value>
+          <display_name>200 - Surface Convection/Infrared Radiation</display_name>
+        </choice>
+        <choice>
+          <value>210 - Interior Infrared Radiation</value>
+          <display_name>210 - Interior Infrared Radiation</display_name>
+        </choice>
+        <choice>
+          <value>215 - Exterior Infrared Radiation</value>
+          <display_name>215 - Exterior Infrared Radiation</display_name>
+        </choice>
+        <choice>
+          <value>220 - In-Depth Series Base Case</value>
+          <display_name>220 - In-Depth Series Base Case</display_name>
+        </choice>
+        <choice>
+          <value>230 - Infiltration</value>
+          <display_name>230 - Infiltration</display_name>
+        </choice>
+        <choice>
+          <value>240 - Internal Gains</value>
+          <display_name>240 - Internal Gains</display_name>
+        </choice>
+        <choice>
+          <value>250 - Exterior Shortwave Absorptance</value>
+          <display_name>250 - Exterior Shortwave Absorptance</display_name>
+        </choice>
+        <choice>
+          <value>270 - South Solar Gains</value>
+          <display_name>270 - South Solar Gains</display_name>
+        </choice>
+        <choice>
+          <value>280 - Cavity Albedo</value>
+          <display_name>280 - Cavity Albedo</display_name>
+        </choice>
+        <choice>
+          <value>290 - South Shading</value>
+          <display_name>290 - South Shading</display_name>
+        </choice>
+        <choice>
+          <value>300 - East/West Window Orientation</value>
+          <display_name>300 - East/West Window Orientation</display_name>
+        </choice>
+        <choice>
+          <value>310 - East/West Shading</value>
+          <display_name>310 - East/West Shading</display_name>
+        </choice>
+        <choice>
+          <value>320 - Thermostat</value>
+          <display_name>320 - Thermostat</display_name>
+        </choice>
+        <choice>
+          <value>395 - Solid Conduction Test</value>
+          <display_name>395 - Solid Conduction Test</display_name>
+        </choice>
+        <choice>
+          <value>400 - Opaque Windows with Deadband</value>
+          <display_name>400 - Opaque Windows with Deadband</display_name>
+        </choice>
+        <choice>
+          <value>410 - Infiltration</value>
+          <display_name>410 - Infiltration</display_name>
+        </choice>
+        <choice>
+          <value>420 - Internal Gains</value>
+          <display_name>420 - Internal Gains</display_name>
+        </choice>
+        <choice>
+          <value>430 - Exterior Shortwave Absorptance</value>
+          <display_name>430 - Exterior Shortwave Absorptance</display_name>
+        </choice>
+        <choice>
+          <value>440 - Cavity Albedo</value>
+          <display_name>440 - Cavity Albedo</display_name>
+        </choice>
+        <choice>
+          <value>600 - Base Case</value>
+          <display_name>600 - Base Case</display_name>
+        </choice>
+        <choice>
+          <value>610 - South Shading</value>
+          <display_name>610 - South Shading</display_name>
+        </choice>
+        <choice>
+          <value>620 - East/West Window Orientation</value>
+          <display_name>620 - East/West Window Orientation</display_name>
+        </choice>
+        <choice>
+          <value>630 - East/West Shading</value>
+          <display_name>630 - East/West Shading</display_name>
+        </choice>
+        <choice>
+          <value>640 - Thermostat Setback</value>
+          <display_name>640 - Thermostat Setback</display_name>
+        </choice>
+        <choice>
+          <value>650 - Night Ventilation</value>
+          <display_name>650 - Night Ventilation</display_name>
+        </choice>
+        <choice>
+          <value>800 - High-Mass without Solar Gains</value>
+          <display_name>800 - High-Mass without Solar Gains</display_name>
+        </choice>
+        <choice>
+          <value>810 - High-Mass Cavity Albedo</value>
+          <display_name>810 - High-Mass Cavity Albedo</display_name>
+        </choice>
+        <choice>
+          <value>900 - High-Mass Base Case</value>
+          <display_name>900 - High-Mass Base Case</display_name>
+        </choice>
+        <choice>
+          <value>910 - High-Mass South Shading</value>
+          <display_name>910 - High-Mass South Shading</display_name>
+        </choice>
+        <choice>
+          <value>920 - High-Mass East/West Window Orientation</value>
+          <display_name>920 - High-Mass East/West Window Orientation</display_name>
+        </choice>
+        <choice>
+          <value>930 - High-Mass East/West Shading</value>
+          <display_name>930 - High-Mass East/West Shading</display_name>
+        </choice>
+        <choice>
+          <value>940 - High-Mass Thermostat Setback</value>
+          <display_name>940 - High-Mass Thermostat Setback</display_name>
+        </choice>
+        <choice>
+          <value>950 - High-Mass Night Ventilation</value>
+          <display_name>950 - High-Mass Night Ventilation</display_name>
+        </choice>
+        <choice>
+          <value>960 - Sunspace</value>
+          <display_name>960 - Sunspace</display_name>
+        </choice>
+        <choice>
+          <value>600FF</value>
+          <display_name>600FF</display_name>
+        </choice>
+        <choice>
+          <value>900FF</value>
+          <display_name>900FF</display_name>
+        </choice>
+        <choice>
+          <value>650FF</value>
+          <display_name>650FF</display_name>
+        </choice>
+        <choice>
+          <value>950FF</value>
+          <display_name>950FF</display_name>
+        </choice>
+      </choices>
+    </argument>
+  </arguments>
+  <outputs/>
+  <provenances/>
+  <tags>
+    <tag>Whole Building.Space Types</tag>
+  </tags>
+  <attributes>
+    <attribute>
+      <name>Measure Type</name>
+      <value>ModelMeasure</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Apply Measure Now</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>OpenStudio Application</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Parametric Analysis Tool</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Software Tool</name>
+      <value>Analysis Spreadsheet</value>
+      <datatype>string</datatype>
+    </attribute>
+    <attribute>
+      <name>Intended Use Case</name>
+      <value>Model Articulation</value>
+      <datatype>string</datatype>
+    </attribute>
+  </attributes>
+  <files>
+    <file>
+      <filename>DRYCOLDTMY.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>08DEB5B3</checksum>
+    </file>
+    <file>
+      <filename>epw.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>32A9564D</checksum>
+    </file>
+    <file>
+      <filename>CE100ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>5F480EBD</checksum>
+    </file>
+    <file>
+      <filename>CE110ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>A0DB1D54</checksum>
+    </file>
+    <file>
+      <filename>CE165ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>659530A0</checksum>
+    </file>
+    <file>
+      <filename>CE200ATM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>53932B90</checksum>
+    </file>
+    <file>
+      <filename>CE300TM2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>96FC79DF</checksum>
+    </file>
+    <file>
+      <filename>HE100WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>FB484A5B</checksum>
+    </file>
+    <file>
+      <filename>HE120WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>559784AA</checksum>
+    </file>
+    <file>
+      <filename>HE130WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>0C47A954</checksum>
+    </file>
+    <file>
+      <filename>HE140WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>003B129F</checksum>
+    </file>
+    <file>
+      <filename>HE210WWY2.epw</filename>
+      <filetype>epw</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>CFF75E65</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>72619382</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_0_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>2DBFA8B2</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_0_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>2B0D8DB6</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_South_12_1_0.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>619B4059</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_Sunspace.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>C146694E</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_EastWest_6_1_1.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>940F5679</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_HE100.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>8ED56459</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_CE100.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>ED429B37</checksum>
+    </file>
+    <file>
+      <filename>Bestest_Geo_CE300.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>7B2088F0</checksum>
+    </file>
+    <file>
+      <filename>seed_empty.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>test</usage_type>
+      <checksum>3DFC9D37</checksum>
+    </file>
+    <file>
+      <filename>bestest_resources.osm</filename>
+      <filetype>osm</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>50D7A429</checksum>
+    </file>
+    <file>
+      <filename>besttest_case_var_lib.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>25375833</checksum>
+    </file>
+    <file>
+      <version>
+        <software_program>OpenStudio</software_program>
+        <identifier>1.11.5</identifier>
+        <min_compatible>1.11.5</min_compatible>
+      </version>
+      <filename>measure.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>script</usage_type>
+      <checksum>25A9C7BF</checksum>
+    </file>
+    <file>
+      <filename>bestest_building_thermal_envelope_and_fabric_load_test.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>test</usage_type>
+      <checksum>26EF2722</checksum>
+    </file>
+    <file>
+      <filename>besttest_model_methods.rb</filename>
+      <filetype>rb</filetype>
+      <usage_type>resource</usage_type>
+      <checksum>FEB85365</checksum>
+    </file>
+  </files>
+</measure>

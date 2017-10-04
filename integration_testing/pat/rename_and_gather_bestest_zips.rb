@@ -2,7 +2,7 @@ require 'fileutils'
 require 'openstudio'
 
 # loop through resoruce files
-results_directories = Dir.glob("Bestest_Manual_Runs_05182017/LocalResults/*")
+results_directories = Dir.glob("PAT_BESTEST_Manual/LocalResults/*")
 results_directories.each do |results_directory|
 
 	# load the test model
