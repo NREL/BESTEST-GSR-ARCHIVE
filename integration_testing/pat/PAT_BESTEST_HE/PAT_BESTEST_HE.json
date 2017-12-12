@@ -1,0 +1,276 @@
+{
+  "analysis": {
+    "display_name": "PAT_BESTEST_HE",
+    "name": "PAT_BESTEST_HE",
+    "output_variables": [
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "mean_zone_temperature",
+        "display_name_short": "mean_zone_temperature",
+        "metadata_id": null,
+        "name": "bestest_he_reporting.mean_zone_temperature",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "maximum_zone_temperature",
+        "display_name_short": "maximum_zone_temperature",
+        "metadata_id": null,
+        "name": "bestest_he_reporting.maximum_zone_temperature",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "minimum_zone_temperature",
+        "display_name_short": "minimum_zone_temperature",
+        "metadata_id": null,
+        "name": "bestest_he_reporting.minimum_zone_temperature",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "fan_energy",
+        "display_name_short": "fan_energy",
+        "metadata_id": null,
+        "name": "bestest_he_reporting.fan_energy",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "total_furnace_load",
+        "display_name_short": "total_furnace_load",
+        "metadata_id": null,
+        "name": "bestest_he_reporting.total_furnace_load",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "total_furnace_input",
+        "display_name_short": "total_furnace_input",
+        "metadata_id": null,
+        "name": "bestest_he_reporting.total_furnace_input",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "average_fuel_consumption",
+        "display_name_short": "average_fuel_consumption",
+        "metadata_id": null,
+        "name": "bestest_he_reporting.average_fuel_consumption",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      }
+    ],
+    "problem": {
+      "workflow": [
+        {
+          "name": "bestest_space_heating_equipment_performance",
+          "display_name": "Bestest Space Heating Equipment Performance",
+          "measure_type": "RubyMeasure",
+          "measure_definition_class_name": "BestestSpaceHeatingEquipmentPerformance",
+          "measure_definition_directory": "./measures/bestest_space_heating_equipment_performance",
+          "measure_definition_directory_local": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/integration_testing/pat/PAT_BESTEST_HE/measures/bestest_space_heating_equipment_performance",
+          "measure_definition_display_name": "Bestest Space Heating Equipment Performance",
+          "measure_definition_name": "bestest_space_heating_equipment_performance",
+          "measure_definition_name_xml": null,
+          "measure_definition_uuid": "65d31bac-6024-4b64-8029-006e82cd4b87",
+          "measure_definition_version_uuid": "a2a1b1f1-4d28-4059-b60c-0901ac39018e",
+          "uuid": "65d31bac-6024-4b64-8029-006e82cd4b87",
+          "version_uuid": "a2a1b1f1-4d28-4059-b60c-0901ac39018e",
+          "description": "Creates test cases described in ASHRAE Standard 140-2014 sections 5.4.1, 5.4.2, and 5.4.3",
+          "taxonomy": "Whole Building.Space Types",
+          "arguments": [],
+          "variables": [
+            {
+              "argument": {
+                "display_name": "Test Case Number",
+                "display_name_short": "case_num",
+                "name": "case_num",
+                "value_type": "string",
+                "default_value": "HE100 - Base-case Building and Mechanical Systems",
+                "value": "HE100 - Base-case Building and Mechanical Systems",
+                "choice_display_names": [
+                  "HE100 - Base-case Building and Mechanical Systems",
+                  "HE110 - Efficiency Test",
+                  "HE120 - Stead Par-Load Test",
+                  "HE130 - No-Load Test",
+                  "HE140 - Periodically Varying Part-Load Test",
+                  "HE150 - Circulating Fan Test",
+                  "HE160 - Cycling Circulating Fan Test",
+                  "HE170 - Draft Fan Test",
+                  "HE210 - Realistic Weather Data",
+                  "HE220 - Setback Thermostat",
+                  "HE230 - Undersized Furnace"
+                ]
+              },
+              "display_name": "Test Case Number",
+              "display_name_short": "case_num",
+              "variable_type": "variable",
+              "minimum": "HE100 - Base-case Building and Mechanical Systems",
+              "maximum": "HE100 - Base-case Building and Mechanical Systems",
+              "static_value": "HE100 - Base-case Building and Mechanical Systems",
+              "uuid": "",
+              "version_uuid": "",
+              "variable": true,
+              "uncertainty_description": {
+                "type": "discrete",
+                "attributes": [
+                  {
+                    "name": "discrete",
+                    "values_and_weights": [
+                      {
+                        "value": "HE100 - Base-case Building and Mechanical Systems",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE110 - Efficiency Test",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE120 - Stead Par-Load Test",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE130 - No-Load Test",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE140 - Periodically Varying Part-Load Test",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE150 - Circulating Fan Test",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE160 - Cycling Circulating Fan Test",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE170 - Draft Fan Test",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE210 - Realistic Weather Data",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE220 - Setback Thermostat",
+                        "weight": 0.15
+                      },
+                      {
+                        "value": "HE230 - Undersized Furnace",
+                        "weight": 0.15
+                      }
+                    ]
+                  },
+                  {
+                    "name": "lower_bounds",
+                    "value": "HE100 - Base-case Building and Mechanical Systems"
+                  },
+                  {
+                    "name": "upper_bounds",
+                    "value": "HE100 - Base-case Building and Mechanical Systems"
+                  },
+                  {
+                    "name": "modes",
+                    "value": "HE100 - Base-case Building and Mechanical Systems"
+                  },
+                  {
+                    "name": "delta_x",
+                    "value": "HE100 - Base-case Building and Mechanical Systems"
+                  },
+                  {
+                    "name": "stddev",
+                    "value": "HE100 - Base-case Building and Mechanical Systems"
+                  }
+                ]
+              },
+              "workflow_index": 0
+            }
+          ],
+          "workflow_index": 0
+        },
+        {
+          "name": "bestest_he_reporting",
+          "display_name": "Bestest He Reporting",
+          "measure_type": "ReportingMeasure",
+          "measure_definition_class_name": "BestestHeReporting",
+          "measure_definition_directory": "./measures/bestest_he_reporting",
+          "measure_definition_directory_local": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/integration_testing/pat/PAT_BESTEST_HE/measures/bestest_he_reporting",
+          "measure_definition_display_name": "Bestest He Reporting",
+          "measure_definition_name": "bestest_he_reporting",
+          "measure_definition_name_xml": null,
+          "measure_definition_uuid": "0c315265-09b3-40ae-a50f-e8920b468264",
+          "measure_definition_version_uuid": "4de76828-260d-47af-8630-786e258b4eca",
+          "uuid": "0c315265-09b3-40ae-a50f-e8920b468264",
+          "version_uuid": "4de76828-260d-47af-8630-786e258b4eca",
+          "description": "This doesn't generate a user HTML file with any meaningful content. It is here to create runner.RegisterValue objects that will be post processed downstream.",
+          "taxonomy": "Reporting.QAQC",
+          "arguments": [],
+          "variables": [],
+          "workflow_index": 1
+        }
+      ],
+      "algorithm": {
+        "sample_method": "individual_variables",
+        "number_of_samples": 100,
+        "failed_f_value": 1000000000000000000,
+        "debug_messages": 1,
+        "objective_functions": []
+      },
+      "analysis_type": "lhs"
+    },
+    "seed": {
+      "file_type": "OSM",
+      "path": "./seeds/seed_empty.osm"
+    },
+    "weather_file": {
+      "file_type": "EPW",
+      "path": "./weather/USA_MA_Boston-Logan.Intl.AP.725090_TMY3.epw"
+    },
+    "file_format_version": 1,
+    "server_scripts": {}
+  }
+}

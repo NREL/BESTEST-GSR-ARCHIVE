@@ -1,0 +1,741 @@
+{
+  "analysis": {
+    "display_name": "PAT_BESTEST_EN",
+    "name": "PAT_BESTEST_EN",
+    "output_variables": [
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "annual_heating",
+        "display_name_short": "annual_heating",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.annual_heating",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "annual_cooling",
+        "display_name_short": "annual_cooling",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.annual_cooling",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "peak_heating_value",
+        "display_name_short": "peak_heating_value",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.peak_heating_value",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "peak_cooling_value",
+        "display_name_short": "peak_cooling_value",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.peak_cooling_value",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "peak_heating_time",
+        "display_name_short": "peak_heating_time",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.peak_heating_time",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "peak_cooling_time",
+        "display_name_short": "peak_cooling_time",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.peak_cooling_time",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "sens_htg_clg_0104",
+        "display_name_short": "sens_htg_clg_0104",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.sens_htg_clg_0104",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "temp_0104",
+        "display_name_short": "temp_0104",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.temp_0104",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "temp_0727",
+        "display_name_short": "temp_0727",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.temp_0727",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "surf_out_inst_slr_rad_0305_zone_surface_south",
+        "display_name_short": "surf_out_inst_slr_rad_0305_zone_surface_south",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.surf_out_inst_slr_rad_0305_zone_surface_south",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "surf_out_inst_slr_rad_0305_zone_surface_west",
+        "display_name_short": "surf_out_inst_slr_rad_0305_zone_surface_west",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.surf_out_inst_slr_rad_0305_zone_surface_west",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "surf_out_inst_slr_rad_0727_zone_surface_south",
+        "display_name_short": "surf_out_inst_slr_rad_0727_zone_surface_south",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.surf_out_inst_slr_rad_0727_zone_surface_south",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "surf_out_inst_slr_rad_0727_zone_surface_west",
+        "display_name_short": "surf_out_inst_slr_rad_0727_zone_surface_west",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.surf_out_inst_slr_rad_0727_zone_surface_west",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "temp_bins",
+        "display_name_short": "temp_bins",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.temp_bins",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "max_temp",
+        "display_name_short": "max_temp",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.max_temp",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "min_temp",
+        "display_name_short": "min_temp",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.min_temp",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "avg_temp",
+        "display_name_short": "avg_temp",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.avg_temp",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "north_incident_solar_radiation",
+        "display_name_short": "north_incident_solar_radiation",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.north_incident_solar_radiation",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "east_incident_solar_radiation",
+        "display_name_short": "east_incident_solar_radiation",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.east_incident_solar_radiation",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "west_incident_solar_radiation",
+        "display_name_short": "west_incident_solar_radiation",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.west_incident_solar_radiation",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "south_incident_solar_radiation",
+        "display_name_short": "south_incident_solar_radiation",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.south_incident_solar_radiation",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "horizontal_incident_solar_radiation",
+        "display_name_short": "horizontal_incident_solar_radiation",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.horizontal_incident_solar_radiation",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "zone_total_transmitted_solar_radiation",
+        "display_name_short": "zone_total_transmitted_solar_radiation",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.zone_total_transmitted_solar_radiation",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "max_index_position",
+        "display_name_short": "max_index_position",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.max_index_position",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      },
+      {
+        "objective_function": false,
+        "objective_function_index": null,
+        "objective_function_target": null,
+        "objective_function_group": null,
+        "scaling_factor": null,
+        "display_name": "min_index_position",
+        "display_name_short": "min_index_position",
+        "metadata_id": null,
+        "name": "bestest_building_thermal_envelope_and_fabric_load_reporting.min_index_position",
+        "visualize": true,
+        "export": true,
+        "variable_type": "double"
+      }
+    ],
+    "problem": {
+      "workflow": [
+        {
+          "name": "bestest_building_thermal_envelope_and_fabric_load",
+          "display_name": "Bestest Building Thermal Envelope and Fabric Load",
+          "measure_type": "RubyMeasure",
+          "measure_definition_class_name": "BestestBuildingThermalEnvelopeAndFabricLoad",
+          "measure_definition_directory": "./measures/bestest_building_thermal_envelope_and_fabric_load",
+          "measure_definition_directory_local": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/integration_testing/pat/PAT_BESTEST_EN/measures/bestest_building_thermal_envelope_and_fabric_load",
+          "measure_definition_display_name": "Bestest Building Thermal Envelope and Fabric Load",
+          "measure_definition_name": "bestest_building_thermal_envelope_and_fabric_load",
+          "measure_definition_name_xml": null,
+          "measure_definition_uuid": "2ea72aae-b05a-4ca3-b47c-1b140b7eef43",
+          "measure_definition_version_uuid": "dcdcc5e7-f979-4be6-8740-d073361e088a",
+          "uuid": "2ea72aae-b05a-4ca3-b47c-1b140b7eef43",
+          "version_uuid": "dcdcc5e7-f979-4be6-8740-d073361e088a",
+          "description": "Creates test cases described in ASHRAE Standard 140-2014 sections 5.2.1, 5.2.2, and 5.2.3.",
+          "taxonomy": "Whole Building.Space Types",
+          "arguments": [],
+          "variables": [
+            {
+              "argument": {
+                "display_name": "Test Case Number",
+                "display_name_short": "case_num",
+                "name": "case_num",
+                "value_type": "string",
+                "default_value": "600 - Base Case",
+                "value": "600 - Base Case",
+                "choice_display_names": [
+                  "195 - Solid Conduction Test",
+                  "200 - Surface Convection/Infrared Radiation",
+                  "210 - Interior Infrared Radiation",
+                  "215 - Exterior Infrared Radiation",
+                  "220 - In-Depth Series Base Case",
+                  "230 - Infiltration",
+                  "240 - Internal Gains",
+                  "250 - Exterior Shortwave Absorptance",
+                  "270 - South Solar Gains",
+                  "280 - Cavity Albedo",
+                  "290 - South Shading",
+                  "300 - East/West Window Orientation",
+                  "310 - East/West Shading",
+                  "320 - Thermostat",
+                  "395 - Solid Conduction Test",
+                  "400 - Opaque Windows with Deadband",
+                  "410 - Infiltration",
+                  "420 - Internal Gains",
+                  "430 - Exterior Shortwave Absorptance",
+                  "440 - Cavity Albedo",
+                  "600 - Base Case",
+                  "610 - South Shading",
+                  "620 - East/West Window Orientation",
+                  "630 - East/West Shading",
+                  "640 - Thermostat Setback",
+                  "650 - Night Ventilation",
+                  "800 - High-Mass without Solar Gains",
+                  "810 - High-Mass Cavity Albedo",
+                  "900 - High-Mass Base Case",
+                  "910 - High-Mass South Shading",
+                  "920 - High-Mass East/West Window Orientation",
+                  "930 - High-Mass East/West Shading",
+                  "940 - High-Mass Thermostat Setback",
+                  "950 - High-Mass Night Ventilation",
+                  "960 - Sunspace",
+                  "600FF",
+                  "900FF",
+                  "650FF",
+                  "950FF"
+                ]
+              },
+              "display_name": "Test Case Number",
+              "display_name_short": "case_num",
+              "variable_type": "variable",
+              "minimum": "600 - Base Case",
+              "maximum": "600 - Base Case",
+              "static_value": "600 - Base Case",
+              "uuid": "",
+              "version_uuid": "",
+              "variable": true,
+              "uncertainty_description": {
+                "type": "discrete",
+                "attributes": [
+                  {
+                    "name": "discrete",
+                    "values_and_weights": [
+                      {
+                        "value": "195 - Solid Conduction Test",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "200 - Surface Convection/Infrared Radiation",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "210 - Interior Infrared Radiation",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "215 - Exterior Infrared Radiation",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "220 - In-Depth Series Base Case",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "230 - Infiltration",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "240 - Internal Gains",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "250 - Exterior Shortwave Absorptance",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "270 - South Solar Gains",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "280 - Cavity Albedo",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "290 - South Shading",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "300 - East/West Window Orientation",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "310 - East/West Shading",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "320 - Thermostat",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "395 - Solid Conduction Test",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "400 - Opaque Windows with Deadband",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "410 - Infiltration",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "420 - Internal Gains",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "430 - Exterior Shortwave Absorptance",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "440 - Cavity Albedo",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "600 - Base Case",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "610 - South Shading",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "620 - East/West Window Orientation",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "630 - East/West Shading",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "640 - Thermostat Setback",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "650 - Night Ventilation",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "800 - High-Mass without Solar Gains",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "810 - High-Mass Cavity Albedo",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "900 - High-Mass Base Case",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "910 - High-Mass South Shading",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "920 - High-Mass East/West Window Orientation",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "930 - High-Mass East/West Shading",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "940 - High-Mass Thermostat Setback",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "950 - High-Mass Night Ventilation",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "960 - Sunspace",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "600FF",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "900FF",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "650FF",
+                        "weight": 0.05
+                      },
+                      {
+                        "value": "950FF",
+                        "weight": 0.05
+                      }
+                    ]
+                  },
+                  {
+                    "name": "lower_bounds",
+                    "value": "600 - Base Case"
+                  },
+                  {
+                    "name": "upper_bounds",
+                    "value": "600 - Base Case"
+                  },
+                  {
+                    "name": "modes",
+                    "value": "600 - Base Case"
+                  },
+                  {
+                    "name": "delta_x",
+                    "value": "600 - Base Case"
+                  },
+                  {
+                    "name": "stddev",
+                    "value": "600 - Base Case"
+                  }
+                ]
+              },
+              "workflow_index": 0
+            }
+          ],
+          "workflow_index": 0
+        },
+        {
+          "name": "bestest_building_thermal_envelope_and_fabric_load_reporting",
+          "display_name": "Bestest Building Thermal Envelope and Fabric Load Reporting",
+          "measure_type": "ReportingMeasure",
+          "measure_definition_class_name": "BestestBuildingThermalEnvelopeAndFabricLoadReporting",
+          "measure_definition_directory": "./measures/bestest_building_thermal_envelope_and_fabric_load_reporting",
+          "measure_definition_directory_local": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/integration_testing/pat/PAT_BESTEST_EN/measures/bestest_building_thermal_envelope_and_fabric_load_reporting",
+          "measure_definition_display_name": "Bestest Building Thermal Envelope and Fabric Load Reporting",
+          "measure_definition_name": "bestest_building_thermal_envelope_and_fabric_load_reporting",
+          "measure_definition_name_xml": null,
+          "measure_definition_uuid": "a0b598a6-96b9-4704-bc23-ac403d9f6b1b",
+          "measure_definition_version_uuid": "ebfab597-0d3c-44bf-a470-53bffc46e0c5",
+          "uuid": "a0b598a6-96b9-4704-bc23-ac403d9f6b1b",
+          "version_uuid": "ebfab597-0d3c-44bf-a470-53bffc46e0c5",
+          "description": "Simple example of modular code to create tables and charts in OpenStudio reporting measures. This is not meant to use as is, it is an example to help with reporting measure development.",
+          "taxonomy": "Reporting.QAQC",
+          "arguments": [
+            {
+              "display_name": "General Building Information",
+              "display_name_short": "general_building_information_section",
+              "name": "general_building_information_section",
+              "value_type": "boolean",
+              "default_value": true,
+              "value": true
+            },
+            {
+              "display_name": "Section 6.2.1.1 All Non-Free-Float Cases",
+              "display_name_short": "output_6_2_1_1_section",
+              "name": "output_6_2_1_1_section",
+              "value_type": "boolean",
+              "default_value": true,
+              "value": true
+            },
+            {
+              "display_name": "Table 6-1 Daily Hourly Output Requirements",
+              "display_name_short": "table_6_1_section",
+              "name": "table_6_1_section",
+              "value_type": "boolean",
+              "default_value": true,
+              "value": true
+            },
+            {
+              "display_name": "Section 6.2.1.2 Case 600 Only",
+              "display_name_short": "case_600_only_section",
+              "name": "case_600_only_section",
+              "value_type": "boolean",
+              "default_value": true,
+              "value": true
+            },
+            {
+              "display_name": "runner.registerValues for 9xx cases",
+              "display_name_short": "case_9xx_only_section",
+              "name": "case_9xx_only_section",
+              "value_type": "boolean",
+              "default_value": true,
+              "value": true
+            },
+            {
+              "display_name": "Section 6.2.1.3 Case 610 Only",
+              "display_name_short": "case_610_only_section",
+              "name": "case_610_only_section",
+              "value_type": "boolean",
+              "default_value": true,
+              "value": true
+            },
+            {
+              "display_name": "Section 6.2.1.4 Case 620 Only",
+              "display_name_short": "case_620_only_section",
+              "name": "case_620_only_section",
+              "value_type": "boolean",
+              "default_value": true,
+              "value": true
+            },
+            {
+              "display_name": "Section 6.2.1.5 Case 630 Only",
+              "display_name_short": "case_630_only_section",
+              "name": "case_630_only_section",
+              "value_type": "boolean",
+              "default_value": true,
+              "value": true
+            },
+            {
+              "display_name": "Section 6.2.1.7 Case 900FF Only",
+              "display_name_short": "ff_temp_bins_section",
+              "name": "ff_temp_bins_section",
+              "value_type": "boolean",
+              "default_value": true,
+              "value": true
+            }
+          ],
+          "variables": [],
+          "workflow_index": 1
+        }
+      ],
+      "algorithm": {
+        "sample_method": "individual_variables",
+        "number_of_samples": 100,
+        "failed_f_value": 1000000000000000000,
+        "debug_messages": 0,
+        "objective_functions": []
+      },
+      "analysis_type": "lhs"
+    },
+    "seed": {
+      "file_type": "OSM",
+      "path": "./seeds/seed_empty.osm"
+    },
+    "weather_file": {
+      "file_type": "EPW",
+      "path": "./weather/USA_MA_Boston-Logan.Intl.AP.725090_TMY3.epw"
+    },
+    "file_format_version": 1,
+    "server_scripts": {}
+  }
+}
