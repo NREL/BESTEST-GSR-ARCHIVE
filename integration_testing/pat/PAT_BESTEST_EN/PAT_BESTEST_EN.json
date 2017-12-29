@@ -362,14 +362,14 @@
           "measure_type": "RubyMeasure",
           "measure_definition_class_name": "BestestBuildingThermalEnvelopeAndFabricLoad",
           "measure_definition_directory": "./measures/bestest_building_thermal_envelope_and_fabric_load",
-          "measure_definition_directory_local": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/integration_testing/pat/PAT_BESTEST_EN/measures/bestest_building_thermal_envelope_and_fabric_load",
+          "measure_definition_directory_local": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load",
           "measure_definition_display_name": "Bestest Building Thermal Envelope and Fabric Load",
           "measure_definition_name": "bestest_building_thermal_envelope_and_fabric_load",
           "measure_definition_name_xml": null,
           "measure_definition_uuid": "2ea72aae-b05a-4ca3-b47c-1b140b7eef43",
-          "measure_definition_version_uuid": "dcdcc5e7-f979-4be6-8740-d073361e088a",
+          "measure_definition_version_uuid": "60052a59-ebf6-4999-9c24-2dc6b7bad4bf",
           "uuid": "2ea72aae-b05a-4ca3-b47c-1b140b7eef43",
-          "version_uuid": "dcdcc5e7-f979-4be6-8740-d073361e088a",
+          "version_uuid": "60052a59-ebf6-4999-9c24-2dc6b7bad4bf",
           "description": "Creates test cases described in ASHRAE Standard 140-2014 sections 5.2.1, 5.2.2, and 5.2.3.",
           "taxonomy": "Whole Building.Space Types",
           "arguments": [],
@@ -630,90 +630,17 @@
           "measure_type": "ReportingMeasure",
           "measure_definition_class_name": "BestestBuildingThermalEnvelopeAndFabricLoadReporting",
           "measure_definition_directory": "./measures/bestest_building_thermal_envelope_and_fabric_load_reporting",
-          "measure_definition_directory_local": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/integration_testing/pat/PAT_BESTEST_EN/measures/bestest_building_thermal_envelope_and_fabric_load_reporting",
+          "measure_definition_directory_local": "/Users/dgoldwas/Documents/GitHub/NREL/OSEP_BESTTEST/measures/bestest_building_thermal_envelope_and_fabric_load_reporting",
           "measure_definition_display_name": "Bestest Building Thermal Envelope and Fabric Load Reporting",
           "measure_definition_name": "bestest_building_thermal_envelope_and_fabric_load_reporting",
           "measure_definition_name_xml": null,
           "measure_definition_uuid": "a0b598a6-96b9-4704-bc23-ac403d9f6b1b",
-          "measure_definition_version_uuid": "ebfab597-0d3c-44bf-a470-53bffc46e0c5",
+          "measure_definition_version_uuid": "cb7804c2-f468-4659-87ce-6454aa348407",
           "uuid": "a0b598a6-96b9-4704-bc23-ac403d9f6b1b",
-          "version_uuid": "ebfab597-0d3c-44bf-a470-53bffc46e0c5",
+          "version_uuid": "cb7804c2-f468-4659-87ce-6454aa348407",
           "description": "Simple example of modular code to create tables and charts in OpenStudio reporting measures. This is not meant to use as is, it is an example to help with reporting measure development.",
           "taxonomy": "Reporting.QAQC",
-          "arguments": [
-            {
-              "display_name": "General Building Information",
-              "display_name_short": "general_building_information_section",
-              "name": "general_building_information_section",
-              "value_type": "boolean",
-              "default_value": true,
-              "value": true
-            },
-            {
-              "display_name": "Section 6.2.1.1 All Non-Free-Float Cases",
-              "display_name_short": "output_6_2_1_1_section",
-              "name": "output_6_2_1_1_section",
-              "value_type": "boolean",
-              "default_value": true,
-              "value": true
-            },
-            {
-              "display_name": "Table 6-1 Daily Hourly Output Requirements",
-              "display_name_short": "table_6_1_section",
-              "name": "table_6_1_section",
-              "value_type": "boolean",
-              "default_value": true,
-              "value": true
-            },
-            {
-              "display_name": "Section 6.2.1.2 Case 600 Only",
-              "display_name_short": "case_600_only_section",
-              "name": "case_600_only_section",
-              "value_type": "boolean",
-              "default_value": true,
-              "value": true
-            },
-            {
-              "display_name": "runner.registerValues for 9xx cases",
-              "display_name_short": "case_9xx_only_section",
-              "name": "case_9xx_only_section",
-              "value_type": "boolean",
-              "default_value": true,
-              "value": true
-            },
-            {
-              "display_name": "Section 6.2.1.3 Case 610 Only",
-              "display_name_short": "case_610_only_section",
-              "name": "case_610_only_section",
-              "value_type": "boolean",
-              "default_value": true,
-              "value": true
-            },
-            {
-              "display_name": "Section 6.2.1.4 Case 620 Only",
-              "display_name_short": "case_620_only_section",
-              "name": "case_620_only_section",
-              "value_type": "boolean",
-              "default_value": true,
-              "value": true
-            },
-            {
-              "display_name": "Section 6.2.1.5 Case 630 Only",
-              "display_name_short": "case_630_only_section",
-              "name": "case_630_only_section",
-              "value_type": "boolean",
-              "default_value": true,
-              "value": true
-            },
-            {
-              "display_name": "Section 6.2.1.7 Case 900FF Only",
-              "display_name_short": "ff_temp_bins_section",
-              "name": "ff_temp_bins_section",
-              "value_type": "boolean",
-              "default_value": true,
-              "value": true
-            }
-          ],
+          "arguments": [],
           "variables": [],
           "workflow_index": 1
         }
