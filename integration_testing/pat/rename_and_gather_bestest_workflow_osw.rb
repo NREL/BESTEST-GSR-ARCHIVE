@@ -1,6 +1,9 @@
 require 'fileutils'
 require 'openstudio'
 
+# This script is used to gather osw files from temp_data in live PAT project
+# Use case is to run OSW files with CLI in the future without having to launch PAT
+
 # loop through resoruce files
 results_directories = Dir.glob("PAT_BESTEST_Manual/temp_data/analysis_8c246d43-a6a6-44a4-85ce-f8c06a66df3e/*")
 results_directories.each do |results_directory|

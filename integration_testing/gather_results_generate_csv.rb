@@ -4,7 +4,7 @@ require 'openstudio'
 # expects single argument with path to directory that contains dataoints
 #path_datapoints = 'run/MyProject'
 #path_datapoints = ARGV[0]
-path_datapoints = "PAT_BESTEST_Manual/LocalResults"
+path_datapoints = "workflow"
 
 # todo - create a hash to contain all results data vs. simple CSV rows
 results_hash = {}
@@ -13,13 +13,19 @@ results_hash = {}
 results_directories = Dir.glob("#{path_datapoints}/*")
 results_directories.each do |results_directory|
 
+  next if not results_directory.include?("BESTEST Case ")
+
   row_data = {}
 
 	# load the test model
   # todo - update to get from idf vs. osm
 	translator = OpenStudio::OSVersion::VersionTranslator.new
-	path = OpenStudio::Path.new("#{File.dirname(__FILE__)}/#{results_directory}/in.osm")
+	path = OpenStudio::Path.new("#{File.dirname(__FILE__)}/#{results_directory}/run/in.osm")
 	model = translator.loadModel(path)
+  if not model.is_initialized
+    puts "#{results_directory} has not been run"
+    next
+  end
 	model = model.get
 
   # get and shorten building name
@@ -52,7 +58,10 @@ results_directories.each do |results_directory|
 
       if measure_step.name.is_initialized
 
-        measure_step_name = measure_step.name.get.downcase.gsub(" ","_").to_sym
+        # for manual PAT projects I want to pass in the measure dir name as the header instead of the measure opiton name
+        measure_step_name = measure_dir_name.downcase.gsub(" ","_").to_sym
+        # measure_step_name = measure_step.name.get.downcase.gsub(" ","_").to_sym
+
         next if ! measure_step.result.is_initialized
         next if ! measure_step.result.get.stepResult.is_initialized
         measure_step_result = measure_step.result.get.stepResult.get.valueName
@@ -106,6 +115,6 @@ end
 
 # save csv
 csv_table = CSV::Table.new(csv_rows)
-path_report = "local_results.csv"
+path_report = "../results/workflow_results.csv"
 puts "saving csv file to #{path_report}"
 File.open(path_report, 'w'){|file| file << csv_table.to_s}

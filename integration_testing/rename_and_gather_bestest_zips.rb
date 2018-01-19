@@ -1,14 +1,21 @@
 require 'fileutils'
 require 'openstudio'
 
+path_datapoints = "workflow"
+
+
 # loop through resoruce files
-results_directories = Dir.glob("PAT_BESTEST_Manual/LocalResults/*")
+results_directories = Dir.glob("#{path_datapoints}/*")
 results_directories.each do |results_directory|
 
 	# load the test model
 	translator = OpenStudio::OSVersion::VersionTranslator.new
-	path = OpenStudio::Path.new("#{File.dirname(__FILE__)}/#{results_directory}/in.osm")
+	path = OpenStudio::Path.new("#{File.dirname(__FILE__)}/#{results_directory}/run/in.osm")
 	model = translator.loadModel(path)
+	if not model.is_initialized
+      puts "#{results_directory} has not been run"
+      next
+	end	
 	model = model.get
 
   # get and shorten building name
@@ -22,9 +29,11 @@ results_directories.each do |results_directory|
   end
 
 	# copy and rename zip file
-	orig_zip = "#{File.dirname(__FILE__)}/#{results_directory}/data_point.zip"
-	copy_zip = "bestest_zips/#{short_name}.zip"
+	orig_zip = "#{File.dirname(__FILE__)}/#{results_directory}/run/data_point.zip"
+	copy_zip = "../results/bestest_zips/#{short_name}.zip"
 	puts "Creating #{copy_zip}"
+	directory_name = "../results/bestest_zips"
+	Dir.mkdir(directory_name) unless File.exists?(directory_name)
 	FileUtils.cp(orig_zip, copy_zip)
 
 end
