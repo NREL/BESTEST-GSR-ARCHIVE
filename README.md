@@ -1,6 +1,8 @@
-Building Energy Simulation Test - Generation Simulation and Reporting (BESTEST-GSR)
+Building Energy Simulation Test - Generation Simulation and Reporting - Archive Repository (BESTEST-GSR-ARCHIVE)
 =============
+Through EnergyPlus 9.5 this repository has been saving zip files for each test case. That along with some PAT projects not used any more bloaded checkout of this repository to 10GB instead of 150MB. A new repository is being setup that maintains all of the old releases, but doesn't have the zip files, instead linking to S3 for the zip files. This repository is being maintained for now for access to committ hisotry or issues if needed. Everyone with write access to this repository will get an invite for the new repository.
 
+=============
 ## The purpose of this repository is to generate BESTEST test case models, run simulations, and populate data for ASHRAE Standard 140 reporting spreadsheets for EnergyPlus based whole building simulation tools.
 
 ### Supported tools
